@@ -4,52 +4,52 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.UI;
 
-public class InputController : MonoBehaviour
+public class CursorController : MonoBehaviour
 {
     public ARRaycastManager raycastManager;
     public ARPlaneManager planeManager;
     [SerializeField] GameObject ARCamera, PCCamera;
-    [SerializeField] Texture2D cursorRed, cursorWhite, cursorYellow;
     [SerializeField] Image cursorAR;
     [SerializeField] GameObject squareSelect;
 
     Vector2 cursorHotspot;
     public GameObject cursor;
     World world;
-    SpellController spells;
     UnitController units;
 
     public bool isAR = true;
     bool placeable = false;
     bool worldPlaced = false;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         world = FindObjectOfType<World>();
-        spells = FindObjectOfType<SpellController>();
+
         units = FindObjectOfType<UnitController>();
 
         if (isAR)
         {
-           
+
             ARCamera.SetActive(true);
             PCCamera.SetActive(false);
             world.gameObject.SetActive(false);
         }
         else
         {
-            
+
             ARCamera.SetActive(false);
             PCCamera.SetActive(true);
             world.gameObject.SetActive(true);
             world.Init();
         }
-        cursorHotspot = new Vector2(cursorWhite.width, cursorWhite.height) / 2;
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 
@@ -65,31 +65,45 @@ public class InputController : MonoBehaviour
                 if (Input.touchCount > 0 && placeable)
                 {
                     world.transform.position = cursor.transform.position;
+
                     world.transform.up = -cursor.transform.forward;
+
                     world.gameObject.SetActive(true);
                     world.Init();
+
                     //planeManager.enabled = false;
                     worldPlaced = true;
                 }
-            }   
+            }
         }
         else
         {
-            transform.eulerAngles += new Vector3(0, Input.GetAxis("Horizontal") * Time.deltaTime * 100, 0);
-            PCCamera.transform.eulerAngles -= new Vector3(Input.GetAxis("Vertical") * Time.deltaTime * 10,0, 0);
+            transform.eulerAngles -= new Vector3(0, Input.GetAxis("Horizontal") * Time.deltaTime * 200, 0);
+            PCCamera.transform.eulerAngles -= new Vector3(Input.GetAxis("Vertical") * Time.deltaTime * 15, 0, 0);
         }
         CastCursor();
     }
 
-    RaycastHit hit;
-    bool isHitting;
+    RaycastHit cursorHit;
+    bool isCursorHitting;
+
+    public RaycastHit GetCursorHit()
+    {
+
+        return cursorHit;
+    }
+    public bool GetCursorHitting()
+    {
+        return isCursorHitting;
+    }
+
     void CastCursor()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        isHitting = Physics.Raycast(ray, out hit);
-        if (isHitting)
+        isCursorHitting = Physics.Raycast(ray, out cursorHit);
+        if (isCursorHitting)
         {
-            string hitTag = hit.collider.tag;
+            string hitTag = cursorHit.collider.tag;
             switch (hitTag)
             {
                 case "Enemy":
@@ -101,11 +115,8 @@ public class InputController : MonoBehaviour
                 case "Placeable":
                     {
                         cursorAR.color = Color.yellow;
-                        ShowSelectedSquare(hit);
-                        if (Input.GetMouseButtonUp(1) && squareSelect.active)
-                        {
-                            PlaceUnit();
-                        }
+                        ShowSelectedSquare(cursorHit);
+                      
                         break;
                     }
                 default:
@@ -118,40 +129,32 @@ public class InputController : MonoBehaviour
         }
         else
         {
-            
+
             cursorAR.color = Color.white;
             HideSelectedSquare();
         }
     }
 
-   
+
     void HideSelectedSquare()
     {
         squareSelect.SetActive(false);
     }
     void ShowSelectedSquare(RaycastHit hit)
     {
-        Block block = hit.collider.GetComponent<Block>();
-        print(block);
-        if (block) {
-            squareSelect.SetActive(true);
-            squareSelect.transform.parent = block.transform;          
-            squareSelect.transform.localPosition = hit.normal*0.55f;
-            squareSelect.transform.forward = -hit.normal;
-        }
+
+        squareSelect.SetActive(true);
+        Vector3 p = world.transform.InverseTransformPoint(hit.point);
+        
+        p = new Vector3(Mathf.Round(p.x/2)*2, Mathf.Round(p.y / 2) * 2, Mathf.Round(p.z / 2) * 2);
+        squareSelect.transform.localPosition = p + hit.normal / 100;
+        squareSelect.transform.forward = -hit.normal;
+
     }
 
-    public void CastLightning()
-    {
-        if(isHitting)
-        spells.CastLightning(hit);
-    }
 
-    void PlaceUnit()
-    {
-        units.PlaceUnit(squareSelect.transform);
-    }
 
+    ARTrackable trackable;
     void UpdateCursor()
     {
         Vector3 position = Camera.main.ViewportToScreenPoint(new Vector2(0.5f, 0.5f));
@@ -161,6 +164,7 @@ public class InputController : MonoBehaviour
         if (hits.Count > 0)
         {
             placeable = true;
+            trackable = hits[0].trackable;
             transform.position = hits[0].pose.position;
             transform.rotation = hits[0].pose.rotation;
         }
@@ -172,51 +176,3 @@ public class InputController : MonoBehaviour
     }
 }
 
-
-/*
-   void CastCursor()
-   {
-
-       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       bool isHitting = Physics.Raycast(ray, out hit);
-       if (isHitting)
-       {
-           string hitTag = hit.collider.tag;
-           switch (hitTag)
-           {
-               case "Enemy":
-                   {
-                       Cursor.SetCursor(cursorRed, cursorHotspot, CursorMode.Auto);
-                       HideSelectedSquare();
-                       break;
-                   }
-               case "Placeable":
-                   {
-                       Cursor.SetCursor(cursorYellow, cursorHotspot, CursorMode.Auto);
-                       ShowSelectedSquare(hit);
-                       if (Input.GetMouseButtonUp(1) && squareSelect.active)
-                       {
-                           PlaceUnit();
-                       }
-                       break;
-                   }
-               default:
-                   {
-                       Cursor.SetCursor(cursorWhite, cursorHotspot, CursorMode.Auto);
-                       HideSelectedSquare();
-                       break;
-                   }
-           }
-
-           if (Input.GetMouseButtonUp(0))
-           {
-               CastSpell(hit);
-           }
-       }
-       else
-       {
-           HideSelectedSquare();
-           Cursor.SetCursor(cursorWhite, cursorHotspot, CursorMode.Auto);
-       } 
-   }
-   */

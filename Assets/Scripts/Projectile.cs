@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
 
     float timeSinceShot;
     [SerializeField] float lifeTime = 5;
-    [SerializeField] float baseDamage = 1;
+    [SerializeField] float attackDamage = 1;
     private void Awake()
     {
         rBody = GetComponent<Rigidbody>();
@@ -62,8 +62,11 @@ public class Projectile : MonoBehaviour
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
-            enemy.Damage(baseDamage);
+            enemy.Damage(attackDamage);
            
         }
+    }
+    public void SetAttackDamage(float attackDamage) {
+        this.attackDamage = attackDamage; 
     }
 }
