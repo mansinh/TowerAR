@@ -9,23 +9,32 @@ public class UnitController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        world = FindObjectOfType<World>();   
+        world = FindObjectOfType<World>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void PlaceUnit(Transform t) {
+    public void PlaceUnit()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-        Unit unit = Instantiate(unitPrefab);
-        unit.transform.position = t.position;
-        unit.transform.forward = -t.forward;
-        unit.transform.parent = world.transform;
-        //world.Refresh();
+        if (Physics.Raycast(ray, out hit))
+        {
+            string hitTag = hit.collider.tag;
+            if (hitTag.Equals("Placeable"))
+            {
+                Unit unit = Instantiate(unitPrefab);
+                unit.transform.position = hit.point;
+                unit.transform.forward = hit.normal;
+                unit.transform.parent = world.transform;
+                //world.Refresh();
+            }
+        }
+
     }
-
-    
 }

@@ -83,6 +83,7 @@ public class Unit : MonoBehaviour
             Projectile projectile = projectilePool[0];
             projectile.transform.position = shootFrom.position;
             Vector3 direction = (other.transform.position - shootFrom.position).normalized;
+            projectile.SetAttackDamage(attackDamage);
 
             projectile.Shoot(direction, shootSpeed);
             projectilePool.Remove(projectile);
