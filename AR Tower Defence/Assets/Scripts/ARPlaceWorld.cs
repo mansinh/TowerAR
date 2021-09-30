@@ -8,7 +8,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ARRaycastHit))]
 public class ARPlaceWorld : MonoBehaviour
 {
-    [SerializeField] Transform worldRoot, cursor;
+    Transform worldRoot;
+    [SerializeField] Transform ARCursor;
     [SerializeField] Text trackingButtonText;
     ARRaycastManager arRayCastManager;
     ARPlaneManager planeManager;
@@ -16,14 +17,16 @@ public class ARPlaceWorld : MonoBehaviour
     static Vector2 screenCenter = new Vector3(Screen.width, Screen.height) / 2;
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    bool isTracking = true;
+    public bool isTracking = true;
     Pose targetPose;
 
     private void Awake()
     {
         arRayCastManager = GetComponent<ARRaycastManager>();
         planeManager = GetComponent<ARPlaneManager>();
-   
+        worldRoot = WorldRoot.instance.transform;
+        worldRoot.gameObject.SetActive(false);
+        trackingButtonText.transform.parent.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -33,8 +36,8 @@ public class ARPlaceWorld : MonoBehaviour
         if (arRayCastManager.Raycast(screenCenter, hits, TrackableType.Planes))
         {  
             targetPose = hits[0].pose;
-            cursor.transform.position = targetPose.position;
-            cursor.transform.rotation = targetPose.rotation;          
+            ARCursor.transform.position = targetPose.position;
+            ARCursor.transform.rotation = targetPose.rotation;          
         }
 
     }
