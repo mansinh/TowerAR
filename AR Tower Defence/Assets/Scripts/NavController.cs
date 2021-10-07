@@ -10,6 +10,7 @@ public class NavController : MonoBehaviour
     void Awake()
     {
         navSurfaces = FindObjectsOfType<NavMeshSurface>();
+        Bake();
     }
 
 
