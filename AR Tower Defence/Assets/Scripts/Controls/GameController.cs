@@ -14,11 +14,11 @@ public class GameController : MonoBehaviour
 
     [SerializeField] float zoomSpeed = 1, cameraSpeed = 100;
 
-    // Start is called before the first frame update
-    void Start()
+    
+    void Awake()
     {
         lightningController = FindObjectOfType<LightningController>();
-        isAR = WebCamTexture.devices.Length > 0;
+        //isAR = WebCamTexture.devices.Length > 0;
         if (isAR)
         {
             arSession.gameObject.SetActive(true);

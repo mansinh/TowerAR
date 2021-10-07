@@ -8,10 +8,11 @@ public class Unit : MonoBehaviour
     [SerializeField] float attackDamage = 0.1f;
     [SerializeField] float attackCooldown = 3;
     [SerializeField] float attackRange = 4;
-  
     [SerializeField] float AiUpdateTime = 0.2f;
     [SerializeField] ParticleSystem attack;
+
     AIPerception perception;
+
 
     float timeSinceAttack = 0;
     float timeSinceAIUpdate = 0;
@@ -27,8 +28,6 @@ public class Unit : MonoBehaviour
     {
         timeSinceAttack += Time.deltaTime;
         timeSinceAIUpdate += Time.deltaTime;
-
-
         if (timeSinceAIUpdate > AiUpdateTime)
         {
             Collider closestTarget = perception.getClosestTarget("Enemy");

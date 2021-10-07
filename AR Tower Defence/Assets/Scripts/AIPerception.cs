@@ -12,6 +12,7 @@ public class AIPerception : MonoBehaviour
     {
         Collider closestTarget = null;
         float closestDistance = 10000000000;
+        
         Collider[] detected = Physics.OverlapSphere(detectFrom.position, detectRange);
         foreach (Collider other in detected)
         {
@@ -48,4 +49,6 @@ public class AIPerception : MonoBehaviour
     public void setDetectRange(float detectRange) {
         this.detectRange = detectRange;
     }
+
+
 }
