@@ -17,6 +17,7 @@ public class Enemy : Destroyable
     private void Awake()
     {
         shakeAnim = gameObject.AddComponent<ShakeAnim>();
+        
     }
 
     public void Init(EnemySource source)

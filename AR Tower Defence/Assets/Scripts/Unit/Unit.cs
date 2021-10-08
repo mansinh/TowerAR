@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
         if (timeSinceAIUpdate > AiUpdateTime)
         {
             Collider closestTarget = perception.getClosestTarget("Enemy");
-           
+            print(closestTarget);  
             if (closestTarget)
             {
                 Destroyable enemyDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
@@ -46,6 +46,7 @@ public class Unit : MonoBehaviour
 
     void Attack(Destroyable other)
     {
+        print("attack");
         attack.transform.LookAt(other.transform);
         if (timeSinceAttack > attackCooldown)
         {
