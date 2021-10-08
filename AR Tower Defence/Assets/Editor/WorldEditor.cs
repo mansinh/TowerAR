@@ -32,7 +32,7 @@ public class WorldEditor : Editor
 
     }
 
-    Block blockEditing = null;
+    Tile blockEditing = null;
     void OnSceneMouseOver()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -41,9 +41,9 @@ public class WorldEditor : Editor
         if (Physics.Raycast(ray, out hit, 100f))
         {
 
-            Block block = hit.transform.GetComponent<Block>();
+            Tile block = hit.transform.GetComponent<Tile>();
             if (!block) {
-                block = hit.transform.parent.GetComponent<Block>();
+                block = hit.transform.parent.GetComponent<Tile>();
             }
             if (block)
             {
@@ -100,13 +100,7 @@ public class WorldEditor : Editor
                     Debug.Log("turn right");
                     e.Use();
                     break;
-                case KeyCode.KeypadEnter:
-                    blockEditing = world.ChangeBlock(blockEditing, true);
-                    break;
-                case KeyCode.KeypadPeriod:
-                    blockEditing = world.ChangeBlock(blockEditing, false);
-                    break;
-                
+             
             }
 
         }

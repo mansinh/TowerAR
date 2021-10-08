@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         lightningController = FindObjectOfType<LightningController>();
-        //isAR = WebCamTexture.devices.Length > 0;
+        isAR = WebCamTexture.devices.Length > 0;
         if (isAR)
         {
             arSession.gameObject.SetActive(true);
