@@ -31,9 +31,18 @@ public class Destroyable : MonoBehaviour
     }
     protected virtual void DeathAnim(){}
 
+
     IEnumerator Die() {
         DeathAnim();
         yield return new WaitForSeconds(deathDuration);
         Death();
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        
+        print("Ouch" + other);
+    }
 }
+
+

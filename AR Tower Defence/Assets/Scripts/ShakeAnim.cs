@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class ShakeAnim : MonoBehaviour
 {
-    [SerializeField] float amplitude = 0.1f;
-    [SerializeField] float duration = 0.1f;
+
+    float amplitude = 0.1f;
+    float duration = 1f;
     Vector3 originalPosition;
 
-    public void StartShake() {
+    public void StartShake(float amplitude, float duration)
+    {
+        this.amplitude = amplitude;
+        this.duration = duration;
         originalPosition = transform.localPosition;
         StartCoroutine(Shake());
     }
 
-    IEnumerator Shake() {
+    IEnumerator Shake()
+    {
         for (float i = 0; i < duration; i += Time.deltaTime)
         {
-            transform.localPosition = originalPosition + Random.insideUnitSphere * amplitude*transform.localScale.x;
+            transform.localPosition = originalPosition + Random.insideUnitSphere * amplitude * transform.localScale.x;
             yield return new WaitForSeconds(Time.deltaTime);
         }
         transform.localPosition = originalPosition;
     }
+
+
 }
