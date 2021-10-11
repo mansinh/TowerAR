@@ -39,7 +39,11 @@ public class AIPerception : MonoBehaviour
         Vector3 direction = (other.transform.position - detectFrom.position).normalized;
 
         Physics.Raycast(detectFrom.position, direction, out hit);
-        return hit.collider.gameObject == other.gameObject;
+        if (hit.collider)
+        {
+            return hit.collider.gameObject == other.gameObject;
+        }
+        return false;
     }
 
     public void setDetectFrom(Transform detectFrom)

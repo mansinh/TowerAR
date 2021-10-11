@@ -40,22 +40,26 @@ public class WorldEditor : Editor
         //And add switch Event.current.type for checking Mouse click and switch tiles
         if (Physics.Raycast(ray, out hit, 100f))
         {
-
-            Tile block = hit.transform.GetComponent<Tile>();
-            if (!block) {
-                block = hit.transform.parent.GetComponent<Tile>();
-            }
-            if (block)
+            if (hit.transform.tag == "Placeable")
             {
-                if (block != blockEditing)
+                Tile block = hit.transform.GetComponent<Tile>();
+                if (!block && hit.transform.parent)
                 {
-                    if (blockEditing)
-                        blockEditing.MouseExit();
+                    block = hit.transform.parent.GetComponent<Tile>();
                 }
-                blockEditing = block;
-                blockEditing.MouseOver();
-                if (paintHeight > -1) {
-                    blockEditing.SetHeight(paintHeight);
+                if (block)
+                {
+                    if (block != blockEditing)
+                    {
+                        if (blockEditing)
+                            blockEditing.MouseExit();
+                    }
+                    blockEditing = block;
+                    blockEditing.MouseOver();
+                    if (paintHeight > -1)
+                    {
+                        blockEditing.SetHeight(paintHeight);
+                    }
                 }
             }
         }

@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class Destroyable : MonoBehaviour
 {
-    [SerializeField] protected float maxHealth;
-    [SerializeField] protected float deathDuration;
-    [SerializeField] protected float health;
-    public bool isDestroyed = false;
+    [SerializeField] protected float MaxHealth;
+    [SerializeField] protected float DeathDuration;
+    [SerializeField] protected float Health;
+    public bool IsDestroyed = false;
 
     
     public virtual void Init()
     {
-        isDestroyed = false;
-        health = maxHealth;
+        IsDestroyed = false;
+        Health = MaxHealth;
     }
 
     public virtual void Damage(float damage) {
-        health -= damage;
+        Health -= damage;
         DamageAnim(damage);
-        if (health <= 0) {
+        if (Health <= 0) {
             StartCoroutine(Die());      
         }
     }
 
     protected virtual void DamageAnim(float damage){}
     protected virtual void Death() {
-        isDestroyed = true;
+        IsDestroyed = true;
         
     }
     protected virtual void DeathAnim(){}
@@ -34,15 +34,10 @@ public class Destroyable : MonoBehaviour
 
     IEnumerator Die() {
         DeathAnim();
-        yield return new WaitForSeconds(deathDuration);
+        yield return new WaitForSeconds(DeathDuration);
         Death();
     }
 
-    private void OnParticleCollision(GameObject other)
-    {
-        
-        print("Ouch" + other);
-    }
 }
 
 

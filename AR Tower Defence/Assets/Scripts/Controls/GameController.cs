@@ -9,35 +9,41 @@ public class GameController : MonoBehaviour
     [SerializeField] ARSession arSession;
     [SerializeField] ARPlaceWorld arPlaceWorld;
     [SerializeField] Camera testCamera;
-    [SerializeField] bool isAR;
+    public bool IsAR;
     LightningController lightningController;
 
     [SerializeField] float zoomSpeed = 1, cameraSpeed = 100;
 
+    public static GameController instance;
     
     void Awake()
     {
-        lightningController = FindObjectOfType<LightningController>();
-        isAR = WebCamTexture.devices.Length > 0;
-        if (isAR)
+        if (instance == null)
         {
-            arSession.gameObject.SetActive(true);
-            arPlaceWorld.gameObject.SetActive(true);
-            testCamera.gameObject.SetActive(false);
-        }
-        else {
-           
-            arSession.gameObject.SetActive(false);
-            arPlaceWorld.gameObject.SetActive(false);
-            testCamera.gameObject.SetActive(true);
-        }
+            instance = this;
+            lightningController = FindObjectOfType<LightningController>();
+            IsAR = WebCamTexture.devices.Length > 0;
+            if (IsAR)
+            {
+                arSession.gameObject.SetActive(true);
+                arPlaceWorld.gameObject.SetActive(true);
+                testCamera.gameObject.SetActive(false);
+            }
+            else
+            {
+
+                arSession.gameObject.SetActive(false);
+                arPlaceWorld.gameObject.SetActive(false);
+                testCamera.gameObject.SetActive(true);
+            }
+        }        
     }
 
     Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0)/2;
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isAR)
+        if (IsAR)
         {
             MyCursor.instance.Cast(screenCenter);
         }
@@ -49,15 +55,11 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
-        if (isAR)
+        if (IsAR)
         {
         }
         else
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                lightningController.Cast();
-            }
             transform.eulerAngles += new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0) * cameraSpeed * Time.deltaTime;
 
             if (Input.GetKey(KeyCode.Q))
