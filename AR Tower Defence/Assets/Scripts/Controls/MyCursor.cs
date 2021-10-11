@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MyCursor : MonoBehaviour
 {
@@ -25,33 +26,37 @@ public class MyCursor : MonoBehaviour
 
     public void Cast(Vector3 castFrom)
     {
-        Ray ray = Camera.main.ScreenPointToRay(castFrom);
-        isCursorHitting = Physics.Raycast(ray, out cursorHit);
-        if (isCursorHitting)
+        cursorImage.color = new Color(1, 1, 1, 0.5f);
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            string hitTag = cursorHit.collider.tag;
-            switch (hitTag)
+            Ray ray = Camera.main.ScreenPointToRay(castFrom);
+            isCursorHitting = Physics.Raycast(ray, out cursorHit);
+            if (isCursorHitting)
             {
-                case "Enemy":
-                    {
-                        cursorImage.color = Color.magenta;
-                        break;
-                    }
-                case "Placeable":
-                    {
-                        cursorImage.color = Color.white;
-                        break;
-                    }
-                default:
-                    {
-                        cursorImage.color = Color.white;
-                        break;
-                    }
+                string hitTag = cursorHit.collider.tag;
+                switch (hitTag)
+                {
+                    case "Enemy":
+                        {
+                            cursorImage.color = Color.magenta;
+                            break;
+                        }
+                    case "Placeable":
+                        {
+                            cursorImage.color = Color.white;
+                            break;
+                        }
+                    default:
+                        {
+                            cursorImage.color = Color.white;
+                            break;
+                        }
+                }
             }
+
         }
-        else
-        {
-            cursorImage.color = new Color(1,1,1,0.5f);
+        else {
+            isCursorHitting = false;
         }
     }
 

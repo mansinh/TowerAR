@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ARRaycastHit))]
 public class ARPlaceWorld : MonoBehaviour
 {
-    Transform worldRoot;
+    WorldRoot worldRoot;
     [SerializeField] Transform ARCursor;
     [SerializeField] Text trackingButtonText;
     ARRaycastManager arRayCastManager;
@@ -24,7 +24,7 @@ public class ARPlaceWorld : MonoBehaviour
     {
         arRayCastManager = GetComponent<ARRaycastManager>();
         planeManager = GetComponent<ARPlaneManager>();
-        worldRoot = WorldRoot.instance.transform;
+        worldRoot = WorldRoot.instance;
         worldRoot.gameObject.SetActive(false);
         trackingButtonText.transform.parent.gameObject.SetActive(true);
     }
@@ -56,8 +56,9 @@ public class ARPlaceWorld : MonoBehaviour
             trackingButtonText.text = "Reset";
             worldRoot.gameObject.SetActive(true);
             worldRoot.gameObject.AddComponent<ARAnchor>();
-            worldRoot.position = targetPose.position;
-            worldRoot.rotation = targetPose.rotation;
+            worldRoot.transform.position = targetPose.position;
+            worldRoot.transform.rotation = targetPose.rotation;
+            worldRoot.Refresh();
             planeManager.enabled = false;
             SetPlanesActive(false);
         }
