@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] ARPlaceWorld _arPlaceWorld;
     [SerializeField] Camera _testCamera;
     [SerializeField] float _zoomSpeed = 1, _cameraSpeed = 100;
-
+    [SerializeField] WorldRoot _worldRoot;
     [SerializeField] GameObject _gameOverView;
 
     public bool IsAR;
@@ -22,27 +22,41 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-
+        Time.timeScale = 0;
+        _worldRoot.gameObject.SetActive(false);
         Instance = this;
         _lightningController = FindObjectOfType<LightningController>();
-        _player = FindObjectOfType<Player>();
+    
+    }
 
-        IsAR = WebCamTexture.devices.Length > 0;
+    IEnumerator Start()
+    {
+        if ((ARSession.state == ARSessionState.None) ||
+            (ARSession.state == ARSessionState.CheckingAvailability))
+        {
+            yield return ARSession.CheckAvailability();
+        }
+
+        IsAR = ARSession.state != ARSessionState.Unsupported;
         if (IsAR)
         {
             _arSession.gameObject.SetActive(true);
             _arPlaceWorld.gameObject.SetActive(true);
             _testCamera.gameObject.SetActive(false);
+            MyCursor.instance.SetScreenPosition(screenCenter);
         }
         else
         {
-
+            Time.timeScale = 1;
+            _worldRoot.gameObject.SetActive(true);
             _arSession.gameObject.SetActive(false);
             _arPlaceWorld.gameObject.SetActive(false);
             _testCamera.gameObject.SetActive(true);
         }
-
+        _player = FindObjectOfType<Player>();
     }
+
+    
 
     void GameStart()
     {
@@ -72,6 +86,7 @@ public class GameController : MonoBehaviour
     {
         if (IsAR)
         {
+           
             MyCursor.instance.Cast(screenCenter);
         }
         else
@@ -99,10 +114,12 @@ public class GameController : MonoBehaviour
                 Camera.main.transform.position -= Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
             }
         }
-
-        if (_player.IsDestroyed)
+        if (_player)
         {
-            GameOver();
+            if (_player.IsDestroyed)
+            {
+                GameOver();
+            }
         }
     }
 

@@ -27,7 +27,7 @@ public class Melee :Attack
         
     }
 
-    protected override void EndAction()
+    public override void EndAction()
     {
         
         meleeCollider.enabled = false;

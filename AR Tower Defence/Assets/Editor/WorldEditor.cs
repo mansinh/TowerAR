@@ -49,13 +49,9 @@ public class WorldEditor : Editor
                 }
                 if (block)
                 {
-                    if (block != blockEditing)
-                    {
-                        if (blockEditing)
-                            blockEditing.MouseExit();
-                    }
+                    
                     blockEditing = block;
-                    blockEditing.MouseOver();
+         
                     if (paintHeight > -1)
                     {
                         blockEditing.SetHeight(paintHeight);
@@ -64,9 +60,7 @@ public class WorldEditor : Editor
             }
         }
         else
-        {
-            if (blockEditing)
-                blockEditing.MouseExit();
+        {         
             blockEditing = null;
         }
     }

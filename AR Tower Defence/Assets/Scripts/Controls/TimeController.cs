@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimeController : MonoBehaviour
 {
     Slider _slider;
-
+    
     private void Awake()
     {
         _slider = GetComponent<Slider>();
@@ -15,4 +15,6 @@ public class TimeController : MonoBehaviour
     public void SetTimeScale() {
         Time.timeScale = _slider.value;
     }
+
+    
 }

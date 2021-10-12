@@ -16,7 +16,7 @@ public class Attack : Action
 
     protected Damage CalulateDamage()
     {
-        Damage damage = new Damage(_attackDamage, 0);
+        Damage damage = new Damage(_attackDamage, 0.1f);
         if (Random.value < _stunRate)
         {
             damage.damage += _stunDamage;

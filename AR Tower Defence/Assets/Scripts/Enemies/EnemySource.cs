@@ -30,7 +30,7 @@ public class EnemySource : Destroyable
             enemy.Init(this);
         }
 
-        timeSinceLastSpawn = 10*(Random.value);
+        timeSinceLastSpawn = spawnTime*Random.value;
         isSpawning = true;
     }
     void Update()

@@ -43,12 +43,12 @@ public class MyCursor : MonoBehaviour
                         }
                     case "Placeable":
                         {
-                            cursorImage.color = Color.white;
+                            cursorImage.color = Color.green;
                             break;
                         }
                     default:
                         {
-                            cursorImage.color = Color.gray;
+                            cursorImage.color = Color.white;
                             break;
                         }
                 }

@@ -13,7 +13,7 @@ public class Enemy : Destroyable
     [SerializeField] float _speed;
     [SerializeField] Attack _attack;
     [SerializeField] float _detectRange;
-    [SerializeField] float _AiUpdateTime = 0.2f;
+    [SerializeField] float AiUpdateTime = 0.2f;
 
     ShakeAnim _shakeAnim;
     AIPerception perception;
@@ -58,6 +58,7 @@ public class Enemy : Destroyable
 
     protected override void Death()
     {
+        _attack.EndAction();
         _navAgent.isStopped = true;
         _source.OnEnemyDeath(this);
         base.Death();
@@ -85,7 +86,7 @@ public class Enemy : Destroyable
     void Update()
     {
         timeSinceAIUpdate += Time.deltaTime;
-        if (timeSinceAIUpdate > _AiUpdateTime)
+        if (timeSinceAIUpdate > AiUpdateTime)
         {
             Collider closestTarget = perception.getClosestTarget("Player");
 

@@ -46,26 +46,27 @@ public class ARPlaceWorld : MonoBehaviour
        
         if (isTracking)
         {
+            Time.timeScale = 0;
             trackingButtonText.text = "Place World";
             worldRoot.gameObject.SetActive(false);
             Destroy(worldRoot.GetComponent<ARAnchor>());
-            planeManager.enabled = true;
+         
             SetPlanesActive(true);
         }
         else {
             trackingButtonText.text = "Reset";
+            Time.timeScale = 1;
             worldRoot.gameObject.SetActive(true);
             worldRoot.gameObject.AddComponent<ARAnchor>();
             worldRoot.transform.position = targetPose.position;
             worldRoot.transform.rotation = targetPose.rotation;
             worldRoot.Refresh();
-            planeManager.enabled = false;
+        
             SetPlanesActive(false);
         }
     }
     void SetPlanesActive(bool isActive) {
-        foreach (var plane in planeManager.trackables) {
-            plane.gameObject.SetActive(isActive);
-        }
+        planeManager.enabled = isActive;
+        planeManager.SetTrackablesActive(isActive);
     }
 }
