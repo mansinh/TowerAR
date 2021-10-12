@@ -11,6 +11,7 @@ public class Enemy : Destroyable
     [SerializeField] float attackDamage = 0.1f;
     [SerializeField] float attackCooldown = 0.03f;
     ShakeAnim shakeAnim;
+    private float stunDuration = 0;
 
     float timeSinceAttack = 0;
 
@@ -48,11 +49,11 @@ public class Enemy : Destroyable
 
     }
 
-    protected override void DamageAnim(float damage)
+    protected override void DamageAnim(Damage damage)
     {
         base.DamageAnim(damage);
         shakeAnim.StartShake(0.1f,0.1f);
-        StartCoroutine(Stun(0.3f));
+        StartCoroutine(Stun(damage.stunDuration));
     }
 
  
@@ -86,7 +87,7 @@ public class Enemy : Destroyable
     void Attack(Destroyable other) {
         if (timeSinceAttack > attackCooldown)
         {
-            other.Damage(attackDamage);
+            other.Damage(new Damage(attackDamage,0));
             timeSinceAttack = 0;
         }
     }

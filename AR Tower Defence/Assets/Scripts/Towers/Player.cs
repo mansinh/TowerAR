@@ -14,7 +14,7 @@ public class Player : Destroyable
         Init();
         shakeAnim = mesh.GetComponent<ShakeAnim>();
     }
-    protected override void DamageAnim(float damage)
+    protected override void DamageAnim(Damage damage)
     {
       
         base.DamageAnim(damage);
