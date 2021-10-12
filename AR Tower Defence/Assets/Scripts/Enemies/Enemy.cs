@@ -8,10 +8,12 @@ public class Enemy : Destroyable
 {
     NavMeshAgent _navAgent;
     EnemySource _source;
+    [SerializeField] Transform _view;
     [SerializeField] string _name = "basic";
     [SerializeField] float _speed;
     [SerializeField] float _attackDamage = 0.1f;
     [SerializeField] float _attackCooldown = 0.03f;
+
 
     ShakeAnim _shakeAnim;
     float _timeSinceAttack = 0;
@@ -19,7 +21,7 @@ public class Enemy : Destroyable
 
     private void Awake()
     {
-        _shakeAnim = gameObject.AddComponent<ShakeAnim>();
+        _shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
         
     }
 
@@ -40,7 +42,7 @@ public class Enemy : Destroyable
     }
 
     public void FindDestination() {
-        _navAgent.SetDestination(FindObjectOfType<Player>().transform.position + Random.onUnitSphere/4 * WorldRoot.instance.transform.localScale.x);
+        _navAgent.SetDestination(FindObjectOfType<Player>().transform.position + Random.onUnitSphere/2 * WorldRoot.instance.transform.localScale.x);
     }
 
     protected override void Death()
@@ -55,7 +57,7 @@ public class Enemy : Destroyable
     protected override void DamageAnim(float damage)
     {
         base.DamageAnim(damage);
-        _shakeAnim.StartShake(0.1f,0.1f,transform.position);
+        _shakeAnim.StartShake(0.1f,0.1f,Vector3.zero);
         StartCoroutine(Stun(0.3f));
     }
 

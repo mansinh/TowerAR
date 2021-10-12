@@ -19,8 +19,9 @@ public class Player : Destroyable
     {
       
         base.DamageAnim(damage);
-        StartCoroutine(ShowHealth());
-        shakeAnim.StartShake(0.1f,0.3f, _view.localPosition);
+        shakeAnim.StartShake(0.1f, 0.3f, new Vector3(0, -(MaxHealth - Health) / MaxHealth, 0));
+        //StartCoroutine(ShowHealth());
+       
         
         
     }
