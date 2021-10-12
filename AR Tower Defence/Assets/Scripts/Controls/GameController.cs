@@ -6,40 +6,67 @@ using UnityEngine.XR.ARSubsystems;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] ARSession arSession;
-    [SerializeField] ARPlaceWorld arPlaceWorld;
-    [SerializeField] Camera testCamera;
+    [SerializeField] ARSession _arSession;
+    [SerializeField] ARPlaceWorld _arPlaceWorld;
+    [SerializeField] Camera _testCamera;
+    [SerializeField] float _zoomSpeed = 1, _cameraSpeed = 100;
+
+    [SerializeField] GameObject _gameOverView;
+
     public bool IsAR;
-    LightningController lightningController;
+    LightningController _lightningController;
+    Player _player;
 
-    [SerializeField] float zoomSpeed = 1, cameraSpeed = 100;
 
-    public static GameController instance;
-    
+    public static GameController Instance;
+
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            lightningController = FindObjectOfType<LightningController>();
-            IsAR = WebCamTexture.devices.Length > 0;
-            if (IsAR)
-            {
-                arSession.gameObject.SetActive(true);
-                arPlaceWorld.gameObject.SetActive(true);
-                testCamera.gameObject.SetActive(false);
-            }
-            else
-            {
 
-                arSession.gameObject.SetActive(false);
-                arPlaceWorld.gameObject.SetActive(false);
-                testCamera.gameObject.SetActive(true);
-            }
-        }        
+        Instance = this;
+        _lightningController = FindObjectOfType<LightningController>();
+        _player = FindObjectOfType<Player>();
+
+        IsAR = WebCamTexture.devices.Length > 0;
+        if (IsAR)
+        {
+            _arSession.gameObject.SetActive(true);
+            _arPlaceWorld.gameObject.SetActive(true);
+            _testCamera.gameObject.SetActive(false);
+        }
+        else
+        {
+
+            _arSession.gameObject.SetActive(false);
+            _arPlaceWorld.gameObject.SetActive(false);
+            _testCamera.gameObject.SetActive(true);
+        }
+
     }
 
-    Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0)/2;
+    void GameStart()
+    {
+
+    }
+
+    void GamePause()
+    {
+
+    }
+
+    void GameResume()
+    {
+
+    }
+
+    void GameReset()
+    {
+
+    }
+
+
+
+    Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -47,10 +74,11 @@ public class GameController : MonoBehaviour
         {
             MyCursor.instance.Cast(screenCenter);
         }
-        else {
+        else
+        {
             MyCursor.instance.SetScreenPosition(Input.mousePosition);
             MyCursor.instance.Cast(Input.mousePosition);
-            
+
         }
     }
     private void Update()
@@ -60,20 +88,26 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            transform.eulerAngles += new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0) * cameraSpeed * Time.deltaTime;
+            transform.eulerAngles += new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0) * _cameraSpeed * Time.deltaTime;
 
             if (Input.GetKey(KeyCode.Q))
             {
-                Camera.main.transform.position += Camera.main.transform.position * zoomSpeed * Time.deltaTime;
+                Camera.main.transform.position += Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.E))
             {
-                Camera.main.transform.position -= Camera.main.transform.position * zoomSpeed * Time.deltaTime;
+                Camera.main.transform.position -= Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
             }
+        }
 
-
-
+        if (_player.IsDestroyed)
+        {
+            GameOver();
         }
     }
 
+    void GameOver()
+    {
+        _gameOverView.SetActive(true);
+    }
 }

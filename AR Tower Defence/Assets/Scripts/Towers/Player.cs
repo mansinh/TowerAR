@@ -25,9 +25,10 @@ public class Player : Destroyable
         
         
     }
-    IEnumerator ShowHealth() {
-        yield return new WaitForSeconds(0.3f);        
-        _view.localPosition = new Vector3(0, -(MaxHealth -Health) / MaxHealth, 0);
-        
+
+    protected override void Death()
+    {
+        base.Death();
     }
+
 }

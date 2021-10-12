@@ -9,20 +9,27 @@ public class Enemy : Destroyable
     NavMeshAgent _navAgent;
     EnemySource _source;
     [SerializeField] Transform _view;
-    [SerializeField] string _name = "basic";
+    [SerializeField] string _name = "enemy";
     [SerializeField] float _speed;
-    [SerializeField] float _attackDamage = 0.1f;
-    [SerializeField] float _attackCooldown = 0.03f;
-
+    [SerializeField] Action attack;
+    [SerializeField] float detectRange;
+    [SerializeField] float AiUpdateTime = 0.2f;
 
     ShakeAnim _shakeAnim;
-    float _timeSinceAttack = 0;
-
+    AIPerception perception;
+    float timeSinceAIUpdate = 1;
 
     private void Awake()
     {
         _shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
-        
+
+    }
+
+    private void Start()
+    {
+        perception = gameObject.AddComponent<AIPerception>();
+        perception.setDetectFrom(transform);
+        perception.setDetectRange(detectRange);
     }
 
     public void Init(EnemySource source)
@@ -31,18 +38,22 @@ public class Enemy : Destroyable
         _source = source;
         _navAgent = GetComponent<NavMeshAgent>();
         _navAgent.speed = _speed;
- 
+
         transform.localScale = source.transform.localScale;
     }
 
-    public void Spawn() {
+    public void Spawn()
+    {
         _navAgent.isStopped = false;
         Init();
         FindDestination();
     }
 
-    public void FindDestination() {
-        _navAgent.SetDestination(FindObjectOfType<Player>().transform.position + Random.onUnitSphere/2 * WorldRoot.instance.transform.localScale.x);
+    public void FindDestination()
+    {
+        Vector3 randomDisplacement = Random.onUnitSphere / 4 * WorldRoot.instance.transform.localScale.x;
+        randomDisplacement.y = 0;
+        _navAgent.SetDestination(FindObjectOfType<Player>().transform.position + randomDisplacement);
     }
 
     protected override void Death()
@@ -57,45 +68,46 @@ public class Enemy : Destroyable
     protected override void DamageAnim(float damage)
     {
         base.DamageAnim(damage);
-        _shakeAnim.StartShake(0.1f,0.1f,Vector3.zero);
+        _shakeAnim.StartShake(0.1f, 0.1f, Vector3.zero);
         StartCoroutine(Stun(0.3f));
     }
 
- 
-    IEnumerator Stun(float duration) {
+
+    IEnumerator Stun(float duration)
+    {
         _navAgent.isStopped = true;
         yield return new WaitForSeconds(duration);
         _navAgent.isStopped = false;
     }
 
 
-    private void OnTriggerStay(Collider other)
+
+    void Update()
     {
-        string hitTag = other.tag;
-
-        switch (hitTag)
+        timeSinceAIUpdate += Time.deltaTime;
+        if (timeSinceAIUpdate > AiUpdateTime)
         {
-            case "Player":
-                Attack(other.attachedRigidbody.gameObject.GetComponent<Destroyable>());
-                break;
-            default:
+            Collider closestTarget = perception.getClosestTarget("Player");
 
-                break;
+            if (closestTarget)
+            {
+                Destroyable enemyDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
+                if (enemyDestroyable)
+                {
+                    Attack(enemyDestroyable);
+                }
+            }
+            
         }
     }
 
-    private void Update()
+
+    void Attack(Destroyable other)
     {
-        _timeSinceAttack += Time.deltaTime;
+        print("ATTACK PLAYER");
+        transform.LookAt(other.transform);
+        attack.Activate(other.transform.position + Vector3.up * other.transform.localScale.y / 2);
     }
-
-    void Attack(Destroyable other) {
-        if (_timeSinceAttack > _attackCooldown)
-        {
-            other.Damage(_attackDamage);
-            _timeSinceAttack = 0;
-        }
-    }
-
- 
 }
+ 
+

@@ -48,7 +48,7 @@ public class MyCursor : MonoBehaviour
                         }
                     default:
                         {
-                            cursorImage.color = Color.white;
+                            cursorImage.color = Color.gray;
                             break;
                         }
                 }
