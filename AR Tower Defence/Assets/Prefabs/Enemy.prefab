@@ -86,9 +86,10 @@ MonoBehaviour:
   DeathDuration: 0.1
   Health: 0
   IsDestroyed: 0
-  speed: 0.5
-  attackDamage: 0.1
-  attackCooldown: 2
+  _name: basic
+  _speed: 1
+  _attackDamage: 0.1
+  _attackCooldown: 0.03
 --- !u!54 &4389204082048990393
 Rigidbody:
   m_ObjectHideFlags: 0

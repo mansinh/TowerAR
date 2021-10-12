@@ -3,63 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class Enemy : Destroyable
 {
-    NavMeshAgent navAgent;
-    EnemySource source;
-    [SerializeField] float speed;
-    [SerializeField] float attackDamage = 0.1f;
-    [SerializeField] float attackCooldown = 0.03f;
-    ShakeAnim shakeAnim;
+    NavMeshAgent _navAgent;
+    EnemySource _source;
+    [SerializeField] string _name = "basic";
+    [SerializeField] float _speed;
+    [SerializeField] float _attackDamage = 0.1f;
+    [SerializeField] float _attackCooldown = 0.03f;
 
-    float timeSinceAttack = 0;
+    ShakeAnim _shakeAnim;
+    float _timeSinceAttack = 0;
+
 
     private void Awake()
     {
-        shakeAnim = gameObject.AddComponent<ShakeAnim>();
+        _shakeAnim = gameObject.AddComponent<ShakeAnim>();
         
     }
 
     public void Init(EnemySource source)
     {
         base.Init();
-        this.source = source;
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.speed = speed;
+        _source = source;
+        _navAgent = GetComponent<NavMeshAgent>();
+        _navAgent.speed = _speed;
  
         transform.localScale = source.transform.localScale;
     }
 
     public void Spawn() {
-        navAgent.isStopped = false;
+        _navAgent.isStopped = false;
         Init();
         FindDestination();
     }
 
     public void FindDestination() {
-        navAgent.SetDestination(FindObjectOfType<Player>().transform.position + Random.onUnitSphere/4 * WorldRoot.instance.transform.localScale.x);
+        _navAgent.SetDestination(FindObjectOfType<Player>().transform.position + Random.onUnitSphere/4 * WorldRoot.instance.transform.localScale.x);
     }
 
     protected override void Death()
     {
-        navAgent.isStopped = true;
-        source.OnEnemyDeath(this);
+        _navAgent.isStopped = true;
+        _source.OnEnemyDeath(this);
         base.Death();
 
+        Points.instance.EnemyKilled(_name);
     }
 
     protected override void DamageAnim(float damage)
     {
         base.DamageAnim(damage);
-        shakeAnim.StartShake(0.1f,0.1f);
+        _shakeAnim.StartShake(0.1f,0.1f,transform.position);
         StartCoroutine(Stun(0.3f));
     }
 
  
     IEnumerator Stun(float duration) {
-        navAgent.isStopped = true;
+        _navAgent.isStopped = true;
         yield return new WaitForSeconds(duration);
-        navAgent.isStopped = false;
+        _navAgent.isStopped = false;
     }
 
 
@@ -80,14 +84,14 @@ public class Enemy : Destroyable
 
     private void Update()
     {
-        timeSinceAttack += Time.deltaTime;
+        _timeSinceAttack += Time.deltaTime;
     }
 
     void Attack(Destroyable other) {
-        if (timeSinceAttack > attackCooldown)
+        if (_timeSinceAttack > _attackCooldown)
         {
-            other.Damage(attackDamage);
-            timeSinceAttack = 0;
+            other.Damage(_attackDamage);
+            _timeSinceAttack = 0;
         }
     }
 

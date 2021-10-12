@@ -45,6 +45,7 @@ public class Projectile : Poolable
     {
         base.OnRelease();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         _hasHit = true;
