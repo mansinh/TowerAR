@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : Action
+public class Shoot : Attack
 {
     Pool projectilePool;
-    [SerializeField] Projectile projectilePrefab;
-    [SerializeField] float projectileSpeed;
-    [SerializeField] float attackDamage;
-    [SerializeField] float projectileLifetime;
+    [SerializeField] Projectile _projectilePrefab;
+    [SerializeField] float _projectileSpeed;
+    [SerializeField] float _projectileLifetime;
+    [SerializeField] int _projectileCount;
+
 
     protected override void Act(Vector3 targetPosition)
     {
@@ -24,10 +25,8 @@ public class Shoot : Action
 
             //accuracy
             //speedvariation
-            //critical hit
-            //stun
-
-            projectile.SetProperties(attackDamage, projectileLifetime, projectileSpeed, projectileDirection, transform.position);
+         
+            projectile.SetProperties(CalulateDamage(), _projectileLifetime, _projectileSpeed, projectileDirection, transform.position);
             projectilePool.Push();
         }
     }
@@ -35,6 +34,7 @@ public class Shoot : Action
     protected override void Init()
     {
         projectilePool = gameObject.AddComponent<Pool>();
-        projectilePool.SetPrefab(projectilePrefab);
+        projectilePool.SetPrefab(_projectilePrefab);
+        projectilePool.SetPoolSize(_projectileCount);
     }
 }

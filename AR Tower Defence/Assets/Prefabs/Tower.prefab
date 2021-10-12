@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebb25c61c613544b86fd49183859a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 4
-  AiUpdateTime: 0.2
-  attack: {fileID: 4979145030176779428}
+  _range: 40
+  _AiUpdateTime: 0.2
+  _attack: {fileID: 4979145030176779428}
 --- !u!65 &6140706670366130800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ BoxCollider:
   m_GameObject: {fileID: 6140706670366130812}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -159,7 +159,15 @@ MonoBehaviour:
   duration: 0
   timeRemaining: 0
   timeStep: 0.1
-  projectilePrefab: {fileID: 3787620487911124503, guid: 02679903f01a5d24dba1ad96fc3f290a, type: 3}
-  projectileSpeed: 5
-  attackDamage: 0.3
-  projectileLifetime: 5
+  isReady: 1
+  isActing: 0
+  _attackDamage: 7
+  _criticalDamage: 1.5
+  _criticalRate: 0.1
+  _stunDamage: 10
+  _stunRate: 0.15
+  _stunDuration: 0.7
+  _projectilePrefab: {fileID: 3787620487911124503, guid: 02679903f01a5d24dba1ad96fc3f290a, type: 3}
+  _projectileSpeed: 8
+  _projectileLifetime: 3
+  _projectileCount: 10

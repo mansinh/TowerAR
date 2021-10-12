@@ -24,8 +24,7 @@ public class Action : MonoBehaviour
            
             Act(targetPosition);
             StartCoroutine(ActionTimer());
-            isReady = false;
-            
+            isReady = false;         
         }
     }
 

@@ -16,23 +16,22 @@ public class Destroyable : MonoBehaviour
         Health = MaxHealth;
     }
 
-    public virtual void Damage(float damage)
-    {
-        Health -= damage;
+    public virtual void Damage(Damage damage) {
+        Health -= damage.damage;
         DamageAnim(damage);
         if (Health <= 0) {
             StartCoroutine(Die());      
         }
     }
 
-    protected virtual void DamageAnim(float damage){}
+    protected virtual void DamageAnim(Damage damage){}
     protected virtual void Death()
     {
         IsDestroyed = true;
-        
     }
-    protected virtual void DeathAnim(){}
 
+
+    protected virtual void DeathAnim(){}
 
     IEnumerator Die()
     {
@@ -41,6 +40,17 @@ public class Destroyable : MonoBehaviour
         Death();
     }
 
+}
+
+public struct Damage
+{
+    public float damage;
+    public float stunDuration;
+    public Damage(float damage,float stunDuration)
+    {
+        this.damage = damage;
+        this.stunDuration = stunDuration;
+    }
 }
 
 
