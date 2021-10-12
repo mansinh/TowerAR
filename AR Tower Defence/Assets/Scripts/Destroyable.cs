@@ -16,7 +16,8 @@ public class Destroyable : MonoBehaviour
         Health = MaxHealth;
     }
 
-    public virtual void Damage(float damage) {
+    public virtual void Damage(float damage)
+    {
         Health -= damage;
         DamageAnim(damage);
         if (Health <= 0) {
@@ -25,14 +26,16 @@ public class Destroyable : MonoBehaviour
     }
 
     protected virtual void DamageAnim(float damage){}
-    protected virtual void Death() {
+    protected virtual void Death()
+    {
         IsDestroyed = true;
         
     }
     protected virtual void DeathAnim(){}
 
 
-    IEnumerator Die() {
+    IEnumerator Die()
+    {
         DeathAnim();
         yield return new WaitForSeconds(DeathDuration);
         Death();

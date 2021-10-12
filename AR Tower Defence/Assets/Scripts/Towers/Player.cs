@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class Player : Destroyable
 {
-    [SerializeField] Transform mesh;
-    [SerializeField] float showHealthDuration = 0.1f;
+    [SerializeField] Transform _view;
+
     ShakeAnim shakeAnim;
 
 
     private void Start()
     {
         Init();
-        shakeAnim = mesh.GetComponent<ShakeAnim>();
+    
+        shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
     }
     protected override void DamageAnim(float damage)
     {
       
         base.DamageAnim(damage);
         StartCoroutine(ShowHealth());
-        shakeAnim.StartShake(0.1f,0.3f);
+        shakeAnim.StartShake(0.1f,0.3f, _view.localPosition);
         
         
     }
     IEnumerator ShowHealth() {
-        yield return new WaitForSeconds(showHealthDuration);        
-        mesh.localPosition = new Vector3(0, -(MaxHealth -Health) / MaxHealth, 0);
+        yield return new WaitForSeconds(0.3f);        
+        _view.localPosition = new Vector3(0, -(MaxHealth -Health) / MaxHealth, 0);
+        
     }
 }
