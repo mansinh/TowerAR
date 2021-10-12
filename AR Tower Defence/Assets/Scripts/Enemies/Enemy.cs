@@ -65,11 +65,11 @@ public class Enemy : Destroyable
         Points.instance.EnemyKilled(_name);
     }
 
-    protected override void DamageAnim(float damage)
+    protected override void DamageAnim(Damage damage)
     {
         base.DamageAnim(damage);
-        _shakeAnim.StartShake(0.1f, 0.1f, Vector3.zero);
-        StartCoroutine(Stun(0.3f));
+        shakeAnim.StartShake(0.1f,0.1f);
+        StartCoroutine(Stun(damage.stunDuration));
     }
 
 

@@ -15,7 +15,7 @@ public class Player : Destroyable
     
         shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
     }
-    protected override void DamageAnim(float damage)
+    protected override void DamageAnim(Damage damage)
     {
       
         base.DamageAnim(damage);
