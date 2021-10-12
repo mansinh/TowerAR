@@ -6,16 +6,15 @@ using UnityEngine;
 public class Projectile : Poolable
 {
     private Rigidbody _rbody;
-    private float _attackDamage;
+    private Damage _attackDamage;
     private float _stun;
     private float _speed;
     private float _lifetime;
     private bool _hasHit;
     private Vector3 _direction;
 
-    public void SetProperties(float attackDamage, float stun, float lifetime, float speed, Vector3 direction, Vector3 shootFrom) {
-        _attackDamage = attackDamage;
-        _stun = stun;
+    public void SetProperties(Damage attackDamage, float lifetime, float speed, Vector3 direction, Vector3 shootFrom) {
+        _attackDamage = attackDamage;    
         _lifetime = lifetime;
         _speed = speed;
         _direction = direction;
@@ -54,7 +53,7 @@ public class Projectile : Poolable
         Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();
         if (destroyable)
         {
-            destroyable.Damage(new Damage(_attackDamage, _stun));
+            destroyable.Damage(_attackDamage);
         }
         OnRelease();
     }

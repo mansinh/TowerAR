@@ -24,11 +24,13 @@ public class Destroyable : MonoBehaviour
         }
     }
 
-    protected virtual void DamageAnim(float damage){}
+    protected virtual void DamageAnim(Damage damage){}
     protected virtual void Death()
     {
+        IsDestroyed = true;
+    }
 
-    protected virtual void DamageAnim(Damage damage){}
+
     protected virtual void DeathAnim(){}
 
     IEnumerator Die()

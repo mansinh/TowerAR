@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Melee : Action
+public class Melee :Attack
 {
-    [SerializeField] float _attackDamage;
-    [SerializeField] float _attackRange;
+
+    [SerializeField] protected float _attackRange;
     [SerializeField] GameObject _attackImpact;
     SphereCollider meleeCollider;
 
@@ -21,8 +21,7 @@ public class Melee : Action
         base.Act(targetPosition);
 
         if (Vector3.Distance(targetPosition, transform.position) < _attackRange)
-        {
-            
+        {            
             meleeCollider.enabled = true;
         }
         
@@ -42,9 +41,12 @@ public class Melee : Action
         Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();
         if (destroyable)
         {
-            print("ATTACK PLAYER HIT "+_attackDamage);
-            destroyable.Damage(_attackDamage);
+            print("ATTACK PLAYER HIT "+ CalulateDamage().damage);
+            
+            destroyable.Damage(CalulateDamage());
             _attackImpact.SetActive(true);
         }
     }
+
+
 }

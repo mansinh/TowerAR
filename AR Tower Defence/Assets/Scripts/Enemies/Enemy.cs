@@ -11,9 +11,9 @@ public class Enemy : Destroyable
     [SerializeField] Transform _view;
     [SerializeField] string _name = "enemy";
     [SerializeField] float _speed;
-    [SerializeField] Action attack;
-    [SerializeField] float detectRange;
-    [SerializeField] float AiUpdateTime = 0.2f;
+    [SerializeField] Attack _attack;
+    [SerializeField] float _detectRange;
+    [SerializeField] float _AiUpdateTime = 0.2f;
 
     ShakeAnim _shakeAnim;
     AIPerception perception;
@@ -29,7 +29,7 @@ public class Enemy : Destroyable
     {
         perception = gameObject.AddComponent<AIPerception>();
         perception.setDetectFrom(transform);
-        perception.setDetectRange(detectRange);
+        perception.setDetectRange(_detectRange);
     }
 
     public void Init(EnemySource source)
@@ -68,7 +68,7 @@ public class Enemy : Destroyable
     protected override void DamageAnim(Damage damage)
     {
         base.DamageAnim(damage);
-        shakeAnim.StartShake(0.1f,0.1f);
+        _shakeAnim.StartShake(0.1f,0.1f, Vector3.zero);
         StartCoroutine(Stun(damage.stunDuration));
     }
 
@@ -85,7 +85,7 @@ public class Enemy : Destroyable
     void Update()
     {
         timeSinceAIUpdate += Time.deltaTime;
-        if (timeSinceAIUpdate > AiUpdateTime)
+        if (timeSinceAIUpdate > _AiUpdateTime)
         {
             Collider closestTarget = perception.getClosestTarget("Player");
 
@@ -106,7 +106,7 @@ public class Enemy : Destroyable
     {
         print("ATTACK PLAYER");
         transform.LookAt(other.transform);
-        attack.Activate(other.transform.position + Vector3.up * other.transform.localScale.y / 2);
+        _attack.Activate(other.transform.position + Vector3.up * other.transform.localScale.y / 2);
     }
 }
  

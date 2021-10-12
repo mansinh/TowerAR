@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pool : MonoBehaviour
 {
     [SerializeField] Poolable _prefab;
-    private int _poolSize = 5;
+    [SerializeField] int _poolSize = 5;
 
     private List<Poolable> _inactive = new List<Poolable>();
     private List<Poolable> _active = new List<Poolable>();

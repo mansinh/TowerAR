@@ -5,26 +5,26 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
 
-    [SerializeField] float attackRange = 4;
-    [SerializeField] float AiUpdateTime = 0.2f;
-    [SerializeField] Action attack;
+    [SerializeField] float _range = 4;
+    [SerializeField] float _AiUpdateTime = 0.2f;
+    [SerializeField] Attack _attack;
 
-    AIPerception perception;
-    float timeSinceAIUpdate = 1;
+    AIPerception _perception;
+    float _timeSinceAIUpdate = 1;
 
     private void Start()
     {
-        perception = gameObject.AddComponent<AIPerception>();
-        perception.setDetectFrom(transform);
-        perception.setDetectRange(attackRange);
+        _perception = gameObject.AddComponent<AIPerception>();
+        _perception.setDetectFrom(transform);
+        _perception.setDetectRange(_range);
     }
 
     void Update()
     {
-        timeSinceAIUpdate += Time.deltaTime;
-        if (timeSinceAIUpdate > AiUpdateTime)
+        _timeSinceAIUpdate += Time.deltaTime;
+        if (_timeSinceAIUpdate > _AiUpdateTime)
         {
-            Collider closestTarget = perception.getClosestTarget("Enemy");
+            Collider closestTarget = _perception.getClosestTarget("Enemy");
             print(closestTarget);
             if (closestTarget)
             {
@@ -42,6 +42,6 @@ public class Tower : MonoBehaviour
     {
         print("attack");
         //transform.LookAt(other.transform);
-        attack.Activate(other.transform.position+Vector3.up*other.transform.localScale.y/2);
+        _attack.Activate(other.transform.position+Vector3.up*other.transform.localScale.y/2);
     }
 }
