@@ -29,10 +29,17 @@ public class Action : MonoBehaviour
     }
 
     protected virtual void Init() {}
-    protected virtual void Act(Vector3 targetPosition) { isActing = true; }
+    protected virtual void Act(Vector3 targetPosition)
+    {
+        isActing = true;
+    }
 
 
-    protected virtual void EndAction() {isActing = false; StartCoroutine(CoolDownTimer()); }
+    public virtual void EndAction()
+    {
+        isActing = false;
+        StartCoroutine(CoolDownTimer());
+    }
 
     IEnumerator ActionTimer()
     {

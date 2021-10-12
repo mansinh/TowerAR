@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebb25c61c613544b86fd49183859a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 40
+  _range: 5
   _AiUpdateTime: 0.2
   _attack: {fileID: 4979145030176779428}
 --- !u!65 &6140706670366130800
@@ -170,4 +170,4 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 3787620487911124503, guid: 02679903f01a5d24dba1ad96fc3f290a, type: 3}
   _projectileSpeed: 8
   _projectileLifetime: 3
-  _projectileCount: 10
+  _projectileCount: 5

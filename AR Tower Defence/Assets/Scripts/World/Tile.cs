@@ -20,17 +20,7 @@ public class Tile : MonoBehaviour
         transform.eulerAngles = new Vector3(0,(int)(Random.value*4)*90,0);
     }
 
-    public void MouseOver()
-    {
-       
-        
-    }
-
-    public void MouseExit()
-    {
-        
-       
-    }
+    
 
     public void Raise()
     {

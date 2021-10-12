@@ -14,12 +14,19 @@ public class WorldRoot : MonoBehaviour
     [SerializeField] Tile tilePrefab;
     [SerializeField] Transform world;
 
+    
+   
     private void Awake()
     {
         instance = this;
-       
+        foreach (Tile tile in tiles)
+        {
+            if (tile.GetHeight() == 0)
+            {
+                tile.gameObject.SetActive(false);
+            }
+        }
     }
-
     public void Init()
     {
         navController = FindObjectOfType<NavController>();
@@ -37,11 +44,11 @@ public class WorldRoot : MonoBehaviour
     [SerializeField] List<Tile> tiles = new List<Tile>();
     public void Generate()
     {
-        foreach (Tile block in tiles)
+        foreach (Tile tile in tiles)
         {
-            if (block != null)
+            if (tile != null)
             {
-                DestroyImmediate(block.gameObject);
+                DestroyImmediate(tile.gameObject);
             }
         }
         tiles = new List<Tile>();
