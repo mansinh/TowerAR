@@ -10,8 +10,7 @@ public class Tower : MonoBehaviour
     [SerializeField] Action attack;
 
     AIPerception perception;
-
-    float timeSinceAIUpdate = 0;
+    float timeSinceAIUpdate = 1;
 
     private void Start()
     {

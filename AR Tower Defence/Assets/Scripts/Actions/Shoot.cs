@@ -12,6 +12,7 @@ public class Shoot : Action
 
     protected override void Act(Vector3 targetPosition)
     {
+        base.Act(targetPosition);
         ShootProjectile(targetPosition);
     }
 

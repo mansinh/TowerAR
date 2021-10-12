@@ -13,7 +13,7 @@ public class ShakeAnim : MonoBehaviour
     {
         this.amplitude = amplitude;
         this.duration = duration;
-        originalPosition = transform.localPosition;
+        _originalPosition = originalPosition;
         StartCoroutine(Shake());
     }
 

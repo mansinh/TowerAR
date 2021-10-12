@@ -10,7 +10,8 @@ public class Action : MonoBehaviour
     public float timeRemaining = 0;
     public float timeStep = 0.1f;
 
-    bool isReady = true;
+    [SerializeField] bool isReady = true;
+    [SerializeField] bool isActing = false;
 
     private void Awake()
     {
@@ -20,24 +21,30 @@ public class Action : MonoBehaviour
     public void Activate(Vector3 targetPosition) {
         if (isReady)
         {
+           
             Act(targetPosition);
             StartCoroutine(ActionTimer());
             isReady = false;
+            
         }
     }
 
     protected virtual void Init() {}
-    protected virtual void Act(Vector3 targetPosition) {}
+    protected virtual void Act(Vector3 targetPosition) { isActing = true; }
+
+
+    protected virtual void EndAction() {isActing = false; StartCoroutine(CoolDownTimer()); }
 
     IEnumerator ActionTimer()
     {
         timeRemaining = duration;
-        for (float i = cooldown; i > 0; i -= timeStep)
+        for (float i = duration; i > 0; i -= timeStep)
         {
             timeRemaining = i;
             yield return new WaitForSeconds(timeStep);
         }
-        StartCoroutine(CoolDownTimer());
+        EndAction();
+       
     }
 
     IEnumerator CoolDownTimer() {

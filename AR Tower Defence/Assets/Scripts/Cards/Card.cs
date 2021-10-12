@@ -44,7 +44,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _isSelected = true;
         _image.color = Color.white;
         _ghost.SetActive(true);
-        if (GameController.instance.IsAR)
+        if (GameController.Instance.IsAR)
         {
 
         }
@@ -76,7 +76,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 RaycastHit hit = MyCursor.instance.GetCursorHit();
                 UpdateGhost(hit);
 
-                if (GameController.instance.IsAR)
+                if (GameController.Instance.IsAR)
                 {
 
                 }
