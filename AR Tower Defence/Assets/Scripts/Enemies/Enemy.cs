@@ -10,11 +10,10 @@ public class Enemy : Destroyable
     EnemySource _source;
     [SerializeField] Transform _view;
     [SerializeField] string _name = "enemy";
-    [SerializeField] float _speed;
+    [SerializeField] float _baseSpeed = 1;
     [SerializeField] Attack _attack;
     [SerializeField] float _detectRange;
     [SerializeField] float AiUpdateTime = 0.2f;
-
     ShakeAnim _shakeAnim;
     AIPerception perception;
     float timeSinceAIUpdate = 1;
@@ -37,7 +36,7 @@ public class Enemy : Destroyable
         base.Init();
         _source = source;
         _navAgent = GetComponent<NavMeshAgent>();
-        _navAgent.speed = _speed;
+        _navAgent.speed = _baseSpeed;
 
         transform.localScale = source.transform.localScale;
     }
@@ -70,9 +69,33 @@ public class Enemy : Destroyable
     {
         base.DamageAnim(damage);
         _shakeAnim.StartShake(0.1f,0.1f, Vector3.zero);
+        _slownessDuration = Mathf.Max(damage.slownessDuration,_slownessDuration);
+        _slowness = Mathf.Max(damage.slowness,_slowness);
+        if (_slownessDuration > 0 && !_isSlowing)
+        {
+            StartCoroutine(SlownessEffect());
+        }
         StartCoroutine(Stun(damage.stunDuration));
     }
+    float _slowness;
+    float _slownessDuration;
+    bool _isSlowing = false;
+    IEnumerator SlownessEffect() {
 
+        _isSlowing = true;
+
+        while (_slownessDuration > 0)
+        {
+            _slownessDuration -= Time.deltaTime;
+            _navAgent.speed = _baseSpeed * (1 - _slowness);
+            Debug.Log("Slowness Duration: " + _slownessDuration);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        _isSlowing = false;
+        _slownessDuration = 0;
+        _slowness = 0;
+        _navAgent.speed = _baseSpeed;
+    }
 
     IEnumerator Stun(float duration)
     {
@@ -105,7 +128,7 @@ public class Enemy : Destroyable
 
     void Attack(Destroyable other)
     {
-        print("ATTACK PLAYER");
+        //print("ATTACK PLAYER");
         transform.LookAt(other.transform);
         _attack.Activate(other.transform.position + Vector3.up * other.transform.localScale.y / 2);
     }

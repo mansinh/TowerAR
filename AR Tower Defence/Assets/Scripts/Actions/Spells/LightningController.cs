@@ -65,7 +65,7 @@ public class LightningController : MonoBehaviour
                 Enemy enemy = other.gameObject.GetComponent<Enemy>();
                 if (enemy)
                 {
-                    enemy.Damage(new Damage(attackDamage, 0));
+                    enemy.Damage(new Damage(attackDamage));
                 }
             }
         }

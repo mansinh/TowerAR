@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 
     public bool IsAR;
     LightningController _lightningController;
-    Player _player;
+    [SerializeField] Player _player;
 
 
     public static GameController Instance;
@@ -23,10 +23,10 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         Time.timeScale = 0;
-        _worldRoot.gameObject.SetActive(false);
+
         Instance = this;
         _lightningController = FindObjectOfType<LightningController>();
-    
+
     }
 
     IEnumerator Start()
@@ -48,37 +48,39 @@ public class GameController : MonoBehaviour
         else
         {
             Time.timeScale = 1;
-            _worldRoot.gameObject.SetActive(true);
             _arSession.gameObject.SetActive(false);
             _arPlaceWorld.gameObject.SetActive(false);
             _testCamera.gameObject.SetActive(true);
         }
-        _player = FindObjectOfType<Player>();
+
     }
 
-    
 
-    void GameStart()
+
+    public void GameStart()
     {
 
     }
 
-    void GamePause()
+    public void GamePause()
     {
 
     }
 
-    void GameResume()
+    public void GameResume()
     {
 
     }
 
-    void GameReset()
+    public void GameReset()
     {
 
     }
 
+    public void GameOver()
+    {
 
+    }
 
     Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
     // Update is called once per frame
@@ -86,7 +88,7 @@ public class GameController : MonoBehaviour
     {
         if (IsAR)
         {
-           
+
             MyCursor.instance.Cast(screenCenter);
         }
         else
@@ -96,35 +98,41 @@ public class GameController : MonoBehaviour
 
         }
     }
+
+
     private void Update()
     {
         if (IsAR)
         {
+            
+
         }
         else
         {
-            transform.eulerAngles += new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0) * _cameraSpeed * Time.deltaTime;
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                Camera.main.transform.position += Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.E))
-            {
-                Camera.main.transform.position -= Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
-            }
+            //KeyboardControls()
+            
         }
-        if (_player)
+       
+        if (_player.IsDestroyed)
         {
-            if (_player.IsDestroyed)
-            {
-                GameOver();
-            }
+            GameOver();
         }
+
     }
 
-    void GameOver()
-    {
-        _gameOverView.SetActive(true);
+   
+
+
+    void KeyboardControls() {
+        transform.eulerAngles += new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0) * _cameraSpeed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Camera.main.transform.position += Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            Camera.main.transform.position -= Camera.main.transform.position * _zoomSpeed * Time.deltaTime;
+        }
     }
 }

@@ -25,7 +25,7 @@ public class Tower : MonoBehaviour
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {
             Collider closestTarget = _perception.getClosestTarget("Enemy");
-            print(closestTarget);
+            //print(closestTarget);
             if (closestTarget)
             {
                 Destroyable enemyDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
@@ -40,7 +40,7 @@ public class Tower : MonoBehaviour
 
     void Attack(Destroyable other)
     {
-        print("attack");
+        //print("attack");
         //transform.LookAt(other.transform);
         _attack.Activate(other.transform.position+Vector3.up*other.transform.localScale.y/2);
     }

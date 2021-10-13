@@ -11,8 +11,7 @@ public class Player : Destroyable
 
     private void Start()
     {
-        Init();
-    
+        Init();  
         shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
     }
     protected override void DamageAnim(Damage damage)
@@ -20,15 +19,12 @@ public class Player : Destroyable
       
         base.DamageAnim(damage);
         shakeAnim.StartShake(0.1f, 0.3f, new Vector3(0, -(MaxHealth - Health) / MaxHealth, 0));
-        //StartCoroutine(ShowHealth());
-       
-        
-        
     }
 
     protected override void Death()
     {
         base.Death();
+        GameController.Instance.GameOver();
     }
 
 }
