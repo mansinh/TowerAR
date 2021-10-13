@@ -46,10 +46,14 @@ public struct Damage
 {
     public float damage;
     public float stunDuration;
-    public Damage(float damage,float stunDuration)
+    public float slowness;
+    public float slownessDuration;
+    public Damage(float damage = 0,float stunDuration = 0, float slowness = 0, float slownessDuration = 0)
     {
+        this.slowness = slowness;
         this.damage = damage;
         this.stunDuration = stunDuration;
+        this.slownessDuration = slownessDuration;
     }
 }
 
