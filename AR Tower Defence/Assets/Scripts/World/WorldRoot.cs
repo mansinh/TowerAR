@@ -32,14 +32,36 @@ public class WorldRoot : MonoBehaviour
         navController = FindObjectOfType<NavController>();
  
     }
+
+ 
+    Enemy[] enemies;
+
     public void Refresh() {
-        navController.Bake();
-        NavMeshAgent[] agents = FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
-        foreach (NavMeshAgent agent in agents)
+        //navController.Bake();
+        
+        for (int i = 0; i < enemies.Length; i++)
         {
-            agent.ResetPath();            
+
+
+
+            enemies[i].GetComponent<NavMeshAgent>().enabled = true;
+            enemies[i].FindDestination();
+        }
+        
+    }
+    public void Pause()
+    {
+        enemies = FindObjectsOfType<Enemy>();
+      
+        for(int i = 0; i < enemies.Length;i++)
+        {
+       
+            enemies[i].GetComponent<NavMeshAgent>().enabled = false;
+          
+           
         }
     }
+
 
     [SerializeField] List<Tile> tiles = new List<Tile>();
     public void Generate()
