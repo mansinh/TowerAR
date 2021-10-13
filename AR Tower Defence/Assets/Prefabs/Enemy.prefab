@@ -157,7 +157,7 @@ MonoBehaviour:
   IsDestroyed: 0
   _view: {fileID: 5805480361504993695}
   _name: enemy
-  _speed: 1
+  _baseSpeed: 1
   _attack: {fileID: 4640973689676285920}
   _detectRange: 3
   AiUpdateTime: 0.2
@@ -260,6 +260,8 @@ MonoBehaviour:
   _stunDamage: 0
   _stunRate: 0
   _stunDuration: 0
+  _slowness: 0
+  _slownessDuration: 0
   _attackRange: 2
   _attackImpact: {fileID: 2241536286847111080}
 --- !u!1 &4452460419362323356

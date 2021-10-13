@@ -10,13 +10,15 @@ public class Attack : Action
     [SerializeField] protected float _stunDamage;
     [SerializeField] protected float _stunRate;
     [SerializeField] protected float _stunDuration;
+    [SerializeField] protected float _slowness;
+    [SerializeField] protected float _slownessDuration;
   
 
   
 
     protected Damage CalulateDamage()
     {
-        Damage damage = new Damage(_attackDamage, 0.1f);
+        Damage damage = new Damage(_attackDamage, 0, _slowness, _slownessDuration);
         if (Random.value < _stunRate)
         {
             damage.damage += _stunDamage;
