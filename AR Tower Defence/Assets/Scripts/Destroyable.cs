@@ -48,12 +48,16 @@ public struct Damage
     public float stunDuration;
     public float slowness;
     public float slownessDuration;
-    public Damage(float damage = 0,float stunDuration = 0, float slowness = 0, float slownessDuration = 0)
+    public bool isCritical;
+    public bool isPoison;
+    public Damage(float damage = 0,float stunDuration = 0, float slowness = 0, float slownessDuration = 0,bool isCritical = false,bool isPoison = false)
     {
         this.slowness = slowness;
         this.damage = damage;
         this.stunDuration = stunDuration;
         this.slownessDuration = slownessDuration;
+        this.isCritical = isCritical;
+        this.isPoison = isPoison;
     }
 }
 

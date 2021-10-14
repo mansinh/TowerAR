@@ -21,7 +21,6 @@ public class Enemy : Destroyable
     private void Awake()
     {
         _shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
-
     }
 
     private void Start()
@@ -71,6 +70,7 @@ public class Enemy : Destroyable
         _shakeAnim.StartShake(0.1f,0.1f, Vector3.zero);
         _slownessDuration = Mathf.Max(damage.slownessDuration,_slownessDuration);
         _slowness = Mathf.Max(damage.slowness,_slowness);
+        DamagePopup.Create(transform.position, damage);
         if (_slownessDuration > 0 && !_isSlowing)
         {
             StartCoroutine(SlownessEffect());

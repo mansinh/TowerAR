@@ -27,6 +27,7 @@ public class Attack : Action
         if (Random.value < _criticalRate)
         {
             damage.damage *= _criticalDamage;
+            damage.isCritical = true;
         }
         Debug.Log("Attack DMG: " + damage.damage + ", Stun duration: " + damage.stunDuration);
         return damage;
