@@ -6,11 +6,11 @@ using UnityEngine;
 public class DamagePopup : MonoBehaviour
 {
     //Creates DamageIndicatorPopup in the game world.
-    public static DamagePopup Create(Vector3 position,Damage damage)
+    public static DamagePopup Create(Vector3 position,Damage damage, bool isPoison)
     {
         Transform damagePopupTrandform = Instantiate(GameAssets.i.damageIndicatorPopup, position, Quaternion.identity);
         DamagePopup dPopup = damagePopupTrandform.GetComponent<DamagePopup>();
-        dPopup.Setup(damage);
+        dPopup.Setup(damage, isPoison);
         return dPopup;
     }
     private Vector3 moveVector;
@@ -25,7 +25,7 @@ public class DamagePopup : MonoBehaviour
 
     //Prepares TMPro setting it's position, size and position to move to as well as the color of type of the damage.
 
-    public void Setup(Damage damage)
+    public void Setup(Damage damage, bool isPoison)
     {
         textMesh.SetText(((int)damage.damage).ToString());
         if (damage.isCritical)
@@ -33,15 +33,16 @@ public class DamagePopup : MonoBehaviour
             textMesh.fontSize = 14;
             textColor = new Color32(255,138,85,255);
         }
-        else if (damage.isPoison)
-        {
-            textMesh.fontSize = 12f;
-            textColor = new Color32(95, 78, 115, 255);
-        }
         else
         {
             textMesh.fontSize = 10;
             textColor = new Color32(255, 255, 255, 255);
+        }
+        if (isPoison)
+        {
+            textMesh.fontSize = 12f;
+            textColor = new Color32(95, 78, 115, 255);
+            textMesh.SetText(((int)damage.poisonDamage).ToString());
         }
 
         sortingOrder++;

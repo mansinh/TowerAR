@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : Destroyable
 {
-    [SerializeField] Transform _view;
 
     ShakeAnim shakeAnim;
 
