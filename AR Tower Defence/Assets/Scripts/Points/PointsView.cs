@@ -13,6 +13,10 @@ public class PointsView : MonoBehaviour
     int _targetPoints;
     bool isUpdatingText = false;
 
+    public void SetPoints(int points) {
+        _currentPoints = points = _targetPoints;
+    }
+
     public void UpdatePoints(int totalPoints) {
         _targetPoints = totalPoints;
 

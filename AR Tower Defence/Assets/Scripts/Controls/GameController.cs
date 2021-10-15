@@ -109,7 +109,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            //KeyboardControls()
+            KeyboardControls();
             
         }
        
