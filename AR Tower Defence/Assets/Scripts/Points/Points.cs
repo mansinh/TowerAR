@@ -24,7 +24,7 @@ public class Points : MonoBehaviour
 
     void Start()
     {
-        _view.UpdatePoints(_totalPoints);
+        _view.SetPoints(_totalPoints);
     }
 
     //*************************************************************************************************************************
