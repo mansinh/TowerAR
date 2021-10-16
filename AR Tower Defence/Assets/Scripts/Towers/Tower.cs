@@ -12,6 +12,8 @@ public class Tower : MonoBehaviour
     AIPerception _perception;
     float _timeSinceAIUpdate = 1;
 
+    [SerializeField] Transform _currentTarget;
+
     private void Start()
     {
         _perception = gameObject.AddComponent<AIPerception>();
@@ -21,27 +23,36 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
+        if (_currentTarget)
+        {
+            if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
+            {
+                transform.LookAt(_currentTarget);
+            }
+        }
+
         _timeSinceAIUpdate += Time.deltaTime;
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {
             Collider closestTarget = _perception.getClosestTarget("Enemy");
-            //print(closestTarget);
+            
+           
             if (closestTarget)
             {
+                _currentTarget = closestTarget.transform;
+                /*
+                print("name" + closestTarget.name);
                 Destroyable enemyDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
                 if (enemyDestroyable)
                 {
-                    Attack(enemyDestroyable);
-                }
+                    print("destroyable");
+                    _currentTarget = enemyDestroyable.transform;
+                }*/
             }
+            _timeSinceAIUpdate = 0;
         }
     }
 
 
-    void Attack(Destroyable other)
-    {
-        //print("attack");
-        //transform.LookAt(other.transform);
-        _attack.Activate(other.transform.position+Vector3.up*other.transform.localScale.y/2);
-    }
+
 }

@@ -162,6 +162,8 @@ MonoBehaviour:
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Enemy
+  timeSinceAIUpdate: 1
+  _currentTarget: {fileID: 0}
 --- !u!65 &4950410460102632304
 BoxCollider:
   m_ObjectHideFlags: 0

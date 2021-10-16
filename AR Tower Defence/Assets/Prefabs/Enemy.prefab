@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2553859652650872501}
   - component: {fileID: 8747925697711629913}
   - component: {fileID: 9171917681926519635}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,10 +159,13 @@ MonoBehaviour:
   IsDestroyed: 0
   Name: Enemy
   _attack: {fileID: 4640973689676285920}
-  _detectRange: 5
+  _detectRange: 1
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Player
+  _distanceFromTarget: 1
+  timeSinceAIUpdate: 1
+  _currentTarget: {fileID: 0}
 --- !u!54 &4389204082048990393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -203,7 +206,7 @@ GameObject:
   - component: {fileID: 3021620146091713092}
   - component: {fileID: 266701566273436537}
   - component: {fileID: 4640973689676285920}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackMelee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,10 +255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0.3
-  timeRemaining: 0
-  timeStep: 0.1
+  _timeRemaining: 0
   isReady: 1
   isActing: 0
+  isCooling: 0
   _range: 1
   _attackDamage: 1
   _criticalDamage: 0
@@ -280,7 +283,7 @@ GameObject:
   - component: {fileID: 5805480361504993695}
   - component: {fileID: 2715286774648070877}
   - component: {fileID: 3122099583006568443}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}

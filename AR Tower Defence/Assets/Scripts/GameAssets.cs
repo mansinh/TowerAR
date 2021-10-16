@@ -5,16 +5,16 @@ using UnityEngine;
 public class GameAssets : MonoBehaviour
 {
     //A comfortable way to save assets in one place and the pull them out when needed.
-    private static GameAssets _i;
-    public static GameAssets i
+    private static GameAssets _instance;
+    public static GameAssets instance
     {
         get
         {
-            if(_i == null)
+            if(_instance == null)
             {
-                _i = Instantiate(Resources.Load<GameAssets>("GameAssets"));
+                _instance = Instantiate(Resources.Load<GameAssets>("GameAssets"));
             }
-            return _i;
+            return _instance;
         }
     }
 

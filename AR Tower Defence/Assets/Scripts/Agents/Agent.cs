@@ -15,12 +15,13 @@ public class Agent : Destroyable
     [SerializeField] float AiUpdateTime = 1f;
     [SerializeField] protected Transform DefaultTarget;
     [SerializeField] protected string TargetName = "";
+    [SerializeField] protected float _distanceFromTarget=1;
     NavMeshAgent _navAgent;
- 
+
 
     AIPerception perception;
-    float timeSinceAIUpdate = 1;
-    Destroyable targetDestroyable;
+    [SerializeField] float timeSinceAIUpdate = 1;
+    [SerializeField] Transform _currentTarget;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class Agent : Destroyable
     {
         _navAgent = GetComponent<NavMeshAgent>();
         base.Init();
-        
+        OnSpawn();
     }
 
     void OnEnable()
@@ -46,18 +47,29 @@ public class Agent : Destroyable
         IsDestroyed = false;
         Health = MaxHealth;
         _navAgent.speed = _baseSpeed;
-        _navAgent.isStopped = false;       
+        _navAgent.isStopped = false;
+        SetTarget(DefaultTarget);
     }
 
-    public void SetDestination(Vector3 destination)
+    public void SetTarget(Transform target)
     {
-       
-        if (_navAgent.isOnNavMesh)
-        {
-            Vector3 randomDisplacement = Random.onUnitSphere / 4 * WorldRoot.instance.transform.localScale.x;
-            randomDisplacement.y = 0;
-            _navAgent.SetDestination(destination + randomDisplacement);
-        }
+        //if (_currentTarget != target || _currentTarget==null)
+        //{
+            if (_navAgent.isOnNavMesh)
+            {
+                _currentTarget = target;
+
+                Vector3 randomDisplacement =  Random.onUnitSphere / 4* _distanceFromTarget;
+                randomDisplacement.y = 0;
+                if (target)
+                {
+                    _navAgent.SetDestination(target.transform.position + randomDisplacement);
+                }
+                else {
+                    _navAgent.SetDestination(transform.position + randomDisplacement);
+                }
+            }
+        //}
     }
 
     protected override void Death()
@@ -70,6 +82,13 @@ public class Agent : Destroyable
 
     void Update()
     {
+        if (_currentTarget)
+        {
+            if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
+            {
+                transform.LookAt(_currentTarget);
+            }
+        }
         timeSinceAIUpdate += Time.deltaTime;
         if (timeSinceAIUpdate > AiUpdateTime)
         {
@@ -77,28 +96,18 @@ public class Agent : Destroyable
 
             if (closestTarget)
             {
-                targetDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
+                Destroyable targetDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
                 if (targetDestroyable)
-                {           
-                    // Attack if in attack range else move towards target 
-                    if (_attack.Activate(targetDestroyable.transform.position + Vector3.up * targetDestroyable.transform.localScale.y / 2))
-                    {
-                        transform.LookAt(targetDestroyable.transform);
-                    }
-                    else
-                    {
-                        SetDestination(targetDestroyable.transform.position);
-                    }
-
-
+                {
+                   SetTarget(closestTarget.transform);   
                 }
             }
-            else if(DefaultTarget){
-                SetDestination(DefaultTarget.position);
+            else 
+            {
+                SetTarget(DefaultTarget);
             }
-
+            timeSinceAIUpdate = 0;
         }
-
     }
 
     protected override void OnSlow(float slowness)
@@ -114,7 +123,7 @@ public class Agent : Destroyable
     {
         _navAgent.isStopped = true;
     }
-    protected override  void OnEndStun()
+    protected override void OnEndStun()
     {
         _navAgent.isStopped = false;
     }

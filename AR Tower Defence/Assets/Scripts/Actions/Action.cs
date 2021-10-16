@@ -6,12 +6,12 @@ public class Action : MonoBehaviour
 {
     public float cooldown;
     public float duration;
-
-    public float timeRemaining = 0;
-    public float timeStep = 0.1f;
+ 
+    [SerializeField]float _timeRemaining = 0;
 
     [SerializeField] bool isReady = true;
     [SerializeField] bool isActing = false;
+    [SerializeField] bool isCooling = false;
     [SerializeField] protected float _range = -1;
 
     private void Start()
@@ -30,9 +30,12 @@ public class Action : MonoBehaviour
         {
             if (Vector3.Distance(targetPosition, transform.position) < _range || _range < 0)
             {
+               
                 Act(targetPosition);
-                StartCoroutine(ActionTimer());
+                isActing = true;
                 isReady = false;
+                isCooling = false;
+                _timeRemaining = duration;
                 return true;
             }
         }
@@ -51,28 +54,32 @@ public class Action : MonoBehaviour
     public virtual void EndAction()
     {
         isActing = false;
-        StartCoroutine(CoolDownTimer());
+        isCooling = true;
+        isReady = false;
+        _timeRemaining = cooldown;
     }
 
-    IEnumerator ActionTimer()
-    {
-        timeRemaining = duration;
-        for (float i = duration; i > 0; i -= timeStep)
-        {
-            timeRemaining = i;
-            yield return new WaitForSeconds(timeStep);
-        }
-        EndAction();
-       
-    }
-
-    IEnumerator CoolDownTimer() {
-        timeRemaining = cooldown;
-        for (float i = cooldown; i > 0; i -= timeStep)
-        {
-            timeRemaining = i;
-            yield return new WaitForSeconds(timeStep);
-        }
+    public virtual void EndCoolDown() {
+        isCooling = false;
+        isActing = false;
         isReady = true;
-    }    
+    }
+
+    private void Update()
+    {
+        _timeRemaining -= Time.deltaTime;
+        if (_timeRemaining < 0)
+        {
+            if (isCooling)
+            {
+                EndCoolDown();
+            }
+            else if (isActing) {
+                EndAction();
+            }
+        }
+    }
+
+    
+   
 }
