@@ -25,9 +25,12 @@ public class Projectile : MonoBehaviour
         _rbody = GetComponent<Rigidbody>();
     }
 
-    IEnumerator LifeTimer() {
-        yield return new WaitForSeconds(_lifetime);
-        if (!_hasHit)
+   
+
+    private void Update()
+    {
+        _lifetime -= Time.deltaTime;
+        if (_lifetime < 0)
         {
             gameObject.SetActive(false);
         }
@@ -38,7 +41,7 @@ public class Projectile : MonoBehaviour
         _hasHit = false;
         transform.right = _direction;
         _rbody.velocity = _speed * _direction;
-        
+       
     }
 
     

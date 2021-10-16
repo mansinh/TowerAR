@@ -7,14 +7,31 @@ using UnityEngine.EventSystems;
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] Image _image;
-    [SerializeField] GameObject _ghost;
+    [SerializeField] protected GameObject Ghost;
+    [SerializeField] float _selectTime = 0.07f;
+    [SerializeField] protected string Description = "Basic Card";
 
-    CardDeck deck;
-
-    Vector3 _originalImagePosition;
+    public CardDeck Deck;
+    Text _descriptionText;
     RectTransform _rectTransform;
 
     bool _isSelected = false;
+
+    void Start()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+        _image.color = Color.gray;
+        //_ghost.transform.SetParent(WorldRoot.instance.transform);
+
+        GameObject descriptionObject = GameObject.Find("CardDescription");
+        if (descriptionObject)
+        {
+            if (descriptionObject.GetComponent<Text>())
+            {
+                _descriptionText = descriptionObject.GetComponent<Text>();
+            }
+        }
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -26,10 +43,13 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 card.Deselect();
             }
             Select();
-
         }
         else
         {
+            if (GameController.Instance.IsAR)
+            {
+                ActivateCard();
+            }
             Deselect();
         }
     }
@@ -43,39 +63,45 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         _isSelected = true;
         _image.color = Color.white;
-        _ghost.SetActive(true);
-        if (GameController.Instance.IsAR)
-        {
-
-        }
+        StartCoroutine(MoveImage(GetComponent<RectTransform>().position+ Vector3.up * 20, _selectTime));
+        Ghost.SetActive(true);
+        _descriptionText.text = Description;
     }
+
+
 
     public void Deselect()
     {
         _isSelected = false;
-        _ghost.SetActive(false);
+        Ghost.SetActive(false);
         _image.color = Color.gray;
+        StartCoroutine(MoveImage(GetComponent<RectTransform>().position, _selectTime));
+        _descriptionText.text = "";
     }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator MoveImage(Vector3 moveTo, float duration)
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _image.color = Color.gray;
-        _ghost.transform.parent = WorldRoot.instance.transform;
+        Vector3 moveFrom = _image.GetComponent<RectTransform>().position;     
+        for (float i = 0; i < duration; i += 0.01f)
+        {
+
+            _image.GetComponent<RectTransform>().position = Vector3.Lerp(moveFrom, moveTo, i / duration);
+
+            yield return new WaitForSeconds(0.01f);
+        }
+        _image.GetComponent<RectTransform>().position = moveTo;
     }
 
-    // Update is called once per frame
+  
+
     void Update()
     {
-
         if (MyCursor.instance.GetCursorHitting())
         {
             if (_isSelected)
             {
                 RaycastHit hit = MyCursor.instance.GetCursorHit();
                 UpdateGhost(hit);
-
                 if (GameController.Instance.IsAR)
                 {
 
@@ -84,7 +110,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 {
                     if (Input.GetMouseButtonUp(0))
                     {
-                        ApplyCard(hit);
+                        ActivateCard();
+                        Deselect();
+                    }
+                    else if (Input.GetMouseButtonUp(1))
+                    {
                         Deselect();
                     }
                 }
@@ -93,11 +123,12 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     protected virtual void UpdateGhost(RaycastHit hit) {
-        _ghost.transform.position = hit.transform.position;
+        Ghost.transform.position = hit.point;
+        Ghost.transform.up = Vector3.up;
     }
 
-    protected virtual void ApplyCard(RaycastHit hit)
+    protected virtual void ActivateCard()
     {
-        
+        Deck.OnActivateCard(this);
     }
 }

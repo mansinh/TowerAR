@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1188467251135322557}
   - component: {fileID: 2549171254874627625}
   - component: {fileID: 7793888571834523285}
-  - component: {fileID: 2243530152978876946}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2243530152978876946
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181662708956255755}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &5620371262679748923
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +124,7 @@ SphereCollider:
   m_GameObject: {fileID: 5620371262679748923}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Center: {x: 0, y: 0, z: 0}
@@ -155,9 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b169050b2baf9f747aa10c6bf222ccd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 3
+  cooldown: 4
   duration: 0
-  timeRemaining: 0
+  cooldownVariance: 1
   timeStep: 0.1
   isReady: 1
   isActing: 0

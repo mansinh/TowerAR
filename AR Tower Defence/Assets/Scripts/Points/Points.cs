@@ -19,13 +19,12 @@ public class Points : MonoBehaviour
     {
         instance = this;
         _view = GetComponent<PointsView>();
+        _view.SetPoints(_totalPoints);
         InitEnemyPoints();
+        
     }
 
-    void Start()
-    {
-        _view.SetPoints(_totalPoints);
-    }
+   
 
     //*************************************************************************************************************************
 
@@ -59,6 +58,6 @@ public class Points : MonoBehaviour
     void InitEnemyPoints()
     {
         int basePoints = 10;
-        EnemyPoints.Add("enemy", basePoints);
+        EnemyPoints.Add("Enemy", basePoints);
     }
 }

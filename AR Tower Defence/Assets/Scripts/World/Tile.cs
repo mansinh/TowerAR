@@ -12,6 +12,8 @@ public class Tile : MonoBehaviour
     MeshRenderer blockRenderer;
     [SerializeField] int _height = 0;
 
+    public bool IsOccupied = false;
+    public bool IsCorrupt = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -39,6 +41,11 @@ public class Tile : MonoBehaviour
     }
     public int GetHeight() {
         return _height;
+    }
+
+    //TODO
+    public Vector3 GetTop() {
+        return transform.position + Vector3.up * ((_height+1)*transform.localScale.y);
     }
     public void UpdateBlock()
     {
