@@ -6,7 +6,7 @@ using UnityEngine;
 public class Melee :Attack
 {
 
-    [SerializeField] protected float _attackRange;
+    
     [SerializeField] GameObject _attackImpact;
     SphereCollider meleeCollider;
 
@@ -19,14 +19,10 @@ public class Melee :Attack
     protected override void Act(Vector3 targetPosition)
     {
         base.Act(targetPosition);
-
-        if (Vector3.Distance(targetPosition, transform.position) < _attackRange)
-        {            
-            meleeCollider.enabled = true;
-        }
-        
+        meleeCollider.enabled = true;
     }
 
+    
     public override void EndAction()
     {
         
@@ -40,9 +36,7 @@ public class Melee :Attack
        
         Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();
         if (destroyable)
-        {
-            print("ATTACK PLAYER HIT "+ CalulateDamage().damage);
-            
+        { 
             destroyable.Damage(CalulateDamage());
             _attackImpact.SetActive(true);
         }

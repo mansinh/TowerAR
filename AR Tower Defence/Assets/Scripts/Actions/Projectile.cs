@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Projectile : Poolable
+public class Projectile : MonoBehaviour
 {
     private Rigidbody _rbody;
     private Damage _attackDamage;
@@ -21,9 +21,7 @@ public class Projectile : Poolable
         transform.position = shootFrom;
     }
 
-    public override void Init(Pool pool)
-    {
-        base.Init(pool);
+    void Awake() { 
         _rbody = GetComponent<Rigidbody>();
     }
 
@@ -31,21 +29,19 @@ public class Projectile : Poolable
         yield return new WaitForSeconds(_lifetime);
         if (!_hasHit)
         {
-            OnRelease();
+            gameObject.SetActive(false);
         }
     }
 
-    public override void OnPush()
+    void OnEnable()
     {
         _hasHit = false;
         transform.right = _direction;
         _rbody.velocity = _speed * _direction;
-        base.OnPush();
+        
     }
-    public override void OnRelease()
-    {
-        base.OnRelease();
-    }
+
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -55,7 +51,7 @@ public class Projectile : Poolable
         {
             destroyable.Damage(_attackDamage);
         }
-        OnRelease();
+        gameObject.SetActive(false);
     }
    
 }

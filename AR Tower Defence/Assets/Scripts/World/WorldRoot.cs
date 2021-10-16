@@ -41,11 +41,7 @@ public class WorldRoot : MonoBehaviour
         
         for (int i = 0; i < enemies.Length; i++)
         {
-
-
-
-            enemies[i].GetComponent<NavMeshAgent>().enabled = true;
-            enemies[i].FindDestination();
+            enemies[i].GetComponent<NavMeshAgent>().enabled = true;   
         }
         
     }
@@ -54,11 +50,8 @@ public class WorldRoot : MonoBehaviour
         enemies = FindObjectsOfType<Enemy>();
       
         for(int i = 0; i < enemies.Length;i++)
-        {
-       
-            enemies[i].GetComponent<NavMeshAgent>().enabled = false;
-          
-           
+        {    
+            enemies[i].GetComponent<NavMeshAgent>().enabled = false;          
         }
     }
 

@@ -18,23 +18,27 @@ public class Shoot : Attack
     }
 
     void ShootProjectile(Vector3 targetPosition) {
-        Projectile projectile = projectilePool.GetNextPoolable() as Projectile;
-        if (projectile)
+        if (projectilePool.GetInactive().Count > 0)
         {
-            Vector3 projectileDirection = (targetPosition - transform.position).normalized;
+            Projectile projectile = projectilePool.GetNextPoolable().GetComponent<Projectile>();
+            if (projectile)
+            {
+                Vector3 projectileDirection = (targetPosition - transform.position).normalized;
 
-            //accuracy
-            //speedvariation
-         
-            projectile.SetProperties(CalulateDamage(), _projectileLifetime, _projectileSpeed, projectileDirection, transform.position);
-            projectilePool.Push();
+                //accuracy
+                //speedvariation
+
+                projectile.SetProperties(CalulateDamage(), _projectileLifetime, _projectileSpeed, projectileDirection, transform.position);
+                projectilePool.Push();
+            }
         }
     }
 
     protected override void Init()
     {
         projectilePool = gameObject.AddComponent<Pool>();
-        projectilePool.SetPrefab(_projectilePrefab);
+        projectilePool.SetPrefab(_projectilePrefab.gameObject);
         projectilePool.SetPoolSize(_projectileCount);
+        projectilePool.Init();
     }
 }

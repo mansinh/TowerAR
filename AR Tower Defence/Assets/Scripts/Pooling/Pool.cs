@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class Pool : MonoBehaviour
 {
-    [SerializeField] Poolable _prefab;
+    [SerializeField] GameObject _prefab;
     [SerializeField] int _poolSize = 5;
+    [SerializeField] float _checkPoolablesTime = 1;
 
-    private List<Poolable> _inactive = new List<Poolable>();
-    private List<Poolable> _active = new List<Poolable>();
+    private List<GameObject> _inactive = new List<GameObject>();
+    private List<GameObject> _toBeReleased = new List<GameObject>();
+    private List<GameObject> _active = new List<GameObject>();
 
-    private void Start()
-    {
-        Init();
-    }
+    private float _timeSinceLastCheck = 0;
+
+  
 
     public virtual void Init() {
         for (int i = 0; i < _poolSize; i++)
         {
-            Poolable poolable = Instantiate(_prefab, WorldRoot.instance.transform).GetComponent<Poolable>();
-            poolable.Init(this);
+            GameObject poolable = Instantiate(_prefab, WorldRoot.instance.transform);
+            poolable.SetActive(false);
             _inactive.Add(poolable);
         }
     }
 
-    public Poolable GetNextPoolable() {
+  
+    public GameObject GetNextPoolable() {
         if (_inactive.Count > 0)
         {
             return _inactive[0];
@@ -36,14 +38,40 @@ public class Pool : MonoBehaviour
     {
         if (_inactive.Count > 0)
         {
-            Poolable poolable = _inactive[0];
+            GameObject poolable = _inactive[0];
             _active.Add(poolable);
             _inactive.Remove(poolable);
-            poolable.OnPush();
+            poolable.transform.position = transform.position;
+            poolable.SetActive(true);
+            
         }
     }
 
-    public void Release(Poolable poolable)
+    void Update() {
+        if (_timeSinceLastCheck > _checkPoolablesTime)
+        {
+            CheckPoolables();
+        }
+        _timeSinceLastCheck += Time.deltaTime;
+    }
+
+    void CheckPoolables()
+    {
+        _toBeReleased.Clear();
+        foreach (GameObject poolable in _active)
+        {
+            if (!poolable.activeSelf)
+            {
+                _toBeReleased.Add(poolable);
+            }
+        }
+        foreach (GameObject poolable in _toBeReleased) {
+            Release(poolable);
+        }
+        _timeSinceLastCheck = 0;
+    }
+
+    public void Release(GameObject poolable)
     {
         if (_active.Contains(poolable))
         {
@@ -56,14 +84,14 @@ public class Pool : MonoBehaviour
         }
     }
 
-    public void SetPrefab(Poolable prefab) {
+    public void SetPrefab(GameObject prefab) {
         _prefab = prefab;
     }
     public void SetPoolSize(int poolSize) {
         _poolSize = poolSize;
     }
 
-    public List<Poolable> GetInactive() {
+    public List<GameObject> GetInactive() {
         return _inactive;
     }
 }

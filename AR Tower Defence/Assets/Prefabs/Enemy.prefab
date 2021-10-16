@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8849372082746837272}
   m_Layer: 6
   m_Name: Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 3011552714801603983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 5805480361504993695}
   - {fileID: 3021620146091713092}
@@ -151,17 +151,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da6cb3d81f05a54cab8def4ba9b07d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navAgent: {fileID: 3011552714801603985}
   _view: {fileID: 5805480361504993695}
   MaxHealth: 100
   DeathDuration: 0.1
   Health: 100
   _baseSpeed: 1
   IsDestroyed: 0
-  _name: enemy
+  Name: Enemy
   _attack: {fileID: 4640973689676285920}
-  _detectRange: 3
-  AiUpdateTime: 0.2
+  _detectRange: 5
+  AiUpdateTime: 1
+  DefaultTarget: {fileID: 0}
+  TargetName: Player
 --- !u!54 &4389204082048990393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -233,7 +234,7 @@ SphereCollider:
   m_GameObject: {fileID: 3974337404979572499}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -255,7 +256,8 @@ MonoBehaviour:
   timeStep: 0.1
   isReady: 1
   isActing: 0
-  _attackDamage: 0.1
+  _range: 1
+  _attackDamage: 1
   _criticalDamage: 0
   _criticalRate: 0
   _stunDamage: 0
@@ -266,7 +268,6 @@ MonoBehaviour:
   _poisonDamage: 0
   _poisonDuration: 0
   _poisonSlowness: 0
-  _attackRange: 2
   _attackImpact: {fileID: 2241536286847111080}
 --- !u!1 &4452460419362323356
 GameObject:
