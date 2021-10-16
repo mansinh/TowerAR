@@ -14,6 +14,7 @@ public class Enemy : Agent
         base.Init();
     }
 
+  
     protected override void Death()
     {
         Points.instance.EnemyKilled(Name);

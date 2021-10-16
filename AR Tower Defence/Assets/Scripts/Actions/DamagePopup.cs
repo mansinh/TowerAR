@@ -12,7 +12,7 @@ public class DamagePopup : MonoBehaviour
     //Creates DamageIndicatorPopup in the game world.
     public static DamagePopup Create(Transform damaged,Damage damage, bool isPoison)
     {
-        Transform damagePopupTransform = Instantiate(GameAssets.i.damageIndicatorPopup, damaged);
+        Transform damagePopupTransform = Instantiate(GameAssets.instance.damageIndicatorPopup, damaged);
         damagePopupTransform.localPosition = Vector3.up;
 
         DamagePopup dPopup = damagePopupTransform.GetComponent<DamagePopup>();
@@ -86,5 +86,9 @@ public class DamagePopup : MonoBehaviour
         }
 
         transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+    }
+
+    void OnDisable() {
+        Destroy(gameObject);
     }
 }

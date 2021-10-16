@@ -14,7 +14,9 @@ public class PointsView : MonoBehaviour
     bool isUpdatingText = false;
 
     public void SetPoints(int points) {
-        _currentPoints = points = _targetPoints;
+        _currentPoints = points;
+        _targetPoints = points;
+        SetText();
     }
 
     public void UpdatePoints(int totalPoints) {
@@ -30,12 +32,15 @@ public class PointsView : MonoBehaviour
         isUpdatingText = true;
         while (_currentPoints < _targetPoints) {
             _currentPoints++;
-            _pointsText.text = "" + _currentPoints + "p";
+            SetText();
             yield return new WaitForSeconds(_deltaTime);
         }
         _currentPoints = _targetPoints;
-        _pointsText.text = "" + _targetPoints + "p";
+        SetText();
         isUpdatingText = false;
     }
 
+    void SetText() {
+        _pointsText.text = "" + _currentPoints + "p";
+    }
 }
