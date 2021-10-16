@@ -16,6 +16,12 @@ public class Action : MonoBehaviour
     private void Awake()
     {
         Init();
+        
+    }
+
+    private void OnEnable() {
+        isReady = true;
+        print("Action enabled");
     }
 
     public void Activate(Vector3 targetPosition) {
@@ -27,6 +33,8 @@ public class Action : MonoBehaviour
             isReady = false;         
         }
     }
+
+   
 
     protected virtual void Init() {}
     protected virtual void Act(Vector3 targetPosition)
