@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class DamagePopup : MonoBehaviour
 {
+    [SerializeField] Color _normalColor = new Color32(255, 255, 255, 255);
+    [SerializeField] Color _criticalColor = new Color32(255, 138, 85, 255);
+    [SerializeField] Color _poisonColor = new Color32(95, 78, 115, 255);
+
     //Creates DamageIndicatorPopup in the game world.
-    public static DamagePopup Create(Vector3 position,Damage damage, bool isPoison)
+    public static DamagePopup Create(Transform damaged,Damage damage, bool isPoison)
     {
-        Transform damagePopupTrandform = Instantiate(GameAssets.i.damageIndicatorPopup, position, Quaternion.identity);
-        DamagePopup dPopup = damagePopupTrandform.GetComponent<DamagePopup>();
+        Transform damagePopupTransform = Instantiate(GameAssets.i.damageIndicatorPopup, damaged);
+        damagePopupTransform.localPosition = Vector3.up;
+
+        DamagePopup dPopup = damagePopupTransform.GetComponent<DamagePopup>();
         dPopup.Setup(damage, isPoison);
         return dPopup;
     }
     private Vector3 moveVector;
-    private const float maxDissapearTimer = 1f;
+    private const float maxDisappearTimer = 1f;
     private TextMeshPro textMesh;
     private Color textColor;
     private static int sortingOrder;
@@ -30,18 +36,18 @@ public class DamagePopup : MonoBehaviour
         textMesh.SetText(((int)damage.damage).ToString());
         if (damage.isCritical)
         {
-            textMesh.fontSize = 14;
-            textColor = new Color32(255,138,85,255);
+            textMesh.fontSize = 16;
+            textColor = _criticalColor;
         }
         else
         {
             textMesh.fontSize = 10;
-            textColor = new Color32(255, 255, 255, 255);
+            textColor = _normalColor;
         }
         if (isPoison)
         {
             textMesh.fontSize = 12f;
-            textColor = new Color32(95, 78, 115, 255);
+            textColor = _poisonColor;
             textMesh.SetText(((int)damage.poisonDamage).ToString());
         }
 
@@ -49,16 +55,17 @@ public class DamagePopup : MonoBehaviour
         textMesh.sortingOrder = sortingOrder;
 
         textMesh.color = textColor;
-        dissapearTimer = maxDissapearTimer;
-        moveVector = new Vector3(Random.Range(-15,15), (Random.Range(0, 15)), (Random.Range(-15, 15)));
+        disappearTimer = maxDisappearTimer;
+        //moveVector = new Vector3(Random.Range(-15,15), (Random.Range(0, 15)), (Random.Range(-15, 15)));
+        moveVector = new Vector3(0, (Random.Range(0, 5)), 0);
     }
-    private float dissapearTimer;
+    private float disappearTimer;
     private void Update()
     {
         transform.position += moveVector * Time.deltaTime;
         moveVector -= moveVector * 8 * Time.deltaTime;
 
-        if (dissapearTimer > maxDissapearTimer*0.5)
+        if (disappearTimer > maxDisappearTimer*0.5)
         {
             float decreaseScale = 1f;
             transform.localScale -= Vector3.one * decreaseScale * Time.deltaTime;
@@ -66,11 +73,11 @@ public class DamagePopup : MonoBehaviour
 
         //Destroys TMPro upon finishing it's time.
 
-        dissapearTimer -= Time.deltaTime;
-        if(dissapearTimer < 0)
+        disappearTimer -= Time.deltaTime;
+        if(disappearTimer < 0)
         {
-            float dissapearSpeed = 3f;
-            textColor.a -= dissapearSpeed * Time.deltaTime;
+            float disappearSpeed = 3f;
+            textColor.a -= disappearSpeed * Time.deltaTime;
             textMesh.color = textColor;
             if (textColor.a < 0)
             {

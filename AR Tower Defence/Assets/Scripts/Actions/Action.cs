@@ -12,26 +12,31 @@ public class Action : MonoBehaviour
 
     [SerializeField] bool isReady = true;
     [SerializeField] bool isActing = false;
+    [SerializeField] protected float _range = -1;
 
-    private void Awake()
+    private void Start()
     {
         Init();
         
     }
-
+    
     private void OnEnable() {
-        isReady = true;
-        print("Action enabled");
+        EndAction();
     }
 
-    public void Activate(Vector3 targetPosition) {
+
+    public bool Activate(Vector3 targetPosition) {
         if (isReady)
         {
-           
-            Act(targetPosition);
-            StartCoroutine(ActionTimer());
-            isReady = false;         
+            if (Vector3.Distance(targetPosition, transform.position) < _range || _range < 0)
+            {
+                Act(targetPosition);
+                StartCoroutine(ActionTimer());
+                isReady = false;
+                return true;
+            }
         }
+        return false;
     }
 
    

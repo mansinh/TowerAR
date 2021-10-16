@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7793888571834523285}
   - component: {fileID: 2243530152978876946}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2181662708956255755}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5620371262679748922}
@@ -105,8 +105,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5620371262679748922}
-  - component: {fileID: 5620371262679748921}
   - component: {fileID: 861638846039651902}
+  - component: {fileID: 2429031982447925755}
+  - component: {fileID: 4108903011536921219}
   m_Layer: 6
   m_Name: EnemySource
   m_TagString: Untagged
@@ -129,27 +130,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5620371262679748921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5620371262679748923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d818858becb674e966c485afc562c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _view: {fileID: 1188467251135322557}
-  MaxHealth: 0
-  DeathDuration: 0
-  Health: 0
-  _baseSpeed: 1
-  IsDestroyed: 0
-  EnemyPrefab: {fileID: 3011552714801603983, guid: 977a93909bccc75459cd14dc89dbedd4, type: 3}
-  spawnTime: 20
-  isSpawning: 0
 --- !u!135 &861638846039651902
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -163,3 +143,42 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2429031982447925755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620371262679748923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b169050b2baf9f747aa10c6bf222ccd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 3
+  duration: 0
+  timeRemaining: 0
+  timeStep: 0.1
+  isReady: 1
+  isActing: 0
+  _range: -1
+  _enemyPrefab: {fileID: 3011552714801603989, guid: 977a93909bccc75459cd14dc89dbedd4, type: 3}
+  _enemyCount: 5
+--- !u!114 &4108903011536921219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620371262679748923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d818858becb674e966c485afc562c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 1188467251135322557}
+  MaxHealth: 1000
+  DeathDuration: 1
+  Health: 1000
+  _baseSpeed: 0
+  IsDestroyed: 0

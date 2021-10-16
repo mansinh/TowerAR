@@ -31,13 +31,9 @@ public class Points : MonoBehaviour
 
     public void EnemyKilled(string name)
     {
-        print(name);
         int pointsAwarded = 0;
         EnemyPoints.TryGetValue(name, out pointsAwarded);
         _totalPoints += pointsAwarded;
-
-        print(pointsAwarded);
-
         _view.UpdatePoints(_totalPoints);
     }
 

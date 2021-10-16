@@ -183,3 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3509373c22a2384d99ff0887df77be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _normalColor: {r: 1, g: 1, b: 1, a: 1}
+  _criticalColor: {r: 1, g: 0.5411765, b: 0.33333334, a: 1}
+  _poisonColor: {r: 0.33809277, g: 0.2004717, b: 0.5, a: 1}
