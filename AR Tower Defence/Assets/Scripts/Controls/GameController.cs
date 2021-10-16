@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-
+        _gameOverView.SetActive(true);
     }
 
     Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
@@ -113,10 +113,7 @@ public class GameController : MonoBehaviour
             
         }
        
-        if (_player.IsDestroyed)
-        {
-            GameOver();
-        }
+        
 
     }
 

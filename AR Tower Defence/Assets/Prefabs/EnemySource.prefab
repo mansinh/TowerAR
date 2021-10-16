@@ -141,9 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d818858becb674e966c485afc562c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 1188467251135322557}
   MaxHealth: 0
   DeathDuration: 0
   Health: 0
+  _baseSpeed: 1
   IsDestroyed: 0
   EnemyPrefab: {fileID: 3011552714801603983, guid: 977a93909bccc75459cd14dc89dbedd4, type: 3}
   spawnTime: 20

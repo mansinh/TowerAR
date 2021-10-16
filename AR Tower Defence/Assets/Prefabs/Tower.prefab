@@ -167,8 +167,11 @@ MonoBehaviour:
   _stunDamage: 10
   _stunRate: 0.15
   _stunDuration: 0.7
-  _slowness: 0.5
+  _slowness: 0.35
   _slownessDuration: 2
+  _poisonDamage: 5
+  _poisonDuration: 3
+  _poisonSlowness: 0.25
   _projectilePrefab: {fileID: 3787620487911124503, guid: 02679903f01a5d24dba1ad96fc3f290a, type: 3}
   _projectileSpeed: 8
   _projectileLifetime: 3
