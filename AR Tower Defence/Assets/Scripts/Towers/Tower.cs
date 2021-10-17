@@ -27,32 +27,19 @@ public class Tower : MonoBehaviour
         {
             if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
             {
-                transform.LookAt(_currentTarget);
+                //transform.LookAt(_currentTarget);
             }
         }
 
         _timeSinceAIUpdate += Time.deltaTime;
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {
-            Collider closestTarget = _perception.getClosestTarget("Enemy");
-            
-           
+            Collider closestTarget = _perception.getClosestTarget("Enemy");     
             if (closestTarget)
             {
                 _currentTarget = closestTarget.transform;
-                /*
-                print("name" + closestTarget.name);
-                Destroyable enemyDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
-                if (enemyDestroyable)
-                {
-                    print("destroyable");
-                    _currentTarget = enemyDestroyable.transform;
-                }*/
             }
             _timeSinceAIUpdate = 0;
         }
     }
-
-
-
 }

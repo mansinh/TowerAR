@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject _gameOverView;
 
     public bool IsAR;
-    LightningController _lightningController;
+    
     [SerializeField] Player _player;
 
 
@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
 
         Instance = this;
-        _lightningController = FindObjectOfType<LightningController>();
+       
 
     }
 

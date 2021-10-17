@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 [RequireComponent(typeof(Points))]
 public class PointsView : MonoBehaviour
 {
-    [SerializeField] Text _pointsText;
+    [SerializeField] TMP_Text _pointsText;
     [SerializeField] float _deltaTime = 0.1f;
     int _currentPoints;
     int _targetPoints;
