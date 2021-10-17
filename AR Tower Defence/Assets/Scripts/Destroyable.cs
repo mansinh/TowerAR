@@ -30,13 +30,13 @@ public class Destroyable : MonoBehaviour
    
     public virtual void Damage(Damage damage) {
         Health -= damage.damage;
-        DamageAnim(damage);
+        DamageEffects(damage);
         if (Health <= 0) {
             StartCoroutine(Die());      
         }
     }
 
-    protected virtual void DamageAnim(Damage damage){
+    protected virtual void DamageEffects(Damage damage){
         if (damage.stunDuration > 0)
         {
             _shakeAnim.StartShake(0.1f, 0.1f, Vector3.zero);
@@ -71,14 +71,11 @@ public class Destroyable : MonoBehaviour
         {
             _slownessDuration -= Time.deltaTime;
             OnSlow(_slowness);
-            //_navAgent.speed = _baseSpeed * (1f - _slowness);
             yield return new WaitForSeconds(Time.deltaTime);
         }
         _isSlowing = false;
         _slownessDuration = 0;
         _slowness = 0;
-        
-        //_navAgent.speed = _baseSpeed;
     }
 
     protected virtual void OnSlow(float slowness){}
@@ -88,6 +85,7 @@ public class Destroyable : MonoBehaviour
 
     IEnumerator Stun(float duration)
     {
+        _shakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
         OnStun();
         yield return new WaitForSeconds(duration);
         OnEndStun();
@@ -115,7 +113,7 @@ public class Destroyable : MonoBehaviour
 
    
 
-    protected virtual void Death()
+    protected virtual void Remove()
     {
         _isSlowing = false;
         _isPoisoned = false;
@@ -123,15 +121,14 @@ public class Destroyable : MonoBehaviour
     }
 
 
-    protected virtual void DeathAnim(){}
+    protected virtual void Death(){}
 
     IEnumerator Die()
     {
-        DeathAnim();
-        yield return new WaitForSeconds(DeathDuration);
         Death();
+        yield return new WaitForSeconds(DeathDuration);
+        Remove();
     }
-
 }
 
 public struct Damage

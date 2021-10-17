@@ -71,12 +71,17 @@ public class Agent : Destroyable
             }
         //}
     }
-
     protected override void Death()
     {
         _attack.EndAction();
-        _navAgent.isStopped = true;
-        base.Death();
+        _navAgent.speed = 0;
+        _navAgent.ResetPath();
+        base.Death();      
+    }
+    protected override void Remove()
+    {
+       
+        base.Remove();
         gameObject.SetActive(false);
     }
 

@@ -21,8 +21,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         _rectTransform = GetComponent<RectTransform>();
         _image.color = Color.gray;
-        //_ghost.transform.SetParent(WorldRoot.instance.transform);
-
         GameObject descriptionObject = GameObject.Find("CardDescription");
         if (descriptionObject)
         {
@@ -33,6 +31,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
+    bool isActivating = false;
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!_isSelected)
@@ -46,17 +45,13 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         else
         {
-            if (GameController.Instance.IsAR)
-            {
-                ActivateCard();
-            }
-            Deselect();
+            isActivating = true;       
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-
+        isActivating = false;
     }
 
     public void Select()
@@ -65,10 +60,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _image.color = Color.white;
         StartCoroutine(MoveImage(GetComponent<RectTransform>().position+ Vector3.up * 20, _selectTime));
         Ghost.SetActive(true);
-        _descriptionText.text = Description;
+        GameInfo.Instance.SetText(Description);
     }
-
-
 
     public void Deselect()
     {
@@ -76,7 +69,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.SetActive(false);
         _image.color = Color.gray;
         StartCoroutine(MoveImage(GetComponent<RectTransform>().position, _selectTime));
-        _descriptionText.text = "";
+        GameInfo.Instance.SetText("");
     }
 
     IEnumerator MoveImage(Vector3 moveTo, float duration)
@@ -92,8 +85,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _image.GetComponent<RectTransform>().position = moveTo;
     }
 
-  
-
     void Update()
     {
         if (MyCursor.instance.GetCursorHitting())
@@ -104,16 +95,18 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 UpdateGhost(hit);
                 if (GameController.Instance.IsAR)
                 {
-
+                    if (isActivating)
+                    {
+                        ActivateCard();
+                    }
                 }
                 else
                 {
-                    if (Input.GetMouseButtonUp(0))
+                    if (Input.GetMouseButton(0))
                     {
                         ActivateCard();
-                        Deselect();
                     }
-                    else if (Input.GetMouseButtonUp(1))
+                    else if (Input.GetMouseButtonDown(1))
                     {
                         Deselect();
                     }
@@ -129,6 +122,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     protected virtual void ActivateCard()
     {
-        Deck.OnActivateCard(this);
+       
     }
 }

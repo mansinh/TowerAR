@@ -6,7 +6,6 @@ using UnityEngine;
 public class Points : MonoBehaviour
 {
     [SerializeField] int _totalPoints = 100;
-    [SerializeField] int _initialCardDrawCost = 70;
     public static Points instance;
     PointsView _view;
 
@@ -19,45 +18,38 @@ public class Points : MonoBehaviour
     {
         instance = this;
         _view = GetComponent<PointsView>();
-        _view.SetPoints(_totalPoints);
-        InitEnemyPoints();
-        
+        _view.SetPoints(_totalPoints); 
     }
-
-   
 
     //*************************************************************************************************************************
 
-    public void EnemyKilled(string name)
+    public void EnemyKilled(string enemyType)
     {
-        int pointsAwarded = 0;
-        EnemyPoints.TryGetValue(name, out pointsAwarded);
+        int pointsAwarded = 10;
+        switch (enemyType)
+        {
+            case "Enemy": { pointsAwarded *=1; break; }        
+        }
+
         _totalPoints += pointsAwarded;
         _view.UpdatePoints(_totalPoints);
     }
 
-    public bool PurchaseCardDraw()
+    public bool PurchaseCardDraw(string deckType)
     {
-        int cardDrawCost = CalculateCardDrawCost();
-        if (_totalPoints>= CalculateCardDrawCost()) {
+        int cardDrawCost = 0;
+
+        switch (deckType) {
+            case "Main": { cardDrawCost = 20;  break; }
+            case "Lightning": { cardDrawCost = 1; break; }
+        }
+
+
+        if (_totalPoints>= cardDrawCost) {
             _totalPoints -= cardDrawCost;
             _view.UpdatePoints(_totalPoints);
             return true;
         }
         return false;
-    }
-
-    //*************************************************************************************************************************
-
-    int CalculateCardDrawCost()
-    {
-        int cardDrawCost = _initialCardDrawCost;
-        return cardDrawCost;
-    }
-
-    void InitEnemyPoints()
-    {
-        int basePoints = 10;
-        EnemyPoints.Add("Enemy", basePoints);
     }
 }

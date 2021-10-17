@@ -6,7 +6,7 @@ public class GameAssets : MonoBehaviour
 {
     //A comfortable way to save assets in one place and the pull them out when needed.
     private static GameAssets _instance;
-    public static GameAssets instance
+    public static GameAssets Instance
     {
         get
         {

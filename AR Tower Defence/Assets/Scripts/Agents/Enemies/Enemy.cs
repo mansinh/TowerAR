@@ -15,10 +15,10 @@ public class Enemy : Agent
     }
 
   
-    protected override void Death()
+    protected override void Remove()
     {
         Points.instance.EnemyKilled(Name);
-        base.Death();
+        base.Remove();
         
     }
 }
