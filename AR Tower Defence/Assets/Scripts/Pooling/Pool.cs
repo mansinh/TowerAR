@@ -19,7 +19,7 @@ public class Pool : MonoBehaviour
     public virtual void Init() {
         for (int i = 0; i < _poolSize; i++)
         {
-            GameObject poolable = Instantiate(_prefab, WorldRoot.instance.transform);
+            GameObject poolable = Instantiate(_prefab, WorldRoot.Instance.transform);
             poolable.SetActive(false);
             _inactive.Add(poolable);
         }

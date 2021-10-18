@@ -7,9 +7,9 @@ public class Enemy : Agent
     {
         Name = "Enemy";
         TargetName = "Player";
-        if (FindObjectOfType<Player>())
+        if (FindObjectOfType<Shrine>())
         {
-            DefaultTarget = FindObjectOfType<Player>().transform;
+            DefaultTarget = FindObjectOfType<Shrine>().transform;
         }
         base.Init();
     }
@@ -17,7 +17,7 @@ public class Enemy : Agent
   
     protected override void Remove()
     {
-        Points.instance.EnemyKilled(Name);
+        Points.Instance.EnemyKilled(Name);
         base.Remove();
         
     }

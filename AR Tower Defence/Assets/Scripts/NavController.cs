@@ -15,7 +15,9 @@ public class NavController : MonoBehaviour
 
 
     public void Bake() {
+        print("Bake");
         foreach (NavMeshSurface navSurface in navSurfaces) {
+            print("Bake Mesh");
             navSurface.RemoveData();
             navSurface.BuildNavMesh();
         }

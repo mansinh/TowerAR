@@ -14,10 +14,6 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject _gameOverView;
 
     public bool IsAR;
-    
-    [SerializeField] Player _player;
-
-
     public static GameController Instance;
 
     void Awake()

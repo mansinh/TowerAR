@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavController))]
 public class WorldRoot : MonoBehaviour
 {
-    public static WorldRoot instance;
-
-    NavController navController;
-  
-  
+    public static WorldRoot Instance;
+    [SerializeField] NavController navController;
     public int size = 40;  
     [SerializeField] Tile tilePrefab;
     [SerializeField] Transform world;
@@ -18,7 +16,7 @@ public class WorldRoot : MonoBehaviour
    
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         foreach (Tile tile in tiles)
         {
             if (tile.GetHeight() == 0)
@@ -26,10 +24,11 @@ public class WorldRoot : MonoBehaviour
                 tile.gameObject.SetActive(false);
             }
         }
+        
     }
     public void Init()
     {
-        navController = FindObjectOfType<NavController>();
+        
  
     }
 
@@ -37,13 +36,7 @@ public class WorldRoot : MonoBehaviour
     Enemy[] enemies;
 
     public void Refresh() {
-        //navController.Bake();
-        
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<NavMeshAgent>().enabled = true;   
-        }
-        
+        navController.Bake(); 
     }
     public void Pause()
     {

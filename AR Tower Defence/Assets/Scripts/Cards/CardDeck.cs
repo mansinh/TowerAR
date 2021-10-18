@@ -11,9 +11,9 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     [SerializeField] List<float> _cardProbability;
     [SerializeField] bool _DrawAllTypes;
     [SerializeField] float _dealTime = 0.2f;
-    [SerializeField] float _dealSize = 5f;
+    [SerializeField] int _dealSize = 5;
     [SerializeField] float _cardSpacing = 10;
-    [SerializeField] int _maxCards = 10;
+    [SerializeField] int _maxCards = 15;
     [SerializeField] bool _isCentered = false;
     [SerializeField] RectTransform _hand;
     [SerializeField] string _deckType = "Main";
@@ -30,12 +30,13 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     public void DrawCards() {
-        if (_cardsInHand.Count <= _maxCards-_dealSize)
+        if (_cardsInHand.Count <= _maxCards)
         { 
-            if (Points.instance.PurchaseCardDraw(_deckType))
+            if (Points.Instance.PurchaseCardDraw(_deckType))
             {
                 if (_DrawAllTypes)
                 {
+                    int dealSize = Mathf.Min(_maxCards - _cardsInHand.Count, _cardPrefabs.Count);
                     for (int i = 0; i < _cardPrefabs.Count; i++)
                     {
                         Card card = Instantiate(_cardPrefabs[i], transform);
@@ -45,7 +46,8 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
                 }
                 else
                 {
-                    for (int i = 0; i < _dealSize; i++)
+                    int dealSize = Mathf.Min(_maxCards - _cardsInHand.Count, _dealSize);
+                    for (int i = 0; i < dealSize; i++)
                     {
                         DrawRandomCard();
                     }                 

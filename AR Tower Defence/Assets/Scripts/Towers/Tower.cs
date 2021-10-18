@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-
     [SerializeField] float _range = 4;
     [SerializeField] float _AiUpdateTime = 0.2f;
     [SerializeField] Attack _attack;

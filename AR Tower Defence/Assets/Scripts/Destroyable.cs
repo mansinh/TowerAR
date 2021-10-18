@@ -12,7 +12,7 @@ public class Destroyable : MonoBehaviour
     [SerializeField] protected float Health;
     [SerializeField] public float _baseSpeed = 1;
     public bool IsDestroyed = false;
-    ShakeAnim _shakeAnim;
+    protected ShakeAnim ShakeAnim;
 
     protected void Awake()
     {
@@ -21,7 +21,7 @@ public class Destroyable : MonoBehaviour
 
     protected virtual void Init()
     {
-        _shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
+        ShakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
         IsDestroyed = false;
         Health = MaxHealth;
 
@@ -39,7 +39,7 @@ public class Destroyable : MonoBehaviour
     protected virtual void DamageEffects(Damage damage){
         if (damage.stunDuration > 0)
         {
-            _shakeAnim.StartShake(0.1f, 0.1f, Vector3.zero);
+            ShakeAnim.StartShake(0.1f, 0.1f, Vector3.zero);
         }
 
         _slownessDuration = Mathf.Max(damage.slownessDuration, _slownessDuration);
@@ -85,7 +85,7 @@ public class Destroyable : MonoBehaviour
 
     IEnumerator Stun(float duration)
     {
-        _shakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
+        ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
         OnStun();
         yield return new WaitForSeconds(duration);
         OnEndStun();

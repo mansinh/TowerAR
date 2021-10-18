@@ -6,6 +6,9 @@ public class BuildingCard : Card
 
     Tile _targetTile = null;
 
+    float _rotateTime = 0.8f;
+    float _timeSinceRotate = 0;
+
     protected override void UpdateGhost(RaycastHit hit)
     {
         _targetTile = hit.collider.gameObject.GetComponent<Tile>();
@@ -14,19 +17,24 @@ public class BuildingCard : Card
         {
             Ghost.SetActive(true);
             Ghost.transform.position = _targetTile.GetTop();
-            Ghost.transform.localRotation = Quaternion.identity;
         }
-        else {
-            Ghost.SetActive(false);
+       
+        _timeSinceRotate += Time.deltaTime;
+        if (_timeSinceRotate > _rotateTime) {
+            _timeSinceRotate = 0;
+            Ghost.transform.localEulerAngles = Ghost.transform.localEulerAngles + Vector3.up * 90;
         }
     }
+
+    
+
     protected override void ActivateCard()
     {
         if (_targetTile)
         {
-            GameObject building = Instantiate(_building, WorldRoot.instance.transform);
+            GameObject building = Instantiate(_building, WorldRoot.Instance.transform);
             building.transform.position = _targetTile.GetTop();
-            building.transform.localRotation = Quaternion.identity;
+            building.transform.localEulerAngles = Ghost.transform.localEulerAngles;
             Deck.RemoveCard(this);
         }
     }

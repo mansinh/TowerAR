@@ -107,7 +107,7 @@ public class Agent : Destroyable
                    SetTarget(closestTarget.transform);   
                 }
             }
-            else 
+            else if(Random.value < 0.5)
             {
                 SetTarget(DefaultTarget);
             }

@@ -159,7 +159,7 @@ MonoBehaviour:
   IsDestroyed: 0
   Name: Enemy
   _attack: {fileID: 4640973689676285920}
-  _detectRange: 1
+  _detectRange: 3
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Player
@@ -259,7 +259,7 @@ MonoBehaviour:
   isReady: 1
   isActing: 0
   isCooling: 0
-  _range: 1
+  _range: 2
   _attackDamage: 1
   _criticalDamage: 0
   _criticalRate: 0
