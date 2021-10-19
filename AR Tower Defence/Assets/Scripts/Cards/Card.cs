@@ -45,20 +45,31 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         else
         {
+            if (GameController.Instance.IsAR)
+            {
+                ActivateCard();
+            }
             isActivating = true;       
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        isActivating = false;
+        if (GameController.Instance.IsAR)
+        {
+            if (isActivating)
+            {
+                DeactivateCard();
+                isActivating = false;               
+            }        
+        }
     }
 
     public void Select()
     {
         _isSelected = true;
         _image.color = Color.white;
-        StartCoroutine(MoveImage(GetComponent<RectTransform>().position+ Vector3.up * 20, _selectTime));
+        StartCoroutine(MoveCard(GetComponent<RectTransform>().position+ Vector3.up * 20, _selectTime));
         Ghost.SetActive(true);
         GameInfo.Instance.SetText(Description);
     }
@@ -68,16 +79,15 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _isSelected = false;
         Ghost.SetActive(false);
         _image.color = Color.gray;
-        StartCoroutine(MoveImage(GetComponent<RectTransform>().position, _selectTime));
+        StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         GameInfo.Instance.SetText("");
     }
 
-    IEnumerator MoveImage(Vector3 moveTo, float duration)
+    IEnumerator MoveCard(Vector3 moveTo, float duration)
     {
         Vector3 moveFrom = _image.GetComponent<RectTransform>().position;     
         for (float i = 0; i < duration; i += 0.01f)
         {
-
             _image.GetComponent<RectTransform>().position = Vector3.Lerp(moveFrom, moveTo, i / duration);
 
             yield return new WaitForSeconds(0.01f);
@@ -87,21 +97,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Update()
     {
-        if (MyCursor.instance.GetCursorHitting())
+        if (MyCursor.Instance.GetCursorHitting())
         {
             if (_isSelected)
             {
-                RaycastHit hit = MyCursor.instance.GetCursorHit();
+                RaycastHit hit = MyCursor.Instance.GetCursorHit();
                 UpdateGhost(hit);
-                if (GameController.Instance.IsAR)
-                {
-                    if (isActivating)
-                    {
-                        ActivateCard();
-                    }
-                }
-                else
-                {
+                if (!GameController.Instance.IsAR)
+                {               
                     if (Input.GetMouseButton(0))
                     {
                         ActivateCard();
@@ -109,6 +112,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     else if (Input.GetMouseButtonDown(1))
                     {
                         Deselect();
+                    }
+
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        DeactivateCard();
                     }
                 }
             }
@@ -120,8 +128,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.transform.up = Vector3.up;
     }
 
-    protected virtual void ActivateCard()
-    {
-       
-    }
+    protected virtual void ActivateCard(){}
+    protected virtual void DeactivateCard(){}
 }

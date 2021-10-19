@@ -29,8 +29,7 @@ public class Action : MonoBehaviour
         if (isReady)
         {
             if (Vector3.Distance(targetPosition, transform.position) < _range || _range < 0)
-            {
-               
+            {             
                 Act(targetPosition);
                 isActing = true;
                 isReady = false;
@@ -42,14 +41,11 @@ public class Action : MonoBehaviour
         return false;
     }
 
-   
-
     protected virtual void Init() {}
     protected virtual void Act(Vector3 targetPosition)
     {
         isActing = true;
     }
-
 
     public virtual void EndAction()
     {

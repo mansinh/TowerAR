@@ -33,10 +33,14 @@ public class Tower : MonoBehaviour
         _timeSinceAIUpdate += Time.deltaTime;
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {
-            Collider closestTarget = _perception.getClosestTarget("Enemy");     
+            Destroyable closestTarget = _perception.getClosestTarget("Enemy");
             if (closestTarget)
             {
                 _currentTarget = closestTarget.transform;
+            }
+            else
+            {
+                _currentTarget = null;
             }
             _timeSinceAIUpdate = 0;
         }

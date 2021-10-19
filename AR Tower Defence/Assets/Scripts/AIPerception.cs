@@ -8,24 +8,30 @@ public class AIPerception : MonoBehaviour
     float detectRange;
 
 
-    public Collider getClosestTarget(string targetTag)
+    public Destroyable getClosestTarget(string targetTag)
     {
-        Collider closestTarget = null;
+        Destroyable closestTarget = null;
         float closestDistance = 10000000000;
         Collider[] detected = Physics.OverlapSphere(detectFrom.position, detectRange, LayerMask.GetMask(targetTag));
         foreach (Collider other in detected)
         {
-            RaycastHit hit;
-            if (hasLineOfSight(other, detectFrom, out hit))
+            Destroyable otherDestroyable = other.GetComponent<Destroyable>();
+            if (otherDestroyable)
             {
-                if (hit.distance < closestDistance)
+                if (!otherDestroyable.IsDestroyed)
                 {
-                    closestTarget = other;
-                    closestDistance = hit.distance;
+                    RaycastHit hit;
+                    if (hasLineOfSight(other, detectFrom, out hit))
+                    {
+                        if (hit.distance < closestDistance)
+                        {
+                            closestTarget = otherDestroyable;
+                            closestDistance = hit.distance;
+                        }
+                    }
                 }
             }
         }
-
         return closestTarget;
     }
 
@@ -35,7 +41,7 @@ public class AIPerception : MonoBehaviour
     {
 
 
-        Vector3 direction = (other.transform.position - detectFrom.position+Vector3.up/2).normalized;
+        Vector3 direction = (other.transform.position - detectFrom.position + Vector3.up / 2).normalized;
 
         Physics.Raycast(detectFrom.position, direction, out hit);
         if (hit.collider)

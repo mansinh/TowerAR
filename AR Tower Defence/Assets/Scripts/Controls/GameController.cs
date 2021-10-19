@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
             _arSession.gameObject.SetActive(true);
             _arPlaceWorld.gameObject.SetActive(true);
             _testCamera.gameObject.SetActive(false);
-            MyCursor.instance.SetScreenPosition(screenCenter);
+            MyCursor.Instance.SetScreenPosition(screenCenter);
         }
         else
         {
@@ -85,12 +85,12 @@ public class GameController : MonoBehaviour
         if (IsAR)
         {
 
-            MyCursor.instance.Cast(screenCenter);
+            MyCursor.Instance.Cast(screenCenter);
         }
         else
         {
-            MyCursor.instance.SetScreenPosition(Input.mousePosition);
-            MyCursor.instance.Cast(Input.mousePosition);
+            MyCursor.Instance.SetScreenPosition(Input.mousePosition);
+            MyCursor.Instance.Cast(Input.mousePosition);
 
         }
     }

@@ -54,11 +54,11 @@ public class Points : MonoBehaviour
 
     int TotalVillagePoints() {
         int points = GetVillagePoint("Shrine");
-        Houses[] houses = FindObjectsOfType<Houses>();
+        House[] houses = FindObjectsOfType<House>();
 
-        foreach (Houses h in houses)
+        foreach (House h in houses)
         {
-            points += GetVillagePoint("Houses");
+            points += GetVillagePoint("House");
         }
 
         return points;
@@ -68,7 +68,7 @@ public class Points : MonoBehaviour
         switch (villageBuildingType)
         {
             case "Shrine": { return 10;}
-            case "Houses": { return 3; }
+            case "House": { return 1; }
         }
         return 0;
     }

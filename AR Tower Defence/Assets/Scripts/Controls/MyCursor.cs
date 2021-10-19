@@ -8,12 +8,12 @@ public class MyCursor : MonoBehaviour
 {
     Image cursorImage;
    
-    public static MyCursor instance;
+    public static MyCursor Instance;
    
     void Awake()
     {
         cursorImage = GetComponent<Image>();
-        instance = this;
+        Instance = this;
        
     }
 
@@ -30,6 +30,7 @@ public class MyCursor : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(castFrom);
+            
             isCursorHitting = Physics.Raycast(ray, out cursorHit);
             if (isCursorHitting)
             {

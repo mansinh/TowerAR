@@ -30,7 +30,7 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     public void DrawCards() {
-        if (_cardsInHand.Count <= _maxCards)
+        if (_cardsInHand.Count <= _maxCards && _isPositioningCards == false)
         { 
             if (Points.Instance.PurchaseCardDraw(_deckType))
             {
@@ -72,33 +72,46 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
         UpdateCardPositions();
     }
 
-    IEnumerator PositionCard(Card card, int index, float duration) {
-        Vector3 start = card.GetComponent<RectTransform>().position;
-        card.GetComponent<RectTransform>().position = start;
-        yield return new WaitForSeconds(index * duration/4);
-
-        card.gameObject.SetActive(true);
-        Vector3 end = _hand.position - index* _cardSpacing * Vector3.right;
-
+    Vector3 GetCardPosition(int index) {
+        Vector3 position = _hand.position - index * _cardSpacing * Vector3.right;
         if (_isCentered)
         {
-            end += _cardsInHand.Count * _cardSpacing * Vector3.right/2;
+            position += _cardsInHand.Count * _cardSpacing * Vector3.right / 2;
         }
-
-        for (float i = 0; i < duration; i += 0.01f) {
-
-            card.GetComponent<RectTransform>().position = Vector3.Lerp(start,end,i/duration);
-            yield return new WaitForSeconds(0.01f);
-        }
-        card.GetComponent<RectTransform>().position = end;
+        return position;
     }
 
     public void UpdateCardPositions()
     {
+        if (_isPositioningCards)
+        {
+            return;
+        }
         for (int i = 0; i < _cardsInHand.Count; i++)
         {
             StartCoroutine(PositionCard(_cardsInHand[i], i, _dealTime));
         }
+    }
+
+    bool _isPositioningCards = false;
+    IEnumerator PositionCard(Card card, int index, float duration)
+    {
+        _isPositioningCards = true;
+        Vector3 start = card.GetComponent<RectTransform>().position;
+        card.GetComponent<RectTransform>().position = start;
+        yield return new WaitForSeconds(index * duration / 4);
+
+        card.gameObject.SetActive(true);
+
+
+        for (float i = 0; i < duration; i += 0.01f)
+        {
+
+            card.GetComponent<RectTransform>().position = Vector3.Lerp(start, GetCardPosition(index), i / duration);
+            yield return new WaitForSeconds(0.01f);
+        }
+        card.GetComponent<RectTransform>().position = GetCardPosition(index);
+        _isPositioningCards = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
