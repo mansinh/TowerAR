@@ -12,12 +12,16 @@ public class Shoot : Attack
 
     protected override void Init()
     {
+        base.Init();
         projectilePool = gameObject.AddComponent<Pool>();
         projectilePool.SetPrefab(_projectilePrefab.gameObject);
         projectilePool.SetPoolSize(_projectileCount);
+       
+    }
+    private void Start()
+    {
         projectilePool.Init();
     }
-
     protected override void Act(Vector3 targetPosition)
     {
         base.Act(targetPosition);

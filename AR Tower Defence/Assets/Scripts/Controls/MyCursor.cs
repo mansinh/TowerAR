@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class MyCursor : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class MyCursor : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(castFrom);
             
             isCursorHitting = Physics.Raycast(ray, out cursorHit);
-            if (isCursorHitting)
+            if (GetIsActionable())
             {
                 string hitTag = cursorHit.collider.tag;
                 switch (hitTag)
@@ -42,14 +43,10 @@ public class MyCursor : MonoBehaviour
                             cursorImage.color = Color.magenta;
                             break;
                         }
-                    case "Placeable":
-                        {
-                            cursorImage.color = Color.green;
-                            break;
-                        }
+                   
                     default:
                         {
-                            cursorImage.color = Color.white;
+                            cursorImage.color = Color.green;
                             break;
                         }
                 }
@@ -70,5 +67,23 @@ public class MyCursor : MonoBehaviour
     public bool GetCursorHitting()
     {
         return isCursorHitting;
+    }
+    public bool GetIsActionable() {
+        if (isCursorHitting)
+        {
+            try
+            {
+                Vector3 p = cursorHit.point - WorldRoot.Instance.transform.position;
+                int tileX = Mathf.RoundToInt(p.x + WorldRoot.Instance.size / 2);
+                int tileZ = Mathf.RoundToInt(p.z + WorldRoot.Instance.size / 2);
+                int tileIndex = tileZ + tileX * WorldRoot.Instance.size;
+
+                return !WorldRoot.Instance.tiles[tileIndex].GetCorrupt();
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        return false;
     }
 }

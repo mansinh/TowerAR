@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tree : MonoBehaviour, IGrowable
 {
     [SerializeField] float _growth = 0;
-    [SerializeField] float _swayFrequency = 10f;
     [SerializeField] Transform _view;
     private Forest _forest;
     float _growSpeed = 0;

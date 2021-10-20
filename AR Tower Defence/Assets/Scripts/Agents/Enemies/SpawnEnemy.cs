@@ -15,8 +15,8 @@ public class SpawnEnemy : Action
         base.Act(targetPosition);
         enemyPool.Push();
     }
-
-    protected override void Init()
+  
+    private void Start()
     {
         enemyPool = gameObject.AddComponent<Pool>();
         enemyPool.SetPrefab(_enemyPrefab.gameObject);

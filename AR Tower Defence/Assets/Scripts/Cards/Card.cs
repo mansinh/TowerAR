@@ -97,7 +97,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Update()
     {
-        if (MyCursor.Instance.GetCursorHitting())
+        if (MyCursor.Instance.GetIsActionable())
         {
             if (_isSelected)
             {

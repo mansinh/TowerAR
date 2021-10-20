@@ -12,9 +12,9 @@ public class Tile : MonoBehaviour
     BoxCollider tileCollider;
     MeshRenderer blockRenderer;
     [SerializeField] int _height = 0;
+    [SerializeField] Material m_corrupt, m_healed;
 
-    public bool IsOccupied = false;
-    public bool IsCorrupt = false;
+    [SerializeField] bool _isCorrupt = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -56,5 +56,30 @@ public class Tile : MonoBehaviour
         tileCollider.size = new Vector3(1, _height+1, 1);
     }
 
-   
+    public void SetCorruption(bool isCorrupt)
+    {
+        _isCorrupt = isCorrupt;
+
+        foreach (GameObject level in levels)
+        {
+            MeshRenderer renderer = level.GetComponent<MeshRenderer>();
+            if (renderer)
+            {
+                if (isCorrupt)
+                {
+                    renderer.material = m_corrupt;
+                }
+                else
+                {
+                    renderer.material = m_healed;
+                }
+            }
+           
+        }
+    }
+
+    public bool GetCorrupt()
+    {
+        return _isCorrupt;
+    }
 }

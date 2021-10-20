@@ -15,14 +15,14 @@ public class AIPerception : MonoBehaviour
         Collider[] detected = Physics.OverlapSphere(detectFrom.position, detectRange, LayerMask.GetMask(targetTag));
         foreach (Collider other in detected)
         {
-            print("other" + other);
+            
             Destroyable otherDestroyable = other.GetComponent<Destroyable>();
             if (otherDestroyable)
             {
-                print("other destroyable" + other);
+        
                 if (!otherDestroyable.IsDestroyed)
                 {
-                    print("other not destroyed" + other);
+              
                     RaycastHit hit;
                     if (hasLineOfSight(other, detectFrom, out hit))
                     {
@@ -49,7 +49,7 @@ public class AIPerception : MonoBehaviour
         Physics.Raycast(detectFrom.position, direction, out hit);
         if (hit.collider)
         {
-            print(gameObject.name+  " other " + other.name + " hit " + hit.collider.name);
+            //print(gameObject.name+  " other " + other.name + " hit " + hit.collider.name);
             return hit.collider.gameObject == other.gameObject;
         }
         return false;

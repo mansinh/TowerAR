@@ -49,7 +49,7 @@ public class WorldRoot : MonoBehaviour
     }
 
 
-    [SerializeField] List<Tile> tiles = new List<Tile>();
+    [SerializeField] public List<Tile> tiles = new List<Tile>();
     public void Generate()
     {
         foreach (Tile tile in tiles)

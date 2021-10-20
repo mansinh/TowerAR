@@ -15,7 +15,7 @@ public class Attack : Action
     [SerializeField] public float _poisonDamage;
     [SerializeField] public float _poisonDuration;
     [SerializeField] public float _poisonSlowness;
-
+    public float _basicAttackSpeed;
     private float _basicAttackDamage;
     private float _basicCriticalDamage;
     private float _basicCriticalRate;
@@ -37,12 +37,12 @@ public class Attack : Action
     public float _stunCard = 0;
     public float _attackSpeedCard = 0;
 
-    private void Awake()
+
+   
+    protected override void Init()
     {
-        Init();
-    }
-    protected virtual void Init()
-    {
+        base.Init();
+        _basicAttackSpeed = cooldown;
         _basicAttackDamage = _attackDamage;
         _basicCriticalDamage = _criticalDamage;
         _basicCriticalRate = _criticalRate;
