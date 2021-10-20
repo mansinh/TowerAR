@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _range: 5
-  _AiUpdateTime: 1
+  _AiUpdateTime: 0.11
   _attack: {fileID: 4979145030176779428}
   _currentTarget: {fileID: 0}
 --- !u!65 &6140706670366130800
@@ -140,7 +140,7 @@ BoxCollider:
   m_GameObject: {fileID: 6140706670366130812}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -189,23 +189,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0.5
   duration: 0
+  _basicAttackSpeed: 0
   _timeRemaining: 0
   isReady: 1
   isActing: 0
   isCooling: 0
   _range: 5
-  _attackDamage: 7
+  _attackDamage: 10
   _criticalDamage: 1.5
   _criticalRate: 0.1
-  _stunDamage: 10
-  _stunRate: 0.15
-  _stunDuration: 0.7
-  _slowness: 0.35
-  _slownessDuration: 2
-  _poisonDamage: 5
-  _poisonDuration: 3
-  _poisonSlowness: 0.25
+  _stunDamage: 0
+  _stunRate: 0
+  _stunDuration: 0
+  _slowness: 0
+  _slownessDuration: 0
+  _poisonDamage: 0
+  _poisonDuration: 0
+  _poisonSlowness: 0
+  _attackDamageCard: 0
+  _critDamageCard: 0
+  _critRateCard: 0
+  _slownessCard: 0
+  _poisonCard: 0
+  _stunCard: 0
+  _attackSpeedCard: 0
   _projectilePrefab: {fileID: 3787620487911124503, guid: 02679903f01a5d24dba1ad96fc3f290a, type: 3}
   _projectileSpeed: 8
   _projectileLifetime: 5
-  _projectileCount: 5
+  _projectileCount: 100

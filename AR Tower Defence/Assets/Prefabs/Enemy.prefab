@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0.3
+  _basicAttackSpeed: 0
   _timeRemaining: 0
   isReady: 1
   isActing: 0
@@ -270,7 +271,13 @@ MonoBehaviour:
   _slownessDuration: 0
   _poisonDamage: 0
   _poisonDuration: 0
-  _poisonSlowness: 0
+  _attackDamageCard: 0
+  _critDamageCard: 0
+  _critRateCard: 0
+  _slownessCard: 0
+  _poisonCard: 0
+  _stunCard: 0
+  _attackSpeedCard: 0
   _attackImpact: {fileID: 2241536286847111080}
 --- !u!1 &4452460419362323356
 GameObject:

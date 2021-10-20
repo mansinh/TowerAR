@@ -7,7 +7,7 @@ public class Tower : MonoBehaviour
 
     [SerializeField] float _range = 4;
     [SerializeField] float _AiUpdateTime = 0.2f;
-    [SerializeField] Attack _attack;
+    [SerializeField] public Attack _attack;
 
     AIPerception _perception;
     float _timeSinceAIUpdate = 1;
