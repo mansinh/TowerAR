@@ -35,7 +35,8 @@ public class Miracle : MonoBehaviour
         if (MyCursor.Instance.GetCursorHitting())
         {
             RaycastHit hit = MyCursor.Instance.GetCursorHit();
-            transform.position = hit.point;
+            OnHit(hit);
+            transform.position = hit.point;        
         }
         PlayEffects();
         _collider.enabled = true;
@@ -58,7 +59,12 @@ public class Miracle : MonoBehaviour
     private void Update()
     {
         LifetimeCounter();
-        
+       
+        if(MyCursor.Instance.GetCursorHitting())
+        {
+            RaycastHit hit = MyCursor.Instance.GetCursorHit();
+            OnHit(hit);
+        }
     }
 
     void LifetimeCounter()
@@ -76,15 +82,32 @@ public class Miracle : MonoBehaviour
   
     private void OnTriggerEnter(Collider other)
     {
+        //print("enter " + other);
+        OnEnterArea(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+       // print("stay " +other);
+        OnStayArea(other);
+    }
+
+    protected virtual void OnEnterArea(Collider other)
+    {
         Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();
         if (destroyable)
         {
-            Affect(destroyable);
+            destroyable.Damage(_attackDamage);
         }
     }
 
-    protected virtual void Affect(Destroyable destroyable)
+    protected virtual void OnStayArea(Collider other)
     {
-        destroyable.Damage(_attackDamage);
+        
+    }
+
+    protected virtual void OnHit(RaycastHit hit)
+    {
+       // print("hit " + hit.collider.name);
     }
 }

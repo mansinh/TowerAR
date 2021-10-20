@@ -14,25 +14,24 @@ public class Field : VillageBuilding, IGrowable
     [SerializeField] Color fullColour;
 
     [SerializeField] float _growSpeed = 0.1f;
-    [SerializeField] float _growthBonus = 0;
     [SerializeField] float _growth = 0;
 
     // Update is called once per frame
     void Update()
     {
-        Grow();
+        Grow(_growSpeed);
     }
 
     void SetColours()
     {
+        Color color = GetColour();
         foreach (SpriteRenderer sprite in _wheatSprites)
         {
 
-            sprite.color = GetColour();
+            sprite.color = color;
         }
-        Color baseColor = GetColour()*0.8f;
-        baseColor.a = 1;
-        _wheatSpriteBase.color = baseColor;
+       
+        _wheatSpriteBase.color = color;
     }
 
     Color GetColour()
@@ -44,11 +43,10 @@ public class Field : VillageBuilding, IGrowable
         return Color.Lerp(halfwayColour, fullColour, (_growth - 50) / 50);
     }
 
-    public void Grow() {
+    public void Grow(float growSpeed) {
         if (_growth < 100)
         {
-            _growth += Time.deltaTime * (_growSpeed + _growthBonus);
-            _growthBonus *= 0.9f;
+            _growth += Time.deltaTime *growSpeed;
             SetColours();
         }
         UpdateView();
@@ -67,10 +65,5 @@ public class Field : VillageBuilding, IGrowable
     {
         _growth = 0;
         //Points
-    }
-
-    public void SetGrowthBonus(float growthBonus)
-    {
-        _growthBonus = growthBonus;
     }
 }

@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 1899107105902430311}
   - component: {fileID: 2817696162143811068}
   - component: {fileID: 9126589625468306164}
+  - component: {fileID: -3261729301523623111}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Placeable
@@ -235,6 +236,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-3261729301523623111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899107105902430310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f8fc71e554a854abc6e12e91b57613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _treePrefab: {fileID: 2193533505615992168, guid: cbfca65e16372284cb63590b24cac519, type: 3}
+  _maxTreeCount: 10
+  tile: {fileID: 0}
 --- !u!1 &4730819821458073424
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class Pool : MonoBehaviour
         return null;
     }
 
-    public void Push()
+    public GameObject Push()
     {
         if (Inactive.Count > 0)
         {
@@ -42,8 +42,9 @@ public class Pool : MonoBehaviour
             Inactive.Remove(poolable);
             poolable.transform.position = transform.position;
             poolable.SetActive(true);
-            
+            return poolable;
         }
+        return null;
     }
 
     void Update() {

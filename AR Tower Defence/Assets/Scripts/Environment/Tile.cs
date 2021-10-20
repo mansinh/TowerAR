@@ -6,6 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Tile : MonoBehaviour
 {
+  
 
     [SerializeField] GameObject[] levels;
     BoxCollider tileCollider;
@@ -20,9 +21,8 @@ public class Tile : MonoBehaviour
     {
         tileCollider = GetComponent<BoxCollider>();
         transform.eulerAngles = new Vector3(0,(int)(Random.value*4)*90,0);
-    }
-
-    
+       
+    }   
 
     public void Raise()
     {
@@ -55,4 +55,6 @@ public class Tile : MonoBehaviour
         tileCollider.center = new Vector3(0, (_height+1f) / 2,0);
         tileCollider.size = new Vector3(1, _height+1, 1);
     }
+
+   
 }

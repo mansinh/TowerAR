@@ -14,6 +14,11 @@ public class MiracleController : Attack
         _miraclePool = gameObject.AddComponent<Pool>();
         _miraclePool.SetPrefab(_miraclePrefab.gameObject);
         _miraclePool.SetPoolSize(_miracleCount);
+        
+    }
+
+    private void Start()
+    {
         _miraclePool.Init();
     }
 

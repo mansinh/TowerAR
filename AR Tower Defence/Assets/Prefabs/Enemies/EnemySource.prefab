@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 861638846039651902}
   - component: {fileID: 2429031982447925755}
   - component: {fileID: 4108903011536921219}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: EnemySource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,10 +142,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 4
   duration: 0
-  cooldownVariance: 1
-  timeStep: 0.1
+  _basicAttackSpeed: 0
+  _timeRemaining: 0
   isReady: 1
   isActing: 0
+  isCooling: 0
   _range: -1
   _enemyPrefab: {fileID: 3011552714801603989, guid: 977a93909bccc75459cd14dc89dbedd4, type: 3}
   _enemyCount: 5

@@ -39,18 +39,23 @@ public class Attack : Action
 
     private void Awake()
     {
-    _basicAttackDamage = _attackDamage;
-    _basicCriticalDamage = _criticalDamage;
-    _basicCriticalRate = _criticalRate;
-    _basicStunDamage = _stunDamage;
-    _basicStunRate = _stunRate;
-    _basicStunDuration = _stunDuration;
-    _basicSlowness = _slowness;
-    _basicSlownessDuration = _slownessDuration;
-    _basicPoisonDamage = _poisonDamage;
-    _basicPoisonDuration = _poisonDuration;
-    _basicPoisonSlowness = _poisonSlowness;
-}
+        Init();
+    }
+    protected virtual void Init()
+    {
+        _basicAttackDamage = _attackDamage;
+        _basicCriticalDamage = _criticalDamage;
+        _basicCriticalRate = _criticalRate;
+        _basicStunDamage = _stunDamage;
+        _basicStunRate = _stunRate;
+        _basicStunDuration = _stunDuration;
+        _basicSlowness = _slowness;
+        _basicSlownessDuration = _slownessDuration;
+        _basicPoisonDamage = _poisonDamage;
+        _basicPoisonDuration = _poisonDuration;
+        _basicPoisonSlowness = _poisonSlowness;
+    }
+
 
     protected Damage CalulateDamage()
     {
@@ -96,7 +101,7 @@ public class Attack : Action
         if (_poisonDuration > 0) { damage.slowness = _slowness; damage.poisonDamage = _poisonDamage; damage.slownessDuration = 3;damage.poisonDuration = 3; }
         if (_slownessDuration > 0) { damage.slowness = _slowness; damage.slownessDuration = 3; }
 
-        Debug.Log(_poisonCard + "No poison");
+       
         return damage;
     }
 }

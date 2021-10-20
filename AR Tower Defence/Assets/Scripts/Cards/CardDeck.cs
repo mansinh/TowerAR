@@ -128,11 +128,11 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        print("");
+        //print("");
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print("");
+        //print("");
     }
 }

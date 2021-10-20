@@ -4,73 +4,83 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour, IGrowable
 {
-    [SerializeField] float _growSpeed = 0.1f;
-    [SerializeField] float _growthBonus = 0;
     [SerializeField] float _growth = 0;
-    [SerializeField] float _swayFrequency = 0.3f;
-    [SerializeField] float _seedProbability = 1f;
-    [SerializeField] int _maxSeedCount = 1;
-    [SerializeField] Tree treePrefab;
-    int _seedCount = 0;
+    [SerializeField] float _swayFrequency = 10f;
+    [SerializeField] Transform _view;
+    private Forest _forest;
+    float _growSpeed = 0;
 
     float _swayRandom;
     Tile tile;
 
     private void Awake()
     {
-        UpdateView();
+        _view.transform.localScale = Vector3.zero;
         _swayRandom = Random.value * Mathf.PI * 2;
-      
-
+        changeSwayDirection();
     }
 
-    void Update()
+    public void Grow(float growSpeed)
     {
-        Grow();
-    }
-
-    public void Grow()
-    {
+        _growSpeed = growSpeed;
         if (_growth < 100)
         {
-            _growth += Time.deltaTime * (_growSpeed + _growthBonus);
-            _growthBonus *= 0.9f;
-        }
-        else if (Random.value < _seedProbability && _seedCount < _maxSeedCount)
-        {
-            Seed();
+            _growth += Time.deltaTime * growSpeed;
         }
         UpdateView();
-    }
-
-    void Seed() {
-        _seedCount++;
-        float randomDirection = Mathf.PI * 2 * Random.value;
-        Vector3 seedPosition = new Vector3(Mathf.Cos(randomDirection), 0, Mathf.Sin(randomDirection))/2;
-
-        seedPosition += transform.position;
-        Tree seed = Instantiate(treePrefab);
-        seed.transform.position = seedPosition;
-        seed.SetGrowth(0);
-        seed.UpdateView();
-        seed.gameObject.SetActive(true);
-    }
-
-    public void SetGrowthBonus(float growthBonus)
-    {
-        _growthBonus = growthBonus;
+        _growSpeed = 0;
     }
 
     Vector3 swayDirection = new Vector3(1,0,0);
 
     private void UpdateView()
     {
-        transform.localScale = Vector3.one * _growth / 100;
-        transform.localEulerAngles = 3 * Mathf.Sin((_growthBonus + _swayFrequency) * Time.time + _swayRandom) * swayDirection;
+        _view.transform.localScale = Vector3.one * _growth / 100;
+        if (!_isSwaying)
+        {
+            _view.transform.localEulerAngles = 0.5f * Mathf.Sin(20 * Time.time) * swayDirection;
+        }
+
     }
 
-    public void SetGrowth(float growth)
+    public void SetForest(Forest forest) {
+        _forest = forest;
+    }
+    public Forest GetForest()
     {
-        _growth = growth;
+        return _forest;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_isSwaying)
+        {
+            
+            StartCoroutine(Sway(2, 5, 10));
+        }
+        if (other.GetComponent<Agent>()) {
+            other.GetComponent<Agent>().Slow(0.1f,_growth/100*0.5f);
+        }
+    }
+
+
+    bool _isSwaying = false;
+    IEnumerator Sway(float duration, float amplitude, float frequency)
+    {
+        _isSwaying = true;
+        changeSwayDirection();
+        for (float i = duration; i > 0;  i -= 0.01f)
+        {
+            _view.transform.localEulerAngles = i/duration* amplitude * Mathf.Sin(frequency * Time.time) * swayDirection;
+            yield return new WaitForSeconds(0.01f);
+        }
+        _isSwaying = false;
+    }
+
+    void changeSwayDirection()
+    {
+        swayDirection = Random.onUnitSphere;
+        swayDirection.y = 0;
+        swayDirection.Normalize();
     }
 }

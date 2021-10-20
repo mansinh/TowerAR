@@ -16,7 +16,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         _perception = gameObject.AddComponent<AIPerception>();
-        _perception.setDetectFrom(transform);
+        _perception.setDetectFrom(_attack.transform);
         _perception.setDetectRange(_range);
     }
 
@@ -24,7 +24,7 @@ public class Tower : MonoBehaviour
     {
         if (_currentTarget)
         {
-            if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
+            if (_attack.Activate(_currentTarget.position + Vector3.up /10))
             {
                 //transform.LookAt(_currentTarget);
             }
