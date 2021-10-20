@@ -6,8 +6,9 @@ public class Action : MonoBehaviour
 {
     public float cooldown;
     public float duration;
- 
-    [SerializeField]float _timeRemaining = 0;
+    [SerializeField] public float _basicAttackSpeed;
+
+    [SerializeField] public float _timeRemaining = 0;
 
     [SerializeField] bool isReady = true;
     [SerializeField] bool isActing = false;
@@ -17,7 +18,7 @@ public class Action : MonoBehaviour
     private void Start()
     {
         Init();
-        
+        _basicAttackSpeed = cooldown;
     }
     
     private void OnEnable() {

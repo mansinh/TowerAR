@@ -59,6 +59,13 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 
     protected virtual Card DrawRandomCard() {
         int cardType = (int)(_cardPrefabs.Count * Random.value);
+        if (GameObject.Find("Tower(Clone)") == null && _cardsInHand.Capacity <= 0)
+        {
+            while (cardType != 0)
+            {
+                cardType = (int)(_cardPrefabs.Count * Random.value);
+            }
+        }
         Card card = Instantiate(_cardPrefabs[cardType], transform);
         card.Deck = this;
         _cardsInHand.Add(card);

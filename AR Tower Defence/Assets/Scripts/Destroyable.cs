@@ -37,15 +37,13 @@ public class Destroyable : MonoBehaviour
     }
 
     protected virtual void DamageEffects(Damage damage){
-        if (damage.stunDuration > 0)
-        {
-            ShakeAnim.StartShake(0.1f, 0.1f, Vector3.zero);
-        }
 
         _slownessDuration = Mathf.Max(damage.slownessDuration, _slownessDuration);
         _slowness = Mathf.Max(damage.slowness, _slowness);
         _poisonDuration = Mathf.Max(damage.poisonDuration, _poisonDuration);
+        _poisonDamage = Mathf.Max(damage.poisonDamage, _poisonDamage);
         DamagePopup.Create(transform, damage, false);
+
 
         if (_slownessDuration > 0 && !_isSlowing)
         {
@@ -57,7 +55,8 @@ public class Destroyable : MonoBehaviour
             StartCoroutine(PoisonEffect(damage));
         }
 
-        StartCoroutine(Stun(damage.stunDuration));
+        if (damage.stunDuration > 0) { StartCoroutine(Stun(damage.stunDuration)); }
+       
     }
 
     float _slowness;
@@ -96,19 +95,22 @@ public class Destroyable : MonoBehaviour
 
 
     float _poisonDuration;
+    float _poisonDamage;
     bool _isPoisoned = false;
     IEnumerator PoisonEffect(Damage damage)
     {
         _isPoisoned = true;   
         while(_poisonDuration > 0)
         {
-            Health -= damage.poisonDamage;
+            Health -= _poisonDamage;
+            if (damage.poisonDamage != _poisonDamage) damage.poisonDamage = _poisonDamage;
             DamagePopup.Create(transform, damage, _isPoisoned);
             _poisonDuration--;
             yield return new WaitForSeconds(1);
         }
         _isPoisoned = false;
         _poisonDuration = 0;
+        _poisonDamage = 0;
     }
 
    
@@ -118,6 +120,10 @@ public class Destroyable : MonoBehaviour
         _isSlowing = false;
         _isPoisoned = false;
         IsDestroyed = true;
+        _slownessDuration = 0;
+        _slowness = 0;
+        _poisonDuration = 0;
+        _poisonDamage = 0;
     }
 
 
@@ -130,33 +136,3 @@ public class Destroyable : MonoBehaviour
         Remove();
     }
 }
-
-public struct Damage
-{
-    public float damage;
-    public float stunDuration;
-    public float slowness;
-    public float slownessDuration;
-    public float poisonDamage;
-    public float poisonDuration;
-    public bool isCritical;
-    public Damage(
-        float damage = 0,
-        float stunDuration = 0, 
-        float slowness = 0, 
-        float slownessDuration = 0,
-        bool isCritical = false,
-        float poisonDamage = 0, 
-        float poisonDuration = 0)
-    {
-        this.slowness = slowness;
-        this.damage = damage;
-        this.stunDuration = stunDuration;
-        this.slownessDuration = slownessDuration;
-        this.isCritical = isCritical;
-        this.poisonDamage = poisonDamage;
-        this.poisonDuration = poisonDuration;
-    }
-}
-
-
