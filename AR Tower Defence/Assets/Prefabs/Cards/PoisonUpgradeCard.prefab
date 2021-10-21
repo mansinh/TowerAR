@@ -191,9 +191,10 @@ MonoBehaviour:
   _image: {fileID: 255402300295847612}
   Ghost: {fileID: 3767742058877808764}
   _selectTime: 0.07
-  Description: 'Venomous: Selected unit gains abbility to poison enemies upon hit
+  Description: 'Venomous: Selected unit gains ability to poison enemies upon hit
     by dealing +5 damage every second for the duration of effect and slowing down
     enemy by +20%'
+  _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
   _Upgrade: {fileID: 0}
   UpgradeAnim: {fileID: 0}

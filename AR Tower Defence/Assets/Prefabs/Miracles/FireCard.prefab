@@ -130,6 +130,7 @@ MonoBehaviour:
   Ghost: {fileID: 5365740942102780127}
   _selectTime: 0.07
   Description: Cast Fire
+  _moveToOnSelect: {x: -10, y: 0, z: 0}
   Deck: {fileID: 0}
 --- !u!1 &3347931708580625699
 GameObject:

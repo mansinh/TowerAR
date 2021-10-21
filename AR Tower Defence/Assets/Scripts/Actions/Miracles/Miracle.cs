@@ -12,7 +12,7 @@ public class Miracle : MonoBehaviour
     [SerializeField]  protected Damage MiracleEffect;
     [SerializeField]  protected float Lifetime;
     [SerializeField]  protected float Life = 0f;
-    protected Collider Collider;
+    protected SphereCollider Collider;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class Miracle : MonoBehaviour
     }
     private void OnEnable()
     {
-        Collider = GetComponent<Collider>();
+        Collider = GetComponent<SphereCollider>();
         Activate();
     }
 
@@ -47,7 +47,6 @@ public class Miracle : MonoBehaviour
 
     void PlayEffects()
     {
-
         VisualEffect.enableEmission = true;
         VisualEffect.Play();
         SoundEffect.Play();
@@ -81,25 +80,7 @@ public class Miracle : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-  
-    private void OnTriggerEnter(Collider other)
-    {
-        OnEnterArea(other);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        OnStayArea(other);
-    }
-
-    protected virtual void OnEnterArea(Collider other)
-    {
-        Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();
-        if (destroyable)
-        {
-            destroyable.Damage(MiracleEffect);
-        }
-    }
+   
 
     protected virtual void OnStayArea(Collider other)
     {

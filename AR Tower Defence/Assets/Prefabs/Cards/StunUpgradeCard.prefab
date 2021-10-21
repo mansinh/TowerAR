@@ -267,8 +267,9 @@ MonoBehaviour:
   _image: {fileID: 4676937146684382816}
   Ghost: {fileID: 8585334198703091872}
   _selectTime: 0.07
-  Description: 'Stun: Selected unit gains abbility to stun enemies for 3 seconds
-    and dealing additional +7 damage'
+  Description: 'Stun: Selected unit gains ability to stun enemies for 3 seconds and
+    dealing additional +7 damage'
+  _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
   _Upgrade: {fileID: 0}
   UpgradeAnim: {fileID: 0}
