@@ -97,17 +97,13 @@ public class Agent : Destroyable
         timeSinceAIUpdate += Time.deltaTime;
         if (timeSinceAIUpdate > AiUpdateTime)
         {
-            Collider closestTarget = perception.getClosestTarget(TargetName);
+            Destroyable closestTarget = perception.getClosestTarget(TargetName);
 
             if (closestTarget)
-            {
-                Destroyable targetDestroyable = closestTarget.gameObject.GetComponent<Destroyable>();
-                if (targetDestroyable)
-                {
-                   SetTarget(closestTarget.transform);   
-                }
+            {              
+                SetTarget(closestTarget.transform);   
             }
-            else 
+            else if(Random.value < 0.5)
             {
                 SetTarget(DefaultTarget);
             }

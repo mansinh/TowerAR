@@ -11,9 +11,15 @@ public class MiracleController : Attack
 
     protected override void Init()
     {
+        base.Init();
         _miraclePool = gameObject.AddComponent<Pool>();
         _miraclePool.SetPrefab(_miraclePrefab.gameObject);
         _miraclePool.SetPoolSize(_miracleCount);
+        
+    }
+
+    private void Start()
+    {
         _miraclePool.Init();
     }
 
@@ -29,4 +35,6 @@ public class MiracleController : Attack
             }
         }
     }
+
+    
 }

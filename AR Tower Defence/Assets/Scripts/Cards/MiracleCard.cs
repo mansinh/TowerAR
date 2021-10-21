@@ -26,7 +26,10 @@ public class MiracleCard : Card
         }
         if (_timesActivated >= _maxTimesActivated)
         {
+            DeactivateCard();
             Deck.RemoveCard(this);
         }
-    } 
+    }
+
+   
 }

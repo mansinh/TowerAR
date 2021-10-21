@@ -10,10 +10,9 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     [SerializeField] List<Card> _cardPrefabs;
     [SerializeField] List<float> _cardProbability;
     [SerializeField] bool _DrawAllTypes;
-    [SerializeField] float _dealTime = 0.2f;
-    [SerializeField] float _dealSize = 5f;
+    [SerializeField] int _dealSize = 5;
     [SerializeField] float _cardSpacing = 10;
-    [SerializeField] int _maxCards = 10;
+    [SerializeField] int _maxCards = 15;
     [SerializeField] bool _isCentered = false;
     [SerializeField] RectTransform _hand;
     [SerializeField] string _deckType = "Main";
@@ -30,12 +29,13 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     public void DrawCards() {
-        if (_cardsInHand.Count <= _maxCards-_dealSize)
+        if (_cardsInHand.Count <= _maxCards)
         { 
-            if (Points.instance.PurchaseCardDraw(_deckType))
+            if (Points.Instance.PurchaseCardDraw(_deckType))
             {
                 if (_DrawAllTypes)
                 {
+                    int dealSize = Mathf.Min(_maxCards - _cardsInHand.Count, _cardPrefabs.Count);
                     for (int i = 0; i < _cardPrefabs.Count; i++)
                     {
                         Card card = Instantiate(_cardPrefabs[i], transform);
@@ -45,7 +45,8 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
                 }
                 else
                 {
-                    for (int i = 0; i < _dealSize; i++)
+                    int dealSize = Mathf.Min(_maxCards - _cardsInHand.Count, _dealSize);
+                    for (int i = 0; i < dealSize; i++)
                     {
                         DrawRandomCard();
                     }                 
@@ -77,34 +78,27 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
         UpdateCardPositions();
     }
 
-    IEnumerator PositionCard(Card card, int index, float duration) {
-        Vector3 start = card.GetComponent<RectTransform>().position;
-        card.GetComponent<RectTransform>().position = start;
-        yield return new WaitForSeconds(index * duration/4);
-
-        card.gameObject.SetActive(true);
-        Vector3 end = _hand.position - index* _cardSpacing * Vector3.right;
-
+    Vector3 GetCardPosition(int index) {
+        Vector3 position = _hand.position - index * _cardSpacing * Vector3.right;
         if (_isCentered)
         {
-            end += _cardsInHand.Count * _cardSpacing * Vector3.right/2;
+            position += _cardsInHand.Count * _cardSpacing * Vector3.right / 2;
         }
 
-        for (float i = 0; i < duration; i += 0.01f) {
-
-            card.GetComponent<RectTransform>().position = Vector3.Lerp(start,end,i/duration);
-            yield return new WaitForSeconds(0.01f);
-        }
-        card.GetComponent<RectTransform>().position = end;
+        print(position);
+        return position;
     }
 
     public void UpdateCardPositions()
     {
+        
         for (int i = 0; i < _cardsInHand.Count; i++)
         {
-            StartCoroutine(PositionCard(_cardsInHand[i], i, _dealTime));
+            _cardsInHand[i].SetTargetPosition(GetCardPosition(i));
+            
         }
     }
+
 
     public void OnPointerUp(PointerEventData eventData)
     {  
@@ -113,11 +107,11 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        print("");
+        //print("");
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print("");
+        //print("");
     }
 }

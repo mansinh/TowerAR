@@ -12,7 +12,7 @@ public class Destroyable : MonoBehaviour
     [SerializeField] protected float Health;
     [SerializeField] public float _baseSpeed = 1;
     public bool IsDestroyed = false;
-    ShakeAnim _shakeAnim;
+    protected ShakeAnim ShakeAnim;
 
     protected void Awake()
     {
@@ -21,7 +21,7 @@ public class Destroyable : MonoBehaviour
 
     protected virtual void Init()
     {
-        _shakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
+        ShakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
         IsDestroyed = false;
         Health = MaxHealth;
 
@@ -36,33 +36,26 @@ public class Destroyable : MonoBehaviour
         }
     }
 
-    protected virtual void DamageEffects(Damage damage){
-
-        _slownessDuration = Mathf.Max(damage.slownessDuration, _slownessDuration);
-        _slowness = Mathf.Max(damage.slowness, _slowness);
-        _poisonDuration = Mathf.Max(damage.poisonDuration, _poisonDuration);
-        _poisonDamage = Mathf.Max(damage.poisonDamage, _poisonDamage);
+    protected virtual void DamageEffects(Damage damage){       
+        Poison(damage);
         DamagePopup.Create(transform, damage, false);
-
-
-        if (_slownessDuration > 0 && !_isSlowing)
-        {
-            StartCoroutine(SlownessEffect());
-        }
-
-        if (_poisonDuration > 0 && !_isPoisoned)
-        {
-            StartCoroutine(PoisonEffect(damage));
-        }
-
+        Slow(damage.slownessDuration, damage.slowness);
         if (damage.stunDuration > 0) { StartCoroutine(Stun(damage.stunDuration)); }
-       
     }
 
     float _slowness;
     float _slownessDuration;
     bool _isSlowing = false;
-    
+    public void Slow(float slownessDuration, float slowness)
+    {
+        _slownessDuration = Mathf.Max(slownessDuration, _slownessDuration);
+        _slowness = Mathf.Max(slowness, _slowness);
+        if (_slownessDuration > 0 && !_isSlowing)
+        {
+            StartCoroutine(SlownessEffect());
+        }
+    }
+
     IEnumerator SlownessEffect()
     {
         _isSlowing = true;
@@ -81,22 +74,20 @@ public class Destroyable : MonoBehaviour
     protected virtual void OnEndSlow(){}
 
 
-
-    IEnumerator Stun(float duration)
-    {
-        _shakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
-        OnStun();
-        yield return new WaitForSeconds(duration);
-        OnEndStun();
-    }
-
-    protected virtual void OnStun(){}
-    protected virtual void OnEndStun(){}
-
-
     float _poisonDuration;
     float _poisonDamage;
     bool _isPoisoned = false;
+
+    protected void Poison(Damage damage)
+    {
+        _poisonDuration = Mathf.Max(damage.poisonDuration, _poisonDuration);
+        _poisonDamage = Mathf.Max(damage.poisonDamage, _poisonDamage);
+        if (_poisonDuration > 0 && !_isPoisoned)
+        {
+            StartCoroutine(PoisonEffect(damage));
+        }
+    }
+
     IEnumerator PoisonEffect(Damage damage)
     {
         _isPoisoned = true;   
@@ -113,7 +104,16 @@ public class Destroyable : MonoBehaviour
         _poisonDamage = 0;
     }
 
-   
+    IEnumerator Stun(float duration)
+    {
+        ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
+        OnStun();
+        yield return new WaitForSeconds(duration);
+        OnEndStun();
+    }
+
+    protected virtual void OnStun() { }
+    protected virtual void OnEndStun() { }
 
     protected virtual void Remove()
     {

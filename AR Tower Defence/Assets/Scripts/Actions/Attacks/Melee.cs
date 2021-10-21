@@ -10,8 +10,11 @@ public class Melee :Attack
     [SerializeField] GameObject _attackImpact;
     SphereCollider meleeCollider;
 
-    private void Awake()
+ 
+
+    protected override void Init()
     {
+        base.Init();
         meleeCollider = GetComponent<SphereCollider>();
         meleeCollider.enabled = false;
     }

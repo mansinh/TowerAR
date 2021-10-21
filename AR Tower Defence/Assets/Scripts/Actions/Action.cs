@@ -6,7 +6,7 @@ public class Action : MonoBehaviour
 {
     public float cooldown;
     public float duration;
-    [SerializeField] public float _basicAttackSpeed;
+ 
 
     [SerializeField] public float _timeRemaining = 0;
 
@@ -15,10 +15,14 @@ public class Action : MonoBehaviour
     [SerializeField] bool isCooling = false;
     [SerializeField] protected float _range = -1;
 
-    private void Start()
+    private void Awake()
     {
         Init();
-        _basicAttackSpeed = cooldown;
+    }
+
+    protected virtual void Init()
+    {
+        
     }
     
     private void OnEnable() {
@@ -30,8 +34,7 @@ public class Action : MonoBehaviour
         if (isReady)
         {
             if (Vector3.Distance(targetPosition, transform.position) < _range || _range < 0)
-            {
-               
+            {             
                 Act(targetPosition);
                 isActing = true;
                 isReady = false;
@@ -43,14 +46,11 @@ public class Action : MonoBehaviour
         return false;
     }
 
-   
 
-    protected virtual void Init() {}
     protected virtual void Act(Vector3 targetPosition)
     {
         isActing = true;
     }
-
 
     public virtual void EndAction()
     {

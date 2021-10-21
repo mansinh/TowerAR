@@ -15,7 +15,7 @@ public class Attack : Action
     [SerializeField] public float _poisonDamage;
     [SerializeField] public float _poisonDuration;
     [SerializeField] public float _poisonSlowness;
-
+    public float _basicAttackSpeed;
     private float _basicAttackDamage;
     private float _basicCriticalDamage;
     private float _basicCriticalRate;
@@ -37,20 +37,25 @@ public class Attack : Action
     public float _stunCard = 0;
     public float _attackSpeedCard = 0;
 
-    private void Awake()
+
+   
+    protected override void Init()
     {
-    _basicAttackDamage = _attackDamage;
-    _basicCriticalDamage = _criticalDamage;
-    _basicCriticalRate = _criticalRate;
-    _basicStunDamage = _stunDamage;
-    _basicStunRate = _stunRate;
-    _basicStunDuration = _stunDuration;
-    _basicSlowness = _slowness;
-    _basicSlownessDuration = _slownessDuration;
-    _basicPoisonDamage = _poisonDamage;
-    _basicPoisonDuration = _poisonDuration;
-    _basicPoisonSlowness = _poisonSlowness;
-}
+        base.Init();
+        _basicAttackSpeed = cooldown;
+        _basicAttackDamage = _attackDamage;
+        _basicCriticalDamage = _criticalDamage;
+        _basicCriticalRate = _criticalRate;
+        _basicStunDamage = _stunDamage;
+        _basicStunRate = _stunRate;
+        _basicStunDuration = _stunDuration;
+        _basicSlowness = _slowness;
+        _basicSlownessDuration = _slownessDuration;
+        _basicPoisonDamage = _poisonDamage;
+        _basicPoisonDuration = _poisonDuration;
+        _basicPoisonSlowness = _poisonSlowness;
+    }
+
 
     protected Damage CalulateDamage()
     {
@@ -96,7 +101,7 @@ public class Attack : Action
         if (_poisonDuration > 0) { damage.slowness = _slowness; damage.poisonDamage = _poisonDamage; damage.slownessDuration = 3;damage.poisonDuration = 3; }
         if (_slownessDuration > 0) { damage.slowness = _slowness; damage.slownessDuration = 3; }
 
-        Debug.Log(_poisonCard + "No poison");
+       
         return damage;
     }
 }

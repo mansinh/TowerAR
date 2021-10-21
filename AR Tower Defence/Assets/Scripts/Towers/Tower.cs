@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-
     [SerializeField] float _range = 4;
     [SerializeField] float _AiUpdateTime = 0.2f;
     [SerializeField] public Attack _attack;
@@ -17,7 +16,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         _perception = gameObject.AddComponent<AIPerception>();
-        _perception.setDetectFrom(transform);
+        _perception.setDetectFrom(_attack.transform);
         _perception.setDetectRange(_range);
     }
 
@@ -25,7 +24,7 @@ public class Tower : MonoBehaviour
     {
         if (_currentTarget)
         {
-            if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
+            if (_attack.Activate(_currentTarget.position + Vector3.up*_currentTarget.localScale.y/2))
             {
                 //transform.LookAt(_currentTarget);
             }
@@ -34,10 +33,14 @@ public class Tower : MonoBehaviour
         _timeSinceAIUpdate += Time.deltaTime;
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {
-            Collider closestTarget = _perception.getClosestTarget("Enemy");     
+            Destroyable closestTarget = _perception.getClosestTarget("Enemy");
             if (closestTarget)
             {
                 _currentTarget = closestTarget.transform;
+            }
+            else
+            {
+                _currentTarget = null;
             }
             _timeSinceAIUpdate = 0;
         }
