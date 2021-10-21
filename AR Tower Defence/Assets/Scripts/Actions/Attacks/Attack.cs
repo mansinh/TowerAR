@@ -4,48 +4,136 @@ using UnityEngine;
 
 public class Attack : Action
 {
-    [SerializeField] protected float _attackDamage;
-    [SerializeField] protected float _criticalDamage;
-    [SerializeField] protected float _criticalRate;
-    [SerializeField] protected float _stunDamage;
-    [SerializeField] protected float _stunRate;
-    [SerializeField] protected float _stunDuration;
-    [SerializeField] protected float _slowness;
-    [SerializeField] protected float _slownessDuration;
-    [SerializeField] protected float _poisonDamage;
-    [SerializeField] protected float _poisonDuration;
-    [SerializeField] protected float _poisonSlowness;
-  
+    [SerializeField] public float  _attackDamage;
+    [SerializeField] public float _criticalDamage;
+    [SerializeField] public float _criticalRate;
+    [SerializeField] public float _stunDamage;
+    [SerializeField] public float _stunRate;
+    [SerializeField] public float _stunDuration;
+    [SerializeField] public float _slowness;
+    [SerializeField] public float _slownessDuration;
+    [SerializeField] public float _poisonDamage;
+    [SerializeField] public float _poisonDuration;
+    [SerializeField] public float _poisonSlowness;
+    public float _basicAttackSpeed;
+    private float _basicAttackDamage;
+    private float _basicCriticalDamage;
+    private float _basicCriticalRate;
+    private float _basicStunDamage;
+    private float _basicStunRate;
+    private float _basicStunDuration;
+    private float _basicSlowness;
+    private float _basicSlownessDuration;
+    private float _basicPoisonDamage;
+    private float _basicPoisonDuration;
+    private float _basicPoisonSlowness;
+    private float _attackSpeed;
 
-  
+    public float _attackDamageCard = 0;
+    public float _critDamageCard = 0;
+    public float _critRateCard = 0;
+    public float _slownessCard = 0;
+    public float _poisonCard = 0;
+    public float _stunCard = 0;
+    public float _attackSpeedCard = 0;
+
+
+   
+    protected override void Init()
+    {
+        base.Init();
+        _basicAttackSpeed = cooldown;
+        _basicAttackDamage = _attackDamage;
+        _basicCriticalDamage = _criticalDamage;
+        _basicCriticalRate = _criticalRate;
+        _basicStunDamage = _stunDamage;
+        _basicStunRate = _stunRate;
+        _basicStunDuration = _stunDuration;
+        _basicSlowness = _slowness;
+        _basicSlownessDuration = _slownessDuration;
+        _basicPoisonDamage = _poisonDamage;
+        _basicPoisonDuration = _poisonDuration;
+        _basicPoisonSlowness = _poisonSlowness;
+    }
+
 
     protected Damage CalulateDamage()
     {
-        Damage damage = new Damage(_attackDamage, 0, _slowness, _slownessDuration, false, _poisonDamage, _poisonDuration);
+        Damage damage = new Damage(_basicAttackDamage, 0, _basicSlowness, _basicSlownessDuration, false, _basicPoisonDamage, _basicPoisonDuration, cooldown);
 
-        if (Random.value < _stunRate)
+        
+
+        {_attackDamage = _basicAttackDamage + 7 * _attackDamageCard;}
+
+        {_criticalDamage = _basicCriticalDamage + 0.2f * _critDamageCard;}
+
+        {_criticalRate = (1-(1/((_basicCriticalRate + 0.15f) * _critRateCard + 1)));}
+
+        {_slowness = (1-(1/((0.35f + _basicSlowness) * _slownessCard + 1))); _slownessDuration = 3; }
+
+        {cooldown = _basicAttackSpeed / (1 + 0.2f * _attackSpeedCard); }
+
+        {_poisonSlowness = (1-(1/((0.2f + _basicPoisonSlowness) * _poisonCard + 1)));
+        _poisonDamage = (_basicPoisonDamage + 5) * _poisonCard;
+        if (_poisonCard > 0) _poisonDuration = 3; else _poisonDuration = 0; }
+
+        {_stunRate = (1-(1/((0.15f + _basicStunRate) * _stunCard +1)));
+        _stunDamage = (7 + _basicStunDamage) * _stunCard;
+        _stunDuration = 0.7f; }
+
+        damage.damage = _attackDamage;
+
+        if (Random.value < _stunRate && _stunCard > 0)
         {
             damage.damage += _stunDamage;
-            damage.stunDuration += _stunDuration;
+            damage.stunDuration = _stunDuration;
         }
+
         if (Random.value < _criticalRate)
         {
-            damage.damage *= _criticalDamage;
+            damage.damage = damage.damage * _criticalDamage;
             damage.isCritical = true;
         }
 
-        if (_slowness > 0 && _poisonSlowness > 0)
-        {
-            damage.slowness = (1 - 1*(1 + (_slowness+_poisonSlowness))) * - 1;
-        }
-        else if (_slowness > 0)
-        {
-            damage.slowness = (1 - 1 * (1 + _slowness)) * -1;
-        }
-        else if (_poisonSlowness > 0)
-        {
-            damage.slowness = (1 - 1 * (1 + _poisonSlowness)) * - 1;
-        }
+        _slowness = _slowness + (1 - _slowness) * _poisonSlowness;
+
+        if (_attackSpeedCard > 0) { damage.attackSpeed = _attackSpeed; }
+        if (_poisonDuration > 0) { damage.slowness = _slowness; damage.poisonDamage = _poisonDamage; damage.slownessDuration = 3;damage.poisonDuration = 3; }
+        if (_slownessDuration > 0) { damage.slowness = _slowness; damage.slownessDuration = 3; }
+
+       
         return damage;
+    }
+}
+
+
+public struct Damage
+{
+    public float damage;
+    public float stunDuration;
+    public float slowness;
+    public float slownessDuration;
+    public float poisonDamage;
+    public float poisonDuration;
+    public bool isCritical;
+    public float attackSpeed;
+    public Damage(
+        float damage = 0,
+        float stunDuration = 0,
+        float slowness = 0,
+        float slownessDuration = 0,
+        bool isCritical = false,
+        float poisonDamage = 0,
+        float poisonDuration = 0,
+        float attackSpeed = 0)
+    {
+        this.slowness = slowness;
+        this.damage = damage;
+        this.stunDuration = stunDuration;
+        this.slownessDuration = slownessDuration;
+        this.isCritical = isCritical;
+        this.poisonDamage = poisonDamage;
+        this.poisonDuration = poisonDuration;
+        this.attackSpeed = attackSpeed;
     }
 }

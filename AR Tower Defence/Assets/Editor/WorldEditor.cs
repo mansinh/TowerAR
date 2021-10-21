@@ -19,7 +19,6 @@ public class WorldEditor : Editor
         GUILayout.Label("Press F to edit world");
 
  
-
     }
 
     
@@ -98,7 +97,7 @@ public class WorldEditor : Editor
                     Debug.Log("turn right");
                     e.Use();
                     break;
-             
+               
             }
 
         }
@@ -139,6 +138,14 @@ public class WorldEditor : Editor
                     break;
                 case KeyCode.Keypad9:
                     paintHeight = 9;
+                    break;
+                case KeyCode.End:
+                    blockEditing.SetCorruption(true);
+                    e.Use();
+                    break;
+                case KeyCode.Home:
+                    blockEditing.SetCorruption(false);
+                    e.Use();
                     break;
             }
         }

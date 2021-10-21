@@ -6,7 +6,7 @@ using UnityEngine;
 public class Points : MonoBehaviour
 {
     [SerializeField] int _totalPoints = 100;
-    public static Points instance;
+    public static Points Instance;
     PointsView _view;
 
     Dictionary<string, int> EnemyPoints = new Dictionary<string, int>();
@@ -16,7 +16,7 @@ public class Points : MonoBehaviour
     
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         _view = GetComponent<PointsView>();
         _view.SetPoints(_totalPoints); 
     }
@@ -25,13 +25,12 @@ public class Points : MonoBehaviour
 
     public void EnemyKilled(string enemyType)
     {
-        int pointsAwarded = 10;
+        int points = TotalVillagePoints();
         switch (enemyType)
         {
-            case "Enemy": { pointsAwarded *=1; break; }        
+            case "Enemy": { points *= 1; break; }
         }
-
-        _totalPoints += pointsAwarded;
+        _totalPoints += points;
         _view.UpdatePoints(_totalPoints);
     }
 
@@ -51,5 +50,26 @@ public class Points : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    int TotalVillagePoints() {
+        int points = GetVillagePoint("Shrine");
+        House[] houses = FindObjectsOfType<House>();
+
+        foreach (House h in houses)
+        {
+            points += GetVillagePoint("House");
+        }
+
+        return points;
+    }
+
+    int GetVillagePoint(string villageBuildingType) {
+        switch (villageBuildingType)
+        {
+            case "Shrine": { return 10;}
+            case "House": { return 1; }
+        }
+        return 0;
     }
 }
