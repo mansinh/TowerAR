@@ -19,7 +19,7 @@ public class Field : VillageBuilding, IGrowable
     // Update is called once per frame
     void Update()
     {
-        Grow(_growSpeed);
+        Grow(_growSpeed*Time.deltaTime);
     }
 
     void SetColours()
@@ -43,10 +43,10 @@ public class Field : VillageBuilding, IGrowable
         return Color.Lerp(halfwayColour, fullColour, (_growth - 50) / 50);
     }
 
-    public void Grow(float growSpeed) {
+    public void Grow(float growAmount) {
         if (_growth < 100)
         {
-            _growth += Time.deltaTime *growSpeed;
+            _growth += growAmount;
             SetColours();
         }
         UpdateView();

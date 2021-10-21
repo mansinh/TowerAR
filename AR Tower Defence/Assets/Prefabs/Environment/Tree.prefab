@@ -252,6 +252,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c802254de9256944dbfe6a8972d6ccc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _growth: 0
-  _swayFrequency: 0.3
   _view: {fileID: 2193533503655620954}
+  MaxHealth: 1
+  DeathDuration: 0
+  Health: 0
+  IsDestroyed: 0
+  _growth: 0
+  _color: {r: 0.32541826, g: 0.6226415, b: 0.33991694, a: 1}
+  _meshRenderer: {fileID: 2193533503740467068}
