@@ -10,7 +10,7 @@ public class Destroyable : MonoBehaviour
     [SerializeField] protected float MaxHealth;
     [SerializeField] protected float DeathDuration;
     [SerializeField] protected float Health;
-    [SerializeField] public float _baseSpeed = 1;
+
     public bool IsDestroyed = false;
     protected ShakeAnim ShakeAnim;
 
@@ -42,6 +42,7 @@ public class Destroyable : MonoBehaviour
         Slow(damage.slownessDuration, damage.slowness);
         if (damage.stunDuration > 0) { StartCoroutine(Stun(damage.stunDuration)); }
     }
+
 
     float _slowness;
     float _slownessDuration;

@@ -2,32 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour, IGrowable
+public class Tree : Destroyable, IGrowable
 {
     [SerializeField] float _growth = 0;
-    [SerializeField] Transform _view;
+    [SerializeField] Color _color;
+    [SerializeField] MeshRenderer _meshRenderer;
     private Forest _forest;
-    float _growSpeed = 0;
+
 
     float _swayRandom;
     Tile tile;
 
-    private void Awake()
+    protected override void Init()
     {
+        base.Init();
         _view.transform.localScale = Vector3.zero;
         _swayRandom = Random.value * Mathf.PI * 2;
         changeSwayDirection();
     }
 
-    public void Grow(float growSpeed)
+    public void Grow(float growAmount)
     {
-        _growSpeed = growSpeed;
+       
         if (_growth < 100)
         {
-            _growth += Time.deltaTime * growSpeed;
+            _growth += growAmount;
         }
+
+        MaxHealth = 1+10 * _growth / 100;
+        Health = MaxHealth;
+
         UpdateView();
-        _growSpeed = 0;
+       
     }
 
     Vector3 swayDirection = new Vector3(1,0,0);
@@ -39,7 +45,7 @@ public class Tree : MonoBehaviour, IGrowable
         {
             _view.transform.localEulerAngles = 0.5f * Mathf.Sin(20 * Time.time) * swayDirection;
         }
-
+        _meshRenderer.material.color = Color.Lerp(Color.black, _color, Health / MaxHealth);
     }
 
     public void SetForest(Forest forest) {
@@ -81,5 +87,22 @@ public class Tree : MonoBehaviour, IGrowable
         swayDirection = Random.onUnitSphere;
         swayDirection.y = 0;
         swayDirection.Normalize();
+    }
+
+    protected override void DamageEffects(Damage damage)
+    {
+        base.DamageEffects(damage);
+        UpdateView();
+    }
+
+    protected override void Death()
+    {
+        base.Death();
+    }
+
+    protected override void Remove()
+    {
+        base.Remove();
+        gameObject.SetActive(false);
     }
 }

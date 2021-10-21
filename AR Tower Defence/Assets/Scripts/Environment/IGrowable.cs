@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IGrowable
 {
-    void Grow(float growthRate);
+    void Grow(float growAmount);
 }

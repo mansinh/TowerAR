@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 public class Agent : Destroyable
 {
-
+    [SerializeField] public float _baseSpeed = 1;
     [SerializeField] protected string Name = "";
     [SerializeField] Attack _attack;
     [SerializeField] float _detectRange;
