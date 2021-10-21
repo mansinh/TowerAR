@@ -10,7 +10,6 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     [SerializeField] List<Card> _cardPrefabs;
     [SerializeField] List<float> _cardProbability;
     [SerializeField] bool _DrawAllTypes;
-    [SerializeField] float _dealTime = 0.2f;
     [SerializeField] int _dealSize = 5;
     [SerializeField] float _cardSpacing = 10;
     [SerializeField] int _maxCards = 15;
@@ -30,7 +29,7 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     public void DrawCards() {
-        if (_cardsInHand.Count <= _maxCards && _isPositioningCards == false)
+        if (_cardsInHand.Count <= _maxCards)
         { 
             if (Points.Instance.PurchaseCardDraw(_deckType))
             {
@@ -85,41 +84,21 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
         {
             position += _cardsInHand.Count * _cardSpacing * Vector3.right / 2;
         }
+
+        print(position);
         return position;
     }
 
     public void UpdateCardPositions()
     {
-        if (_isPositioningCards)
-        {
-            return;
-        }
+        
         for (int i = 0; i < _cardsInHand.Count; i++)
         {
-            StartCoroutine(PositionCard(_cardsInHand[i], i, _dealTime));
+            _cardsInHand[i].SetTargetPosition(GetCardPosition(i));
+            
         }
     }
 
-    bool _isPositioningCards = false;
-    IEnumerator PositionCard(Card card, int index, float duration)
-    {
-        _isPositioningCards = true;
-        Vector3 start = card.GetComponent<RectTransform>().position;
-        card.GetComponent<RectTransform>().position = start;
-        yield return new WaitForSeconds(index * duration / 4);
-
-        card.gameObject.SetActive(true);
-
-
-        for (float i = 0; i < duration; i += 0.01f)
-        {
-
-            card.GetComponent<RectTransform>().position = Vector3.Lerp(start, GetCardPosition(index), i / duration);
-            yield return new WaitForSeconds(0.01f);
-        }
-        card.GetComponent<RectTransform>().position = GetCardPosition(index);
-        _isPositioningCards = false;
-    }
 
     public void OnPointerUp(PointerEventData eventData)
     {  

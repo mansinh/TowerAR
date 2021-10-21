@@ -20,6 +20,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
+        
         _image.color = Color.gray;
         GameObject descriptionObject = GameObject.Find("CardDescription");
         if (descriptionObject)
@@ -104,7 +105,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 RaycastHit hit = MyCursor.Instance.GetCursorHit();
                 UpdateGhost(hit);
                 if (!GameController.Instance.IsAR)
-                {               
+                {
                     if (Input.GetMouseButton(0))
                     {
                         ActivateCard();
@@ -121,6 +122,15 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 }
             }
         }
+
+        
+        _rectTransform.position = Vector3.MoveTowards(_rectTransform.position, _targetPosition, 500 * Time.deltaTime); ;
+        
+    }
+    Vector3 _targetPosition;
+    public void SetTargetPosition(Vector3 targetPosition)
+    {
+        _targetPosition = targetPosition;
     }
 
     protected virtual void UpdateGhost(RaycastHit hit) {

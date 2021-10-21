@@ -24,7 +24,7 @@ public class Tower : MonoBehaviour
     {
         if (_currentTarget)
         {
-            if (_attack.Activate(_currentTarget.position + Vector3.up /10))
+            if (_attack.Activate(_currentTarget.position + Vector3.up*_currentTarget.localScale.y/2))
             {
                 //transform.LookAt(_currentTarget);
             }
