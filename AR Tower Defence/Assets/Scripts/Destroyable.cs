@@ -113,6 +113,9 @@ public class Destroyable : MonoBehaviour
         OnEndStun();
     }
 
+    public void Shake(float amplitude, float duration) {
+        ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
+    }
     protected virtual void OnStun() { }
     protected virtual void OnEndStun() { }
 

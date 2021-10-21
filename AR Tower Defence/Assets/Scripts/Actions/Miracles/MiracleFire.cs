@@ -27,7 +27,7 @@ public class MiracleFire : Miracle
         if (_timeSinceAttack > _coolDown)
         {
             _timeSinceAttack = 0;
-            Collider[] detected = Physics.OverlapSphere(transform.position, Collider.bounds.extents.x);
+            Collider[] detected = Physics.OverlapSphere(transform.position, Collider.radius);
             foreach (Collider other in detected)
             {
                 Destroyable otherDestroyable = other.GetComponent<Destroyable>();

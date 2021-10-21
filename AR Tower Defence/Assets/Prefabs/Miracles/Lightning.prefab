@@ -9735,9 +9735,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2518385225194111512}
   - component: {fileID: 2518385225194111519}
+  - component: {fileID: -1637559249039391270}
   - component: {fileID: 2518385225194111518}
   - component: {fileID: -825495252386653002}
-  - component: {fileID: 2207326654374663028}
   - component: {fileID: 2381255003126105317}
   m_Layer: 2
   m_Name: Lightning
@@ -14525,6 +14525,22 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &-1637559249039391270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518385225194111517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7c69a793d2bed418a7e0f5dfe82612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisualEffect: {fileID: 0}
+  SoundEffect: {fileID: 0}
+  Lifetime: 0
+  Life: 0
 --- !u!199 &2518385225194111518
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -14688,22 +14704,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2207326654374663028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2518385225194111517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1471132245c4e4dbf6a7472e880193, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VisualEffect: {fileID: 0}
-  SoundEffect: {fileID: 0}
-  Lifetime: 0
-  Life: 0
 --- !u!135 &2381255003126105317
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14715,5 +14715,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
