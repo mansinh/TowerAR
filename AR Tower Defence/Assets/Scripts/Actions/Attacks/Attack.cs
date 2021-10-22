@@ -67,31 +67,20 @@ public class Attack : Action
 
         {_criticalDamage = _basicCriticalDamage + 0.2f * _critDamageCard;}
 
-        //{_criticalRate = (1-(1/((_basicCriticalRate + 0.15f) * _critRateCard + 1)));}
-        { _criticalRate = 0.15f * _critRateCard + _basicCriticalRate; }
-        /*
-        { _slowness = (1-(1/((0.35f + _basicSlowness) * _slownessCard + 1)));
-
-        _slownessDuration = 3; }*/
-
-        { _slowness = 0.35f * _slownessCard + _basicSlowness;
+        {_criticalRate = (1-(1/((0.15f) * _critRateCard + 1))) + (1 - (1 - (1 / ((0.15f) * _critRateCard + 1)))) * _basicCriticalRate; }
+        
+        { _slowness = (1-(1/((0.35f* _slownessCard + 1)))) + (1 - (1 - (1 / ((0.35f) * _slownessCard + 1)))) * _basicSlowness;
          _slownessDuration = 3 * Mathf.Min(_stunCard, 1) + _basicSlownessDuration;
         }
 
         { cooldown = _basicAttackSpeed / (1 + 0.2f * _attackSpeedCard); }
 
         {_poisonSlowness = (1-(1/((0.2f + _basicPoisonSlowness) * _poisonCard + 1)));
-            //_poisonDamage = (_basicPoisonDamage + 5) * _poisonCard;
             _poisonDamage = 5 * _poisonCard + _basicPoisonDamage;
             if (_poisonCard > 0) _poisonDuration = 3; else _poisonDuration = 0; }
 
-        /*
-        {_stunRate = (1-(1/((0.15f + _basicStunRate) * _stunCard +1)))* _basicStunRate;
-        _stunDamage = (7 + _basicStunDamage) * _stunCard;
-        _stunDuration = 0.7f; }
-        */
-        {
-            _stunRate = 0.15f * _stunCard + _basicStunRate;
+        
+        {_stunRate = (1-(1/((0.15f * _stunCard +1)))) + (1- (1 - (1 / ((0.15f + _basicStunRate) * _stunCard + 1))) * _basicStunRate) * _basicStunRate;
             _stunDamage = 7 * _stunCard + _basicStunDamage;
             _stunDuration = 3* Mathf.Min(_stunCard,1) + _basicStunDuration;
         }
