@@ -10,7 +10,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] protected GameObject Ghost;
     [SerializeField] float _selectTime = 0.07f;
     [SerializeField] protected string Description = "Basic Card";
-
+    [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20;
     public CardDeck Deck;
     Text _descriptionText;
     RectTransform _rectTransform;
@@ -70,7 +70,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         _isSelected = true;
         _image.color = Color.white;
-        StartCoroutine(MoveCard(GetComponent<RectTransform>().position+ Vector3.up * 20, _selectTime));
+        StartCoroutine(MoveCard(GetComponent<RectTransform>().position+ _moveToOnSelect, _selectTime));
         Ghost.SetActive(true);
         GameInfo.Instance.SetText(Description);
     }
@@ -110,10 +110,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     {
                         ActivateCard();
                     }
-                    else if (Input.GetMouseButtonDown(1))
-                    {
-                        Deselect();
-                    }
 
                     if (Input.GetMouseButtonUp(0))
                     {
@@ -122,8 +118,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 }
             }
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Deselect();
+        }
 
-        
         _rectTransform.position = Vector3.MoveTowards(_rectTransform.position, _targetPosition, 500 * Time.deltaTime); ;
         
     }

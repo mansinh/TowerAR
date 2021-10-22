@@ -346,8 +346,9 @@ MonoBehaviour:
   _image: {fileID: 6239710923152016430}
   Ghost: {fileID: 7013514740070591214}
   _selectTime: 0.07
-  Description: 'Slowness: Selected unit gains abbility to slow down enemies by +35%
+  Description: 'Slowness: Selected unit gains ability to slow down enemies by +35%
     upon hit'
+  _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
   _Upgrade: {fileID: 0}
   UpgradeAnim: {fileID: 0}

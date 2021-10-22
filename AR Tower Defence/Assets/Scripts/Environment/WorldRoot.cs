@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavController))]
+
 public class WorldRoot : MonoBehaviour
 {
     public static WorldRoot Instance;
@@ -16,7 +17,10 @@ public class WorldRoot : MonoBehaviour
    
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         foreach (Tile tile in tiles)
         {
             if (tile.GetHeight() == 0)
@@ -72,6 +76,4 @@ public class WorldRoot : MonoBehaviour
             }
         }
     }
-
-   
 }

@@ -7,31 +7,33 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Miracle : MonoBehaviour
 {
-    [SerializeField] ParticleSystem _visualEffect;
-    [SerializeField] AudioSource _soundEffect;
+    [SerializeField] protected ParticleSystem VisualEffect;
+    [SerializeField] protected AudioSource SoundEffect;
+    [SerializeField]  protected Damage MiracleEffect;
+    [SerializeField]  protected float Lifetime;
+    [SerializeField]  protected float Life = 0f;
+    protected SphereCollider Collider;
 
- 
-
-    private Damage _attackDamage;
-    private float _lifetime;
-    private Collider _collider;
-
-
+    private void Awake()
+    {
+        VisualEffect = GetComponent<ParticleSystem>();
+        SoundEffect = GetComponent<AudioSource>();
+    }
     private void OnEnable()
     {
-        _collider = GetComponent<Collider>();
+        Collider = GetComponent<SphereCollider>();
         Activate();
     }
 
     public void SetProperties(Damage attackDamage, float lifetime)
     {
-        _attackDamage = attackDamage;
-        _lifetime = lifetime;
+        MiracleEffect = attackDamage;
+        Lifetime = lifetime;
     }
 
     public virtual void Activate()
     {
-
+        Life = Lifetime;
         if (MyCursor.Instance.GetCursorHitting())
         {
             RaycastHit hit = MyCursor.Instance.GetCursorHit();
@@ -39,67 +41,46 @@ public class Miracle : MonoBehaviour
             transform.position = hit.point;        
         }
         PlayEffects();
-        _collider.enabled = true;
+        Collider.enabled = true;
 
-    }
-
-   public virtual void Deactivate()
-    {
-        
     }
 
     void PlayEffects()
     {
-
-        _visualEffect.enableEmission = true;
-        _visualEffect.Play();
-        _soundEffect.Play();
+        VisualEffect.enableEmission = true;
+        VisualEffect.Play();
+        SoundEffect.Play();
     }
 
     private void Update()
     {
-        LifetimeCounter();
-       
+        OnUpdate();
+        LifetimeCounter();     
         if(MyCursor.Instance.GetCursorHitting())
         {
             RaycastHit hit = MyCursor.Instance.GetCursorHit();
             OnHit(hit);
-        }
+        }  
     }
+
+    protected virtual void OnUpdate() { }
 
     void LifetimeCounter()
     {
-        _lifetime -= Time.deltaTime;
-        if (_lifetime < 0)
+        Life -= Time.deltaTime;
+        if (Life < 0)
         {
-            if (_visualEffect.isStopped)
-            {
-                gameObject.SetActive(false);
-            }
+            OnLifeOver();
         }
     }
-
-  
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnLifeOver()
     {
-        //print("enter " + other);
-        OnEnterArea(other);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-       // print("stay " +other);
-        OnStayArea(other);
-    }
-
-    protected virtual void OnEnterArea(Collider other)
-    {
-        Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();
-        if (destroyable)
+        if (VisualEffect.isStopped)
         {
-            destroyable.Damage(_attackDamage);
+            gameObject.SetActive(false);
         }
     }
+   
 
     protected virtual void OnStayArea(Collider other)
     {

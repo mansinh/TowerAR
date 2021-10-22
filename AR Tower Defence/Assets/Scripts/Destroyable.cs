@@ -10,7 +10,7 @@ public class Destroyable : MonoBehaviour
     [SerializeField] protected float MaxHealth;
     [SerializeField] protected float DeathDuration;
     [SerializeField] protected float Health;
-    [SerializeField] public float _baseSpeed = 1;
+
     public bool IsDestroyed = false;
     protected ShakeAnim ShakeAnim;
 
@@ -42,6 +42,7 @@ public class Destroyable : MonoBehaviour
         Slow(damage.slownessDuration, damage.slowness);
         if (damage.stunDuration > 0) { StartCoroutine(Stun(damage.stunDuration)); }
     }
+
 
     float _slowness;
     float _slownessDuration;
@@ -112,6 +113,9 @@ public class Destroyable : MonoBehaviour
         OnEndStun();
     }
 
+    public void Shake(float amplitude, float duration) {
+        ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
+    }
     protected virtual void OnStun() { }
     protected virtual void OnEndStun() { }
 

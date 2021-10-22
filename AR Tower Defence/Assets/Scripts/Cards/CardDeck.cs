@@ -84,8 +84,6 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
         {
             position += _cardsInHand.Count * _cardSpacing * Vector3.right / 2;
         }
-
-        print(position);
         return position;
     }
 

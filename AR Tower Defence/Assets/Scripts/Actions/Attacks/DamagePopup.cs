@@ -6,11 +6,13 @@ public class DamagePopup : MonoBehaviour
     [SerializeField] Color _normalColor = new Color32(255, 255, 255, 255);
     [SerializeField] Color _criticalColor = new Color32(255, 138, 85, 255);
     [SerializeField] Color _poisonColor = new Color32(95, 78, 115, 255);
+    [SerializeField] Color _healColor = new Color32(180, 255,100, 255);
 
     //Creates DamageIndicatorPopup in the game world.
     public static DamagePopup Create(Transform damaged,Damage damage, bool isPoison)
     {
-        Transform damagePopupTransform = Instantiate(GameAssets.Instance.damageIndicatorPopup, damaged);
+        Transform damagePopupTransform = Instantiate(GameAssets.Instance.damageIndicatorPopup);
+        damagePopupTransform.SetParent(damaged);
         damagePopupTransform.localPosition = Vector3.up;
 
         DamagePopup dPopup = damagePopupTransform.GetComponent<DamagePopup>();
@@ -31,23 +33,31 @@ public class DamagePopup : MonoBehaviour
 
     public void Setup(Damage damage, bool isPoison)
     {
-        textMesh.SetText(((int)damage.damage).ToString());
+        
         if (damage.isCritical)
         {
-            textMesh.fontSize = 16;
+            textMesh.fontSize = 6;
             textColor = _criticalColor;
+        }
+        else if (damage.damage < 0)
+        {
+            textMesh.fontSize = 4;
+            textColor = _healColor;
+            damage.damage = -damage.damage;
         }
         else
         {
-            textMesh.fontSize = 10;
+            textMesh.fontSize = 4;
             textColor = _normalColor;
         }
+
         if (isPoison)
         {
-            textMesh.fontSize = 12f;
+            textMesh.fontSize = 4f;
             textColor = _poisonColor;
             textMesh.SetText(((int)damage.poisonDamage).ToString());
         }
+        textMesh.SetText(((int)damage.damage).ToString());
 
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
@@ -55,7 +65,7 @@ public class DamagePopup : MonoBehaviour
         textMesh.color = textColor;
         disappearTimer = maxDisappearTimer;
         //moveVector = new Vector3(Random.Range(-15,15), (Random.Range(0, 15)), (Random.Range(-15, 15)));
-        moveVector = new Vector3(0, (Random.Range(0, 5)), 0);
+        moveVector = new Vector3(0, (Random.Range(5, 10)), 0);
     }
     private float disappearTimer;
     private void Update()
@@ -65,7 +75,7 @@ public class DamagePopup : MonoBehaviour
 
         if (disappearTimer > maxDisappearTimer*0.5)
         {
-            float decreaseScale = 1f;
+            float decreaseScale = 0.5f;
             transform.localScale -= Vector3.one * decreaseScale * Time.deltaTime;
         }
 
