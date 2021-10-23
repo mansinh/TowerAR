@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
-
+using World;
 [RequireComponent(typeof(ARRaycastHit))]
 public class ARPlaceWorld : MonoBehaviour
 {

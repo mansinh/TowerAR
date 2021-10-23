@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using World;
 public class MiracleHeal : Miracle
 {
     public override void Activate()
@@ -14,7 +14,7 @@ public class MiracleHeal : Miracle
             Tile tile = other.GetComponent<Tile>();
             if (tile != null)
             {
-                tile.SetCorruption(false);
+               tile.Heal();
             }
 
             Destroyable destroyable = other.GetComponent<Destroyable>();

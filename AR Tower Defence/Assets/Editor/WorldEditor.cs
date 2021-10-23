@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using World;
 
 [CustomEditor(typeof(WorldRoot))]
 public class WorldEditor : Editor
@@ -140,13 +141,17 @@ public class WorldEditor : Editor
                     paintHeight = 9;
                     break;
                 case KeyCode.End:
-                    blockEditing.SetCorruption(true);
+                    blockEditing.SetState(0);
                     e.Use();
                     break;
                 case KeyCode.Home:
-                    blockEditing.SetCorruption(false);
+                    blockEditing.SetState(1);
                     e.Use();
                     break;
+                /*case KeyCode.Insert:
+                    blockEditing.SetState(2);
+                    e.Use();
+                    break;*/
             }
         }
     }

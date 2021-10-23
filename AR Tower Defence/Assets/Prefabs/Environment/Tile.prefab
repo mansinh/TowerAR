@@ -221,8 +221,9 @@ MonoBehaviour:
   - {fileID: 8607590745448087468}
   - {fileID: 7707252298525345397}
   _height: 0
-  m_corrupt: {fileID: 2100000, guid: 53c1e8e0e6ea4a142a4ad97cde57337a, type: 2}
-  m_healed: {fileID: 2100000, guid: a52a3c6b1ac00b24a8516ca63f8422be, type: 2}
+  m_corrupt: {fileID: 2100000, guid: e0479697cf7c0fe4da81793cf39448a2, type: 2}
+  m_restored: {fileID: 2100000, guid: a52a3c6b1ac00b24a8516ca63f8422be, type: 2}
+  _state: 0
 --- !u!65 &9126589625468306164
 BoxCollider:
   m_ObjectHideFlags: 0

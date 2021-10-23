@@ -41,6 +41,7 @@ public class Destroyable : MonoBehaviour
         DamagePopup.Create(transform, damage, false);
         Slow(damage.slownessDuration, damage.slowness);
         if (damage.stunDuration > 0) { StartCoroutine(Stun(damage.stunDuration)); }
+        UpdateView();
     }
 
 
@@ -138,5 +139,10 @@ public class Destroyable : MonoBehaviour
         Death();
         yield return new WaitForSeconds(DeathDuration);
         Remove();
+    }
+
+    protected virtual void UpdateView()
+    {
+       
     }
 }
