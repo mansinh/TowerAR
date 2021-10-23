@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using World;
 public class BuildingCard : Card
 {
     [SerializeField] GameObject _building;

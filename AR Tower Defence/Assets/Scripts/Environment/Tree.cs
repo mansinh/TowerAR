@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using World;
 public class Tree : Destroyable, IGrowable
 {
     [SerializeField] float _growth = 0;
@@ -38,7 +38,7 @@ public class Tree : Destroyable, IGrowable
 
     Vector3 swayDirection = new Vector3(1,0,0);
 
-    private void UpdateView()
+    protected override void UpdateView()
     {
         _view.transform.localScale = Vector3.one * _growth / 100;
         if (!_isSwaying)
@@ -92,7 +92,7 @@ public class Tree : Destroyable, IGrowable
     protected override void DamageEffects(Damage damage)
     {
         base.DamageEffects(damage);
-        UpdateView();
+       
     }
 
     protected override void Death()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : VillageBuilding
 {
     [SerializeField] float _range = 4;
     [SerializeField] float _AiUpdateTime = 0.2f;

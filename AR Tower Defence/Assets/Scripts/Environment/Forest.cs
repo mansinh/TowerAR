@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using World;
 public class Forest : MonoBehaviour, IGrowable
 {
     Pool _treePool;
@@ -20,7 +20,10 @@ public class Forest : MonoBehaviour, IGrowable
 
     public void Grow(float growAmount)
     {
-        
+        if (_tile.GetCorrupt())
+        {
+            return;
+        }
         if (Random.value < 1f / 100)
         {
             Vector3 randomPos = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
@@ -42,6 +45,7 @@ public class Forest : MonoBehaviour, IGrowable
                 tree.GetComponent<Tree>().Grow(growAmount);
             }
         }
+
     }
 
 }
