@@ -3743,7 +3743,7 @@ GameObject:
   - component: {fileID: 83795437}
   - component: {fileID: 83795436}
   m_Layer: 0
-  m_Name: 'voxel (4,7) height: 1 state: 2'
+  m_Name: 'voxel (4,7) height: 1 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3756,7 +3756,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83795434}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.1, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -3811,7 +3811,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83795434}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &83940098
 GameObject:
   m_ObjectHideFlags: 0
@@ -3824,7 +3824,7 @@ GameObject:
   - component: {fileID: 83940101}
   - component: {fileID: 83940100}
   m_Layer: 0
-  m_Name: 'voxel (4,7) height: 3 state: 0'
+  m_Name: 'voxel (4,7) height: 3 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3837,7 +3837,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83940098}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.3, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -3892,7 +3892,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83940098}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &84520923
 GameObject:
   m_ObjectHideFlags: 0
@@ -7193,7 +7193,7 @@ GameObject:
   - component: {fileID: 158567981}
   - component: {fileID: 158567980}
   m_Layer: 0
-  m_Name: 'voxel (4,5) height: 4 state: 3'
+  m_Name: 'voxel (4,5) height: 4 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7261,7 +7261,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158567978}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &160273158
 GameObject:
   m_ObjectHideFlags: 0
@@ -8159,7 +8159,7 @@ GameObject:
   - component: {fileID: 175979832}
   - component: {fileID: 175979831}
   m_Layer: 0
-  m_Name: 'voxel (5,8) height: 2 state: 6'
+  m_Name: 'voxel (5,8) height: 2 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8172,7 +8172,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175979829}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -0.5, y: 0.2, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -8227,7 +8227,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175979829}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &176641079
 GameObject:
   m_ObjectHideFlags: 0
@@ -11787,7 +11787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 1
-  Coordinates: {x: 4, y: 1, z: 7}
+  Coordinates: {x: 4, y: 6, z: 7}
 --- !u!114 &237447829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11814,8 +11814,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 1, y: 7, z: 1}
+  m_Center: {x: 0, y: 3.5, z: 0}
 --- !u!4 &237447831
 Transform:
   m_ObjectHideFlags: 0
@@ -14956,7 +14956,7 @@ GameObject:
   - component: {fileID: 287251442}
   - component: {fileID: 287251441}
   m_Layer: 0
-  m_Name: 'voxel (4,7) height: 4 state: 0'
+  m_Name: 'voxel (4,7) height: 4 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14969,7 +14969,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287251439}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.4, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -15024,7 +15024,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287251439}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &290675103
 GameObject:
   m_ObjectHideFlags: 0
@@ -19258,7 +19258,7 @@ GameObject:
   - component: {fileID: 379368012}
   - component: {fileID: 379368011}
   m_Layer: 0
-  m_Name: 'voxel (5,7) height: 2 state: 7'
+  m_Name: 'voxel (5,7) height: 2 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19271,7 +19271,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379368009}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.2, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -19326,7 +19326,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379368009}
-  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &380241216
 GameObject:
   m_ObjectHideFlags: 0
@@ -21638,7 +21638,7 @@ GameObject:
   - component: {fileID: 423239400}
   - component: {fileID: 423239399}
   m_Layer: 0
-  m_Name: 'voxel (4,7) height: 2 state: 2'
+  m_Name: 'voxel (4,7) height: 2 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21651,7 +21651,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423239397}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.2, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -21706,7 +21706,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423239397}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &424037211
 GameObject:
   m_ObjectHideFlags: 0
@@ -23985,7 +23985,7 @@ GameObject:
   - component: {fileID: 477323737}
   - component: {fileID: 477323736}
   m_Layer: 0
-  m_Name: 'voxel (4,5) height: 3 state: 3'
+  m_Name: 'voxel (4,5) height: 3 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24053,7 +24053,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477323734}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1001 &480223996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26844,7 +26844,7 @@ GameObject:
   - component: {fileID: 525669893}
   - component: {fileID: 525669892}
   m_Layer: 0
-  m_Name: 'voxel (5,9) height: 4 state: 0'
+  m_Name: 'voxel (5,9) height: 4 state: 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26857,7 +26857,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525669890}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -0.5, y: 0.4, z: 3.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -26912,7 +26912,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525669890}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &529450704
 GameObject:
   m_ObjectHideFlags: 0
@@ -33214,7 +33214,7 @@ GameObject:
   - component: {fileID: 620039269}
   - component: {fileID: 620039268}
   m_Layer: 0
-  m_Name: 'voxel (5,7) height: 5 state: 6'
+  m_Name: 'voxel (5,7) height: 5 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33227,7 +33227,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620039266}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.5, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -33282,7 +33282,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620039266}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &620581295
 GameObject:
   m_ObjectHideFlags: 0
@@ -40940,7 +40940,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747914539}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.99544936, y: 0.24882205, z: -2.0027094}
+  m_LocalPosition: {x: -1.06, y: 0.41, z: -3.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 943405749}
@@ -41240,7 +41240,7 @@ GameObject:
   - component: {fileID: 756115592}
   - component: {fileID: 756115591}
   m_Layer: 0
-  m_Name: 'voxel (5,7) height: 1 state: 7'
+  m_Name: 'voxel (5,7) height: 1 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41253,7 +41253,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756115589}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.1, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -41308,7 +41308,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756115589}
-  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &756481991
 GameObject:
   m_ObjectHideFlags: 0
@@ -43758,7 +43758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 1
-  Coordinates: {x: 4, y: 2, z: 5}
+  Coordinates: {x: 4, y: 6, z: 5}
 --- !u!114 &809140038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43785,8 +43785,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3, z: 1}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 1, y: 7, z: 1}
+  m_Center: {x: 0, y: 3.5, z: 0}
 --- !u!4 &809140040
 Transform:
   m_ObjectHideFlags: 0
@@ -44919,7 +44919,7 @@ GameObject:
   - component: {fileID: 841398579}
   - component: {fileID: 841398578}
   m_Layer: 0
-  m_Name: 'voxel (5,7) height: 3 state: 6'
+  m_Name: 'voxel (5,7) height: 3 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44932,7 +44932,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841398576}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.3, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -44987,7 +44987,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841398576}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &842433913
 GameObject:
   m_ObjectHideFlags: 0
@@ -47811,7 +47811,7 @@ GameObject:
   - component: {fileID: 904600537}
   - component: {fileID: 904600536}
   m_Layer: 0
-  m_Name: 'voxel (5,6) height: 2 state: 14'
+  m_Name: 'voxel (5,6) height: 2 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47824,7 +47824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904600534}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.2, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -47879,7 +47879,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904600534}
-  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &905326437
 GameObject:
   m_ObjectHideFlags: 0
@@ -50381,7 +50381,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943405748}
-  m_Mesh: {fileID: 4068373912626513877, guid: 9fa77d7d38a7cfc4597368ce0012e0a2, type: 3}
+  m_Mesh: {fileID: 3921568967233161584, guid: 9fa77d7d38a7cfc4597368ce0012e0a2, type: 3}
 --- !u!1 &943432824
 GameObject:
   m_ObjectHideFlags: 0
@@ -52743,7 +52743,7 @@ GameObject:
   - component: {fileID: 981818846}
   - component: {fileID: 981818845}
   m_Layer: 0
-  m_Name: 'voxel (4,7) height: 5 state: 0'
+  m_Name: 'voxel (4,7) height: 5 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52756,7 +52756,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981818843}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.5, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -52811,7 +52811,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981818843}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &983293085
 GameObject:
   m_ObjectHideFlags: 0
@@ -53472,7 +53472,7 @@ GameObject:
   - component: {fileID: 990218360}
   - component: {fileID: 990218359}
   m_Layer: 0
-  m_Name: 'voxel (4,8) height: 2 state: 0'
+  m_Name: 'voxel (4,8) height: 2 state: 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53485,7 +53485,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990218357}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -1.5, y: 0.2, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -53540,7 +53540,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990218357}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &991485670
 GameObject:
   m_ObjectHideFlags: 0
@@ -57790,7 +57790,7 @@ GameObject:
   - component: {fileID: 1035514135}
   - component: {fileID: 1035514134}
   m_Layer: 0
-  m_Name: 'voxel (6,9) height: 4 state: 0'
+  m_Name: 'voxel (6,9) height: 4 state: 1'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57858,7 +57858,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035514132}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &1037058230
 GameObject:
   m_ObjectHideFlags: 0
@@ -62950,7 +62950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
-  Coordinates: {x: 5, y: 4, z: 8}
+  Coordinates: {x: 5, y: 5, z: 8}
 --- !u!114 &1140187203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62977,8 +62977,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 5, z: 1}
-  m_Center: {x: 0, y: 2.5, z: 0}
+  m_Size: {x: 1, y: 6, z: 1}
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!4 &1140187205
 Transform:
   m_ObjectHideFlags: 0
@@ -64956,7 +64956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 1
-  Coordinates: {x: 4, y: 3, z: 6}
+  Coordinates: {x: 4, y: 6, z: 6}
 --- !u!114 &1178869784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64983,8 +64983,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 4, z: 1}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 1, y: 7, z: 1}
+  m_Center: {x: 0, y: 3.5, z: 0}
 --- !u!4 &1178869786
 Transform:
   m_ObjectHideFlags: 0
@@ -67348,7 +67348,7 @@ GameObject:
   - component: {fileID: 1227755450}
   - component: {fileID: 1227755449}
   m_Layer: 0
-  m_Name: 'voxel (4,8) height: 3 state: 0'
+  m_Name: 'voxel (4,8) height: 3 state: 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67361,7 +67361,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227755447}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -1.5, y: 0.3, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -67416,7 +67416,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227755447}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &1232013981
 GameObject:
   m_ObjectHideFlags: 0
@@ -69105,7 +69105,7 @@ GameObject:
   - component: {fileID: 1275099017}
   - component: {fileID: 1275099016}
   m_Layer: 0
-  m_Name: 'voxel (4,6) height: 3 state: 0'
+  m_Name: 'voxel (4,6) height: 3 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69118,7 +69118,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275099014}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -69173,7 +69173,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275099014}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &1275349278
 GameObject:
   m_ObjectHideFlags: 0
@@ -70482,7 +70482,7 @@ GameObject:
   - component: {fileID: 1313418674}
   - component: {fileID: 1313418673}
   m_Layer: 0
-  m_Name: 'voxel (5,5) height: 2 state: 7'
+  m_Name: 'voxel (5,5) height: 2 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70495,7 +70495,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313418671}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.2, z: -0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -70550,7 +70550,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313418671}
-  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &1316798040
 GameObject:
   m_ObjectHideFlags: 0
@@ -70644,7 +70644,7 @@ GameObject:
   - component: {fileID: 1319253576}
   - component: {fileID: 1319253575}
   m_Layer: 0
-  m_Name: 'voxel (5,8) height: 5 state: 2'
+  m_Name: 'voxel (5,8) height: 5 state: 3'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70712,7 +70712,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319253573}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &1319760649
 GameObject:
   m_ObjectHideFlags: 0
@@ -71778,7 +71778,7 @@ GameObject:
   - component: {fileID: 1341358124}
   - component: {fileID: 1341358123}
   m_Layer: 0
-  m_Name: 'voxel (4,8) height: 4 state: 0'
+  m_Name: 'voxel (4,8) height: 4 state: 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71791,7 +71791,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341358121}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -1.5, y: 0.4, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -71846,7 +71846,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341358121}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &1341733246
 GameObject:
   m_ObjectHideFlags: 0
@@ -73087,7 +73087,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378112885}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5, y: 0.4, z: 3.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -73722,7 +73722,7 @@ GameObject:
   - component: {fileID: 1390156781}
   - component: {fileID: 1390156780}
   m_Layer: 0
-  m_Name: 'voxel (4,5) height: 5 state: 0'
+  m_Name: 'voxel (4,5) height: 5 state: 4'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73735,7 +73735,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390156778}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.5, z: -0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -73790,7 +73790,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390156778}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &1391571855
 GameObject:
   m_ObjectHideFlags: 0
@@ -78357,7 +78357,7 @@ GameObject:
   - component: {fileID: 1474163885}
   - component: {fileID: 1474163884}
   m_Layer: 0
-  m_Name: 'voxel (5,5) height: 3 state: 7'
+  m_Name: 'voxel (5,5) height: 3 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78370,7 +78370,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474163882}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.3, z: -0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -78425,7 +78425,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474163882}
-  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &1477327351
 GameObject:
   m_ObjectHideFlags: 0
@@ -78992,7 +78992,7 @@ GameObject:
   - component: {fileID: 1486141317}
   - component: {fileID: 1486141316}
   m_Layer: 0
-  m_Name: 'voxel (5,8) height: 1 state: 6'
+  m_Name: 'voxel (5,8) height: 1 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79005,7 +79005,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486141314}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -0.5, y: 0.1, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -79060,7 +79060,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486141314}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &1491253629
 GameObject:
   m_ObjectHideFlags: 0
@@ -81471,7 +81471,7 @@ GameObject:
   - component: {fileID: 1532825679}
   - component: {fileID: 1532825678}
   m_Layer: 0
-  m_Name: 'voxel (5,8) height: 4 state: 2'
+  m_Name: 'voxel (5,8) height: 4 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81539,7 +81539,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532825676}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &1534120368
 GameObject:
   m_ObjectHideFlags: 0
@@ -83658,7 +83658,7 @@ GameObject:
   - component: {fileID: 1575836778}
   - component: {fileID: 1575836777}
   m_Layer: 0
-  m_Name: 'voxel (5,5) height: 4 state: 7'
+  m_Name: 'voxel (5,5) height: 4 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83671,7 +83671,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575836775}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.4, z: -0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -83726,7 +83726,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575836775}
-  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &1576811979
 GameObject:
   m_ObjectHideFlags: 0
@@ -84063,7 +84063,7 @@ GameObject:
   - component: {fileID: 1585135704}
   - component: {fileID: 1585135703}
   m_Layer: 0
-  m_Name: 'voxel (4,8) height: 5 state: 0'
+  m_Name: 'voxel (4,8) height: 5 state: 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84076,7 +84076,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585135701}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -1.5, y: 0.5, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -84131,7 +84131,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585135701}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &1585907937
 GameObject:
   m_ObjectHideFlags: 0
@@ -85023,7 +85023,7 @@ GameObject:
   - component: {fileID: 1606782579}
   - component: {fileID: 1606782578}
   m_Layer: 0
-  m_Name: 'voxel (5,6) height: 3 state: 6'
+  m_Name: 'voxel (5,6) height: 3 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85036,7 +85036,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606782576}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -85091,7 +85091,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606782576}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &1606815953
 GameObject:
   m_ObjectHideFlags: 0
@@ -88639,7 +88639,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664204956}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 1.5, y: 0.4, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -92695,7 +92695,7 @@ GameObject:
   - component: {fileID: 1745085084}
   - component: {fileID: 1745085083}
   m_Layer: 0
-  m_Name: 'voxel (4,6) height: 4 state: 0'
+  m_Name: 'voxel (4,6) height: 4 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92708,7 +92708,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745085081}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.4, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -92763,7 +92763,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745085081}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &1746919494
 GameObject:
   m_ObjectHideFlags: 0
@@ -95074,7 +95074,7 @@ GameObject:
   - component: {fileID: 1803583489}
   - component: {fileID: 1803583488}
   m_Layer: 0
-  m_Name: 'voxel (5,7) height: 4 state: 6'
+  m_Name: 'voxel (5,7) height: 4 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95087,7 +95087,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803583486}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.4, z: 1.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -95142,7 +95142,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803583486}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &1805527889
 GameObject:
   m_ObjectHideFlags: 0
@@ -95236,7 +95236,7 @@ GameObject:
   - component: {fileID: 1805557029}
   - component: {fileID: 1805557028}
   m_Layer: 0
-  m_Name: 'voxel (4,6) height: 5 state: 0'
+  m_Name: 'voxel (4,6) height: 5 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95249,7 +95249,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805557026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -1.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -95304,7 +95304,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805557026}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &1808918165
 GameObject:
   m_ObjectHideFlags: 0
@@ -96370,7 +96370,7 @@ GameObject:
   - component: {fileID: 1831281461}
   - component: {fileID: 1831281460}
   m_Layer: 0
-  m_Name: 'voxel (6,8) height: 4 state: 1'
+  m_Name: 'voxel (6,8) height: 4 state: 9'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96438,7 +96438,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831281458}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &1835439507
 GameObject:
   m_ObjectHideFlags: 0
@@ -97641,7 +97641,7 @@ GameObject:
   - component: {fileID: 1858608953}
   - component: {fileID: 1858608952}
   m_Layer: 0
-  m_Name: 'voxel (4,5) height: 2 state: 3'
+  m_Name: 'voxel (4,5) height: 2 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97709,7 +97709,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858608950}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &1858999961
 GameObject:
   m_ObjectHideFlags: 0
@@ -98127,7 +98127,7 @@ GameObject:
   - component: {fileID: 1863801950}
   - component: {fileID: 1863801949}
   m_Layer: 0
-  m_Name: 'voxel (5,6) height: 5 state: 4'
+  m_Name: 'voxel (5,6) height: 5 state: 13'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98140,7 +98140,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863801947}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -98195,7 +98195,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863801947}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &1865880345
 GameObject:
   m_ObjectHideFlags: 0
@@ -101568,7 +101568,7 @@ GameObject:
   - component: {fileID: 1925506152}
   - component: {fileID: 1925506151}
   m_Layer: 0
-  m_Name: 'voxel (5,5) height: 5 state: 0'
+  m_Name: 'voxel (5,5) height: 5 state: 8'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101581,7 +101581,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925506149}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.5, y: 0.5, z: -0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -101636,7 +101636,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925506149}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &1926454260
 GameObject:
   m_ObjectHideFlags: 0
@@ -106635,7 +106635,7 @@ GameObject:
   - component: {fileID: 2042000244}
   - component: {fileID: 2042000243}
   m_Layer: 0
-  m_Name: 'voxel (5,8) height: 3 state: 6'
+  m_Name: 'voxel (5,8) height: 3 state: 7'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106648,7 +106648,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042000241}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -0.5, y: 0.3, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -106703,7 +106703,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042000241}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 60e606ab4b56be2498a4812a7fdfbbc3, type: 2}
 --- !u!1 &2042675429
 GameObject:
   m_ObjectHideFlags: 0
@@ -107724,15 +107724,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5620371262679748922, guid: e32d05b2db53c1f44bd7edb0f67d5755, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.24912496
+      value: 3.23
       objectReference: {fileID: 0}
     - target: {fileID: 5620371262679748922, guid: e32d05b2db53c1f44bd7edb0f67d5755, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.18726471
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5620371262679748922, guid: e32d05b2db53c1f44bd7edb0f67d5755, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.000779
+      value: -4.85
       objectReference: {fileID: 0}
     - target: {fileID: 5620371262679748922, guid: e32d05b2db53c1f44bd7edb0f67d5755, type: 3}
       propertyPath: m_LocalRotation.w
@@ -107768,7 +107768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5620371262679748923, guid: e32d05b2db53c1f44bd7edb0f67d5755, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2243530152978876946, guid: e32d05b2db53c1f44bd7edb0f67d5755, type: 3}
@@ -108174,7 +108174,7 @@ GameObject:
   - component: {fileID: 2074902061}
   - component: {fileID: 2074902060}
   m_Layer: 0
-  m_Name: 'voxel (4,8) height: 1 state: 0'
+  m_Name: 'voxel (4,8) height: 1 state: 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108187,7 +108187,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074902058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: -1.5, y: 0.1, z: 2.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -108242,7 +108242,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074902058}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
 --- !u!1 &2075648239
 GameObject:
   m_ObjectHideFlags: 0
@@ -109944,7 +109944,7 @@ GameObject:
   - component: {fileID: 2103167976}
   - component: {fileID: 2103167975}
   m_Layer: 0
-  m_Name: 'voxel (5,6) height: 4 state: 6'
+  m_Name: 'voxel (5,6) height: 4 state: 15'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109957,7 +109957,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103167973}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0.4, z: 0.5}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_Children: []
@@ -110012,7 +110012,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103167973}
-  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
+  m_Mesh: {fileID: 4300000, guid: bddc1eed78c61114496438ad54b2f531, type: 2}
 --- !u!1 &2103711947
 GameObject:
   m_ObjectHideFlags: 0
@@ -111657,7 +111657,7 @@ GameObject:
   - component: {fileID: 2125253816}
   - component: {fileID: 2125253815}
   m_Layer: 0
-  m_Name: 'voxel (4,6) height: 2 state: 4'
+  m_Name: 'voxel (4,6) height: 2 state: 6'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111725,7 +111725,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125253813}
-  m_Mesh: {fileID: 4300000, guid: bea34d6dda8567c419eb318bd0081efa, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 608ecbf89789c6e4390c2b297310b6e2, type: 2}
 --- !u!1 &2126996502
 GameObject:
   m_ObjectHideFlags: 0
