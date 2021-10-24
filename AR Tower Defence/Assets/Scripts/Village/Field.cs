@@ -54,7 +54,7 @@ public class Field : VillageBuilding, IGrowable
 
   
 
-    private void UpdateView() {
+    protected override void UpdateView() {
         Vector3 wheatPosition = _wheat.transform.localPosition;
         wheatPosition.y = _growth / 100 * _maxWheatHeight;
         _wheat.transform.localPosition = wheatPosition;

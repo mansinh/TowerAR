@@ -73,12 +73,18 @@ public class MyCursor : MonoBehaviour
         {
             try
             {
-                Vector3 p = cursorHit.point - WorldRoot.Instance.transform.position;
-                int tileX = Mathf.RoundToInt(p.x + WorldRoot.Instance.size / 2);
-                int tileZ = Mathf.RoundToInt(p.z + WorldRoot.Instance.size / 2);
-                int tileIndex = tileZ + tileX * WorldRoot.Instance.size;
-
-                return !WorldRoot.Instance.tiles[tileIndex].GetCorrupt();
+                Vector3 p = cursorHit.point - World.World.Instance.transform.position;
+                int tileX = Mathf.RoundToInt(p.x + World.World.Instance.size / 2);
+                int tileZ = Mathf.RoundToInt(p.z + World.World.Instance.size / 2);
+                print("tile " + tileX + " " + tileZ);
+                Tile tile = World.World.Instance.GetTile(tileX, tileZ);
+                print("hit " + tile);
+                if (tile != null)
+                {
+                    print("state "+tile.GetCorrupt());
+                    return !tile.GetCorrupt();
+                }
+                return false;
             }
             catch (Exception e)
             {

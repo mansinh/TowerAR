@@ -41,7 +41,7 @@ public class BuildingCard : Card
     {
         if (_targetTile)
         {
-            GameObject building = Instantiate(_building, WorldRoot.Instance.transform);
+            GameObject building = Instantiate(_building, World.World.Instance.transform);
             building.transform.position = Ghost.transform.position;
             building.transform.localScale = Ghost.transform.localScale;
             building.transform.localEulerAngles = Ghost.transform.localEulerAngles;

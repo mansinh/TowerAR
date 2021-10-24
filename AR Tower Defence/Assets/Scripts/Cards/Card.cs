@@ -8,7 +8,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] Image _image;
     [SerializeField] protected GameObject Ghost;
-    [SerializeField] float _selectTime = 0.07f;
+    float _selectTime = 0.07f;
     [SerializeField] protected string Description = "Basic Card";
     [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20;
     public CardDeck Deck;
@@ -123,7 +123,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             Deselect();
         }
 
-        _rectTransform.position = Vector3.MoveTowards(_rectTransform.position, _targetPosition, 500 * Time.deltaTime); ;
+        _rectTransform.position = Vector3.MoveTowards(_rectTransform.position, _targetPosition, 1000 * Time.deltaTime); ;
         
     }
     Vector3 _targetPosition;
