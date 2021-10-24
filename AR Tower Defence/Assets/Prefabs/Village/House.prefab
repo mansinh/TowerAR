@@ -62,7 +62,6 @@ MonoBehaviour:
   MaxHealth: 10
   DeathDuration: 0.3
   Health: 30
-  _baseSpeed: 0
   IsDestroyed: 0
 --- !u!1 &4448288869483889254
 GameObject:
@@ -158,6 +157,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8122232259749481896, guid: 14f4e1ff2020a2548ac5bc8786d6958a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3921568967233161584, guid: 9fa77d7d38a7cfc4597368ce0012e0a2, type: 3}
     - target: {fileID: 8331560930247477669, guid: 14f4e1ff2020a2548ac5bc8786d6958a, type: 3}
       propertyPath: m_Name
       value: House

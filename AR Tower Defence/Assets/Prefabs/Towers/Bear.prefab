@@ -39,7 +39,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4950410459121811595}
-  m_Mesh: {fileID: 4068373912626513877, guid: 9fa77d7d38a7cfc4597368ce0012e0a2, type: 3}
+  m_Mesh: {fileID: 3921568967233161584, guid: 9fa77d7d38a7cfc4597368ce0012e0a2, type: 3}
 --- !u!23 &4950410459121811605
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -154,14 +154,15 @@ MonoBehaviour:
   MaxHealth: 100
   DeathDuration: 0
   Health: 100
-  _baseSpeed: 1
   IsDestroyed: 0
+  _baseSpeed: 1
   Name: Bear
   _attack: {fileID: 4950410460886607902}
   _detectRange: 10
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Enemy
+  _distanceFromTarget: 1
   timeSinceAIUpdate: 1
   _currentTarget: {fileID: 0}
 --- !u!65 &4950410460102632304
@@ -318,10 +319,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0.3
-  timeRemaining: 0
-  timeStep: 0.1
+  _timeRemaining: 0
   isReady: 1
   isActing: 0
+  isCooling: 0
   _range: 1
   _attackDamage: 50
   _criticalDamage: 0
@@ -334,4 +335,12 @@ MonoBehaviour:
   _poisonDamage: 0
   _poisonDuration: 0
   _poisonSlowness: 0
+  _basicAttackSpeed: 0
+  _attackDamageCard: 0
+  _critDamageCard: 0
+  _critRateCard: 0
+  _slownessCard: 0
+  _poisonCard: 0
+  _stunCard: 0
+  _attackSpeedCard: 0
   _attackImpact: {fileID: 4950410460539163229}
