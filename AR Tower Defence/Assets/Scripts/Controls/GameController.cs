@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] ARPlaceWorld _arPlaceWorld;
     [SerializeField] Camera _testCamera;
     [SerializeField] float _zoomSpeed = 1, _cameraSpeed = 100;
-    [SerializeField] WorldRoot _worldRoot;
+    [SerializeField] World.World _worldRoot;
     [SerializeField] GameObject _gameOverView;
 
     public bool IsAR;

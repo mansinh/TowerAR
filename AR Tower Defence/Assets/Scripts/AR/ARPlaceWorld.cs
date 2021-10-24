@@ -11,7 +11,7 @@ public class ARPlaceWorld : MonoBehaviour
 
     [SerializeField] Transform _ARCursor;
     [SerializeField] Text _trackingButtonText;
-    [SerializeField] WorldRoot _worldRoot;
+    [SerializeField] World.World _worldRoot;
     [SerializeField] ARPlane _planrPrefab;
     ARRaycastManager _arRayCastManager;
     ARPlaneManager _planeManager;

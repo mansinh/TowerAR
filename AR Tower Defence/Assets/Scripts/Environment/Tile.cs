@@ -7,92 +7,66 @@ namespace World
     [ExecuteInEditMode]
     public class Tile : MonoBehaviour
     {
-
-
-        [SerializeField] GameObject[] levels;
-        BoxCollider tileCollider;
-        MeshRenderer blockRenderer;
-        [SerializeField] int _height = 0;
-        [SerializeField] Material m_corrupt, m_restored;
+        BoxCollider _tileCollider;
+        MeshRenderer _renderer;
         [SerializeField] int _state = 0;
-
+       
+        public Vector3Int Coordinates = Vector3Int.zero;
         public const int CORRUPT = 0, RESTORED = 1;
 
         // Start is called before the first frame update
         void Awake()
         {
-            tileCollider = GetComponent<BoxCollider>();
-            transform.eulerAngles = new Vector3(0, (int)(Random.value * 4) * 90, 0);
-
+            _tileCollider = GetComponent<BoxCollider>();
         }
         public void Raise()
         {
-            _height++;
-            UpdateBlock();
+            Coordinates.y++;
+            UpdateCollider();
         }
         public void Lower()
         {
-            _height--;
-            UpdateBlock();
+            Coordinates.y--;
+            UpdateCollider();
         }
         public void SetHeight(int height)
         {
-            _height = height;
-            UpdateBlock();
+            Coordinates.y = height;
+            UpdateCollider();
         }
         public int GetHeight()
         {
-            return _height;
+            return Coordinates.y;
         }
 
-        //TODO
+        public void SetCoordinates(int x, int height, int z)
+        {
+            Coordinates.x = x;
+            Coordinates.y = height;
+            Coordinates.z = z;
+        }
+
         public Vector3 GetTop()
         {
-            return transform.position + Vector3.up * ((_height + 1) * transform.localScale.y);
-        }
-        public void UpdateBlock()
-        {
-            for (int i = 0; i < levels.Length; i++)
-            {
-                levels[i].SetActive(i < _height);
-            }
-            tileCollider.center = new Vector3(0, (_height + 1f) / 2, 0);
-            tileCollider.size = new Vector3(1, _height + 1, 1);
+            return transform.position + Vector3.up * ((Coordinates.y + 1) * transform.localScale.y);
         }
 
         public void SetState(int state)
         {
             _state = state;
-            UpdateView();
+            UpdateCollider();
         }
 
         public void Heal()
         {
             _state++;
-            UpdateView();
+            UpdateCollider();
         }
 
-        void UpdateView()
+        void UpdateCollider()
         {
-            foreach (GameObject level in levels)
-            {
-                MeshRenderer renderer = level.GetComponent<MeshRenderer>();
-                if (renderer)
-                {
-                    switch (_state)
-                    {
-
-                        case CORRUPT:
-                            {
-                                renderer.material = m_corrupt; break;
-                            }
-                        case RESTORED:
-                            {
-                                renderer.material = m_restored; break;
-                            }
-                    }
-                }
-            }
+            _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
+            _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
         }
 
         public bool GetCorrupt()

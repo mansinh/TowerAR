@@ -4,22 +4,32 @@ using UnityEditor;
 using UnityEngine;
 using World;
 
-[CustomEditor(typeof(WorldRoot))]
+
+[CustomEditor(typeof(World.World))]
 public class WorldEditor : Editor
 {
-    WorldRoot world;
+    World.World world;
+    
+    private int _brushSize;
+    private bool _rounded = false;
+    int paintHeight = -1;
+    int paintState = -1;
+
 
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        world = (WorldRoot)target;
-        if (GUILayout.Button("Generate"))
+        world = (World.World)target;
+        if (GUILayout.Button("Create"))
         {
-            world.Generate();
+            world.Create();
         }
-        GUILayout.Label("Press F to edit world");
+        GUILayout.Label("Edit world (F)");
+        GUILayout.Label("Brush Size (PgUp/PgDown)                 " + _brushSize);
+        GUILayout.Label("Rounded Brush (Insert)                    " + _rounded);
 
- 
+        GUILayout.Label("Paint Height (hold numpad)               " + paintHeight);
+        GUILayout.Label("Paint State (hold End/Home)             " + paintState);
     }
 
     
@@ -27,89 +37,91 @@ public class WorldEditor : Editor
     private void OnSceneGUI()
     {
         OnSceneMouseOver();
-        if (blockEditing)
-            OnEditBlock();
+        
+        if (tilesEditing.Count > 0)
+            OnEdit();
 
     }
-
-    Tile blockEditing = null;
+    Tile tileEditing;
+    List<Tile> tilesEditing = new List<Tile>();
     void OnSceneMouseOver()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         RaycastHit hit;
         //And add switch Event.current.type for checking Mouse click and switch tiles
-        if (Physics.Raycast(ray, out hit, 100f))
+        if (Physics.Raycast(ray, out hit, 1000,LayerMask.GetMask("Tile")))
         {
             if (hit.transform.tag == "Placeable")
             {
-                Tile block = hit.transform.GetComponent<Tile>();
-                if (!block && hit.transform.parent)
+                Tile tile = hit.transform.GetComponent<Tile>();
+                if (!tile && hit.transform.parent)
                 {
-                    block = hit.transform.parent.GetComponent<Tile>();
+                    tile = hit.transform.parent.GetComponent<Tile>();
                 }
-                if (block)
+                if (tile)
                 {
-                    
-                    blockEditing = block;
+                    tileEditing = tile;
+                    tilesEditing = GetTilesEditing(tile.Coordinates);
          
                     if (paintHeight > -1)
                     {
-                        blockEditing.SetHeight(paintHeight);
+                        PaintHeight(paintHeight);
+                        world.UpdateView();
+                    }
+                    if (paintState > -1)
+                    {
+                        PaintState(paintState);
+                        world.UpdateView();
                     }
                 }
             }
         }
         else
         {         
-            blockEditing = null;
+            tileEditing = null;
         }
     }
 
 
-    int paintHeight = -1;
-
-    void OnEditBlock()
+   
+    void OnEdit()
     {
         Event e = Event.current;
 
         if (e.type == EventType.KeyUp)
         {
             paintHeight = -1;
+            paintState = -1;
             KeyCode key = e.keyCode;
             switch (key)
             {
                 case KeyCode.KeypadPlus:
-                    blockEditing.Raise();
+                    tileEditing.Raise();
                     Debug.Log("up");
                     e.Use();
                     break;
                 case KeyCode.KeypadMinus:
-                    blockEditing.Lower();
+                    tileEditing.Lower();
                     Debug.Log("down");
                     e.Use();
                     break;
                 case KeyCode.KeypadMultiply:
-                    blockEditing.transform.localEulerAngles += Vector3.up*90;
+                    tileEditing.transform.localEulerAngles += Vector3.up*90;
                     Debug.Log("turn left");
                     e.Use();
                     break;
                 case KeyCode.KeypadDivide:
-                    blockEditing.transform.localEulerAngles -= Vector3.up * 90;
+                    tileEditing.transform.localEulerAngles -= Vector3.up * 90;
                     Debug.Log("turn right");
                     e.Use();
-                    break;
-               
+                    break;              
             }
-
         }
         if (e.type == EventType.KeyDown)
         {
-            Debug.Log("editblock");
-
             KeyCode key = e.keyCode;
             switch (key)
-            {
-               
+            {            
                 case KeyCode.Keypad0:
                     paintHeight = 0;
                     break;
@@ -141,20 +153,69 @@ public class WorldEditor : Editor
                     paintHeight = 9;
                     break;
                 case KeyCode.End:
-                    blockEditing.SetState(0);
+                    paintState = 0;
                     e.Use();
                     break;
                 case KeyCode.Home:
-                    blockEditing.SetState(1);
+                    paintState = 1;
                     e.Use();
                     break;
-                /*case KeyCode.Insert:
-                    blockEditing.SetState(2);
+                case KeyCode.PageUp:                  
+                    _brushSize++;      
                     e.Use();
-                    break;*/
+                    break;
+                case KeyCode.PageDown:
+                    if(_brushSize>0)
+                    _brushSize--;
+                    e.Use();
+                    break;
+                case KeyCode.Insert:
+                    _rounded = !_rounded;
+                    e.Use();
+                    break;
             }
+            Repaint();
         }
     }
 
+    void PaintHeight(int height)
+    {
+        foreach (Tile tile in tilesEditing)
+        {
+            tile.SetHeight(height);
+        }
+    }
 
+    void PaintState(int state)
+    {
+        foreach (Tile tile in tilesEditing)
+        {
+            tile.SetState(state);
+        }
+    }
+
+    List<Tile> GetTilesEditing(Vector3Int center)
+    {
+        tilesEditing.Clear();
+        for (int x = -_brushSize; x <= _brushSize; x++)
+        {
+            for (int z = -_brushSize; z <= _brushSize; z++)
+            {
+                if (_rounded)
+                {
+                    if (x * x + z * z > _brushSize * _brushSize)
+                    {
+                        continue;
+                    }
+                }
+                int tileX = x + center.x;
+                int tileZ = z + center.z;
+                if (tileX >= 0 && tileX < world.size && tileZ >= 0 && tileZ < world.size)
+                {
+                    tilesEditing.Add(world.GetTile(tileX, tileZ));
+                }
+            }
+        }
+        return tilesEditing;
+    }
 }
