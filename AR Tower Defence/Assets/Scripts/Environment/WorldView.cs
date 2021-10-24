@@ -41,7 +41,7 @@ namespace World
                     for (int z = 0; z < _size; z++)
                     {
                         GameObject voxel = Instantiate(_voxelPrefab, _voxelGroup);
-                        voxel.transform.localPosition = new Vector3(x - _world.size / 2-0.5f, (float)y/4, z - _world.size / 2-0.5f);
+                        voxel.transform.localPosition = new Vector3(x - _world.size / 2-0.5f, (float)y/10, z - _world.size / 2-0.5f);
                         voxel.gameObject.name = "voxel (" + x+","+z+") height "+y;
                         int index = x * _size * _height + y * _size + z;
                         _voxels[index] = voxel;
