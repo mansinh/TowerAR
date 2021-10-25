@@ -10,16 +10,14 @@ namespace World
         [SerializeField] int _height;
         [SerializeField] Transform _voxelGroup;
         [SerializeField] Mesh[] _meshStates;
-
+        [SerializeField] Material[] _materialStates;
         [SerializeField] Material m_corrupt, m_restored;
 
         [SerializeField] int _size;
         public World _world;
 
         public void Create()
-        {
-
-          
+        {          
             if (_voxels != null)
             {
                 foreach (GameObject voxel in _voxels)
@@ -66,7 +64,7 @@ namespace World
                         {
                             _voxels[index].SetActive(true);
                             _voxels[index].GetComponent<MeshFilter>().mesh = mesh;
-                            _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x, z);
+                            _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x, z, _voxels[index].transform);
                         }
                         else {
                             _voxels[index].SetActive(false);
@@ -84,30 +82,8 @@ namespace World
             int d = GetHeightState(x-1,y,z);
             int state = a + b * 2 + c * 4 + d * 8;
             
-            Mesh mesh = null;
-            switch (state)
-            {
-                case 1: { mesh = _meshStates[0]; break; }
-                case 2: { mesh = _meshStates[1]; break; }
-                case 3: { mesh = _meshStates[2]; break; }
-                case 4: { mesh = _meshStates[3]; break; }
-
-                case 5: { mesh = _meshStates[4]; break; }
-                case 6: { mesh = _meshStates[5]; break; }
-                case 7: { mesh = _meshStates[6]; break; }
-                case 8: { mesh = _meshStates[7]; break; }
-
-                case 9: { mesh = _meshStates[8]; break; }
-                case 10: { mesh = _meshStates[9]; break; }
-
-                case 11: { mesh = _meshStates[10]; break; }
-                case 12: { mesh = _meshStates[11]; break; }
-                case 13: { mesh = _meshStates[12]; break; }
-                case 14: { mesh = _meshStates[13]; break; }
-
-                case 15: { mesh = _meshStates[14]; break; }
-            }
-            t.gameObject.name = "voxel (" + x + "," + z + ") height: " + y + " state: " + state;
+            Mesh mesh = _meshStates[state];
+            t.gameObject.name = "voxel (" + x + "," + z + ") height: " + y + " mesh: " + state;
        
 
             return mesh;
@@ -128,17 +104,31 @@ namespace World
             return 0;
         }
 
-        Material GetMaterial(int x, int z)
+        Material GetMaterial(int x, int z, Transform t)
+        {
+            int a = GetMaterialState(x - 1, z - 1);
+            int b = GetMaterialState(x, z - 1);
+            int c = GetMaterialState(x, z);
+            int d = GetMaterialState(x - 1, z);
+            int state = a + b * 2 + c * 4 + d * 8;
+            t.gameObject.name = t.gameObject.name + " mat: " + state;
+            Material material = _materialStates[state];
+            return material;
+        }
+
+        int GetMaterialState(int x, int z)
         {
             Tile tile = _world.GetTile(x, z);
-            if (tile != null)
+            if (tile == null)
             {
-                if (!_world.GetTile(x, z).GetCorrupt())
-                {
-                    return m_restored;
-                }
+                return 0;
             }
-            return m_corrupt;
+
+            if (!tile.GetCorrupt())
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }

@@ -16,7 +16,9 @@ public class MiracleHeal : Miracle
             {
                tile.Heal();
             }
-
+            
+            World.World.Instance.UpdateView();
+            
             Destroyable destroyable = other.GetComponent<Destroyable>();
            
             if (destroyable != null)

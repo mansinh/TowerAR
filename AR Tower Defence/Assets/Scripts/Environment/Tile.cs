@@ -54,13 +54,13 @@ namespace World
         public void SetState(int state)
         {
             _state = state;
-            UpdateCollider();
+            
         }
 
         public void Heal()
         {
             _state++;
-            UpdateCollider();
+           
         }
 
         void UpdateCollider()
@@ -68,6 +68,8 @@ namespace World
             _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
             _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
         }
+
+        
 
         public bool GetCorrupt()
         {
