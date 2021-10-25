@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using World;
+
 public class Tree : Destroyable, IGrowable
 {
     [SerializeField] float _growth = 0;

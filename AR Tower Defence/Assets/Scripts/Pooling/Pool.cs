@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using World;
+
 public class Pool : MonoBehaviour
 {
     [SerializeField] GameObject _prefab;
@@ -18,7 +18,7 @@ public class Pool : MonoBehaviour
     public virtual void Init() {
         for (int i = 0; i < _poolSize; i++)
         {
-            GameObject poolable = Instantiate(_prefab, World.World.Instance.transform);
+            GameObject poolable = Instantiate(_prefab, World.Instance.transform);
             poolable.SetActive(false);
             Inactive.Add(poolable);
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using World;
+
 public class MiracleFire : Miracle
 {
     [SerializeField] float _startSize = 0.2f;

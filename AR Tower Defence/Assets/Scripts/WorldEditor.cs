@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using World;
 
 
-[CustomEditor(typeof(World.World))]
+
+[CustomEditor(typeof(World))]
 public class WorldEditor : Editor
 {
-    World.World world;
+    World world;
     
     private int _brushSize;
     private bool _rounded = false;
@@ -19,17 +19,28 @@ public class WorldEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        world = (World.World)target;
+        world = (World)target;
         if (GUILayout.Button("Create"))
         {
             world.Create();
         }
+        /*
+        if (GUILayout.Button("Generate"))
+        {
+            world.Generate();
+        }*/
+
         GUILayout.Label("Edit world (F)");
         GUILayout.Label("Brush Size (PgUp/PgDown)                 " + _brushSize);
         GUILayout.Label("Rounded Brush (Insert)                    " + _rounded);
 
         GUILayout.Label("Paint Height (hold numpad)               " + paintHeight);
         GUILayout.Label("Paint State (hold End/Home)             " + paintState);
+
+        if (world.IsGenerating)
+        {
+            world.Generate();
+        }
     }
 
     
@@ -81,9 +92,7 @@ public class WorldEditor : Editor
             tileEditing = null;
         }
     }
-
-
-   
+ 
     void OnEdit()
     {
         Event e = Event.current;

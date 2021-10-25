@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using World;
+
 public class MiracleHeal : Miracle
 {
     public override void Activate()
@@ -17,7 +15,7 @@ public class MiracleHeal : Miracle
                tile.Heal();
             }
             
-            World.World.Instance.UpdateView();
+            World.Instance.UpdateView();
             
             Destroyable destroyable = other.GetComponent<Destroyable>();
            
