@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
-using World;
+
 [RequireComponent(typeof(ARRaycastHit))]
 public class ARPlaceWorld : MonoBehaviour
 {
 
     [SerializeField] Transform _ARCursor;
     [SerializeField] Text _trackingButtonText;
-    [SerializeField] World.World _worldRoot;
+    [SerializeField] World _worldRoot;
     [SerializeField] ARPlane _planrPrefab;
     ARRaycastManager _arRayCastManager;
     ARPlaneManager _planeManager;

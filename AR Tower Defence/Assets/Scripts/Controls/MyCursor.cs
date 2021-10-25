@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
-using World;
+
 public class MyCursor : MonoBehaviour
 {
     Image cursorImage;
@@ -73,11 +73,11 @@ public class MyCursor : MonoBehaviour
         {
             try
             {
-                Vector3 p = cursorHit.point - World.World.Instance.transform.position;
-                int tileX = Mathf.RoundToInt(p.x + World.World.Instance.size / 2);
-                int tileZ = Mathf.RoundToInt(p.z + World.World.Instance.size / 2);
+                Vector3 p = cursorHit.point - World.Instance.transform.position;
+                int tileX = Mathf.RoundToInt(p.x + World.Instance.size / 2);
+                int tileZ = Mathf.RoundToInt(p.z + World.Instance.size / 2);
                 print("tile " + tileX + " " + tileZ);
-                Tile tile = World.World.Instance.GetTile(tileX, tileZ);
+                Tile tile = World.Instance.GetTile(tileX, tileZ);
                 print("hit " + tile);
                 if (tile != null)
                 {

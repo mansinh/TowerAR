@@ -1,5 +1,5 @@
 using UnityEngine;
-using World;
+
 public class BuildingCard : Card
 {
     [SerializeField] GameObject _building;
@@ -41,7 +41,7 @@ public class BuildingCard : Card
     {
         if (_targetTile)
         {
-            GameObject building = Instantiate(_building, World.World.Instance.transform);
+            GameObject building = Instantiate(_building, World.Instance.transform);
             building.transform.position = Ghost.transform.position;
             building.transform.localScale = Ghost.transform.localScale;
             building.transform.localEulerAngles = Ghost.transform.localEulerAngles;

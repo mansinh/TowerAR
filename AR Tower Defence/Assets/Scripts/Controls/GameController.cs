@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using World;
+
 public class GameController : MonoBehaviour
 {
     [SerializeField] ARSession _arSession;
     [SerializeField] ARPlaceWorld _arPlaceWorld;
     [SerializeField] Camera _testCamera;
     [SerializeField] float _zoomSpeed = 1, _cameraSpeed = 100;
-    [SerializeField] World.World _worldRoot;
+    [SerializeField] World _worldRoot;
     [SerializeField] GameObject _gameOverView;
 
     public bool IsAR;
