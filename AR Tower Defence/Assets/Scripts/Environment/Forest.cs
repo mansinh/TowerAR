@@ -25,7 +25,8 @@ public class Forest : MonoBehaviour, IGrowable
         }
         if (Random.value < 1f / 100)
         {
-            Vector3 randomPos = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            Vector2 randomCircle =Random.insideUnitCircle/2;
+            Vector3 randomPos = new Vector3(randomCircle.x, 0,randomCircle.y);
             GameObject newTree = _treePool.Push();
             if (newTree)
             {

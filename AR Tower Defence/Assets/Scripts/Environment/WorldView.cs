@@ -9,7 +9,11 @@ public class WorldView : MonoBehaviour
     [SerializeField] int _height;
     [SerializeField] Transform _voxelGroup;
     [SerializeField] Mesh[] _meshStates;
+
     [SerializeField] Material[] _materialStates;
+    [SerializeField] Material[] _materialStates1;
+    [SerializeField] Material[] _materialStates2;
+
     [SerializeField] Material m_corrupt, m_restored;
 
     [SerializeField] int _size;
@@ -19,6 +23,7 @@ public class WorldView : MonoBehaviour
 
     public void Create()
     {
+         
         if (_voxels != null)
         {
             foreach (GameObject voxel in _voxels)
@@ -61,7 +66,9 @@ public class WorldView : MonoBehaviour
                     {
                         _voxels[index].SetActive(true);
                         _voxels[index].GetComponent<MeshFilter>().mesh = mesh;
-                        _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x, z, _voxels[index].transform);
+                        _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x,y, z, _voxels[index].transform);
+
+                        
                     }
                     else
                     {
@@ -83,7 +90,6 @@ public class WorldView : MonoBehaviour
         Mesh mesh = _meshStates[state];
         t.gameObject.name = "voxel (" + x + "," + z + ") height: " + y + " mesh: " + state;
 
-
         return mesh;
     }
 
@@ -102,15 +108,28 @@ public class WorldView : MonoBehaviour
         return 0;
     }
 
-    Material GetMaterial(int x, int z, Transform t)
+    Material GetMaterial(int x,int y, int z, Transform t)
     {
+       
+
         int a = GetMaterialState(x - 1, z - 1);
         int b = GetMaterialState(x, z - 1);
         int c = GetMaterialState(x, z);
         int d = GetMaterialState(x - 1, z);
         int state = a + b * 2 + c * 4 + d * 8;
         t.gameObject.name = t.gameObject.name + " mat: " + state;
+
+       
         Material material = _materialStates[state];
+        if (y%3 == 0)
+        {
+            material = _materialStates1[state];
+        }
+        else if (y%2==0)
+        {
+            material = _materialStates2[state];
+        }
+
         return material;
     }
 
