@@ -60,8 +60,17 @@ namespace World
                     for (int z = 0; z < _size; z++)
                     {
                         int index = x * _size * _height + y * _size + z;
-                        _voxels[index].GetComponent<MeshFilter>().mesh = GetMesh(x,y,z, _voxels[index].transform);
-                        _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x,z);
+
+                        Mesh mesh = GetMesh(x, y, z, _voxels[index].transform);
+                        if (mesh != null)
+                        {
+                            _voxels[index].SetActive(true);
+                            _voxels[index].GetComponent<MeshFilter>().mesh = mesh;
+                            _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x, z);
+                        }
+                        else {
+                            _voxels[index].SetActive(false);
+                        }
                     }
                 }
             }
@@ -74,32 +83,32 @@ namespace World
             int c = GetHeightState(x,y,z);
             int d = GetHeightState(x-1,y,z);
             int state = a + b * 2 + c * 4 + d * 8;
-            Vector3 eulerAngles = t.localEulerAngles;
+            
             Mesh mesh = null;
             switch (state)
             {
-                case 1: { mesh = _meshStates[0]; eulerAngles.y = 0; break; }
-                case 2: { mesh = _meshStates[0]; eulerAngles.y = 270; break; }
-                case 4: { mesh = _meshStates[0]; eulerAngles.y = 180; break; }
-                case 8: { mesh = _meshStates[0]; eulerAngles.y = 90; break; }
+                case 1: { mesh = _meshStates[0]; break; }
+                case 2: { mesh = _meshStates[1]; break; }
+                case 3: { mesh = _meshStates[2]; break; }
+                case 4: { mesh = _meshStates[3]; break; }
 
-                case 3: { mesh = _meshStates[1]; eulerAngles.y = 270; break; }
-                case 6: { mesh = _meshStates[1]; eulerAngles.y = 180; break; }
-                case 9: { mesh = _meshStates[1]; eulerAngles.y = 0; break; }
-                case 12: { mesh = _meshStates[1]; eulerAngles.y = 90; break; }
+                case 5: { mesh = _meshStates[4]; break; }
+                case 6: { mesh = _meshStates[5]; break; }
+                case 7: { mesh = _meshStates[6]; break; }
+                case 8: { mesh = _meshStates[7]; break; }
 
-                case 5: { mesh = _meshStates[2]; eulerAngles.y = 90; break; }
-                case 10: { mesh = _meshStates[2]; eulerAngles.y = 0; break; }
+                case 9: { mesh = _meshStates[8]; break; }
+                case 10: { mesh = _meshStates[9]; break; }
 
-                case 7: { mesh = _meshStates[3]; eulerAngles.y = 270; break; }
-                case 11: { mesh = _meshStates[3]; eulerAngles.y = 0; break; }
-                case 13: { mesh = _meshStates[3]; eulerAngles.y = 90; break; }
-                case 14: { mesh = _meshStates[3]; eulerAngles.y = 180; break; }
+                case 11: { mesh = _meshStates[10]; break; }
+                case 12: { mesh = _meshStates[11]; break; }
+                case 13: { mesh = _meshStates[12]; break; }
+                case 14: { mesh = _meshStates[13]; break; }
 
-                case 15: { mesh = _meshStates[4]; eulerAngles.y = 0; break; }
+                case 15: { mesh = _meshStates[14]; break; }
             }
             t.gameObject.name = "voxel (" + x + "," + z + ") height: " + y + " state: " + state;
-            t.localEulerAngles = eulerAngles;
+       
 
             return mesh;
         }
