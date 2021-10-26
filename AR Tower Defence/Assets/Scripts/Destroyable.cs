@@ -84,6 +84,7 @@ public class Destroyable : MonoBehaviour
     {
         _poisonDuration = Mathf.Max(damage.poisonDuration, _poisonDuration);
         _poisonDamage = Mathf.Max(damage.poisonDamage, _poisonDamage);
+
         if (_poisonDuration > 0 && !_isPoisoned)
         {
             StartCoroutine(PoisonEffect(damage));
