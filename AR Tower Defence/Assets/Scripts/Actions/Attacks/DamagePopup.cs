@@ -51,13 +51,13 @@ public class DamagePopup : MonoBehaviour
             textColor = _normalColor;
         }
 
+        textMesh.SetText(((int)damage.damage).ToString());
         if (isPoison)
         {
             textMesh.fontSize = 4f;
             textColor = _poisonColor;
             textMesh.SetText(((int)damage.poisonDamage).ToString());
         }
-        textMesh.SetText(((int)damage.damage).ToString());
 
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
