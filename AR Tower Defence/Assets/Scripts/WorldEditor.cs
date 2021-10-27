@@ -1,9 +1,7 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
-
 
 [CustomEditor(typeof(World))]
 public class WorldEditor : Editor
@@ -24,7 +22,7 @@ public class WorldEditor : Editor
         {
             world = (World)target;
         }
-        
+        GUILayout.Space(10);
         if (GUILayout.Button("Create"))
         {
             world.Create();
@@ -34,14 +32,40 @@ public class WorldEditor : Editor
         {
             world.Generate();
         }*/
+        GUILayout.Space(10);
+        GUILayout.Label("______________________________________________________________________");
+        GUILayout.Space(10);
+        GUILayout.Label("EDITOR CONTROLS", EditorStyles.boldLabel);
+        GUILayout.Space(10);
+        GUILayout.Label("To edit world, hover mouse over the world and press F");
+        GUILayout.Space(5);
 
-        GUILayout.Label("Edit world (F):");
-        GUILayout.Label("Brush Size (PgUp/PgDown):                 " + _brushSize);
-        GUILayout.Label("Rounded Brush (Insert):                    " + _rounded);
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Brush Size (PgUp/PgDown):");
+        GUILayout.Label(""+_brushSize, EditorStyles.miniButtonRight, GUILayout.Width(80));
+        EditorGUILayout.EndHorizontal();
 
-        GUILayout.Label("Base Paint Height:                                " + basePaintHeight);
-        GUILayout.Label("Paint Height (hold numpad)               " + paintHeight);
-        GUILayout.Label("Paint State (hold End/Home)             " + paintState);
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Brush Shape (Insert):");
+        GUILayout.Label(ShowBrushShape(), EditorStyles.miniButtonRight, GUILayout.Width(80));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Base Paint Height:" );
+        GUILayout.Label("" + basePaintHeight, EditorStyles.miniButtonRight, GUILayout.Width(80));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Paint Height (hold numpad):" );
+        GUILayout.Label(ShowHeight(), EditorStyles.miniButtonRight, GUILayout.Width(80));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Paint State (hold End/Home):" );
+        GUILayout.Label(ShowState(), EditorStyles.miniButtonRight, GUILayout.Width(80));
+        EditorGUILayout.EndHorizontal();
+
+        GUILayout.Space(10);
 
         if (world.IsGenerating)
         {
@@ -49,7 +73,32 @@ public class WorldEditor : Editor
         }
     }
 
-    
+    string ShowState()
+    {
+        switch (paintState)
+        {
+            case 1: return "Restored";
+            case 0: return "Desert";
+        }
+        return "Off";
+    }
+
+    string ShowHeight()
+    {
+        if (paintHeight >= 0)
+        {
+            return "" + paintHeight;
+        }
+        return "Off";
+    }
+
+    string ShowBrushShape()
+    {
+        if (_rounded) {
+            return "Round";
+        }
+        return "Square";
+    }
 
     private void OnSceneGUI()
     {
@@ -62,7 +111,6 @@ public class WorldEditor : Editor
  
         if (tilesEditing.Count > 0)
             OnEdit();
-
     }
     Tile tileEditing;
     List<Tile> tilesEditing = new List<Tile>();
@@ -108,32 +156,6 @@ public class WorldEditor : Editor
     void OnEdit()
     {
         Event e = Event.current;
-
-        
-
-        if (e.type == EventType.KeyUp)
-        {
-            paintHeight = -1;
-            paintState = -1;
-            KeyCode key = e.keyCode;
-            switch (key)
-            {
-                case KeyCode.KeypadPlus:
-                    tileEditing.Raise();
-                    Debug.Log("up");
-                    e.Use();
-                    break;
-                case KeyCode.KeypadMinus:
-                    tileEditing.Lower();
-                    Debug.Log("down");
-                    e.Use();
-                    break;
-                case KeyCode.KeypadPeriod:
-                    basePaintHeight = 0;           
-                    e.Use();
-                    break;   
-            }
-        }
    
         if (e.type == EventType.KeyDown)
         {
@@ -142,7 +164,6 @@ public class WorldEditor : Editor
             {
                 basePaintHeight = 10;
             }
-
             switch (key)
             {            
                 case KeyCode.Keypad0:
@@ -196,12 +217,34 @@ public class WorldEditor : Editor
                     _rounded = !_rounded;
                     e.Use();
                     break;
-            }
-
-            
-
-            Repaint();
+            }           
         }
+
+        if (e.type == EventType.KeyUp)
+        {
+            paintHeight = -1;
+            paintState = -1;
+            KeyCode key = e.keyCode;
+            switch (key)
+            {
+                case KeyCode.KeypadPlus:
+                    tileEditing.Raise();
+                    Debug.Log("up");
+                    e.Use();
+                    break;
+                case KeyCode.KeypadMinus:
+                    tileEditing.Lower();
+                    Debug.Log("down");
+                    e.Use();
+                    break;
+                case KeyCode.KeypadPeriod:
+                    basePaintHeight = 0;
+                    e.Use();
+                    break;
+            }
+        }
+
+        Repaint();
     }
 
     void PaintHeight(int height)

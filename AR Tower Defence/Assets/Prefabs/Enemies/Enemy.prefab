@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3011552714801603982
 Transform:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   isReady: 1
   isActing: 0
   isCooling: 0
-  _range: 2
+  _range: 1
   _attackDamage: 10
   _criticalDamage: 1.2
   _criticalRate: 0.1

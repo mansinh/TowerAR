@@ -36,9 +36,7 @@ public class WorldView : MonoBehaviour
         }
         _size = _world.size + 1;
         if (UseGameobjects)
-        {
-           
-            
+        {          
             _voxels = new GameObject[_size * _height * _size];
 
             for (int x = 0; x < _size; x++)

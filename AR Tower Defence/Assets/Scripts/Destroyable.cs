@@ -142,6 +142,10 @@ public class Destroyable : MonoBehaviour
         Remove();
     }
 
+    public void TriggerDeath() {
+        StartCoroutine(Die());
+    }
+
     protected virtual void UpdateView()
     {
        

@@ -145,7 +145,7 @@ MonoBehaviour:
   isReady: 1
   isActing: 0
   isCooling: 0
-  _range: 2
+  _range: 1
   _attackDamage: 1.5
   _criticalDamage: 1.7
   _criticalRate: 0.2
@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6015952174851431229
 Transform:
   m_ObjectHideFlags: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   DeathDuration: 1
   Health: 100
   IsDestroyed: 0
-  _baseSpeed: 1
+  _baseSpeed: 0.75
   Name: Enemy
   _attack: {fileID: 4242346209958181203}
   _detectRange: 3

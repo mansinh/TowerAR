@@ -4759,7 +4759,7 @@ MonoBehaviour:
   Lifetime: 3
   Life: 0
   _pointLight: {fileID: 4688277450833181856}
-  _lightIntensity: 3
+  _lightIntensity: 2
 --- !u!199 &4565326066296900982
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4946,7 +4946,7 @@ GameObject:
   - component: {fileID: 7952078349605486656}
   - component: {fileID: 4688277450833181856}
   m_Layer: 2
-  m_Name: Point Light
+  m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4977,11 +4977,11 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.84339625, g: 1, b: 0.9904064, a: 1}
   m_Intensity: 2
   m_Range: 2.94
   m_SpotAngle: 81.53761
-  m_InnerSpotAngle: 31.670984
+  m_InnerSpotAngle: 51.331337
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0

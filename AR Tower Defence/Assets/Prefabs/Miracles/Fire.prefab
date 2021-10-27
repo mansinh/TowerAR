@@ -9899,7 +9899,7 @@ MonoBehaviour:
   Lifetime: 0
   Life: 0
   _pointLight: {fileID: 1523749061071635576}
-  _lightIntensity: 0.05
+  _lightIntensity: 0.02
   _startSize: 0.2
   _coolDown: 1
   _burntArea: {fileID: 0}
