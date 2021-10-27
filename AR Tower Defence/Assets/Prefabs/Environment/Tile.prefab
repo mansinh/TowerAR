@@ -73,5 +73,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _treePrefab: {fileID: 2193533505615992168, guid: cbfca65e16372284cb63590b24cac519, type: 3}
-  _maxTreeCount: 10
+  _maxTreeCount: 6
   _tile: {fileID: 2817696162143811068}

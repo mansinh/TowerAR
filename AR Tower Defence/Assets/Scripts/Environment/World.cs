@@ -139,6 +139,11 @@ public class World : MonoBehaviour
         _view.UpdateView();
     }
 
+    public void Draw()
+    {
+        _view.Draw();
+    }
+
     public Tile GetTile(int x, int z)
     {
         if (_tiles != null)

@@ -12,6 +12,7 @@ public class WorldEditor : Editor
     
     private int _brushSize;
     private bool _rounded = false;
+    int basePaintHeight = 0;
     int paintHeight = -1;
     int paintState = -1;
 
@@ -19,7 +20,11 @@ public class WorldEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        world = (World)target;
+        if (world == null)
+        {
+            world = (World)target;
+        }
+        
         if (GUILayout.Button("Create"))
         {
             world.Create();
@@ -30,10 +35,11 @@ public class WorldEditor : Editor
             world.Generate();
         }*/
 
-        GUILayout.Label("Edit world (F)");
-        GUILayout.Label("Brush Size (PgUp/PgDown)                 " + _brushSize);
-        GUILayout.Label("Rounded Brush (Insert)                    " + _rounded);
+        GUILayout.Label("Edit world (F):");
+        GUILayout.Label("Brush Size (PgUp/PgDown):                 " + _brushSize);
+        GUILayout.Label("Rounded Brush (Insert):                    " + _rounded);
 
+        GUILayout.Label("Base Paint Height:                                " + basePaintHeight);
         GUILayout.Label("Paint Height (hold numpad)               " + paintHeight);
         GUILayout.Label("Paint State (hold End/Home)             " + paintState);
 
@@ -48,7 +54,12 @@ public class WorldEditor : Editor
     private void OnSceneGUI()
     {
         OnSceneMouseOver();
-        
+        if (world == null)
+        {
+            world = (World)target;
+        }
+        world.Draw();
+ 
         if (tilesEditing.Count > 0)
             OnEdit();
 
@@ -92,10 +103,13 @@ public class WorldEditor : Editor
             tileEditing = null;
         }
     }
- 
+    
+
     void OnEdit()
     {
         Event e = Event.current;
+
+        
 
         if (e.type == EventType.KeyUp)
         {
@@ -114,52 +128,52 @@ public class WorldEditor : Editor
                     Debug.Log("down");
                     e.Use();
                     break;
-                case KeyCode.KeypadMultiply:
-                    tileEditing.transform.localEulerAngles += Vector3.up*90;
-                    Debug.Log("turn left");
+                case KeyCode.KeypadPeriod:
+                    basePaintHeight = 0;           
                     e.Use();
-                    break;
-                case KeyCode.KeypadDivide:
-                    tileEditing.transform.localEulerAngles -= Vector3.up * 90;
-                    Debug.Log("turn right");
-                    e.Use();
-                    break;              
+                    break;   
             }
         }
+   
         if (e.type == EventType.KeyDown)
         {
             KeyCode key = e.keyCode;
+            if (key == KeyCode.KeypadPeriod)
+            {
+                basePaintHeight = 10;
+            }
+
             switch (key)
             {            
                 case KeyCode.Keypad0:
-                    paintHeight = 0;
+                    paintHeight = 0+basePaintHeight;
                     break;
                 case KeyCode.Keypad1:
-                    paintHeight = 1;
+                    paintHeight = 1 + basePaintHeight;
                     break;
                 case KeyCode.Keypad2:
-                    paintHeight = 2;
+                    paintHeight = 2 + basePaintHeight;
                     break;
                 case KeyCode.Keypad3:
-                    paintHeight = 3;
+                    paintHeight = 3 + basePaintHeight;
                     break;
                 case KeyCode.Keypad4:
-                    paintHeight = 4;
+                    paintHeight = 4 + basePaintHeight;
                     break;
                 case KeyCode.Keypad5:
-                    paintHeight = 5;
+                    paintHeight = 5 + basePaintHeight;
                     break;
                 case KeyCode.Keypad6:
-                    paintHeight = 6;
+                    paintHeight = 6 + basePaintHeight;
                     break;
                 case KeyCode.Keypad7:
-                    paintHeight = 7;
+                    paintHeight = 7 + basePaintHeight;
                     break;
                 case KeyCode.Keypad8:
-                    paintHeight = 8;
+                    paintHeight = 8 + basePaintHeight;
                     break;
                 case KeyCode.Keypad9:
-                    paintHeight = 9;
+                    paintHeight = 9 + basePaintHeight;
                     break;
                 case KeyCode.End:
                     paintState = 0;
@@ -183,6 +197,9 @@ public class WorldEditor : Editor
                     e.Use();
                     break;
             }
+
+            
+
             Repaint();
         }
     }

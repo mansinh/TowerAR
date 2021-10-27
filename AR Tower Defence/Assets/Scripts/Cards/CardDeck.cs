@@ -29,7 +29,7 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     public void DrawCards() {
-        if (_cardsInHand.Count <= _maxCards)
+        if (_cardsInHand.Count < _maxCards)
         { 
             if (Points.Instance.PurchaseCardDraw(_deckType))
             {
