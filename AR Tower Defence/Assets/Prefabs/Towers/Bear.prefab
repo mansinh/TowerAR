@@ -91,8 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4950410460102632311}
   - component: {fileID: 4950410460102632310}
-  - component: {fileID: 4950410460102632309}
   - component: {fileID: 4950410460102632304}
+  - component: {fileID: 172495932905527041}
   m_Layer: 10
   m_Name: Bear
   m_TagString: Untagged
@@ -138,33 +138,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4950410460102632309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4950410460102632308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa5260e699786c54f9e144381bdc1528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _view: {fileID: 4950410459121811604}
-  MaxHealth: 100
-  DeathDuration: 0
-  Health: 100
-  IsDestroyed: 0
-  _baseSpeed: 1
-  Name: Bear
-  _attack: {fileID: 4950410460886607902}
-  _detectRange: 10
-  AiUpdateTime: 1
-  DefaultTarget: {fileID: 0}
-  TargetName: Enemy
-  _distanceFromTarget: 1
-  timeSinceAIUpdate: 1
-  _currentTarget: {fileID: 0}
 --- !u!65 &4950410460102632304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -178,6 +151,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &172495932905527041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4950410460102632308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12c7b0bf037fc842963485255553fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 4950410459121811604}
+  MaxHealth: 250
+  DeathDuration: 0
+  Health: 250
+  IsDestroyed: 0
+  _baseSpeed: 1
+  Name: Bear
+  _attack: {fileID: 4950410460886607902}
+  _detectRange: 10
+  AiUpdateTime: 1
+  DefaultTarget: {fileID: 0}
+  TargetName: Enemy
+  _distanceFromTarget: 1
+  timeSinceAIUpdate: 1
+  _currentTarget: {fileID: 0}
 --- !u!1 &4950410460539163229
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,9 +324,9 @@ MonoBehaviour:
   isActing: 0
   isCooling: 0
   _range: 1
-  _attackDamage: 50
-  _criticalDamage: 0
-  _criticalRate: 0
+  _attackDamage: 10
+  _criticalDamage: 1.5
+  _criticalRate: 0.1
   _stunDamage: 0
   _stunRate: 0
   _stunDuration: 0

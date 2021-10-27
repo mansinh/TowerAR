@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : Action
 {
-    [SerializeField] public float  _attackDamage;
+    [SerializeField] public float _attackDamage;
     [SerializeField] public float _criticalDamage;
     [SerializeField] public float _criticalRate;
     [SerializeField] public float _stunDamage;
@@ -101,12 +101,18 @@ public class Attack : Action
 
         _slowness = _slowness + (1 - _slowness) * _poisonSlowness;
 
+
         if (_attackSpeedCard > 0) { damage.attackSpeed = _attackSpeed; }
         if (_poisonDuration > 0) { damage.slowness = _slowness; damage.poisonDamage = _poisonDamage; damage.slownessDuration = 3;damage.poisonDuration = 3; }
         if (_slownessDuration > 0) { damage.slowness = _slowness; damage.slownessDuration = 3; }
 
        
         return damage;
+    }
+
+    public virtual void OnUpgrade()
+    {
+
     }
 }
 

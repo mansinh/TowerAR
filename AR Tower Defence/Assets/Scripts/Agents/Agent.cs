@@ -10,7 +10,7 @@ public class Agent : Destroyable
 {
     [SerializeField] public float _baseSpeed = 1;
     [SerializeField] protected string Name = "";
-    [SerializeField] Attack _attack;
+    [SerializeField] public Attack _attack;
     [SerializeField] float _detectRange;
     [SerializeField] float AiUpdateTime = 1f;
     [SerializeField] protected Transform DefaultTarget;
@@ -103,7 +103,7 @@ public class Agent : Destroyable
             {              
                 SetTarget(closestTarget.transform);   
             }
-            else if(Random.value < 0.5)
+            else if(Random.value < 0.1)
             {
                 SetTarget(DefaultTarget);
             }

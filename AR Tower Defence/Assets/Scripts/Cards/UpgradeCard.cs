@@ -71,6 +71,7 @@ public class UpgradeCard : Card
                 _targetTower._attack._attackSpeedCard += 1;
                 Deck.RemoveCard(this);
             }
+            _targetTower._attack.OnUpgrade();
         }
     }
 }

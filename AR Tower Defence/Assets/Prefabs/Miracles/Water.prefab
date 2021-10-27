@@ -5074,7 +5074,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5539783049461258642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.283, y: 0.84, z: -5.04}
+  m_LocalPosition: {x: 0.283, y: 0.1, z: -5.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4064636798258662766}
@@ -9978,6 +9978,8 @@ MonoBehaviour:
   SoundEffect: {fileID: 0}
   Lifetime: 0
   Life: 0
+  _pointLight: {fileID: 0}
+  _lightIntensity: 0
   _coolDown: 0.2
   _extinguishSpeed: 0.25
   _growSpeed: 3

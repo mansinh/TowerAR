@@ -9,25 +9,21 @@ public class World : MonoBehaviour
 {
     static public World Instance;
     public int size = 40;
-    [SerializeField] WorldView _view;
-    [SerializeField] NavController navController;
-    [SerializeField] Tile tilePrefab;
-    [SerializeField] Transform _tileGroup;
-
-    [SerializeField] Tile[] _tiles;
+    [SerializeField] private WorldView view;
+    [SerializeField] private NavController navController;
+    [SerializeField] private Tile tilePrefab;
+    [SerializeField] private Transform tileGroup;
+    [SerializeField] private Tile[] tiles;
 
     private void Awake()
     {
-
-
         Instance = this;
-
-        print(_tiles == null);
+        
     }
 
     void Start()
     {
-        foreach (Tile tile in _tiles)
+        foreach (Tile tile in tiles)
         {
             if (tile.GetHeight() < 1)
             {
@@ -37,7 +33,7 @@ public class World : MonoBehaviour
         Refresh();
     }
 
-    Enemy[] enemies;
+    private Enemy[] _enemies;
     public void Refresh()
     {
         navController.Bake();
@@ -45,19 +41,19 @@ public class World : MonoBehaviour
 
     public void Pause()
     {
-        enemies = FindObjectsOfType<Enemy>();
+        _enemies = FindObjectsOfType<Enemy>();
 
-        for (int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < _enemies.Length; i++)
         {
-            enemies[i].GetComponent<NavMeshAgent>().enabled = false;
+            _enemies[i].GetComponent<NavMeshAgent>().enabled = false;
         }
     }
 
     public void Create()
     {
-        if (_tiles != null)
+        if (tiles != null)
         {
-            foreach (Tile tile in _tiles)
+            foreach (Tile tile in tiles)
             {
                 if (tile)
                 {
@@ -68,22 +64,22 @@ public class World : MonoBehaviour
         }
 
 
-        _tiles = new Tile[size * size];
+        tiles = new Tile[size * size];
         for (int x = 0; x < size; x++)
         {
             for (int z = 0; z < size; z++)
             {
-                Tile tile = Instantiate(tilePrefab, _tileGroup);
+                Tile tile = Instantiate(tilePrefab, tileGroup);
                 tile.transform.localPosition = new Vector3(x - size / 2, -tile.transform.localScale.y, z - size / 2);
                 tile.SetCoordinates(x, 0, z);
                 tile.SetHeight(0);
                 tile.gameObject.name = "tile (" + x + "," + z + ")";
-                _tiles[x * size + z] = tile;
+                tiles[x * size + z] = tile;
             }
         }
-        if (_view != null)
+        if (view != null)
         {
-            _view.Create();
+            view.Create();
         }
     }
 
@@ -100,10 +96,12 @@ public class World : MonoBehaviour
                 GetTile(x, z).SetHeight(Mathf.RoundToInt(10 * CalculateHeight(x, z)));
             }
         }
-        _view.UpdateView();
+        view.UpdateView();
     }
 
-
+    [Space(10)]
+    [Header("PROCEDURAL GENERATION (Work in Progress)")]
+    [Header("______________________________________________________________________")]
     public bool IsGenerating;
     [SerializeField] bool Gaussian;
     [SerializeField] float _scale = 1;
@@ -136,16 +134,21 @@ public class World : MonoBehaviour
 
     public void UpdateView()
     {
-        _view.UpdateView();
+        view.UpdateView();
+    }
+
+    public void Draw()
+    {
+        view.Draw();
     }
 
     public Tile GetTile(int x, int z)
     {
-        if (_tiles != null)
+        if (tiles != null)
         {
             if (x >= 0 && x < size && z >= 0 && z < size)
             {
-                return _tiles[x * size + z];
+                return tiles[x * size + z];
             }
         }
         return null;

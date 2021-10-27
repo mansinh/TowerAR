@@ -209,14 +209,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a00d42013076bb4f9dba8fdadb1b83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.5
+  cooldown: 1
   duration: 0
   _timeRemaining: 0
   isReady: 1
   isActing: 0
   isCooling: 0
   _range: 5
-  _attackDamage: 10
+  _attackDamage: 7
   _criticalDamage: 1.5
   _criticalRate: 0.1
   _stunDamage: 0

@@ -5,7 +5,7 @@ public class Forest : MonoBehaviour, IGrowable
 {
     Pool _treePool;
     [SerializeField] GameObject _treePrefab;
-    [SerializeField] int _maxTreeCount = 10;
+    [SerializeField] int _maxTreeCount = 6;
     [SerializeField] Tile _tile;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class Forest : MonoBehaviour, IGrowable
         }
         if (Random.value < 1f / 100)
         {
-            Vector2 randomCircle =Random.insideUnitCircle/2;
+            Vector2 randomCircle =Random.insideUnitCircle/3;
             Vector3 randomPos = new Vector3(randomCircle.x, 0,randomCircle.y);
             GameObject newTree = _treePool.Push();
             if (newTree)

@@ -34,15 +34,17 @@ public class Points : MonoBehaviour
         _view.UpdatePoints(_totalPoints);
     }
 
-    public bool PurchaseCardDraw(string deckType)
+    public bool PurchaseCardDraw(CardDeck.DeckType deckType)
     {
         int cardDrawCost = 0;
 
         switch (deckType) {
-            case "Main": { cardDrawCost = 20;  break; }
-            case "Lightning": { cardDrawCost = 1; break; }
+            case CardDeck.DeckType.Main: { cardDrawCost = 20;  break; }
+            case CardDeck.DeckType.Lightning: { cardDrawCost = 1; break; }
+            case CardDeck.DeckType.Water: { cardDrawCost = 1; break; }
+            case CardDeck.DeckType.Fire: { cardDrawCost = 1; break; }
+            case CardDeck.DeckType.Heal: { cardDrawCost = 1; break; }
         }
-
 
         if (_totalPoints>= cardDrawCost) {
             _totalPoints -= cardDrawCost;
