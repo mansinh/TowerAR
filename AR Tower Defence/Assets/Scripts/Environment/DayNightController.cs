@@ -37,6 +37,7 @@ public class DayNightController : MonoBehaviour
     private void Start()
     {
         timeOfDay = startTime;
+  
     }
     // Update is called once per frame
     void Update()
@@ -46,11 +47,11 @@ public class DayNightController : MonoBehaviour
            
             UpdateLighting();
 
-            if (timeOfDay > dawnTime && timeOfDay < 0.5 && !isDay)
+            if (timeOfDay > dawnTime && timeOfDay < duskTime && !isDay)
             {
                 Dawn();
             }            
-            if (timeOfDay > duskTime && timeOfDay> 0.5 && isDay)
+            if (timeOfDay > duskTime && isDay)
             {
                 Dusk();
             }
