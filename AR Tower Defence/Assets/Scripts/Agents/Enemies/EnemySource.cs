@@ -32,6 +32,7 @@ public class EnemySource : Destroyable
     {
         base.Init();
         _spawnEnemy = GetComponent<SpawnEnemy>();
+       
     }
 
     void Update() {
