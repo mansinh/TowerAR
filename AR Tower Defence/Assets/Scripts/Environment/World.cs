@@ -10,7 +10,7 @@ public class World : MonoBehaviour
     static public World Instance;
     public int size = 40;
     [SerializeField] private WorldView view;
-    [SerializeField] private NavController navController;
+    [SerializeField] private NavController _navController;
     [SerializeField] private Tile tilePrefab;
     [SerializeField] private Transform tileGroup;
     [SerializeField] private Tile[] tiles;
@@ -18,7 +18,7 @@ public class World : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+        _navController = GetComponent<NavController>();
     }
 
     void Start()
@@ -36,24 +36,9 @@ public class World : MonoBehaviour
     private Enemy[] _enemies;
     public void Refresh()
     {
-        navController.Bake();
+        _navController.Bake();
     }
 
-    public void Pause()
-    {
-        Time.timeScale = 0;
-        _enemies = FindObjectsOfType<Enemy>();
-
-        for (int i = 0; i < _enemies.Length; i++)
-        {
-            _enemies[i].GetComponent<NavMeshAgent>().enabled = false;
-        }
-    }
-
-    public void Resume()
-    {
-
-    }
 
     public void Create()
     {

@@ -73,11 +73,9 @@ public class MyCursor : MonoBehaviour
         {
             try
             { 
-                Tile tile = World.Instance.GetTile(cursorHit.point);
-                print("hit " + tile);
+                Tile tile = World.Instance.GetTile(cursorHit.point);       
                 if (tile != null)
                 {
-                    print("state "+tile.GetCorrupt());
                     return !tile.GetCorrupt();
                 }
                 return false;

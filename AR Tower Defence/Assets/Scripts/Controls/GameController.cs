@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] ARSession arSession;
-    [SerializeField] ARPlaceWorld arPlaceWorld;
+    [SerializeField] ARController arController;
     [SerializeField] Camera testCamera;
     [SerializeField] float zoomSpeed = 1, cameraSpeed = 100;
-    [SerializeField] World world;
 
     [SerializeField] CanvasGroup ARMenu;
     [SerializeField] CanvasGroup HUD;
@@ -24,11 +23,12 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        Time.timeScale = 0;
+        Instance = this;
         ARMenu.gameObject.SetActive(true);
         HUD.gameObject.SetActive(false);
         gameOverMenu.gameObject.SetActive(false);
-        Instance = this;
+
+        GamePause();
     }
 
     void Start()
@@ -36,19 +36,21 @@ public class GameController : MonoBehaviour
         if (IsAR)
         {
             arSession.gameObject.SetActive(true);
-            arPlaceWorld.gameObject.SetActive(true);
+            arController.gameObject.SetActive(true);
             testCamera.gameObject.SetActive(false);
             ARMenu.gameObject.SetActive(true);
             MyCursor.Instance.SetScreenPosition(screenCenter);
         }
         else
         {
-            Time.timeScale = 1;
+            
             arSession.gameObject.SetActive(false);
-            arPlaceWorld.gameObject.SetActive(false);
+            arController.gameObject.SetActive(false);
+            ARMenu.gameObject.SetActive(false);
+
             testCamera.gameObject.SetActive(true);
             HUD.gameObject.SetActive(true);
-            ARMenu.gameObject.SetActive(false);
+            GameResume();
         }
     }
 
@@ -119,10 +121,10 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-       
+
 
         if (!IsAR)
-        { 
+        {
             KeyboardControls();
         }
     }
@@ -145,18 +147,46 @@ public class GameController : MonoBehaviour
 
     public void GamePause()
     {
-        world.Pause();
+        Time.timeScale = 0;
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<NavMeshAgent>().enabled = false;
+        }
     }
 
     public void GameResume()
     {
+        BakeNavMesh();
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<NavMeshAgent>().enabled = true;
+        }
         Time.timeScale = 1;
-        HUD.alpha = 0;
+  
         HUD.gameObject.SetActive(true);
-        StartCoroutine(UITransitions.AlphaTo(HUD, 1, 0.3f));
+        //StartCoroutine(UITransitions.AlphaTo(HUD, 1, 0.3f));
         StartCoroutine(UITransitions.AlphaTo(ARMenu, 0, 0.3f));
     }
 
+
+  
+
+    public void BakeNavMesh()
+    {
+        NavMeshSurface[] navSurfaces = FindObjectsOfType<NavMeshSurface>();
+        foreach (NavMeshSurface navSurface in navSurfaces)
+        {
+            if (navSurface.isActiveAndEnabled)
+            {
+                print("Bake Mesh");
+                navSurface.RemoveData();
+                navSurface.BuildNavMesh();
+            }
+        }
+    }
     public void GameReset()
     {
 
