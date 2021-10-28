@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 85dc10cf31fe24749b4382c742c4f1a7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -126,11 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c34b730eb23754eac4e220273b2220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 3688603202515185523}
+  image: {fileID: 3688603202515185523}
   Ghost: {fileID: 5365740942102780127}
-  _selectTime: 0.07
   Description: Cast Fire
-  _moveToOnSelect: {x: -10, y: 0, z: 0}
+  _moveToOnSelect: {x: 0, y: 0, z: 0}
   Deck: {fileID: 0}
 --- !u!1 &3347931708580625699
 GameObject:

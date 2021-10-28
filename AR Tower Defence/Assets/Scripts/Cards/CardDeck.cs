@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-
-
 public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,IPointerUpHandler
 {
     public enum DeckType
@@ -22,10 +19,12 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     [SerializeField] private int dealSize = 5;
     [SerializeField] private float cardSpacing = 10;
     [SerializeField] private int maxCards = 15;
-    [SerializeField] private bool isCentered = false;
-    [SerializeField] private RectTransform hand;
     [SerializeField] private DeckType deckType = DeckType.Main;
     private List<Card> _cardsInHand = new List<Card>();
+
+    float _cardWidth;
+
+    
 
     private void Update()
     {
@@ -83,16 +82,12 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     public void RemoveCard(Card card)
     {
         _cardsInHand.Remove(card);
-        Destroy(card.gameObject);
+        Destroy(card.gameObject,0.1f);
         UpdateCardPositions();
     }
 
     Vector3 GetCardPosition(int index) {
-        Vector3 position = hand.position - index * cardSpacing * Vector3.right;
-        if (isCentered)
-        {
-            position += _cardsInHand.Count * cardSpacing * Vector3.right / 2;
-        }
+        Vector3 position = (index+1) * cardSpacing * Vector3.right;     
         return position;
     }
 

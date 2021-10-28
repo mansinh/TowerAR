@@ -72,12 +72,8 @@ public class MyCursor : MonoBehaviour
         if (isCursorHitting)
         {
             try
-            {
-                Vector3 p = cursorHit.point - World.Instance.transform.position;
-                int tileX = Mathf.RoundToInt(p.x + World.Instance.size / 2);
-                int tileZ = Mathf.RoundToInt(p.z + World.Instance.size / 2);
-                print("tile " + tileX + " " + tileZ);
-                Tile tile = World.Instance.GetTile(tileX, tileZ);
+            { 
+                Tile tile = World.Instance.GetTile(cursorHit.point);
                 print("hit " + tile);
                 if (tile != null)
                 {

@@ -32,46 +32,51 @@ public class UpgradeCard : Card
         }
     }
 
-    protected override void ActivateCard()
+    public override bool ActivateCard()
     {
         if (_targetTower)
         {
             if (_attackDMG)
             {
                 _targetTower._attack._attackDamageCard += 1;
-                Deck.RemoveCard(this);
+
             }
             if (_critRate)
             {
                 _targetTower._attack._critRateCard += 1;
-                Deck.RemoveCard(this);
+
             }
             if (_critDMG)
             {
                 _targetTower._attack._critDamageCard += 1;
-                Deck.RemoveCard(this);
+ 
             }
             if (_Slowness)
             {
                 _targetTower._attack._slownessCard += 1;
-                Deck.RemoveCard(this);
+
             }
             if (_poison)
             {
                 _targetTower._attack._poisonCard += 1;
-                Deck.RemoveCard(this);
+
             }
             if (_stun)
             {
                 _targetTower._attack._stunCard += 1;
-                Deck.RemoveCard(this);
+
             }
             if (_attackSpeed)
             {
                 _targetTower._attack._attackSpeedCard += 1;
-                Deck.RemoveCard(this);
+                         
             }
+           
             _targetTower._attack.OnUpgrade();
+            Remove();
+            return true;
         }
+
+        return false;
     }
 }
