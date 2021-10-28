@@ -18,8 +18,11 @@ public class NavController : MonoBehaviour
         print("Bake");
         foreach (NavMeshSurface navSurface in navSurfaces) {
             print("Bake Mesh");
-            navSurface.RemoveData();
-            navSurface.BuildNavMesh();
+            if (navSurface.isActiveAndEnabled)
+            {
+                navSurface.RemoveData();
+                navSurface.BuildNavMesh();
+            }
         }
     }
 }

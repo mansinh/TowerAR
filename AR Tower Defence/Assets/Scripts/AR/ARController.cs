@@ -4,20 +4,20 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ARRaycastHit))]
-public class ARPlaceWorld : MonoBehaviour
+public class ARController : MonoBehaviour
 {
     [SerializeField] World world;
     [SerializeField] GameController gameController;
-    [SerializeField]
-    ARPlane planePrefab
-        ;
+    [SerializeField] ARPlane planePrefab;
     [SerializeField] CanvasGroup noSurfaceFoundText;
     [SerializeField] CanvasGroup ARControlPanel;
     [SerializeField] CanvasGroup startButton;
     [SerializeField] TMP_Text trackingButtonText;
-
+    [SerializeField] Slider zoomSlider;
+    [SerializeField] Slider heightSlider;
 
     ARRaycastManager _arRayCastManager;
     ARPlaneManager _planeManager;
@@ -38,6 +38,9 @@ public class ARPlaceWorld : MonoBehaviour
 
         world.transform.position = new Vector3(0, 100, 0);
         IsPlacing = true;
+        heightSlider.gameObject.SetActive(false);
+        zoomSlider.gameObject.SetActive(true);
+
         trackingButtonText.transform.parent.gameObject.SetActive(true);
     }
 
@@ -67,12 +70,12 @@ public class ARPlaceWorld : MonoBehaviour
     {
         if (_targetPose != null)
         {
-            world.transform.position = _targetPose.position + Vector3.up * _height;
+            world.transform.position = _targetPose.position + Vector3.up * _height * transform.localScale.y/50;
         }
         else
         {
             Vector3 currentPosition = world.transform.position;
-            world.transform.position = currentPosition + Vector3.up * _height;
+            world.transform.position = currentPosition + Vector3.up * _height * transform.localScale.y / 50;
         }
     }
 
@@ -81,15 +84,15 @@ public class ARPlaceWorld : MonoBehaviour
         if (!IsPlacing)
         {
             trackingButtonText.text = "PLACE WORLD";
-            Destroy(world.GetComponent<ARAnchor>());
             startButton.interactable = false;
-
+            heightSlider.gameObject.SetActive(false);
+            zoomSlider.gameObject.SetActive(true);
         }
         else
         {
             trackingButtonText.text = "REPOSITION";
-            world.gameObject.AddComponent<ARAnchor>();
-            world.Refresh();
+            heightSlider.gameObject.SetActive(true);
+            zoomSlider.gameObject.SetActive(false);
             startButton.interactable = true;
         }
         SetPlanesActive(!IsPlacing);
@@ -103,8 +106,6 @@ public class ARPlaceWorld : MonoBehaviour
         _planeManager.SetTrackablesActive(isActive);
     }
 
-
-
     public void OnRotateSlider(float value)
     {
         world.transform.eulerAngles = new Vector3(0, value * 360, 0);
@@ -112,7 +113,7 @@ public class ARPlaceWorld : MonoBehaviour
 
     public void OnZoomSlider(float value)
     {
-        world.transform.localScale = Vector3.one * value;
+        transform.localScale = Vector3.one *value;
     }
 
     public void OnHeightSlider(float value)
@@ -123,6 +124,7 @@ public class ARPlaceWorld : MonoBehaviour
 
     public void OnStartButton()
     {
+        world.gameObject.AddComponent<ARAnchor>();
         gameController.GameResume();
     }
 }
