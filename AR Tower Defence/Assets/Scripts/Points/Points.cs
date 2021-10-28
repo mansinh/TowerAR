@@ -39,11 +39,11 @@ public class Points : MonoBehaviour
         int cardDrawCost = 0;
 
         switch (deckType) {
-            case CardDeck.DeckType.Main: { cardDrawCost = 20;  break; }
-            case CardDeck.DeckType.Lightning: { cardDrawCost = 1; break; }
-            case CardDeck.DeckType.Water: { cardDrawCost = 1; break; }
-            case CardDeck.DeckType.Fire: { cardDrawCost = 1; break; }
-            case CardDeck.DeckType.Heal: { cardDrawCost = 1; break; }
+            case CardDeck.DeckType.Main: { cardDrawCost = 100;  break; }
+            case CardDeck.DeckType.Lightning: { cardDrawCost = 20; break; }
+            case CardDeck.DeckType.Water: { cardDrawCost = 20; break; }
+            case CardDeck.DeckType.Fire: { cardDrawCost = 20; break; }
+            case CardDeck.DeckType.Heal: { cardDrawCost = 20; break; }
         }
 
         if (_totalPoints>= cardDrawCost) {
@@ -73,5 +73,10 @@ public class Points : MonoBehaviour
             case "House": { return 1; }
         }
         return 0;
+    }
+
+    public void RemovedCard() {
+        _totalPoints += 10;
+        _view.UpdatePoints(_totalPoints);
     }
 }

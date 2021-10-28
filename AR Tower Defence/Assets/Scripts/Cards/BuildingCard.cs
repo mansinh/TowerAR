@@ -31,13 +31,13 @@ public class BuildingCard : Card
         if (_timeSinceRotate > _rotateTime) {
             _timeSinceRotate = 0;
             Ghost.transform.localEulerAngles = Ghost.transform.localEulerAngles + Vector3.up * 90;
-            Ghost.transform.localScale = new Vector3(1,1+Random.Range(-0.1f,0.1f),1);
+          
         }
     }
 
     
 
-    protected override void ActivateCard()
+    public override bool ActivateCard()
     {
         if (_targetTile)
         {
@@ -45,7 +45,9 @@ public class BuildingCard : Card
             building.transform.position = Ghost.transform.position;
             building.transform.localScale = Ghost.transform.localScale;
             building.transform.localEulerAngles = Ghost.transform.localEulerAngles;
-            Deck.RemoveCard(this);
+            Remove();
+            return true;
         }
+        return false;
     }
 }

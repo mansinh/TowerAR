@@ -6,22 +6,22 @@ using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] Image _image;
-    [SerializeField] protected GameObject Ghost;
-    float _selectTime = 0.07f;
+    [SerializeField] Image image;
+    [SerializeField] protected GameObject Ghost;  
     [SerializeField] protected string Description = "Basic Card";
     [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20;
     public CardDeck Deck;
     Text _descriptionText;
     RectTransform _rectTransform;
-
+    float _selectTime = 0.07f;
     bool _isSelected = false;
 
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
-        
-        _image.color = Color.gray;
+   
+
+        image.color = Color.gray;
         GameObject descriptionObject = GameObject.Find("CardDescription");
         if (descriptionObject)
         {
@@ -30,6 +30,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 _descriptionText = descriptionObject.GetComponent<Text>();
             }
         }
+        Ghost.transform.SetParent(World.Instance.transform);
+        Ghost.transform.localScale = Vector3.one;
     }
 
     bool isActivating = false;
@@ -69,61 +71,53 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Select()
     {
         _isSelected = true;
-        _image.color = Color.white;
+        image.color = Color.white;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position+ _moveToOnSelect, _selectTime));
+        Ghost.transform.localScale = World.Instance.transform.localScale;
         Ghost.SetActive(true);
-        GameInfo.Instance.SetText(Description);
+        SetGameInfo();
+        GameController.Instance.SetSelectedCard(this);
+       
     }
 
     public void Deselect()
     {
         _isSelected = false;
         Ghost.SetActive(false);
-        _image.color = Color.gray;
+        image.color = Color.gray;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         GameInfo.Instance.SetText("");
     }
 
+    protected virtual void SetGameInfo() {
+        GameInfo.Instance.SetText(Description);
+    }
+
     IEnumerator MoveCard(Vector3 moveTo, float duration)
     {
-        Vector3 moveFrom = _image.GetComponent<RectTransform>().position;     
+        Vector3 moveFrom = image.GetComponent<RectTransform>().position;     
         for (float i = 0; i < duration; i += 0.01f)
         {
-            _image.GetComponent<RectTransform>().position = Vector3.Lerp(moveFrom, moveTo, i / duration);
+            image.GetComponent<RectTransform>().position = Vector3.Lerp(moveFrom, moveTo, i / duration);
 
             yield return new WaitForSeconds(0.01f);
         }
-        _image.GetComponent<RectTransform>().position = moveTo;
+        image.GetComponent<RectTransform>().position = moveTo;
     }
 
     void Update()
     {
+
         if (MyCursor.Instance.GetIsActionable())
         {
             if (_isSelected)
             {
                 RaycastHit hit = MyCursor.Instance.GetCursorHit();
                 UpdateGhost(hit);
-                if (!GameController.Instance.IsAR)
-                {
-                    if (Input.GetMouseButton(0))
-                    {
-                        ActivateCard();
-                    }
-
-                    if (Input.GetMouseButtonUp(0))
-                    {
-                        DeactivateCard();
-                    }
-                }
             }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Deselect();
-        }
-
-        _rectTransform.position = Vector3.MoveTowards(_rectTransform.position, _targetPosition, 1000 * Time.deltaTime); ;
+        
+        _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime); ;
         
     }
     Vector3 _targetPosition;
@@ -137,6 +131,27 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.transform.up = Vector3.up;
     }
 
-    protected virtual void ActivateCard(){}
-    protected virtual void DeactivateCard(){}
+    public void Remove()
+    {
+        Destroy(Ghost);
+        GameInfo.Instance.SetText("");
+        if (Deck)
+        {
+            Deck.RemoveCard(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public virtual bool ActivateCard()
+    {
+        return true;
+    }
+
+    public virtual void DeactivateCard()
+    {
+       
+    }
 }

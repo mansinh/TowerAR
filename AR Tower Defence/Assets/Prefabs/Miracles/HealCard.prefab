@@ -81,11 +81,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c34b730eb23754eac4e220273b2220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 7614287641720930063}
+  image: {fileID: 7614287641720930063}
   Ghost: {fileID: 1219665848288626851}
-  _selectTime: 0.07
   Description: Cast Heal
-  _moveToOnSelect: {x: -10, y: 0, z: 0}
+  _moveToOnSelect: {x: 0, y: 0, z: 0}
   Deck: {fileID: 0}
 --- !u!1 &5861907517487959830
 GameObject:
@@ -145,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +152,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 999fde0cdc44d3b47af68f3c476a6bb4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

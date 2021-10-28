@@ -18,18 +18,24 @@ public class MiracleCard : Card
         _miracleController = miracleController;
     }
 
-    protected override void ActivateCard()
+    public override bool ActivateCard()
     {
         if (_miracleController.Activate(transform.position))
         {
             _timesActivated++;
+            SetGameInfo();
         }
         if (_timesActivated >= _maxTimesActivated)
         {
             DeactivateCard();
-            Deck.RemoveCard(this);
+            Remove();
+            return true;
         }
+        return false;
     }
 
-   
+    protected override void SetGameInfo()
+    {
+        GameInfo.Instance.SetText(Description + " " + (_maxTimesActivated - _timesActivated) +"/" + _maxTimesActivated);
+    }
 }

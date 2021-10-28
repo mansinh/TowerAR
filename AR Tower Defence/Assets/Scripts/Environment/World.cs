@@ -41,12 +41,18 @@ public class World : MonoBehaviour
 
     public void Pause()
     {
+        Time.timeScale = 0;
         _enemies = FindObjectsOfType<Enemy>();
 
         for (int i = 0; i < _enemies.Length; i++)
         {
             _enemies[i].GetComponent<NavMeshAgent>().enabled = false;
         }
+    }
+
+    public void Resume()
+    {
+
     }
 
     public void Create()
@@ -140,6 +146,16 @@ public class World : MonoBehaviour
     public void Draw()
     {
         view.Draw();
+    }
+
+    public Tile GetTile(Vector3 position)
+    {
+        Vector3 p = transform.InverseTransformPoint(position);
+        int tileX = Mathf.RoundToInt(p.x + World.Instance.size / 2);
+        int tileZ = Mathf.RoundToInt(p.z + World.Instance.size / 2);
+        print("tile " + tileX + " " + tileZ);
+
+        return GetTile(tileX,tileZ);
     }
 
     public Tile GetTile(int x, int z)

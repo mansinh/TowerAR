@@ -68,9 +68,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 7361209746921995093}
-  MaxHealth: 1e+11
+  MaxHealth: 1000
   DeathDuration: 0
-  Health: 0
+  Health: 1000
   IsDestroyed: 0
 --- !u!1 &7361209746921995094
 GameObject:
