@@ -1,6 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Miracle that grows trees and fields
+ * Puts out fires
+ *@ author Manny Kwong 
+ */
 
 public class MiracleWater : Miracle
 {
@@ -18,12 +22,14 @@ public class MiracleWater : Miracle
             Collider[] detected = Physics.OverlapSphere(transform.position, Collider.radius);
             foreach (Collider other in detected)
             {
+                //Put out fire if other collider is fire
                 MiracleFire fire = other.GetComponent<MiracleFire>();
                 if (fire != null)
                 {
                     fire.OnWater(_extinguishSpeed*_coolDown);
                 }
 
+                //Grow trees if other collider is forest
                 Forest forest = other.GetComponent<Forest>();
                 if (forest != null)
                 {
@@ -31,6 +37,7 @@ public class MiracleWater : Miracle
                     forest.Grow(_growSpeed*_coolDown);
                 }
 
+                //Grow field if other collider if field
                 Field field = other.GetComponent<Field>();
                 if (field != null)
                 {

@@ -72,6 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f8fc71e554a854abc6e12e91b57613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _treePrefab: {fileID: 2193533505615992168, guid: cbfca65e16372284cb63590b24cac519, type: 3}
-  _maxTreeCount: 6
-  _tile: {fileID: 2817696162143811068}
+  treePrefab: {fileID: 2193533505615992168, guid: cbfca65e16372284cb63590b24cac519, type: 3}
+  maxTreeCount: 5
+  tile: {fileID: 2817696162143811068}

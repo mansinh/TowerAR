@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Miracle that does massive damage to enemies and stuns them
+ *@ author Manny Kwong 
+ */
 
 public class MiracleLightning : Miracle
 {

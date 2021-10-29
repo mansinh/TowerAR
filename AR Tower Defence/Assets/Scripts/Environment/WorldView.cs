@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Uses voxels and marching squares to render tiles 
+ *@ author Manny Kwong 
+ */
 
 public class WorldView : MonoBehaviour
 {
@@ -17,7 +20,7 @@ public class WorldView : MonoBehaviour
     [SerializeField] Material m_corrupt, m_restored;
 
     [SerializeField] int _size;
-    public World _world;
+    public World world;
 
     public bool UseGameobjects = false;
 
@@ -27,6 +30,7 @@ public class WorldView : MonoBehaviour
 
     public void Create()
     {
+        //Destroy old voxels if any
         if (_voxels != null)
         {
             foreach (GameObject voxel in _voxels)
@@ -34,11 +38,16 @@ public class WorldView : MonoBehaviour
                 DestroyImmediate(voxel);
             }
         }
-        _size = _world.size + 1;
+
+        //Create volume of voxels with dimensiton (world size+1)x(world size+1)xheight
+        _size = world.size + 1;
+
         if (UseGameobjects)
         {          
+            //Have the voxels as individual game objects
             _voxels = new GameObject[_size * _height * _size];
 
+            
             for (int x = 0; x < _size; x++)
             {
                 for (int y = 0; y < _height; y++)
@@ -46,8 +55,11 @@ public class WorldView : MonoBehaviour
                     for (int z = 0; z < _size; z++)
                     {
                         GameObject voxel = Instantiate(_voxelPrefab, _voxelGroup);
-                        voxel.transform.localPosition = new Vector3(x - _world.size / 2 - 0.5f, (float)y / 10, z - _world.size / 2 - 0.5f);
+                        //Voxel positions
+                        voxel.transform.localPosition = new Vector3(x - world.size / 2 - 0.5f, (float)y / 10, z - world.size / 2 - 0.5f);
+                        //Tile name
                         voxel.gameObject.name = "voxel (" + x + "," + z + ") height " + y;
+                        //3d coordinates to 1d array index
                         int index = x * _size * _height + y * _size + z;
                         _voxels[index] = voxel;
                     }
@@ -56,6 +68,7 @@ public class WorldView : MonoBehaviour
         }
         else
         {
+            //Have the voxels as mesh instances
             _positions = new Vector3[_size * _height * _size];
             _meshes = new Mesh[_size * _height * _size];
             _materials = new Material[_size * _height * _size];
@@ -65,8 +78,10 @@ public class WorldView : MonoBehaviour
                 {
                     for (int z = 0; z < _size; z++)
                     {
+                        //3d coordinates to 1d array index
                         int index = x * _size * _height + y * _size + z;
-                        _positions[index] = new Vector3(x - _world.size / 2 - 0.5f, (float)y / 10, z - _world.size / 2 - 0.5f);
+                        //Voxel positions
+                        _positions[index] = new Vector3(x - world.size / 2 - 0.5f, (float)y / 10, z - world.size / 2 - 0.5f);
                     }
                 }
             }
@@ -89,12 +104,12 @@ public class WorldView : MonoBehaviour
 
                         Mesh mesh = GetMesh(x, y, z);
                         if (mesh != null)
-                        {
+                        {             
                             _voxels[index].SetActive(true);
+                            //Assign mesh to voxel based on tile position 
                             _voxels[index].GetComponent<MeshFilter>().mesh = mesh;
+                            //Assign material to voxel based on tile state
                             _voxels[index].GetComponent<MeshRenderer>().material = GetMaterial(x, y, z);
-
-
                         }
                         else
                         {
@@ -112,14 +127,13 @@ public class WorldView : MonoBehaviour
                     for (int z = 0; z < _size; z++)
                     {
                         int index = x * _size * _height + y * _size + z;
-
+                        //Assign mesh to voxel based on tile position 
                         _meshes[index] = GetMesh(x, y, z);
                       
                         if (_meshes[index] != null)
                         {
+                            //Assign material to voxel based on tile state
                             _materials[index] = GetMaterial(x,y,z);
-
-
                         }
                     }
                 }
@@ -128,6 +142,7 @@ public class WorldView : MonoBehaviour
        
     }
 
+    //Draw function for when using mesh instances instead of game objects
     public void Draw()
     {
         if (!UseGameobjects)
@@ -144,6 +159,7 @@ public class WorldView : MonoBehaviour
         Draw();
     }
 
+    //Get mesh based on coordinates, height and the height of adjacent tiles using Marching Squares algorithm
     Mesh GetMesh(int x, int y, int z)
     {
         int a = GetHeightState(x - 1, y, z - 1);
@@ -159,7 +175,7 @@ public class WorldView : MonoBehaviour
 
     int GetHeightState(int x, int y, int z)
     {
-        Tile tile = _world.GetTile(x, z);
+        Tile tile = world.GetTile(x, z);
         if (tile == null)
         {
             return 0;
@@ -172,6 +188,7 @@ public class WorldView : MonoBehaviour
         return 0;
     }
 
+    //Get material based on coordinates, state of tile and the state of adjacent tiles using Marching Squares Algorithm
     Material GetMaterial(int x,int y, int z)
     {
         int a = GetMaterialState(x - 1, z - 1);
@@ -181,7 +198,7 @@ public class WorldView : MonoBehaviour
         int state = a + b * 2 + c * 4 + d * 8;
        
         Material material = _materialStates[state];
-        
+        //Alternate between 3 colors over height 
         if (y%3 == 1)
         {
             material = _materialStates1[state];
@@ -196,7 +213,7 @@ public class WorldView : MonoBehaviour
 
     int GetMaterialState(int x, int z)
     {
-        Tile tile = _world.GetTile(x, z);
+        Tile tile = world.GetTile(x, z);
         if (tile == null)
         {
             return 0;
@@ -208,7 +225,5 @@ public class WorldView : MonoBehaviour
         }
         return 0;
     }
-
-
 }
 

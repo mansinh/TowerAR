@@ -1,19 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+/**
+ * What the environment is made up of
+ * Shows the player territory by its state
+ * Can be in corrupt or restored state (player territory)
+ * Player can only do actions over restored tiles
+ * Can be edited in editor mode to create environment/world/level
+ *@ author Manny Kwong 
+ */
 
 [ExecuteInEditMode]
 public class Tile : MonoBehaviour
 {
-    BoxCollider _tileCollider;
-    MeshRenderer _renderer;
+    private BoxCollider _tileCollider;
+    private MeshRenderer _renderer;
     [SerializeField] int _state = 0;
 
     public Vector3Int Coordinates = Vector3Int.zero;
     public const int CORRUPT = 0, RESTORED = 1;
 
-    // Start is called before the first frame update
     void Awake()
     {
         _tileCollider = GetComponent<BoxCollider>();
@@ -45,6 +50,7 @@ public class Tile : MonoBehaviour
         Coordinates.z = z;
     }
 
+    //Get the position of the top of the tile
     public Vector3 GetTop()
     {
         return transform.position + Vector3.up * ((Coordinates.y + 1) * transform.localScale.y);
@@ -53,22 +59,19 @@ public class Tile : MonoBehaviour
     public void SetState(int state)
     {
         _state = state;
-
     }
 
     public void Heal()
     {
         _state++;
-
     }
 
+    //Matches the height of the collider to the height of the tile
     void UpdateCollider()
     {
         _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
         _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
     }
-
-
 
     public bool GetCorrupt()
     {

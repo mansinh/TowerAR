@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/**
+ * Editor for creating world/environment/levels
+ *@ author Manny Kwong 
+ */
+
 [CustomEditor(typeof(World))]
 public class WorldEditor : Editor
 {
@@ -114,6 +119,8 @@ public class WorldEditor : Editor
     }
     Tile tileEditing;
     List<Tile> tilesEditing = new List<Tile>();
+
+    //Get the tile the mouse is over and modify it
     void OnSceneMouseOver()
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -159,11 +166,13 @@ public class WorldEditor : Editor
    
         if (e.type == EventType.KeyDown)
         {
+            //Add 10 to paint height if period held down
             KeyCode key = e.keyCode;
             if (key == KeyCode.KeypadPeriod)
             {
                 basePaintHeight = 10;
             }
+            //Paint tile height to Numpad number
             switch (key)
             {            
                 case KeyCode.Keypad0:
@@ -204,16 +213,16 @@ public class WorldEditor : Editor
                     paintState = 1;
                     e.Use();
                     break;
-                case KeyCode.PageUp:                  
+                case KeyCode.PageUp:   //Increase brush size
                     _brushSize++;      
                     e.Use();
                     break;
-                case KeyCode.PageDown:
-                    if(_brushSize>0)
+                case KeyCode.PageDown: //Decrease brush size
+                    if (_brushSize>0)
                     _brushSize--;
                     e.Use();
                     break;
-                case KeyCode.Insert:
+                case KeyCode.Insert: //Toggle brush shape between square and round 
                     _rounded = !_rounded;
                     e.Use();
                     break;
@@ -263,6 +272,7 @@ public class WorldEditor : Editor
         }
     }
 
+    //Get a set of tiles to edit
     List<Tile> GetTilesEditing(Vector3Int center)
     {
         tilesEditing.Clear();

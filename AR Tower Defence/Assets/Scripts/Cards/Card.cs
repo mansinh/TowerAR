@@ -1,49 +1,39 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/**
+ * Represents the actions the player can do such as placing a building, upgrading a tower or casting miracles
+ * Tap to select ability and press the use button/mouse click/tap again to activate
+ *@ author Manny Kwong 
+ */
+
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] Image image;
-    [SerializeField] protected GameObject Ghost;  
+    [SerializeField] protected GameObject Ghost; //Shows a placeholder at where the ability could be activated
     [SerializeField] protected string Description = "Basic Card";
-    [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20;
-    public CardDeck Deck;
-    Text _descriptionText;
-    RectTransform _rectTransform;
-    float _selectTime = 0.07f;
-    bool _isSelected = false;
+    [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20; //Moving animation for when selected
+    public CardDeck Deck; 
+    private RectTransform _rectTransform;
+    private float _selectTime = 0.07f; //Time for select animation
+    private bool _isSelected = false;
+    private bool _isActivating = false;
 
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
-   
-
-        image.color = Color.gray;
-        GameObject descriptionObject = GameObject.Find("CardDescription");
-        if (descriptionObject)
-        {
-            if (descriptionObject.GetComponent<Text>())
-            {
-                _descriptionText = descriptionObject.GetComponent<Text>();
-            }
-        }
-        Ghost.transform.SetParent(World.Instance.transform);
-        Ghost.transform.localScale = Vector3.one;
+        //Show the card being unselected
+        image.color = Color.gray;      
     }
 
-    bool isActivating = false;
+    //Select the card when tapped the first time
+    //Activate card when held while selected if AR enabled
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!_isSelected)
         {
-            Card[] cards = FindObjectsOfType<Card>();
-            foreach (Card card in cards)
-            {
-                card.Deselect();
-            }
             Select();
         }
         else
@@ -52,47 +42,59 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 ActivateCard();
             }
-            isActivating = true;       
+            _isActivating = true;       
         }
     }
 
+    //Deactivate card when finished hold
     public void OnPointerUp(PointerEventData eventData)
     {
         if (GameController.Instance.IsAR)
         {
-            if (isActivating)
+            if (_isActivating)
             {
                 DeactivateCard();
-                isActivating = false;               
+                _isActivating = false;               
             }        
         }
     }
 
+    //Highlight card when selected and move card slightly out of the hand
     public void Select()
     {
         _isSelected = true;
         image.color = Color.white;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position+ _moveToOnSelect, _selectTime));
-        Ghost.transform.localScale = World.Instance.transform.localScale;
+
+        //Turn on and scale the ghost to the scale of the world
         Ghost.SetActive(true);
+        Ghost.transform.SetParent(World.Instance.transform);
+        Ghost.transform.localScale = Vector3.one;
+        
+        //Show card description at top of screen
         SetGameInfo();
+
         GameController.Instance.SetSelectedCard(this);
        
     }
 
+    //Unhighlight card, move back into hand, turn off ghost and remove description
     public void Deselect()
     {
         _isSelected = false;
-        Ghost.SetActive(false);
         image.color = Color.gray;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
+        Ghost.SetActive(false);
         GameInfo.Instance.SetText("");
     }
 
+    //Show description of card ability at the top of the screen (game info area)
     protected virtual void SetGameInfo() {
         GameInfo.Instance.SetText(Description);
     }
 
+    //Move card into position
+    //Mainly used when drawing a card from deck into hand
     IEnumerator MoveCard(Vector3 moveTo, float duration)
     {
         Vector3 moveFrom = image.GetComponent<RectTransform>().position;     
@@ -105,21 +107,26 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         image.GetComponent<RectTransform>().position = moveTo;
     }
 
+    
     void Update()
     {
-
+        //If selected and the action is valid on cursor target, place the ghost in front of the cursor
         if (MyCursor.Instance.GetIsActionable())
         {
             if (_isSelected)
             {
                 RaycastHit hit = MyCursor.Instance.GetCursorHit();
-                UpdateGhost(hit);
+                if(Ghost != null)
+                {
+                    UpdateGhost(hit);
+                }
             }
+            
         }
-        
+        //Move towards target location
         _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime); ;
-        
     }
+
     Vector3 _targetPosition;
     public void SetTargetPosition(Vector3 targetPosition)
     {
@@ -131,13 +138,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.transform.up = Vector3.up;
     }
 
-    public void Remove()
+    //Destroy card on discard and remove from deck/hand
+    public void Discard()
     {
         Destroy(Ghost);
         GameInfo.Instance.SetText("");
         if (Deck)
         {
-            Deck.RemoveCard(this);
+            Deck.DiscardCard(this);
         }
         else
         {

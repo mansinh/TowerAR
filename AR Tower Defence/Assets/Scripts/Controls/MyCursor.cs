@@ -1,79 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
+/**
+ * Finds out what is in front of the cursor
+ * The cursor is at the center of the screen on mobile and follows the mouse when testing on pc
+ * The colour of the cursor changes depending on what is in front of it
+ *@ author Manny Kwong 
+ */
+
 public class MyCursor : MonoBehaviour
 {
-    Image cursorImage;
-   
+    Image _cursorImage;
     public static MyCursor Instance;
-   
+    private RaycastHit _cursorHit;
+    private bool _isCursorHitting;
+
     void Awake()
     {
-        cursorImage = GetComponent<Image>();
+        _cursorImage = GetComponent<Image>();
         Instance = this;
-       
+
     }
 
-    RaycastHit cursorHit;
-    bool isCursorHitting;
-
-    public void SetScreenPosition(Vector3 position) {
-        cursorImage.rectTransform.position = position;
-    }
-
-    public void Cast(Vector3 castFrom)
+    public void SetScreenPosition(Vector3 position)
     {
-        cursorImage.color = new Color(1, 1, 1, 0.5f);
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            Ray ray = Camera.main.ScreenPointToRay(castFrom);
-            
-            isCursorHitting = Physics.Raycast(ray, out cursorHit);
-            if (GetIsActionable())
-            {
-                string hitTag = cursorHit.collider.tag;
-                switch (hitTag)
-                {
-                    case "Enemy":
-                        {
-                            cursorImage.color = Color.magenta;
-                            break;
-                        }
-                   
-                    default:
-                        {
-                            cursorImage.color = Color.green;
-                            break;
-                        }
-                }
-            }
-
-        }
-        else {
-            isCursorHitting = false;
-        }
+        _cursorImage.rectTransform.position = position;
     }
 
- 
-
-    public RaycastHit GetCursorHit()
+    //Returns whether the player can perform an action at the cursor location
+    //The player can only act when inside their own territory (cursor is over the green "restored" tiles)
+    public bool GetIsActionable()
     {
-        return cursorHit;
-    }
-    public bool GetCursorHitting()
-    {
-        return isCursorHitting;
-    }
-    public bool GetIsActionable() {
-        if (isCursorHitting)
+        if (_isCursorHitting)
         {
             try
-            { 
-                Tile tile = World.Instance.GetTile(cursorHit.point);       
+            {
+                Tile tile = World.Instance.GetTile(_cursorHit.point);
                 if (tile != null)
                 {
                     return !tile.GetCorrupt();
@@ -85,5 +49,49 @@ public class MyCursor : MonoBehaviour
             }
         }
         return false;
+    }
+
+    //Raycasts into the game world to find what is infront of the cursor
+    //If the player can act at cursor location, the cursor will change colour
+    //Magenta if the cursor is over an enemy and green otherwise
+    public void Cast(Vector3 castFrom)
+    {
+        _cursorImage.color = new Color(1, 1, 1, 0.5f);
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(castFrom);
+            _isCursorHitting = Physics.Raycast(ray, out _cursorHit);
+            if (GetIsActionable())
+            {
+                string hitTag = _cursorHit.collider.tag;
+                switch (hitTag)
+                {
+                    case "Enemy":
+                        {
+                            _cursorImage.color = Color.magenta;
+                            break;
+                        }
+
+                    default:
+                        {
+                            _cursorImage.color = Color.green;
+                            break;
+                        }
+                }
+            }
+        }
+        else
+        {
+            _isCursorHitting = false;
+        }
+    }
+
+    public RaycastHit GetCursorHit()
+    {
+        return _cursorHit;
+    }
+    public bool GetCursorHitting()
+    {
+        return _isCursorHitting;
     }
 }

@@ -1,6 +1,10 @@
-
 using UnityEngine;
 using TMPro;
+
+/**
+ * Display helpful game info at the top of the screen such as ability descriptions
+ *@ author Manny Kwong 
+ */
 
 [RequireComponent(typeof(TMP_Text))]
 public class GameInfo : MonoBehaviour
@@ -16,8 +20,6 @@ public class GameInfo : MonoBehaviour
             _text = GetComponent<TMP_Text>();
         }
     }
-
-   
 
     public void SetText(string info) {
         _text.text = ""+info;

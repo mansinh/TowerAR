@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Player ability cast over time when card is selected and use button held  
+ *@ author Manny Kwong 
+ */
 
 [RequireComponent(typeof(ParticleSystem))]
 [RequireComponent(typeof(AudioSource))]
@@ -45,7 +48,6 @@ public class Miracle : MonoBehaviour
         }
         PlayEffects();
         Collider.enabled = true;
-
     }
 
     void PlayEffects()

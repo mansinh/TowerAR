@@ -1,30 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Handles pooling of gameobjects 
+ * @author Manny Kwong
+ */
+
 public class Pool : MonoBehaviour
 {
-    [SerializeField] GameObject _prefab;
-    [SerializeField] int _poolSize = 5;
-    [SerializeField] float _checkPoolablesTime = 1;
+    [SerializeField] GameObject prefab;
+    [SerializeField] int poolSize = 5;
+    [SerializeField] float checkPoolablesTime = 1;
 
     public List<GameObject> Inactive = new List<GameObject>();
     public List<GameObject> Active = new List<GameObject>();
 
+    private List<GameObject> _toBeReleased = new List<GameObject>();
     private float _timeSinceLastCheck = 0;
 
-  
-
     public virtual void Init() {
-        for (int i = 0; i < _poolSize; i++)
+        for (int i = 0; i < poolSize; i++)
         {
-            GameObject poolable = Instantiate(_prefab, World.Instance.transform);
+            GameObject poolable = Instantiate(prefab, World.Instance.transform);
             poolable.SetActive(false);
             Inactive.Add(poolable);
         }
     }
 
-  
     public GameObject GetNextPoolable() {
         if (Inactive.Count > 0)
         {
@@ -33,6 +35,7 @@ public class Pool : MonoBehaviour
         return null;
     }
 
+    //Push and activate object into game world
     public GameObject Push()
     {
         if (Inactive.Count > 0)
@@ -48,14 +51,14 @@ public class Pool : MonoBehaviour
     }
 
     void Update() {
-        if (_timeSinceLastCheck > _checkPoolablesTime)
+        if (_timeSinceLastCheck > checkPoolablesTime)
         {
             CheckPoolables();
         }
         _timeSinceLastCheck += Time.deltaTime;
     }
 
-    private List<GameObject> _toBeReleased = new List<GameObject>();
+    //Check if an pushed object is ready to return to the pool (is gameObject is not active)
     void CheckPoolables()
     {
         _toBeReleased.Clear();
@@ -72,6 +75,7 @@ public class Pool : MonoBehaviour
         _timeSinceLastCheck = 0;
     }
 
+    //Return to pool
     public void Release(GameObject poolable)
     {
         if (Active.Contains(poolable))
@@ -86,10 +90,10 @@ public class Pool : MonoBehaviour
     }
 
     public void SetPrefab(GameObject prefab) {
-        _prefab = prefab;
+        this.prefab = prefab;
     }
     public void SetPoolSize(int poolSize) {
-        _poolSize = poolSize;
+        this.poolSize = poolSize;
     }
 
     public List<GameObject> GetInactive() {

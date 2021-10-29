@@ -1,7 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
+/**
+ * Base class for objects that can take damage, suffer damage effects and die/destroyed when health is less that or equal to 0
+ *@ author Manny Kwong 
+ *@ author Matthew Bogdanov
+ */
 
 public class Destroyable : MonoBehaviour
 {
@@ -24,10 +28,10 @@ public class Destroyable : MonoBehaviour
         ShakeAnim = _view.gameObject.AddComponent<ShakeAnim>();
         IsDestroyed = false;
         Health = MaxHealth;
-
     }
    
-   
+    //Subtract damage from health and apply damage effects
+    //Die when health is less than or equal to 0
     public virtual void Damage(Damage damage) {
         Health -= damage.damage;
         DamageEffects(damage);
@@ -36,10 +40,13 @@ public class Destroyable : MonoBehaviour
         }
     }
 
+    //Matthew: apply poison, slow and stun effects. Show damage as a popup
     protected virtual void DamageEffects(Damage damage){       
         Poison(damage);
         DamagePopup.Create(transform, damage, false);
         Slow(damage.slownessDuration, damage.slowness);
+
+        //Start stun effect over time if not already started
         if (damage.stunDuration > 0) { StartCoroutine(Stun(damage.stunDuration)); }
         UpdateView();
     }
@@ -50,6 +57,7 @@ public class Destroyable : MonoBehaviour
     bool _isSlowing = false;
     public void Slow(float slownessDuration, float slowness)
     {
+        //Take the greater value of slowness duration and slowness amount of incoming and current effect
         _slownessDuration = Mathf.Max(slownessDuration, _slownessDuration);
         _slowness = Mathf.Max(slowness, _slowness);
         if (_slownessDuration > 0 && !_isSlowing)
@@ -82,6 +90,7 @@ public class Destroyable : MonoBehaviour
 
     protected void Poison(Damage damage)
     {
+        //Take the greater value of poison duration and poison damage of incoming and current effect
         _poisonDuration = Mathf.Max(damage.poisonDuration, _poisonDuration);
         _poisonDamage = Mathf.Max(damage.poisonDamage, _poisonDamage);
 
@@ -97,6 +106,8 @@ public class Destroyable : MonoBehaviour
         while(_poisonDuration > 0)
         {
             Health -= _poisonDamage;
+
+            //Show different coloured popup if poison damage
             if (damage.poisonDamage != _poisonDamage) damage.poisonDamage = _poisonDamage;
             DamagePopup.Create(transform, damage, _isPoisoned);
             _poisonDuration--;

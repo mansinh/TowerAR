@@ -184,6 +184,10 @@ PrefabInstance:
       propertyPath: Description
       value: 'House: adds 1 points per enemy'
       objectReference: {fileID: 0}
+    - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 2446339635851807966, guid: cf4e3a8298e4e2c45823e168d69612f1, type: 3}
     - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_RootOrder
       value: 1

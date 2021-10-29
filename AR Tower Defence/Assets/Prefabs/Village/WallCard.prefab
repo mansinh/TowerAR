@@ -125,6 +125,10 @@ PrefabInstance:
       propertyPath: Description
       value: 'Wall: blocks path'
       objectReference: {fileID: 0}
+    - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: buildingPrefab
+      value: 
+      objectReference: {fileID: 3326414811011721437, guid: f9789b3047a3e574396a849ecef3aa20, type: 3}
     - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_RootOrder
       value: 0

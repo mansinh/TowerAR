@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/**
+ * Miracle that does small damage over time to all destroyables and blocks enemies 
+ *@ author Manny Kwong 
+ */
 public class MiracleFire : Miracle
 {
-    [SerializeField] float _startSize = 0.2f;
-    [SerializeField] float _coolDown = 1f;
-    [SerializeField] ParticleSystem _burntArea;
+    [SerializeField] float startSize = 0.2f;
+    [SerializeField] float coolDown = 1f;
 
     float _timeSinceAttack = 1;
 
@@ -15,22 +16,24 @@ public class MiracleFire : Miracle
     {
 
         GetComponent<NavMeshObstacle>().enabled = false;
-        VisualEffect.startSize = _startSize;
+        VisualEffect.startSize = startSize;
         base.Activate();
 
     }
 
     protected override void OnUpdate()
     {
-
+        //Damage all destroyables in range over time
         _timeSinceAttack += Time.deltaTime;
         if (Lifetime - Life > 1)
         {
             GetComponent<NavMeshObstacle>().enabled = true;
         }
-        VisualEffect.startSize = _startSize * Mathf.Min(4 * Life / Lifetime, 1);
 
-        if (_timeSinceAttack > _coolDown)
+        //Make flames smaller as it nears the end of its lifetime
+        VisualEffect.startSize = startSize * Mathf.Min(4 * Life / Lifetime, 1);
+
+        if (_timeSinceAttack > coolDown)
         {
             _timeSinceAttack = 0;
             Collider[] detected = Physics.OverlapSphere(transform.position, Collider.radius);
@@ -44,32 +47,11 @@ public class MiracleFire : Miracle
                         otherDestroyable.Damage(MiracleEffect);
                     }
                 }
-
-                if (_burntArea)
-                {
-                    Tile tile = other.GetComponent<Tile>();
-                    if (tile)
-                    {
-                        if (!_burntArea.gameObject.active)
-                        {
-                            _burntArea.gameObject.SetActive(true);
-                            if (!_burntArea.isPlaying)
-                            {
-                                _burntArea.Play();
-                            }
-                        }
-                        _burntArea.transform.localScale = Vector3.one * Mathf.Min(4 * Life / Lifetime, 1);
-                    }
-                    else
-                    {
-                        _burntArea.gameObject.SetActive(false);
-                    }
-                }
             }
         }
     }
 
-
+    //Be put out by water
     public void OnWater(float effect)
     {
         Life -= effect;
