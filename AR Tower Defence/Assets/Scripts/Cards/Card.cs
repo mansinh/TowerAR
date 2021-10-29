@@ -71,9 +71,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.transform.SetParent(World.Instance.transform);
         Ghost.transform.localScale = Vector3.one;
         
-        //Show card description at top of screen
-        SetGameInfo();
-
+       
         GameController.Instance.SetSelectedCard(this);
        
     }
@@ -85,11 +83,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         image.color = Color.gray;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         Ghost.SetActive(false);
-        GameInfo.Instance.SetText("");
+      
     }
 
     //Show description of card ability at the top of the screen (game info area)
-    protected virtual void SetGameInfo() {
+    public virtual void SetGameInfo() {
         GameInfo.Instance.SetText(Description);
     }
 
@@ -142,7 +140,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Discard()
     {
         Destroy(Ghost);
-        GameInfo.Instance.SetText("");
+        
         if (Deck)
         {
             Deck.DiscardCard(this);

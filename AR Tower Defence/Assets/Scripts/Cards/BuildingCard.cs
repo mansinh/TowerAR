@@ -47,6 +47,7 @@ public class BuildingCard : Card
     {
         if (_targetTile)
         {
+            GameController.Instance.DeselectCard();
             GameObject building = Instantiate(buildingPrefab, World.Instance.transform);
             building.transform.position = Ghost.transform.position;
             building.transform.localScale = Ghost.transform.localScale;
