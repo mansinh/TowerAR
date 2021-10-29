@@ -5,6 +5,7 @@ using UnityEngine.AI;
  * Miracle that does small damage over time to all destroyables and blocks enemies 
  *@ author Manny Kwong 
  */
+
 public class MiracleFire : Miracle
 {
     [SerializeField] float startSize = 0.2f;

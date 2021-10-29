@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour
         }
         _selectedCard = selectedCard;
         useCardButton.IsUsingCard = true;
+        selectedCard.SetGameInfo();
     }
 
     public void UseSelectedCard()
@@ -101,6 +102,7 @@ public class GameController : MonoBehaviour
         }
         _selectedCard = null;
         useCardButton.IsUsingCard = false;
+        GameInfo.Instance.SetText("");
     }
 
     //Discard card from hand in return for some points back
@@ -138,13 +140,17 @@ public class GameController : MonoBehaviour
         if (!IsAR)
         {
             KeyboardControls();
+            //Activate selected card if left mouse button is held
             if (_selectedCard)
             {
-                //Activate selected card if left mouse button is held
-                if (Input.GetMouseButton(0))
+                
+                if (Input.GetMouseButton(0) && MyCursor.Instance.GetIsActionable())
                 {
                     _selectedCard.ActivateCard();
                 }
+            }
+            if (_selectedCard)
+            {
                 if (Input.GetMouseButtonUp(0))
                 {
                     _selectedCard.DeactivateCard();

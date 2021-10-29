@@ -255,8 +255,8 @@ MonoBehaviour:
   _view: {fileID: 2193533503655620954}
   MaxHealth: 10
   DeathDuration: 0
-  Health: 10
+  Health: 41
   IsDestroyed: 0
   growth: 0
-  color: {r: 80, g: 160, b: 80, a: 255}
+  color: {r: 0.37584552, g: 0.7735849, b: 0.37584552, a: 255}
   meshRenderer: {fileID: 2193533503740467068}

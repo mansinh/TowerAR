@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeCard : Card
@@ -34,8 +32,10 @@ public class UpgradeCard : Card
 
     public override bool ActivateCard()
     {
+        
         if (_targetTower)
         {
+            GameController.Instance.DeselectCard();
             if (_attackDMG)
             {
                 _targetTower._attack._attackDamageCard += 1;
