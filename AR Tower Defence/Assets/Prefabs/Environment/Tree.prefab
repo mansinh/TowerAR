@@ -253,10 +253,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 2193533503655620954}
-  MaxHealth: 1
+  MaxHealth: 10
   DeathDuration: 0
-  Health: 0
+  Health: 10
   IsDestroyed: 0
-  _growth: 0
-  _color: {r: 0.32541826, g: 0.6226415, b: 0.33991694, a: 1}
-  _meshRenderer: {fileID: 2193533503740467068}
+  growth: 0
+  color: {r: 80, g: 160, b: 80, a: 255}
+  meshRenderer: {fileID: 2193533503740467068}

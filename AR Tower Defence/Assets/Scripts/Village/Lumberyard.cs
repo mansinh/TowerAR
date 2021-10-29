@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/**
+ * Increase chance for building cards or maybe spend points to spawn building cards
+ * Yet to be implemented
+ *@ author Manny Kwong 
+ */
 
 public class Lumberyard : VillageBuilding
 {

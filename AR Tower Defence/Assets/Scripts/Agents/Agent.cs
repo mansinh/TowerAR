@@ -1,33 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+/**
+ * Destroyable that chases targets within detect range 
+ * Goes to default target if no targets in range if there is one, otherwise wanders randomly
+ *@ author Manny Kwong 
+ */
 
 
 [RequireComponent(typeof(NavMeshAgent))]
 
 public class Agent : Destroyable
 {
-    [SerializeField] public float _baseSpeed = 1;
+    public float BaseSpeed = 1;
     [SerializeField] protected string Name = "";
     [SerializeField] public Attack _attack;
-    [SerializeField] float _detectRange;
+    [SerializeField] float DetectRange = 3;
     [SerializeField] float AiUpdateTime = 1f;
     [SerializeField] protected Transform DefaultTarget;
     [SerializeField] protected string TargetName = "";
-    [SerializeField] protected float _distanceFromTarget=1;
-    NavMeshAgent _navAgent;
+    [SerializeField] protected float DistanceFromTarget=1;
+    private NavMeshAgent _navAgent;
 
 
-    AIPerception perception;
-    [SerializeField] float timeSinceAIUpdate = 1;
-    [SerializeField] Transform _currentTarget;
+    private AIPerception _perception;
+    private float timeSinceAIUpdate = 1;
+    private Transform _currentTarget;
 
     private void Start()
     {
-        perception = gameObject.AddComponent<AIPerception>();
-        perception.setDetectFrom(transform);
-        perception.setDetectRange(_detectRange);
+        _perception = gameObject.AddComponent<AIPerception>();
+        _perception.setDetectFrom(transform);
+        _perception.setDetectRange(DetectRange);
     }
 
     protected override void Init()
@@ -46,7 +50,7 @@ public class Agent : Destroyable
     {
         IsDestroyed = false;
         Health = MaxHealth;
-        _navAgent.speed = _baseSpeed;
+        _navAgent.speed = BaseSpeed;
         _navAgent.isStopped = false;
         SetTarget(DefaultTarget);
     }
@@ -59,7 +63,8 @@ public class Agent : Destroyable
             {
                 _currentTarget = target;
 
-                Vector3 randomDisplacement =  Random.onUnitSphere / 4* _distanceFromTarget;
+                //Set target location to a random location near target  
+                Vector3 randomDisplacement =  Random.onUnitSphere / 4* DistanceFromTarget;
                 randomDisplacement.y = 0;
                 if (target)
                 {
@@ -71,13 +76,17 @@ public class Agent : Destroyable
             }
         //}
     }
+
+
     protected override void Death()
     {
         _attack.EndAction();
         _navAgent.speed = 0;
+        //Reset nav data on death
         _navAgent.ResetPath();
         base.Death();      
     }
+
     protected override void Remove()
     {
        
@@ -87,6 +96,7 @@ public class Agent : Destroyable
 
     void Update()
     {
+        //Turn towards current target and attack if in range and cooldown over
         if (_currentTarget)
         {
             if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
@@ -94,10 +104,12 @@ public class Agent : Destroyable
                 transform.LookAt(_currentTarget);
             }
         }
+
+        //Periodically decide on target, not every frame as that may be expensive
         timeSinceAIUpdate += Time.deltaTime;
         if (timeSinceAIUpdate > AiUpdateTime)
         {
-            Destroyable closestTarget = perception.getClosestTarget(TargetName);
+            Destroyable closestTarget = _perception.getClosestTarget(TargetName);
 
             if (closestTarget)
             {              
@@ -105,21 +117,24 @@ public class Agent : Destroyable
             }
             else if(Random.value < 0.1)
             {
+                //Random chance to go back to default target
                 SetTarget(DefaultTarget);
             }
             timeSinceAIUpdate = 0;
         }
     }
 
+    //Slow down navagent movement when affected by slow condition
     protected override void OnSlow(float slowness)
     {
-        _navAgent.speed = _baseSpeed * (1f - slowness);
+        _navAgent.speed = BaseSpeed * (1f - slowness);
     }
     protected override void OnEndSlow()
     {
-        _navAgent.speed = _baseSpeed;
+        _navAgent.speed = BaseSpeed;
     }
 
+    //Stop navagent when affected by stun condition
     protected override void OnStun()
     {
         _navAgent.isStopped = true;

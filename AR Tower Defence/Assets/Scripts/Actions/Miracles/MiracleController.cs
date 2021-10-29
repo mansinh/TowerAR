@@ -1,6 +1,9 @@
-
 using UnityEngine;
 
+/**
+ * Controls the lifetime, pooling and spawning of miracles
+ * @author Manny Kwong
+ */
 
 public class MiracleController : Attack
 { 
@@ -23,6 +26,7 @@ public class MiracleController : Attack
         _miraclePool.Init();
     }
 
+    //Spawn miracle at cursor location when miracle card is activated (when cooldown is finished and there are miracles left in pool)
     protected override void Act(Vector3 targetPosition)
     {
         if (_miraclePool.GetInactive().Count > 0)

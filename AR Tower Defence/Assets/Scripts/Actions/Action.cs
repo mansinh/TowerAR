@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+/**
+ * Controls the timing of actions and cooldown
+ *@ author Manny Kwong 
+ */
+
 using UnityEngine;
 
 public class Action : MonoBehaviour
 {
     public float cooldown;
     public float duration;
- 
-
-    [SerializeField] public float _timeRemaining = 0;
+    public float TimeRemaining = 0;
 
     [SerializeField] bool isReady = true;
     [SerializeField] bool isActing = false;
@@ -25,11 +26,12 @@ public class Action : MonoBehaviour
         
     }
     
+    //Reset action on enable
     private void OnEnable() {
         EndAction();
     }
 
-
+    //Do action if target is within range and cooldown is over
     public bool Activate(Vector3 targetPosition) {
         if (isReady)
         {
@@ -39,7 +41,7 @@ public class Action : MonoBehaviour
                 isActing = true;
                 isReady = false;
                 isCooling = false;
-                _timeRemaining = duration;
+                TimeRemaining = duration;
                 return true;
             }
         }
@@ -57,7 +59,7 @@ public class Action : MonoBehaviour
         isActing = false;
         isCooling = true;
         isReady = false;
-        _timeRemaining = cooldown;
+        TimeRemaining = cooldown;
     }
 
     public virtual void EndCoolDown() {
@@ -66,10 +68,11 @@ public class Action : MonoBehaviour
         isReady = true;
     }
 
+    //Countdown timer
     private void Update()
     {
-        _timeRemaining -= Time.deltaTime;
-        if (_timeRemaining < 0)
+        TimeRemaining -= Time.deltaTime;
+        if (TimeRemaining < 0)
         {
             if (isCooling)
             {
@@ -79,8 +82,5 @@ public class Action : MonoBehaviour
                 EndAction();
             }
         }
-    }
-
-    
-   
+    }   
 }

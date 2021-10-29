@@ -1,8 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.AI;
+
+/**
+ * Manages player input and game states
+ * Might have to separate this into 2 different classes in the future
+ * TODO game pause menu, game restart, game options, return to AR menu, exit game
+ *@ author Manny Kwong 
+ */
 
 public class GameController : MonoBehaviour
 {
@@ -11,23 +16,22 @@ public class GameController : MonoBehaviour
     [SerializeField] Camera testCamera;
     [SerializeField] float zoomSpeed = 1, cameraSpeed = 100;
 
-    [SerializeField] CanvasGroup ARMenu;
-    [SerializeField] CanvasGroup HUD;
+    [SerializeField] CanvasGroup arMenu;
+    [SerializeField] CanvasGroup hud;
     [SerializeField] CanvasGroup gameOverMenu;
     [SerializeField] UseButton useCardButton;
 
     public bool IsAR;
     public static GameController Instance;
-
     private Card _selectedCard;
+    private Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
 
     void Awake()
     {
         Instance = this;
-        ARMenu.gameObject.SetActive(true);
-        HUD.gameObject.SetActive(false);
+        arMenu.gameObject.SetActive(true);
+        hud.gameObject.SetActive(false);
         gameOverMenu.gameObject.SetActive(false);
-
         GamePause();
     }
 
@@ -35,21 +39,29 @@ public class GameController : MonoBehaviour
     {
         if (IsAR)
         {
+            //Turn on AR
             arSession.gameObject.SetActive(true);
             arController.gameObject.SetActive(true);
+            arMenu.gameObject.SetActive(true);
+            
+            //Turn off test camera
             testCamera.gameObject.SetActive(false);
-            ARMenu.gameObject.SetActive(true);
+            
+            //Set cursor to center of the screen
             MyCursor.Instance.SetScreenPosition(screenCenter);
         }
         else
         {
-            
+            //Turn off AR for PC testing
             arSession.gameObject.SetActive(false);
             arController.gameObject.SetActive(false);
-            ARMenu.gameObject.SetActive(false);
+            arMenu.gameObject.SetActive(false);
 
+            //Turn on test camera
             testCamera.gameObject.SetActive(true);
-            HUD.gameObject.SetActive(true);
+
+            //Start game
+            hud.gameObject.SetActive(true);
             GameResume();
         }
     }
@@ -68,13 +80,14 @@ public class GameController : MonoBehaviour
     {
         if (_selectedCard != null)
         {
+            //Allow card action if cursor is over the player territory
             if (MyCursor.Instance.GetIsActionable())
             {
+                //Deselect card when it is used up
                 bool cardUsedUp = _selectedCard.ActivateCard();
                 if (cardUsedUp)
                 {
-                    _selectedCard = null;
-                    useCardButton.IsUsingCard = false;
+                    DeselectCard();
                 }
             }
         }
@@ -82,7 +95,6 @@ public class GameController : MonoBehaviour
 
     public void DeselectCard()
     {
-
         if (_selectedCard != null)
         {
             _selectedCard.Deselect();
@@ -91,28 +103,29 @@ public class GameController : MonoBehaviour
         useCardButton.IsUsingCard = false;
     }
 
-    public void RemoveCard()
+    //Discard card from hand in return for some points back
+    public void Discard()
     {
         if (_selectedCard != null)
         {
-            _selectedCard.Remove();
+            _selectedCard.Discard();
         }
         _selectedCard = null;
         useCardButton.IsUsingCard = false;
-        Points.Instance.RemovedCard();
+        Points.Instance.Discarded();
     }
-
-    Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
-    // Update is called once per frame
-
+ 
     void FixedUpdate()
     {
+        //Find out what is in front of the cursor
         if (IsAR)
         {
+            //Cursor fixed at screen center if AR
             MyCursor.Instance.Cast(screenCenter);
         }
         else
         {
+            //Cursor follows mouse if testing on PC
             MyCursor.Instance.SetScreenPosition(Input.mousePosition);
             MyCursor.Instance.Cast(Input.mousePosition);
         }
@@ -121,14 +134,26 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-
-
+        //Controls for testing on PC
         if (!IsAR)
         {
             KeyboardControls();
+            if (_selectedCard)
+            {
+                //Activate selected card if left mouse button is held
+                if (Input.GetMouseButton(0))
+                {
+                    _selectedCard.ActivateCard();
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    _selectedCard.DeactivateCard();
+                }
+            }
         }
     }
 
+    //Rotate world about its center vertically and horizontally with keyboard controls
     void KeyboardControls()
     {
         transform.eulerAngles += new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0) * cameraSpeed * Time.deltaTime;
@@ -143,37 +168,41 @@ public class GameController : MonoBehaviour
         }
     }
 
-
-
     public void GamePause()
     {
+        //Pause time
         Time.timeScale = 0;
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
 
-        for (int i = 0; i < enemies.Length; i++)
+        //Turn off NavMeshAgents
+        NavMeshAgent[] agents = FindObjectsOfType<NavMeshAgent>();
+        for (int i = 0; i < agents.Length; i++)
         {
-            enemies[i].GetComponent<NavMeshAgent>().enabled = false;
+            agents[i].enabled = false;
         }
+
     }
 
     public void GameResume()
     {
+        //Rebake nav meshes in case game world was repositioned and turn on NavMeshAgents 
         BakeNavMesh();
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-        for (int i = 0; i < enemies.Length; i++)
+        NavMeshAgent[] agents = FindObjectsOfType<NavMeshAgent>();
+        for (int i = 0; i < agents.Length; i++)
         {
-            enemies[i].GetComponent<NavMeshAgent>().enabled = true;
+            agents[i].enabled = true;
         }
+
+        //Set time to normal
         Time.timeScale = 1;
   
-        HUD.gameObject.SetActive(true);
-        //StartCoroutine(UITransitions.AlphaTo(HUD, 1, 0.3f));
-        StartCoroutine(UITransitions.AlphaTo(ARMenu, 0, 0.3f));
+        //Turn on the head up display if not already on
+        hud.gameObject.SetActive(true);
+        
+        //Fade out the AR menu 
+        StartCoroutine(UITransitions.AlphaTo(arMenu, 0, 0.3f));
     }
 
-
-  
-
+    //Bakes NavMesh needed for pathfinding
     public void BakeNavMesh()
     {
         NavMeshSurface[] navSurfaces = FindObjectsOfType<NavMeshSurface>();
@@ -187,11 +216,8 @@ public class GameController : MonoBehaviour
             }
         }
     }
-    public void GameReset()
-    {
 
-    }
-
+    //Fades in the game over overlay when player (shrine) is destroyed
     public void GameOver()
     {
         gameOverMenu.alpha = 0;

@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/**
+ * Represents the player
+ * Gameover if it dies
+ * TODO add dancing worshippers, gives points over time during the day
+ *@ author Manny Kwong 
+ */
 
 public class Shrine : VillageBuilding
 {

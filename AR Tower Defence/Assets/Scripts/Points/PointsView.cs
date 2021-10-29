@@ -1,17 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+
+/**
+ * Shows the points on the screen and maybe some animation when points change
+ *  //TODO sounds for changing points
+ *@ author Manny Kwong 
+ */
 
 [RequireComponent(typeof(Points))]
 public class PointsView : MonoBehaviour
 {
-    [SerializeField] TMP_Text _pointsText;
-    [SerializeField] float _deltaTime = 0.1f;
-    int _currentPoints;
-    int _targetPoints;
-    bool isUpdatingText = false;
+    [SerializeField] private TMP_Text pointsText;
+    [SerializeField] private float deltaTime = 0.1f; //time between frames for animation
+    private int _currentPoints;
+    private int _targetPoints;
+    private bool _isUpdatingText = false;
 
     public void SetPoints(int points) {
         _currentPoints = points;
@@ -21,26 +25,28 @@ public class PointsView : MonoBehaviour
 
     public void UpdatePoints(int totalPoints) {
         _targetPoints = totalPoints;
-
-        if (!isUpdatingText)
+        //If not already animating, start the points animation
+        if (!_isUpdatingText)
         {
-            StartCoroutine(UpdatePointsText());
+            StartCoroutine(PointsAnimation());
         }
     }
 
-    IEnumerator UpdatePointsText() {
-        isUpdatingText = true;
+    //When points are increased, increase points from current to target value over time
+    //TODO more animation effects, maybe changing colour or glowing
+    IEnumerator PointsAnimation() {
+        _isUpdatingText = true;
         while (_currentPoints < _targetPoints) {
             _currentPoints++;
             SetText();
-            yield return new WaitForSeconds(_deltaTime);
+            yield return new WaitForSeconds(deltaTime);
         }
         _currentPoints = _targetPoints;
         SetText();
-        isUpdatingText = false;
+        _isUpdatingText = false;
     }
 
     void SetText() {
-        _pointsText.text = "" + _currentPoints + "p";
+        pointsText.text = "" + _currentPoints + "p";
     }
 }

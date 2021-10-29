@@ -267,8 +267,8 @@ MonoBehaviour:
   Description: 'Alchemist: Close Ranged Slowness and poison applier'
   _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
-  _building: {fileID: 3477166664635002206, guid: 5242947dfd289714381b63e4df43286b, type: 3}
-  _tileSize: 0.333
+  buildingPrefab: {fileID: 3477166664635002206, guid: 5242947dfd289714381b63e4df43286b, type: 3}
+  gridSize: 0.33333334
 --- !u!1 &7681316091870311797
 GameObject:
   m_ObjectHideFlags: 0

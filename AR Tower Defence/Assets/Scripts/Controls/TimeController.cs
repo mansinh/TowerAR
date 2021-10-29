@@ -1,7 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+/**
+ * Slider that sets the speed of time the game runs at
+ *@ author Manny Kwong 
+ */
 
 public class TimeController : MonoBehaviour
 {
@@ -14,7 +17,5 @@ public class TimeController : MonoBehaviour
 
     public void SetTimeScale() {
         Time.timeScale = _slider.value;
-    }
-
-    
+    } 
 }

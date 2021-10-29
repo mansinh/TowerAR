@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Adds to points rewarded per enemy slain / per time during the day
+ * TODO: Villagers 
+ *@ author Manny Kwong 
+ */
 
 public class VillageBuilding : Destroyable
 {
- 
-
     protected override void DamageEffects(Damage damage)
     {
         base.DamageEffects(damage);

@@ -1,17 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Trees can grow from tiles when miracle water is cast over it
+ * When an enemy collides with a tree it slows the enemy down and animates recoil
+ * Blackens when damaged by fire 
+ *@ author Manny Kwong 
+ */
 
 public class Tree : Destroyable, IGrowable
 {
-    [SerializeField] float _growth = 0;
-    [SerializeField] Color _color;
-    [SerializeField] MeshRenderer _meshRenderer;
+    [SerializeField] float growth = 0;
+    [SerializeField] Color color = new Color(80,160,80,255);
+    [SerializeField] MeshRenderer meshRenderer;
     private Forest _forest;
-
-
-    float _swayRandom;
-    Tile tile;
+    private float _swayRandom;
+    private Tile _tile;
 
     protected override void Init()
     {
@@ -21,31 +25,32 @@ public class Tree : Destroyable, IGrowable
         changeSwayDirection();
     }
 
+    //Increase max health and size when growing
     public void Grow(float growAmount)
-    {
-       
-        if (_growth < 100)
+    {       
+        if (growth < 100)
         {
-            _growth += growAmount;
+            growth += growAmount;
         }
 
-        MaxHealth = 1+10 * _growth / 100;
+        MaxHealth = 1+10 * growth / 100;
         Health = MaxHealth;
 
         UpdateView();
-       
     }
 
     Vector3 swayDirection = new Vector3(1,0,0);
-
     protected override void UpdateView()
     {
-        _view.transform.localScale = Vector3.one * _growth / 100;
+        _view.transform.localScale = Vector3.one * growth / 100;
+        
+        //Swaying side to side animation
         if (!_isSwaying)
         {
             _view.transform.localEulerAngles = 0.5f * Mathf.Sin(20 * Time.time) * swayDirection;
         }
-        _meshRenderer.material.color = Color.Lerp(Color.black, _color, Health / MaxHealth);
+        //Lerp between color at max health and black at 0 health
+        meshRenderer.material.color = Color.Lerp(Color.black, color, Health / MaxHealth);
     }
 
     public void SetForest(Forest forest) {
@@ -60,20 +65,21 @@ public class Tree : Destroyable, IGrowable
     {
         if (!_isSwaying)
         {
-            
+            //Recoil animation
             StartCoroutine(Sway(2, 5, 10));
         }
         if (other.GetComponent<Agent>()) {
-            other.GetComponent<Agent>().Slow(0.1f,_growth/100*0.5f);
+            other.GetComponent<Agent>().Slow(0.1f,growth/100*0.5f);
         }
     }
-
 
     bool _isSwaying = false;
     IEnumerator Sway(float duration, float amplitude, float frequency)
     {
         _isSwaying = true;
         changeSwayDirection();
+
+        //Dampened periodic rotation from base of tree
         for (float i = duration; i > 0;  i -= 0.01f)
         {
             _view.transform.localEulerAngles = i/duration* amplitude * Mathf.Sin(frequency * Time.time) * swayDirection;
@@ -82,6 +88,7 @@ public class Tree : Destroyable, IGrowable
         _isSwaying = false;
     }
 
+    //Randomize swaying direction
     void changeSwayDirection()
     {
         swayDirection = Random.onUnitSphere;

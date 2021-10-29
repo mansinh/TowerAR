@@ -56,8 +56,8 @@ MonoBehaviour:
     and kill enemies'
   _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
-  _building: {fileID: 8596073088382938705, guid: 078e07538e41a6e46a8ec46bf7dae2b2, type: 3}
-  _tileSize: 0.333
+  buildingPrefab: {fileID: 8596073088382938705, guid: 078e07538e41a6e46a8ec46bf7dae2b2, type: 3}
+  gridSize: 0.33333334
 --- !u!1 &2495799102058215555
 GameObject:
   m_ObjectHideFlags: 0

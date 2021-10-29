@@ -1,69 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Grows over time
+ * Water miracle speeds up growth
+ * TODO harvest for points
+ *@ author Manny Kwong 
+ */
 
 public class Field : VillageBuilding, IGrowable
 {
     [SerializeField] Transform _wheat;
     
-    [SerializeField] float _maxWheatHeight = 0.1f;
-    [SerializeField] SpriteRenderer[] _wheatSprites;
-    [SerializeField] SpriteRenderer _wheatSpriteBase;
+    [SerializeField] float maxWheatHeight = 0.1f;
+    [SerializeField] SpriteRenderer[] wheatSprites;
+    [SerializeField] SpriteRenderer wheatSpriteBase;
     [SerializeField] Color initialColour;
     [SerializeField] Color halfwayColour;
     [SerializeField] Color fullColour;
 
-    [SerializeField] float _growSpeed = 0.1f;
-    [SerializeField] float _growth = 0;
+    [SerializeField] float growSpeed = 0.6f;
+    [SerializeField] float growth = 0;
 
     // Update is called once per frame
     void Update()
     {
-        Grow(_growSpeed*Time.deltaTime);
+        Grow(growSpeed*Time.deltaTime);
     }
 
     void SetColours()
     {
         Color color = GetColour();
-        foreach (SpriteRenderer sprite in _wheatSprites)
+        foreach (SpriteRenderer sprite in wheatSprites)
         {
-
             sprite.color = color;
         }
-       
-        _wheatSpriteBase.color = color;
+        wheatSpriteBase.color = color;
     }
 
+    //Change colour from brown to green to yellow as the wheat field ripens/grows
     Color GetColour()
     {
-        if (_growth < 50)
+        if (growth < 50)
         {
-            return Color.Lerp(initialColour, halfwayColour, _growth / 50);
+            return Color.Lerp(initialColour, halfwayColour, growth / 50);
         }
-        return Color.Lerp(halfwayColour, fullColour, (_growth - 50) / 50);
+        return Color.Lerp(halfwayColour, fullColour, (growth - 50) / 50);
     }
 
     public void Grow(float growAmount) {
-        if (_growth < 100)
+        if (growth < 100)
         {
-            _growth += growAmount;
+            growth += growAmount;
             SetColours();
         }
         UpdateView();
     }
 
-  
-
     protected override void UpdateView() {
         Vector3 wheatPosition = _wheat.transform.localPosition;
-        wheatPosition.y = _growth / 100 * _maxWheatHeight;
+        wheatPosition.y = growth / 100 * maxWheatHeight;
         _wheat.transform.localPosition = wheatPosition;
         SetColours();
     }
 
     public void Harvest()
     {
-        _growth = 0;
+        growth = 0;
         //Points
     }
 }

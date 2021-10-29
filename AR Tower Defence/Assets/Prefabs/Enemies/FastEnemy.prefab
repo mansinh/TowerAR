@@ -75,14 +75,14 @@ MonoBehaviour:
   DeathDuration: 1
   Health: 100
   IsDestroyed: 0
-  _baseSpeed: 1.5
+  BaseSpeed: 2
   Name: Enemy
   _attack: {fileID: 7725014524756412876}
-  _detectRange: 3
+  DetectRange: 0
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Player
-  _distanceFromTarget: 1
+  DistanceFromTarget: 1
   timeSinceAIUpdate: 1
   _currentTarget: {fileID: 0}
 --- !u!54 &1708371589843219093
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0.5
   duration: 0.3
-  _timeRemaining: 0
+  TimeRemaining: 0
   isReady: 1
   isActing: 0
   isCooling: 0

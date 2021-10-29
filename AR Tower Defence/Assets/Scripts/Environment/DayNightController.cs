@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Controls the timing and lighting of the day-night cycle
+ *@ author Manny Kwong 
+ */
 
 [ExecuteAlways]
 [RequireComponent(typeof(Light))]
@@ -16,7 +19,6 @@ public class DayNightController : MonoBehaviour
     [SerializeField] private AnimationCurve direction;
     [SerializeField] private Gradient ambientColor;
 
-   
     [SerializeField] private float startTime = 0.25f;
     [SerializeField] private float dawnTime = 0.3f;
     [SerializeField] private float duskTime = 0.75f;
@@ -39,7 +41,7 @@ public class DayNightController : MonoBehaviour
         timeOfDay = startTime;
   
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Application.isPlaying) {
@@ -62,6 +64,7 @@ public class DayNightController : MonoBehaviour
         }  
     }
 
+    //Set ambient light colour, sun light intensity and sun light direction over time of day
     void UpdateLighting() {     
         RenderSettings.ambientLight = ambientColor.Evaluate(timeOfDay)* ambientIntensity;     
         sun.intensity = intensity.Evaluate(timeOfDay) * sunIntensity;

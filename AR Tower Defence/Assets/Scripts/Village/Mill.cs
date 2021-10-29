@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/**
+ * Increases points per field
+ * Yet to be implemented
+ *@ author Manny Kwong 
+ */
 
 public class Mill : VillageBuilding
 {

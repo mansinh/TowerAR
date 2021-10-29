@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Tap to purchase miracle card and draw into hand
+ * @author Manny Kwong
+ */
 
 [RequireComponent(typeof(MiracleController))]
 public class MiracleDeck : CardDeck

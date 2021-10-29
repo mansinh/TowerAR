@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/**
+ * Miracle that restores the health of non enemy destroyables 
+ * Also restores corrupt tiles
+ *@ author Manny Kwong 
+ */
+
 public class MiracleHeal : Miracle
 {
     public override void Activate()

@@ -55,8 +55,8 @@ MonoBehaviour:
   Description: 'War Mage: Long Ranged Killing Machine'
   _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
-  _building: {fileID: 3937790334647393417, guid: 08e8193975842b84d9d2536d31433724, type: 3}
-  _tileSize: 0.333
+  buildingPrefab: {fileID: 3937790334647393417, guid: 08e8193975842b84d9d2536d31433724, type: 3}
+  gridSize: 0.33333334
 --- !u!1 &4428143618801241889
 GameObject:
   m_ObjectHideFlags: 0

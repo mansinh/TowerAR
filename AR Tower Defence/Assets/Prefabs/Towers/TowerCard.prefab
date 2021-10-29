@@ -162,8 +162,8 @@ MonoBehaviour:
   Description: 'Archer: shoots arrows'
   _moveToOnSelect: {x: 0, y: 20, z: 0}
   Deck: {fileID: 0}
-  _building: {fileID: 6140706670366130812, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
-  _tileSize: 0.333
+  buildingPrefab: {fileID: 6140706670366130812, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+  gridSize: 0.33333334
 --- !u!1 &9017410615035254768
 GameObject:
   m_ObjectHideFlags: 0
