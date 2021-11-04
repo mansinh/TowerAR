@@ -20,6 +20,7 @@ public class Agent : Destroyable
     [SerializeField] protected Transform DefaultTarget;
     [SerializeField] protected string TargetName = "";
     [SerializeField] protected float DistanceFromTarget=1;
+    [SerializeField] protected float maxHeightDiff = 0.01f;
     private NavMeshAgent _navAgent;
 
 
@@ -109,7 +110,7 @@ public class Agent : Destroyable
         timeSinceAIUpdate += Time.deltaTime;
         if (timeSinceAIUpdate > AiUpdateTime)
         {
-            Destroyable closestTarget = _perception.getClosestTarget(TargetName);
+            Destroyable closestTarget = _perception.getClosestTarget(TargetName, maxHeightDiff);
 
             if (closestTarget)
             {              

@@ -6,8 +6,8 @@ public class Tower : VillageBuilding
 {
     [SerializeField] float _range = 4;
     [SerializeField] float _AiUpdateTime = 0.2f;
-    [SerializeField] public Attack _attack;
-
+    public Attack _attack;
+    [SerializeField] protected float maxHeightDiff = 1;
     AIPerception _perception;
     float _timeSinceAIUpdate = 1;
 
@@ -33,7 +33,7 @@ public class Tower : VillageBuilding
         _timeSinceAIUpdate += Time.deltaTime;
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {
-            Destroyable closestTarget = _perception.getClosestTarget("Enemy");
+            Destroyable closestTarget = _perception.getClosestTarget("Enemy", maxHeightDiff);
             if (closestTarget)
             {
                 _currentTarget = closestTarget.transform;

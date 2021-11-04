@@ -9,31 +9,35 @@ public class AIPerception : MonoBehaviour
 {
     private Transform _detectFrom;
     private float _detectRange;
+    
 
-
-    public Destroyable getClosestTarget(string targetTag)
+    public Destroyable getClosestTarget(string targetTag, float maxHeightDiff)
     {
         Destroyable closestTarget = null;
         float closestDistance = 10000000000;
         Collider[] detected = Physics.OverlapSphere(_detectFrom.position, _detectRange, LayerMask.GetMask(targetTag));
+        
         foreach (Collider other in detected)
         {
-            //Check if collider is destroyable
-            Destroyable otherDestroyable = other.GetComponent<Destroyable>();
-            if (otherDestroyable)
+            if (other.transform.position.y - transform.position.y < maxHeightDiff)
             {
-                //Do not count if destroyable is already destroyed/dead
-                if (!otherDestroyable.IsDestroyed)
+                //Check if collider is destroyable
+                Destroyable otherDestroyable = other.GetComponent<Destroyable>();
+                if (otherDestroyable)
                 {
-                    //Check line of sight
-                    RaycastHit hit;
-                    if (hasLineOfSight(other, _detectFrom, out hit))
+                    //Do not count if destroyable is already destroyed/dead
+                    if (!otherDestroyable.IsDestroyed)
                     {
-                        //Update closest target
-                        if (hit.distance < closestDistance)
+                        //Check line of sight
+                        RaycastHit hit;
+                        if (hasLineOfSight(other, _detectFrom, out hit))
                         {
-                            closestTarget = otherDestroyable;
-                            closestDistance = hit.distance;
+                            //Update closest target
+                            if (hit.distance < closestDistance)
+                            {
+                                closestTarget = otherDestroyable;
+                                closestDistance = hit.distance;
+                            }
                         }
                     }
                 }

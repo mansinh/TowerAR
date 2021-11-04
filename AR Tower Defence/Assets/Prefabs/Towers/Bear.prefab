@@ -168,16 +168,15 @@ MonoBehaviour:
   DeathDuration: 0
   Health: 250
   IsDestroyed: 0
-  _baseSpeed: 1
+  BaseSpeed: 1
   Name: Bear
   _attack: {fileID: 4950410460886607902}
-  _detectRange: 10
+  DetectRange: 3
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Enemy
-  _distanceFromTarget: 1
-  timeSinceAIUpdate: 1
-  _currentTarget: {fileID: 0}
+  DistanceFromTarget: 1
+  maxHeightDiff: 0.01
 --- !u!1 &4950410460539163229
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,11 +318,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0.3
-  _timeRemaining: 0
+  TimeRemaining: 0
   isReady: 1
   isActing: 0
   isCooling: 0
   _range: 1
+  MaxHeight: 0.1
   _attackDamage: 10
   _criticalDamage: 1.5
   _criticalRate: 0.1
