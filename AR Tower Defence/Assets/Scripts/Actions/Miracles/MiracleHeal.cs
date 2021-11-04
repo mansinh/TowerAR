@@ -15,23 +15,7 @@ public class MiracleHeal : Miracle
         foreach (Collider other in detected)
         {
             print("Heal " + other.name);
-            Tile tile = other.GetComponent<Tile>();
-            if (tile != null)
-            {
-               tile.Heal();
-            }
             
-            World.Instance.UpdateView();
-            
-            Destroyable destroyable = other.GetComponent<Destroyable>();
-           
-            if (destroyable != null)
-            {
-                if (destroyable.gameObject.layer != 6)
-                {
-                    destroyable.Damage(MiracleEffect);
-                }
-            }
         }
     }
 }

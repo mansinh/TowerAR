@@ -78,12 +78,21 @@ public class GameController : MonoBehaviour
         selectedCard.SetGameInfo();
     }
 
+    public bool GetIsCardUsable()
+    {
+        if (_selectedCard == null)
+        {
+            return false;
+        }
+        return _selectedCard.GetIsUsable();
+    }
+
     public void UseSelectedCard()
     {
         if (_selectedCard != null)
         {
             //Allow card action if cursor is over the player territory
-            if (MyCursor.Instance.GetIsActionable())
+            if (GetIsCardUsable())
             {
                 //Deselect card when it is used up
                 bool cardUsedUp = _selectedCard.ActivateCard();
@@ -145,7 +154,7 @@ public class GameController : MonoBehaviour
             if (_selectedCard)
             {
                 
-                if (Input.GetMouseButton(0) && MyCursor.Instance.GetIsActionable())
+                if (Input.GetMouseButton(0) && GetIsCardUsable())
                 {
                     _selectedCard.ActivateCard();
                 }

@@ -21,7 +21,7 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
     private void Update()
     {
         //Activate selected card if meets conditions otherwise deactivate
-        if (MyCursor.Instance.GetIsActionable() && IsUsingCard)
+        if (GameController.Instance.GetIsCardUsable())
         {
             image.color = Color.white;
             if (IsDown)

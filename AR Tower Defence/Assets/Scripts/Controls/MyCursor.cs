@@ -31,7 +31,7 @@ public class MyCursor : MonoBehaviour
 
     //Returns whether the player can perform an action at the cursor location
     //The player can only act when inside their own territory (cursor is over the green "restored" tiles)
-    public bool GetIsActionable()
+    public float GetTileState()
     {
         if (_isCursorHitting)
         {
@@ -40,15 +40,15 @@ public class MyCursor : MonoBehaviour
                 Tile tile = World.Instance.GetTile(_cursorHit.point);
                 if (tile != null)
                 {
-                    return !tile.GetCorrupt();
+                    return tile.GetState();
                 }
-                return false;
+                return -1;
             }
             catch (Exception e)
             {
             }
         }
-        return false;
+        return -1;
     }
 
     //Raycasts into the game world to find what is infront of the cursor
@@ -61,7 +61,7 @@ public class MyCursor : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(castFrom);
             _isCursorHitting = Physics.Raycast(ray, out _cursorHit);
-            if (GetIsActionable())
+            if (GetTileState() >= 0)
             {
                 string hitTag = _cursorHit.collider.tag;
                 switch (hitTag)

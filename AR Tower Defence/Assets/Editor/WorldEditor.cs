@@ -17,7 +17,7 @@ public class WorldEditor : Editor
     private bool _rounded = false;
     int basePaintHeight = 0;
     int paintHeight = -1;
-    int paintState = -1;
+    float paintState = -1;
 
 
     public override void OnInspectorGUI()
@@ -206,11 +206,11 @@ public class WorldEditor : Editor
                     paintHeight = 9 + basePaintHeight;
                     break;
                 case KeyCode.End:
-                    paintState = 0;
+                    paintState = Tile.DESERT;
                     e.Use();
                     break;
                 case KeyCode.Home:
-                    paintState = 1;
+                    paintState = Tile.RESTORED;
                     e.Use();
                     break;
                 case KeyCode.PageUp:   //Increase brush size
@@ -264,7 +264,7 @@ public class WorldEditor : Editor
         }
     }
 
-    void PaintState(int state)
+    void PaintState(float state)
     {
         foreach (Tile tile in tilesEditing)
         {

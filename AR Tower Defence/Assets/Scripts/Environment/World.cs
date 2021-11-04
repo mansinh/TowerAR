@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /**
@@ -78,6 +79,15 @@ public class World : MonoBehaviour
         {
             view.Create();
         }
+
+        //Set tile neighbours
+        for (int x = 0; x < size; x++)
+        {
+            for (int z = 0; z < size; z++)
+            {
+                tiles[x * size + z].neighbours = GetNeighbours(x, z);
+            }
+        }
     }
 
     //Generate a random terrain
@@ -139,8 +149,7 @@ public class World : MonoBehaviour
         Vector3 p = transform.InverseTransformPoint(position);
         int tileX = Mathf.RoundToInt(p.x + size / 2);
         int tileZ = Mathf.RoundToInt(p.z + size / 2);
-        print("tile " + tileX + " " + tileZ);
-
+      
         return GetTile(tileX,tileZ);
     }
 
@@ -155,6 +164,28 @@ public class World : MonoBehaviour
             }
         }
         return null;
+    }
+
+    //Get neighbouring tiles from index
+    public Tile[] GetNeighbours(int x, int z)
+    {
+        Tile[] neighbours = new Tile[8];
+
+        int index = 0;
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (!(i == 0 && j == 0))
+                {
+                    print(index);
+                    neighbours[index] = GetTile(x+i, z+j);
+                    index++;
+                }
+            }
+        }
+
+        return neighbours;
     }
 }
 

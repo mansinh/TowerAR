@@ -10,8 +10,9 @@ public class MiracleWater : Miracle
 {
     [SerializeField] float _coolDown = 0.2f;
     float _timeSinceAttack = 0;
-    [SerializeField] float _extinguishSpeed = 0.25f;
-    [SerializeField] float _growSpeed = 5;
+    [SerializeField] float extinguishSpeed = 0.25f;
+    [SerializeField] float growSpeed = 5;
+    [SerializeField] float tileHealAmount = 0.5f;
 
     protected override void OnUpdate()
     {
@@ -26,7 +27,7 @@ public class MiracleWater : Miracle
                 MiracleFire fire = other.GetComponent<MiracleFire>();
                 if (fire != null)
                 {
-                    fire.OnWater(_extinguishSpeed*_coolDown);
+                    fire.OnWater(extinguishSpeed*_coolDown);
                 }
 
                 //Grow trees if other collider is forest
@@ -34,14 +35,31 @@ public class MiracleWater : Miracle
                 if (forest != null)
                 {
 
-                    forest.Grow(_growSpeed*_coolDown);
+                    forest.Grow(growSpeed*_coolDown);
                 }
 
                 //Grow field if other collider if field
                 Field field = other.GetComponent<Field>();
                 if (field != null)
                 {
-                    field.Grow(_growSpeed * _coolDown);
+                    field.Grow(growSpeed * _coolDown);
+                }
+
+                Tile tile = other.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    tile.Heal(tileHealAmount);
+                }
+
+               
+                Destroyable destroyable = other.GetComponent<Destroyable>();
+
+                if (destroyable != null)
+                {
+                    if (destroyable.gameObject.layer != 6)
+                    {
+                        destroyable.Damage(MiracleEffect);
+                    }
                 }
             }
         }
