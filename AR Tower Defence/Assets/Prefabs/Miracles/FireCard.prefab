@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 60}
+  m_SizeDelta: {x: 50, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5093730604135378893
 CanvasRenderer:
@@ -130,6 +130,7 @@ MonoBehaviour:
   Ghost: {fileID: 5365740942102780127}
   Description: Cast Fire
   _moveToOnSelect: {x: 0, y: 0, z: 0}
+  _activationTileState: 100
   Deck: {fileID: 0}
 --- !u!1 &3347931708580625699
 GameObject:

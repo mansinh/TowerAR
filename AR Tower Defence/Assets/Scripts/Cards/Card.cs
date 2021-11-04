@@ -15,6 +15,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] protected GameObject Ghost; //Shows a placeholder at where the ability could be activated
     [SerializeField] protected string Description = "Basic Card";
     [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20; //Moving animation for when selected
+    [SerializeField] protected float _activationTileState = 100;
+
     public CardDeck Deck; 
     private RectTransform _rectTransform;
     private float _selectTime = 0.07f; //Time for select animation
@@ -109,7 +111,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Update()
     {
         //If selected and the action is valid on cursor target, place the ghost in front of the cursor
-        if (MyCursor.Instance.GetIsActionable())
+        if (GetIsUsable())
         {
             if (_isSelected)
             {
@@ -123,6 +125,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         //Move towards target location
         _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime); ;
+    }
+
+    public bool GetIsUsable()
+    {
+        return MyCursor.Instance.GetTileState() >= _activationTileState;
     }
 
     Vector3 _targetPosition;

@@ -24,7 +24,7 @@ public class Forest : MonoBehaviour, IGrowable
 
     public void Grow(float growAmount)
     {
-        if (tile.GetCorrupt())
+        if (tile.GetState() <100)
         {
             return;
         }

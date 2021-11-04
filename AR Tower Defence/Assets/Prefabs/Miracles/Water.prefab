@@ -9983,3 +9983,4 @@ MonoBehaviour:
   _coolDown: 0.2
   _extinguishSpeed: 0.25
   _growSpeed: 3
+  _tileHealAmount: 0.3

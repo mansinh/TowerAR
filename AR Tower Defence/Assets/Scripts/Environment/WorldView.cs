@@ -170,7 +170,7 @@ public class WorldView : MonoBehaviour
         state = a + b * 2 + c * 4 + d * 8;
 
         Material material = null;
-        if (world.GetTile(x, z).GetCorrupt())
+        if (world.GetTile(x, z).GetState()<Tile.RESTORED)
         {
             material = _materialStatesDesert[state];
         }
@@ -190,7 +190,7 @@ public class WorldView : MonoBehaviour
             return 0;
         }
      
-        if (!tile.GetCorrupt())// && tile.GetHeight() == height)
+        if (tile.GetState() == Tile.RESTORED)// && tile.GetHeight() == height)
         {
             return 1;
         }

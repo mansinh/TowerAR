@@ -14,14 +14,17 @@ public class Tile : MonoBehaviour
 {
     private BoxCollider _tileCollider;
     private MeshRenderer _renderer;
-    [SerializeField] int _state = 0;
-
+    [SerializeField] float state = 0;
+    public Tile[] neighbours;
     public Vector3Int Coordinates = Vector3Int.zero;
-    public const int CORRUPT = 0, RESTORED = 1;
+    public static float DESERT = 0, HEALABLE = 10, RESTORED = 100;
+    [SerializeField] private HealEffect healEffect;
+
 
     void Awake()
     {
         _tileCollider = GetComponent<BoxCollider>();
+       
     }
     public void Raise()
     {
@@ -36,6 +39,7 @@ public class Tile : MonoBehaviour
     public void SetHeight(int height)
     {
         Coordinates.y = height;
+        healEffect.transform.position = GetTop();
         UpdateCollider();
     }
     public int GetHeight()
@@ -56,14 +60,57 @@ public class Tile : MonoBehaviour
         return transform.position + Vector3.up * ((Coordinates.y + 1) * transform.localScale.y);
     }
 
-    public void SetState(int state)
+    public void SetState(float state)
     {
-        _state = state;
+        this.state = state;
+        if (this.state >= RESTORED)
+        {
+            this.state = RESTORED;
+            SetNeighboursHealable();
+        }
+
     }
 
-    public void Heal()
+    public void Heal(float healAmount)
     {
-        _state++;
+       
+        if (state < RESTORED)
+        {
+            
+            print("prehealed" + Coordinates + " " + state);
+            state += healAmount;
+            if (state >= RESTORED)
+            {
+                if (healEffect)
+                {
+                    healEffect.PlayEffects();
+                }
+                print("healed"+Coordinates);
+                state = RESTORED;
+                SetNeighboursHealable();
+                World.Instance.UpdateView();
+
+            }
+        }
+    }
+
+    void SetNeighboursHealable()
+    {
+        foreach (Tile neighbour in neighbours)
+        {
+            if (neighbour)
+            {
+                if (neighbour.GetState() == DESERT)
+                {
+                    neighbour.SetState(HEALABLE);
+                }
+            }
+        }
+    }
+
+    public float GetState()
+    {
+        return state;
     }
 
     //Matches the height of the collider to the height of the tile
@@ -71,10 +118,5 @@ public class Tile : MonoBehaviour
     {
         _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
         _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
-    }
-
-    public bool GetCorrupt()
-    {
-        return _state == CORRUPT;
     }
 }

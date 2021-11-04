@@ -103,6 +103,10 @@ PrefabInstance:
       propertyPath: _moveToOnSelect.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4000941611310294198, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: _activationTileState
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5311728916994545659, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Name
       value: WaterCard
