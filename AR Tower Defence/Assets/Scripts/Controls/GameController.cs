@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        IsAR = Application.platform == RuntimePlatform.Android;
         if (IsAR)
         {
             //Turn on AR

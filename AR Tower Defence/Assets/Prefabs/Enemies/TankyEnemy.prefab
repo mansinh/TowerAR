@@ -146,6 +146,8 @@ MonoBehaviour:
   isActing: 0
   isCooling: 0
   _range: 1
+  applyMaxHeight: 1
+  MaxHeight: 0.1
   _attackDamage: 1.5
   _criticalDamage: 1.7
   _criticalRate: 0.2
@@ -249,8 +251,7 @@ MonoBehaviour:
   DefaultTarget: {fileID: 0}
   TargetName: Player
   DistanceFromTarget: 1
-  timeSinceAIUpdate: 1
-  _currentTarget: {fileID: 0}
+  maxHeightDiff: 0.01
 --- !u!54 &5070576295149535754
 Rigidbody:
   m_ObjectHideFlags: 0

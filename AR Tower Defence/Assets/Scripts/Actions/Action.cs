@@ -15,7 +15,8 @@ public class Action : MonoBehaviour
     [SerializeField] bool isActing = false;
     [SerializeField] bool isCooling = false;
     [SerializeField] protected float _range = -1;
-
+    [SerializeField] protected bool applyMaxHeight = false;
+    [SerializeField] private float maxHeightDiff = 0.5f;
     private void Awake()
     {
         Init();
@@ -23,20 +24,31 @@ public class Action : MonoBehaviour
 
     protected virtual void Init()
     {
-        
+
     }
-    
+
     //Reset action on enable
-    private void OnEnable() {
+    private void OnEnable()
+    {
         EndAction();
     }
 
     //Do action if target is within range and cooldown is over
-    public bool Activate(Vector3 targetPosition) {
+    public bool Activate(Vector3 targetPosition)
+    {
         if (isReady)
         {
             if (Vector3.Distance(targetPosition, transform.position) < _range || _range < 0)
-            {             
+            {
+                if (applyMaxHeight)
+                {
+                    print("height diff" + (targetPosition.y - transform.position.y));
+                    if (targetPosition.y - transform.position.y > maxHeightDiff)
+                    {
+                        return false;
+                    }
+                }
+
                 Act(targetPosition);
                 isActing = true;
                 isReady = false;
@@ -62,7 +74,8 @@ public class Action : MonoBehaviour
         TimeRemaining = cooldown;
     }
 
-    public virtual void EndCoolDown() {
+    public virtual void EndCoolDown()
+    {
         isCooling = false;
         isActing = false;
         isReady = true;
@@ -78,9 +91,10 @@ public class Action : MonoBehaviour
             {
                 EndCoolDown();
             }
-            else if (isActing) {
+            else if (isActing)
+            {
                 EndAction();
             }
         }
-    }   
+    }
 }
