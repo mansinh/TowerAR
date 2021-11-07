@@ -1,13 +1,17 @@
+using UnityEngine;
+
 /**
  * Casts a miracle from miracle controller at cursor location when activated
  * @author Manny Kwong
  */
- 
+
 public class MiracleCard : Card
 {
     private MiracleController _miracleController; //Controls miracle activation rate, lifetime, pooling
-    private int _maxTimesActivated = 3;    
+    private int _maxTimesActivated = 3;
     private int _timesActivated = 0;
+
+    [SerializeField] Light showCursorLight;
 
     public void SetMaxTimesActivated(int maxTimesActivated)
     {
@@ -17,6 +21,19 @@ public class MiracleCard : Card
     public void SetMiracleController(MiracleController miracleController)
     {
         _miracleController = miracleController;
+    }
+
+    protected override void UpdateGhost(RaycastHit hit)
+    {
+        Ghost.transform.position = hit.point;
+        if (GetIsUsable())
+        {
+            showCursorLight.intensity = 0.01f;
+        }
+        else
+        {
+            showCursorLight.intensity = 0.002f;
+        }
     }
 
     public override bool ActivateCard()
@@ -41,6 +58,6 @@ public class MiracleCard : Card
     //Show card description and show number of unused miracles left
     public override void SetGameInfo()
     {
-        GameInfo.Instance.SetText(Description + " " + (_maxTimesActivated - _timesActivated) +"/" + _maxTimesActivated);
+        GameInfo.Instance.SetCardText(Description + " " + (_maxTimesActivated - _timesActivated) + "/" + _maxTimesActivated);
     }
 }

@@ -19,12 +19,12 @@ public class Tile : MonoBehaviour
     public Vector3Int Coordinates = Vector3Int.zero;
     public static float DESERT = 0, HEALABLE = 10, RESTORED = 100;
     [SerializeField] private HealEffect healEffect;
-
+    [SerializeField] private Tree treePrefab;
 
     void Awake()
     {
         _tileCollider = GetComponent<BoxCollider>();
-       
+
     }
     public void Raise()
     {
@@ -71,12 +71,12 @@ public class Tile : MonoBehaviour
 
     }
 
-    public void Heal(float healAmount)
+    public void OnMiracleRain(float healAmount)
     {
-       
+
         if (state < RESTORED)
         {
-            
+
             print("prehealed" + Coordinates + " " + state);
             state += healAmount;
             if (state >= RESTORED)
@@ -85,11 +85,27 @@ public class Tile : MonoBehaviour
                 {
                     healEffect.PlayEffects();
                 }
-                print("healed"+Coordinates);
+                print("healed" + Coordinates);
                 state = RESTORED;
                 SetNeighboursHealable();
                 World.Instance.UpdateView();
 
+            }
+        }
+        else
+        {
+            //1% chance to spawn a tree on the top of a tile in a random position within a circle radius of 1/3 of tile size
+            if (Random.value < 1f / 100)
+            {
+                Vector2 randomCircle = Random.insideUnitCircle / 3 * World.Instance.transform.localScale.x;
+                Vector3 randomPos = new Vector3(randomCircle.x, 0, randomCircle.y);
+                Tree newTree = Instantiate(treePrefab, World.Instance.transform);
+                if (newTree)
+                {
+                    newTree.transform.position = GetTop() + randomPos;
+                    //Random rotation
+                    newTree.transform.localEulerAngles = new Vector3(0, 360 * Random.value, 0);
+                }
             }
         }
     }

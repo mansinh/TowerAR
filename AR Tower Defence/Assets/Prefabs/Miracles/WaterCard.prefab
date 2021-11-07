@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000941611310294198, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: Description
-      value: Cast Water
+      value: Hold to cast rain that heals allies and restores the land
       objectReference: {fileID: 0}
     - target: {fileID: 4000941611310294198, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: _moveToOnSelect.x

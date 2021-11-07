@@ -19,11 +19,15 @@ public class GameController : MonoBehaviour
     [SerializeField] CanvasGroup arMenu;
     [SerializeField] CanvasGroup hud;
     [SerializeField] CanvasGroup gameOverMenu;
-    [SerializeField] UseButton useCardButton;
+    [SerializeField] UseButton useButton;
 
     public bool IsAR;
     public static GameController Instance;
     private Card _selectedCard;
+    private ISelectable _selectedObject;
+    private IHoverable _hoveredObject;
+    public bool IsHoldingObject;
+
     private Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
 
     void Awake()
@@ -44,10 +48,10 @@ public class GameController : MonoBehaviour
             arSession.gameObject.SetActive(true);
             arController.gameObject.SetActive(true);
             arMenu.gameObject.SetActive(true);
-            
+
             //Turn off test camera
             testCamera.gameObject.SetActive(false);
-            
+
             //Set cursor to center of the screen
             MyCursor.Instance.SetScreenPosition(screenCenter);
         }
@@ -74,7 +78,7 @@ public class GameController : MonoBehaviour
             _selectedCard.Deselect();
         }
         _selectedCard = selectedCard;
-        useCardButton.IsUsingCard = true;
+        useButton.SetIsUsingCard(selectedCard);
         selectedCard.SetGameInfo();
     }
 
@@ -85,6 +89,11 @@ public class GameController : MonoBehaviour
             return false;
         }
         return _selectedCard.GetIsUsable();
+    }
+
+    public Card GetSelectedCard()
+    {
+        return _selectedCard;
     }
 
     public void UseSelectedCard()
@@ -109,11 +118,22 @@ public class GameController : MonoBehaviour
         if (_selectedCard != null)
         {
             _selectedCard.Deselect();
-        }
-        _selectedCard = null;
-        useCardButton.IsUsingCard = false;
-        GameInfo.Instance.SetText("");
+            _selectedCard = null;
+        }    
+        useButton.SetIsUsingCard(null);
+        GameInfo.Instance.SetCardText("");
     }
+
+
+    public void DeselectCard(Card selected)
+    {
+        if (_selectedCard == selected)
+        {
+            _selectedCard = null;
+            DeselectCard();
+        }
+    }
+
 
     //Discard card from hand in return for some points back
     public void Discard()
@@ -123,26 +143,23 @@ public class GameController : MonoBehaviour
             _selectedCard.Discard();
         }
         _selectedCard = null;
-        useCardButton.IsUsingCard = false;
+        useButton.SetIsUsingCard(null);
         Points.Instance.Discarded();
     }
- 
-    void FixedUpdate()
+
+   
+
+    //Rotate ghost of building card
+    public void Rotate(float value)
     {
-        //Find out what is in front of the cursor
-        if (IsAR)
+        if (_selectedCard != null)
         {
-            //Cursor fixed at screen center if AR
-            MyCursor.Instance.Cast(screenCenter);
-        }
-        else
-        {
-            //Cursor follows mouse if testing on PC
-            MyCursor.Instance.SetScreenPosition(Input.mousePosition);
-            MyCursor.Instance.Cast(Input.mousePosition);
+            if (_selectedCard.GetComponent<BuildingCard>())
+            {
+                _selectedCard.GetComponent<BuildingCard>().SetRotation(value * 360 / 16);
+            }
         }
     }
-
 
     private void Update()
     {
@@ -153,7 +170,6 @@ public class GameController : MonoBehaviour
             //Activate selected card if left mouse button is held
             if (_selectedCard)
             {
-                
                 if (Input.GetMouseButton(0) && GetIsCardUsable())
                 {
                     _selectedCard.ActivateCard();
@@ -166,6 +182,138 @@ public class GameController : MonoBehaviour
                     _selectedCard.DeactivateCard();
                 }
             }
+        }
+
+        //Find out what is in front of the cursor
+        if (IsAR)
+        {
+            //Cursor fixed at screen center if AR
+            MyCursor.Instance.Cast(screenCenter);
+        }
+        else
+        {
+            //Cursor follows mouse if testing on PC
+            MyCursor.Instance.SetScreenPosition(Input.mousePosition);
+            MyCursor.Instance.Cast(Input.mousePosition);
+        }
+
+
+        if (MyCursor.Instance.GetCursorHitting())
+        {
+            IHoverable hoverHit = MyCursor.Instance.GetCursorHit().collider.GetComponent<IHoverable>();
+            if (hoverHit != null)
+            {
+                if (hoverHit != _hoveredObject)
+                {
+                    EnterHover(hoverHit);
+                }
+                else if (_hoveredObject != null)
+                {
+                    _hoveredObject.OnHoverStay();
+                }
+            }
+            else
+            {
+                LeaveHover();
+            }
+
+            if (_selectedObject == null)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    SelectObject();
+                }
+            }
+            else
+            {
+                _selectedObject.UpdateSelected();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    DeselectObject();
+                }
+            }
+        }
+        else
+        {
+            LeaveHover();
+        }
+    }
+
+
+    public void SelectObject()
+    {
+        if (_selectedCard != null)
+        {
+            return;
+        }
+        if (_hoveredObject == null)
+        {
+            return;
+        }
+        if (_hoveredObject.GetSelectable() != null)
+        {
+            _hoveredObject.GetSelectable().Select();
+            _selectedObject = _hoveredObject.GetSelectable();
+            IsHoldingObject = true;
+        }
+    }
+
+    public void DeselectObject()
+    {
+        if (_selectedObject != null)
+        {
+            _selectedObject.Deselect();
+            _selectedObject = null;
+            IsHoldingObject = false;
+        }  
+    }
+
+    //Destroy selected object
+    public void DestroySelectedObject()
+    {
+        if (_selectedObject != null)
+        {
+            _selectedObject.Destroy();
+            
+            _selectedObject = null;
+            IsHoldingObject = false;
+            useButton.DeselectObject();
+        }
+    }
+    //Use object and return whether the object should be deselected
+    public bool UseObject()
+    {
+        if (_selectedObject != null)
+        {
+            return _selectedObject.Use();
+        }
+        return true;
+    }
+
+
+    void EnterHover(IHoverable hoverHit)
+    {
+        if (_hoveredObject != null)
+        {
+            _hoveredObject.OnHoverLeave();
+        }
+        hoverHit.OnHoverEnter();
+        _hoveredObject = hoverHit;
+        if (!IsHoldingObject)
+        {
+            useButton.SetHoveringSelectable(_hoveredObject.GetSelectable());
+        }
+    }
+    void LeaveHover()
+    {
+        if (_hoveredObject != null)
+        {
+            _hoveredObject.OnHoverLeave();
+            _hoveredObject = null;
+        }
+        if (!IsHoldingObject)
+        {
+            useButton.SetHoveringSelectable(null);
         }
     }
 
@@ -210,10 +358,10 @@ public class GameController : MonoBehaviour
 
         //Set time to normal
         Time.timeScale = 1;
-  
+
         //Turn on the head up display if not already on
         hud.gameObject.SetActive(true);
-        
+
         //Fade out the AR menu 
         StartCoroutine(UITransitions.AlphaTo(arMenu, 0, 0.3f));
     }
