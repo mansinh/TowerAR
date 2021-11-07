@@ -8,48 +8,124 @@ using UnityEngine;
 public class BuildingCard : Card
 {
     [SerializeField] private GameObject buildingPrefab;
-    [SerializeField] private float gridSize = 1f / 3;
-    private Tile _targetTile = null;
+    [SerializeField] Transform[] groundChecks;
+    [SerializeField] MeshRenderer[] meshRenderers;
+    [SerializeField] Material mat_placeable;
+    [SerializeField] Material mat_notPlaceable;
 
-    private float _rotateTime = 0.8f;
-    private float _timeSinceRotate = 0;
+    Vector3 ghostDisp = new Vector3(0, 0.01f, 0);
+
+    private bool isPlaceable = false;
+
+    protected override void Init()
+    {
+        SetMaterial(mat_notPlaceable);
+        base.Init();
+    }
 
     //Show a placeholder/ghost of the building to be placed at cursor location
     protected override void UpdateGhost(RaycastHit hit)
     {
-        _targetTile = hit.collider.gameObject.GetComponent<Tile>();
-
-        if (_targetTile)
+        Vector3 position = hit.point;
+        Transform hitTransform = hit.collider.transform;
+        if (hitTransform.GetComponent<Tile>())
         {
-            Ghost.SetActive(true);
-            Vector3 tilePosition = _targetTile.GetTop();
-
-            //Snap postion to a grid within the tile
-            float x = Mathf.RoundToInt((hit.point.x - tilePosition.x) / gridSize) * gridSize + tilePosition.x;
-            float z = Mathf.RoundToInt((hit.point.z - tilePosition.z) / gridSize) * gridSize + tilePosition.z;
-            tilePosition.x = x;
-            tilePosition.z = z;
-            Ghost.transform.position = tilePosition;
+            position.y = hitTransform.GetComponent<Tile>().GetTop().y;
         }
-       
-        //Rotate ghost 90 degrees periodically
-        //TODO may replace with a slider
-        _timeSinceRotate += Time.deltaTime;
-        if (_timeSinceRotate > _rotateTime) {
-            _timeSinceRotate = 0;
-            Ghost.transform.localEulerAngles = Ghost.transform.localEulerAngles + Vector3.up * 90;
+        else
+        {
+            position.y = hitTransform.position.y;
+        }
+        position = SnapTo(hitTransform.position, position);
+
+        Ghost.transform.position = position + ghostDisp;
+
+        if (CheckForGround() && GetIsUsable())
+        {
+            if (!isPlaceable)
+            {
+                SetMaterial(mat_placeable);
+                isPlaceable = true;
+            }
+        }
+        else
+        {
+            if (isPlaceable)
+            {
+                SetMaterial(mat_notPlaceable);
+                isPlaceable = false;
+            }
         }
     }
 
-    
+    void SetMaterial(Material material)
+    {
+        foreach (MeshRenderer renderer in meshRenderers)
+        {
+            renderer.material = material;
+        }
+    }
+
+    float gridSize = 0.05f;
+    public Vector3 SnapTo(Vector3 snapFrom, Vector3 position)
+    {
+        Vector3 disp = position - snapFrom;
+        disp.x = Mathf.RoundToInt(disp.x / gridSize) * gridSize;
+        disp.y = Mathf.RoundToInt(disp.y / gridSize) * gridSize;
+        disp.z = Mathf.RoundToInt(disp.z / gridSize) * gridSize;
+
+        return snapFrom + disp;
+    }
+
+    public void SetRotation(float rotation)
+    {
+        print("dsfsdff" + rotation);
+        Ghost.transform.localEulerAngles = new Vector3(0, rotation, 0);
+    }
+
+    public bool CheckForGround()
+    {
+        float height = 0;
+        for (int i = 0; i < groundChecks.Length; i++)
+        {
+            Transform groundCheck = groundChecks[i];
+            RaycastHit hit;
+
+            if (Physics.Raycast(groundCheck.position, Vector3.down, out hit))
+            {
+                Tile tile = hit.collider.GetComponent<Tile>();
+                if (tile == null)
+                {
+                    return false;
+                }
+                if (tile.GetState() != 100)
+                {
+                    return false;
+                }
+                if (i == 0)
+                {
+                    height = tile.GetHeight();
+                }
+                else if (height != tile.GetHeight())
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //Spawn a building in place of the ghost and then discard
     public override bool ActivateCard()
     {
-        if (_targetTile)
+        if (isPlaceable)
         {
-            GameController.Instance.DeselectCard();
             GameObject building = Instantiate(buildingPrefab, World.Instance.transform);
-            building.transform.position = Ghost.transform.position;
+            building.transform.position = Ghost.transform.position - ghostDisp;
             building.transform.localScale = Ghost.transform.localScale;
             building.transform.localEulerAngles = Ghost.transform.localEulerAngles;
             Discard();

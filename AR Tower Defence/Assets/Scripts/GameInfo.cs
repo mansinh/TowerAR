@@ -6,10 +6,10 @@ using TMPro;
  *@ author Manny Kwong 
  */
 
-[RequireComponent(typeof(TMP_Text))]
 public class GameInfo : MonoBehaviour
 {
-    TMP_Text _text;
+    [SerializeField] TMP_Text _cardText;
+    [SerializeField] TMP_Text _gameText;
     public static GameInfo Instance { get; private set; }
 
     private void Awake()
@@ -17,11 +17,10 @@ public class GameInfo : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            _text = GetComponent<TMP_Text>();
         }
     }
 
-    public void SetText(string info) {
-        _text.text = ""+info;
+    public void SetCardText(string info) {
+        _cardText.text = ""+info;
     }
 }

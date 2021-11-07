@@ -14,10 +14,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] Image image;
     [SerializeField] protected GameObject Ghost; //Shows a placeholder at where the ability could be activated
     [SerializeField] protected string Description = "Basic Card";
-    [SerializeField] Vector3 _moveToOnSelect = Vector3.up*20; //Moving animation for when selected
+    [SerializeField] Vector3 _moveToOnSelect = Vector3.up * 20; //Moving animation for when selected
     [SerializeField] protected float _activationTileState = 100;
 
-    public CardDeck Deck; 
+    public CardDeck Deck;
     private RectTransform _rectTransform;
     private float _selectTime = 0.07f; //Time for select animation
     private bool _isSelected = false;
@@ -25,9 +25,17 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Start()
     {
+        Init();
+    }
+
+    protected virtual void Init()
+    {
         _rectTransform = GetComponent<RectTransform>();
         //Show the card being unselected
-        image.color = Color.gray;      
+        if (!_isSelected)
+        {
+            image.color = Color.gray;
+        }
     }
 
     //Select the card when tapped the first time
@@ -40,42 +48,54 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         else
         {
+            Deselect();
+        }
+        /*
+        else
+        {
             if (GameController.Instance.IsAR)
             {
                 ActivateCard();
             }
-            _isActivating = true;       
-        }
+            _isActivating = true;
+        }*/
     }
 
     //Deactivate card when finished hold
     public void OnPointerUp(PointerEventData eventData)
     {
+        /*
         if (GameController.Instance.IsAR)
         {
             if (_isActivating)
             {
                 DeactivateCard();
-                _isActivating = false;               
-            }        
+                _isActivating = false;
+            }
         }
+        */
     }
 
     //Highlight card when selected and move card slightly out of the hand
     public void Select()
     {
+        if (GameController.Instance.IsHoldingObject)
+        {
+            return;
+        }
         _isSelected = true;
         image.color = Color.white;
-        StartCoroutine(MoveCard(GetComponent<RectTransform>().position+ _moveToOnSelect, _selectTime));
+        StartCoroutine(MoveCard(GetComponent<RectTransform>().position + _moveToOnSelect, _selectTime));
+
 
         //Turn on and scale the ghost to the scale of the world
         Ghost.SetActive(true);
         Ghost.transform.SetParent(World.Instance.transform);
         Ghost.transform.localScale = Vector3.one;
-        
-       
+
+
         GameController.Instance.SetSelectedCard(this);
-       
+
     }
 
     //Unhighlight card, move back into hand, turn off ghost and remove description
@@ -85,19 +105,21 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         image.color = Color.gray;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         Ghost.SetActive(false);
-      
+        GameController.Instance.DeselectCard(this);
+
     }
 
     //Show description of card ability at the top of the screen (game info area)
-    public virtual void SetGameInfo() {
-        GameInfo.Instance.SetText(Description);
+    public virtual void SetGameInfo()
+    {
+        GameInfo.Instance.SetCardText(Description);
     }
 
     //Move card into position
     //Mainly used when drawing a card from deck into hand
     IEnumerator MoveCard(Vector3 moveTo, float duration)
     {
-        Vector3 moveFrom = image.GetComponent<RectTransform>().position;     
+        Vector3 moveFrom = image.GetComponent<RectTransform>().position;
         for (float i = 0; i < duration; i += 0.01f)
         {
             image.GetComponent<RectTransform>().position = Vector3.Lerp(moveFrom, moveTo, i / duration);
@@ -107,22 +129,20 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         image.GetComponent<RectTransform>().position = moveTo;
     }
 
-    
+
     void Update()
     {
         //If selected and the action is valid on cursor target, place the ghost in front of the cursor
-        if (GetIsUsable())
+
+        if (_isSelected)
         {
-            if (_isSelected)
+            RaycastHit hit = MyCursor.Instance.GetCursorHit();
+            if (Ghost != null && MyCursor.Instance.GetCursorHitting())
             {
-                RaycastHit hit = MyCursor.Instance.GetCursorHit();
-                if(Ghost != null)
-                {
-                    UpdateGhost(hit);
-                }
+                UpdateGhost(hit);
             }
-            
         }
+
         //Move towards target location
         _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime); ;
     }
@@ -138,7 +158,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _targetPosition = targetPosition;
     }
 
-    protected virtual void UpdateGhost(RaycastHit hit) {
+    protected virtual void UpdateGhost(RaycastHit hit)
+    {
         Ghost.transform.position = hit.point;
         Ghost.transform.up = Vector3.up;
     }
@@ -146,8 +167,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     //Destroy card on discard and remove from deck/hand
     public void Discard()
     {
+        GameController.Instance.DeselectCard();
         Destroy(Ghost);
-        
+
         if (Deck)
         {
             Deck.DiscardCard(this);
@@ -165,6 +187,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public virtual void DeactivateCard()
     {
-       
+
     }
 }

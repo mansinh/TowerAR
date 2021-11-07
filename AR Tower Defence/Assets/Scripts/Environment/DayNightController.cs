@@ -26,10 +26,16 @@ public class DayNightController : MonoBehaviour
     [Space(10)]
     [Header("Day Status")]
     [Header("______________________________________________________________________")]
-    [SerializeField] private bool isDay = false;
+    public bool isDay = false;
     [SerializeField, Range(0, 1)] private float timeOfDay;
     [SerializeField] private int dayCount = 0;
     
+    public static DayNightController Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnValidate()
     {
@@ -68,7 +74,7 @@ public class DayNightController : MonoBehaviour
     void UpdateLighting() {     
         RenderSettings.ambientLight = ambientColor.Evaluate(timeOfDay)* ambientIntensity;     
         sun.intensity = intensity.Evaluate(timeOfDay) * sunIntensity;
-        sun.transform.localEulerAngles = new Vector3(direction.Evaluate(timeOfDay)*90, 90, 0);
+        sun.transform.localEulerAngles = new Vector3(direction.Evaluate(timeOfDay)*90, 30, 0);
     }
 
     void Dawn()
@@ -106,4 +112,6 @@ public class DayNightController : MonoBehaviour
             source.ResetWave();
         }
     }
+
+
 }

@@ -30,12 +30,11 @@ public class MiracleWater : Miracle
                     fire.OnWater(extinguishSpeed*_coolDown);
                 }
 
-                //Grow trees if other collider is forest
-                Forest forest = other.GetComponent<Forest>();
-                if (forest != null)
+                //Grow trees if other collider is a Tree
+                Tree tree = other.GetComponent<Tree>();
+                if (tree != null)
                 {
-
-                    forest.Grow(growSpeed*_coolDown);
+                    tree.Grow(growSpeed*_coolDown);
                 }
 
                 //Grow field if other collider if field
@@ -48,7 +47,7 @@ public class MiracleWater : Miracle
                 Tile tile = other.GetComponent<Tile>();
                 if (tile != null)
                 {
-                    tile.Heal(tileHealAmount);
+                    tile.OnMiracleRain(tileHealAmount);
                 }
 
                

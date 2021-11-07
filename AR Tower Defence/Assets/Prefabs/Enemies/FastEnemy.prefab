@@ -77,7 +77,7 @@ MonoBehaviour:
   IsDestroyed: 0
   BaseSpeed: 2
   Name: Enemy
-  _attack: {fileID: 7725014524756412876}
+  _action: {fileID: 7725014524756412876}
   DetectRange: 0
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
@@ -260,7 +260,7 @@ MonoBehaviour:
   isCooling: 0
   _range: 1
   applyMaxHeight: 1
-  MaxHeight: 0.1
+  maxHeightDiff: 0.5
   _attackDamage: 7
   _criticalDamage: 1.2
   _criticalRate: 0.1

@@ -17,7 +17,7 @@ public class Enemy : Agent
   
     protected override void Remove()
     {
-        Points.Instance.EnemyKilled(Name);
+        //Points.Instance.EnemyKilled(Name);
         base.Remove();
         
     }

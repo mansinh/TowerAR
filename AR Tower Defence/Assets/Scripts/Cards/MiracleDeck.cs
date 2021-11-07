@@ -21,6 +21,7 @@ public class MiracleDeck : CardDeck
         {
             card.SetMiracleController(_miracleController);
             card.SetMaxTimesActivated(_maxTimesActivated);
+            card.Select();
         }
         return card;
     }

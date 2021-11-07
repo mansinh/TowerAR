@@ -57,7 +57,13 @@ public class WorldView : MonoBehaviour
                 {
                     GameObject voxel = Instantiate(_voxelPrefab, _voxelGroup);
                     //Voxel positions
-                    voxel.transform.localPosition = new Vector3(x - world.size / 2, (float)y / 4, z - world.size / 2);
+                    float tileHeight = world.GetTile(x, z).transform.localScale.y;
+                    voxel.transform.localPosition = new Vector3(x - world.size / 2, y * tileHeight, z - world.size / 2);
+
+                    //Voxel scale
+                    voxel.transform.localScale = new Vector3(1, tileHeight*4, 1);
+
+
                     //Tile name
                     voxel.gameObject.name = "voxel (" + x + "," + z + ") height " + y;
                     //3d coordinates to 1d array index

@@ -97,4 +97,9 @@ public class Action : MonoBehaviour
             }
         }
     }
+
+    public void SetRange(float range)
+    {
+        _range = range;
+    }
 }

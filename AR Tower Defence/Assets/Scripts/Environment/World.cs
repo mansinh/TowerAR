@@ -169,14 +169,14 @@ public class World : MonoBehaviour
     //Get neighbouring tiles from index
     public Tile[] GetNeighbours(int x, int z)
     {
-        Tile[] neighbours = new Tile[8];
+        Tile[] neighbours = new Tile[4];
 
         int index = 0;
         for (int i = -1; i <= 1; i++)
         {
             for (int j = -1; j <= 1; j++)
             {
-                if (!(i == 0 && j == 0))
+                if (!(i == 0 && j == 0) && (i==0||j==0))
                 {
                     print(index);
                     neighbours[index] = GetTile(x+i, z+j);
