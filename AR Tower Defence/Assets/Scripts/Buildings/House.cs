@@ -47,11 +47,10 @@ public class House : VillageBuilding
     void StartDay()
     {
         isDay = true;
-
-        if (IsBuilt)
-        {
+        //if (IsBuilt)
+        //{
             WakeVillagers();
-        }
+        //}
     }
     void WakeVillagers()
     {
@@ -68,6 +67,7 @@ public class House : VillageBuilding
         base.FinishedBuilding();
         WakeVillagers();
     }
+
 
     void EndDay()
     {

@@ -178,7 +178,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6692355334878358564}
   - component: {fileID: 6692355334878358587}
-  - component: {fileID: 6692355334878358591}
   - component: {fileID: 4724821456405158504}
   - component: {fileID: 5315020926590973203}
   - component: {fileID: 1145149611621728434}
@@ -215,7 +214,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -334000983
   m_Radius: 0.2
-  m_Speed: 1
+  m_Speed: 0.5
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -226,34 +225,7 @@ NavMeshAgent:
   m_Height: 0.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
---- !u!114 &6692355334878358591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6692355334878358565}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da6cb3d81f05a54cab8def4ba9b07d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _view: {fileID: 2718519571396130869}
-  MaxHealth: 100
-  DeathDuration: 1
-  Health: 100
-  IsDestroyed: 0
-  BaseSpeed: 1
-  Name: Enemy
-  _action: {fileID: 3837953636686057034}
-  DetectRange: 3
-  AiUpdateTime: 1
-  DefaultTarget: {fileID: 0}
-  TargetName: Village
-  DistanceFromTarget: 1
-  MaxHeightDiff: 0.01
-  Perception: {fileID: 0}
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &4724821456405158504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,14 +243,14 @@ MonoBehaviour:
   DeathDuration: 0
   Health: 250
   IsDestroyed: 0
-  BaseSpeed: 1
+  BaseSpeed: 0.5
   Name: 
   _action: {fileID: 3837953636686057034}
-  DetectRange: 3
+  DetectRange: 1.5
   AiUpdateTime: 0.2
   DefaultTarget: {fileID: 0}
   TargetName: Enemy
-  DistanceFromTarget: 1
+  DistanceFromTarget: 0.2
   MaxHeightDiff: 0.01
   Perception: {fileID: 0}
 --- !u!54 &5315020926590973203
