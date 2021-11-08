@@ -9984,3 +9984,4 @@ MonoBehaviour:
   extinguishSpeed: 1
   growSpeed: 5
   tileHealAmount: 0.5
+  treePrefab: {fileID: 2193533505615992171, guid: cbfca65e16372284cb63590b24cac519, type: 3}

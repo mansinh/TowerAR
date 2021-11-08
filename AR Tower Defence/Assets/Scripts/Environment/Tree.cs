@@ -23,7 +23,13 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
         _view.transform.localScale = Vector3.one*growth/100;
         _swayRandom = Random.value * Mathf.PI * 2;
         changeSwayDirection();
+        if (growth < 20)
+        {
+            growth = 20;
+        }
     }
+
+   
 
     //Increase max health and size when growing
     public void Grow(float growAmount)
@@ -51,15 +57,30 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
     Vector3 swayDirection = new Vector3(1,0,0);
     protected override void UpdateView()
     {
-        _view.transform.localScale = Vector3.one * growth / 100;
+        if (!isGrowing)
+        {
+            StartCoroutine(GrowTo());
+        }
         
         //Swaying side to side animation
         if (!_isSwaying)
         {
-            _view.transform.localEulerAngles = 0.5f * Mathf.Sin(20 * Time.time) * swayDirection;
+            StartCoroutine(Sway(1, 0.02f, 10));
         }
         //Lerp between color at max health and black at 0 health
         meshRenderer.material.color = Color.Lerp(Color.black, color, Health / MaxHealth);
+    }
+
+    bool isGrowing = false;
+    IEnumerator GrowTo()
+    {
+        isGrowing = true;
+        while (_view.transform.localScale.x < growth / 100)
+        {
+            _view.transform.localScale += Vector3.one/100;
+            yield return new WaitForSeconds(0.05f);
+        }
+        isGrowing = false;
     }
 
     private void OnTriggerEnter(Collider other)

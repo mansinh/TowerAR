@@ -20,7 +20,6 @@ public class Tile : MonoBehaviour
     public static float DESERT = 0, HEALABLE = 10, RESTORED = 100;
     [SerializeField] private HealEffect healedEffect;
     [SerializeField] private HealEffect healingEffect;
-    [SerializeField] private Tree treePrefab;
 
     [SerializeField] private MeshRenderer decorator;
     [SerializeField] private TMP_Text showHeight;
@@ -117,30 +116,7 @@ public class Tile : MonoBehaviour
         }  
     }
 
-    int _maxTrees = 10;
-    int _treeCount = 0;
-    //spawn a tree on the top of a tile in a random position within a circle radius of 1/2 of tile size
-    public void SproutTree()
-    {
-        if (state < RESTORED)
-        {
-            return;
-        }
-        if (_treeCount < _maxTrees)
-        {
-            float angle = Mathf.PI * 2 * Random.value;
-            Vector3 randomPos = Random.insideUnitCircle * World.Instance.transform.localScale.x / 2;
-            Vector3 randomTreePosition = new Vector3(randomPos.x, 0,randomPos.y) ;
-       
-            Tree newTree = Instantiate(treePrefab, World.Instance.transform);
-            if (newTree)
-            {
-                newTree.transform.position = transform.position+ randomTreePosition;
-               
-            }
-            _treeCount++;
-        }
-    }
+  
 
     void SetNeighboursHealable()
     {

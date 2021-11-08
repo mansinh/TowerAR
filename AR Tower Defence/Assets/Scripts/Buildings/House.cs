@@ -19,8 +19,6 @@ public class House : VillageBuilding
     private void Start()
     {
         _villagerPool = gameObject.AddComponent<Pool>();
-
-
         _villagerPool.SetPrefab(villagerPrefab.gameObject);
         _villagerPool.SetPoolSize(maxOccupancy);
         _villagerPool.Init();
@@ -49,18 +47,26 @@ public class House : VillageBuilding
     void StartDay()
     {
         isDay = true;
+
+        if (IsBuilt)
+        {
+            WakeVillagers();
+        }
+    }
+    void WakeVillagers()
+    {
         for (int i = 0; i < occupancy; i++)
         {
             Villager villager = _villagerPool.Push().GetComponent<Villager>();
-            villager.Home = this;  
+            villager.Home = this;
             villager.StartDay();
         }
+    }
 
-        /*
-        if (FindObjectOfType<Shrine>())
-        {
-            FindObjectOfType<Shrine>().AddWorshippers(occupancy);
-        }*/
+    public override void FinishedBuilding()
+    {
+        base.FinishedBuilding();
+        WakeVillagers();
     }
 
     void EndDay()

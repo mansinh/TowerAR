@@ -6,11 +6,12 @@ public class Villager : Agent
     private bool _isDay = false;
     private Shrine _shrine;
     [SerializeField] Worship worshipAction;
-
     public VillagerState State;
+    bool isBuilding = false;
 
     public enum VillagerState
     {
+        Building,
         Worshipping,
         Walking,
         Idling,
@@ -53,16 +54,23 @@ public class Villager : Agent
         {
             if (_isDay)
             {
-                /*
-                Destroyable closestTarget = Perception.getClosestTarget(TargetName, MaxHeightDiff);
-                if (closestTarget)
+
+                VillageBuilding[] buildings = FindObjectsOfType<VillageBuilding>();
+
+                isBuilding = false;
+                foreach(VillageBuilding building in buildings)
                 {
-                    SetTarget(closestTarget.transform);
+                    if (building.GetHealthPercentage() < 1)
+                    {
+                        SetTarget(building.transform, 0.3f);
+                        isBuilding = true;
+                    }
                 }
-                else if (_shrine != null)
-                {*/
+              
+                if (_shrine != null && !isBuilding)
+                {
                     SetTarget(_shrine.transform, 0.3f);
-                //}
+                }
 
             }
             else {
@@ -77,14 +85,33 @@ public class Villager : Agent
         {
             if (_isDay)
             {
-                if (CurrentTarget.GetComponent<Shrine>())
+                if (isBuilding)
                 {
-                    if ((CurrentTarget.position - transform.position).sqrMagnitude < 2 * 0.3*0.3)
+                    if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
+                    {
+                        State = VillagerState.Building;
+                        if (_action != null )
+                        {
+
+                            if (_action.Activate(CurrentTarget.position))
+                            {
+                                transform.LookAt(CurrentTarget.position);
+                            }
+                            
+                        }
+                    }
+                }
+                else if (CurrentTarget.GetComponent<Shrine>())
+                {
+                    if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
                     {
                         State = VillagerState.Worshipping;
                         if (worshipAction != null)
                         {
                             worshipAction.Activate(CurrentTarget.position);
+                      
+                               
+                         
                         }
                         return;
                     }

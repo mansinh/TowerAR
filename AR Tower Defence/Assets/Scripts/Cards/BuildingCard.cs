@@ -141,6 +141,11 @@ public class BuildingCard : Card
             building.transform.position = Ghost.transform.position - ghostDisp;
             building.transform.localScale = Ghost.transform.localScale;
             building.transform.localEulerAngles = Ghost.transform.localEulerAngles;
+            if (building.GetComponent<VillageBuilding>())
+            {
+                building.GetComponent<VillageBuilding>().IsBuilt = false;
+                building.GetComponent<VillageBuilding>().SetHealthPercentage(0.1f);
+            }
             GameController.Instance.SelectObject(building.GetComponent<ISelectable>());
             Discard();
             return true;

@@ -22,6 +22,11 @@ public class Tower : VillageBuilding
 
     void Update()
     {
+        if (!IsBuilt)
+        {
+            return;
+        }
+
         if (_currentTarget)
         {
             if (_attack.Activate(_currentTarget.position + Vector3.up*_currentTarget.localScale.y/2))

@@ -17,10 +17,10 @@ TagManager:
   - EnemyAttack
   - Tower
   - TowerAttack
-  - Player
+  - Village
   - Tile
   - EnemySource
-  - 
+  - Villager
   - 
   - 
   - 
