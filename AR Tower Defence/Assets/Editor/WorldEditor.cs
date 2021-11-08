@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -19,9 +20,9 @@ public class WorldEditor : Editor
     int paintHeight = -1;
     float paintState = -1;
 
-
     public override void OnInspectorGUI()
     {
+        
         DrawDefaultInspector();
         if (world == null)
         {
@@ -75,6 +76,7 @@ public class WorldEditor : Editor
         if (world.IsGenerating)
         {
             world.Generate();
+          
         }
     }
 
@@ -275,6 +277,17 @@ public class WorldEditor : Editor
     //Get a set of tiles to edit
     List<Tile> GetTilesEditing(Vector3Int center)
     {
+        try
+        {
+            foreach (Tile tile in tilesEditing)
+            {
+                tile.ResetDecorator();
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
         tilesEditing.Clear();
         for (int x = -_brushSize; x <= _brushSize; x++)
         {
@@ -291,7 +304,9 @@ public class WorldEditor : Editor
                 int tileZ = z + center.z;
                 if (tileX >= 0 && tileX < world.size && tileZ >= 0 && tileZ < world.size)
                 {
-                    tilesEditing.Add(world.GetTile(tileX, tileZ));
+                    Tile tile = world.GetTile(tileX, tileZ);
+                    tilesEditing.Add(tile);
+                    tile.Select();
                 }
             }
         }

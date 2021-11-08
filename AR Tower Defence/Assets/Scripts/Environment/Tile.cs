@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using TMPro;
 /**
  * What the environment is made up of
  * Shows the player territory by its state
@@ -22,11 +22,25 @@ public class Tile : MonoBehaviour
     [SerializeField] private HealEffect healingEffect;
     [SerializeField] private Tree treePrefab;
 
+    [SerializeField] private MeshRenderer decorator;
+    [SerializeField] private TMP_Text showHeight;
+
     void Awake()
     {
         _tileCollider = GetComponent<BoxCollider>();
-
+        
+       
     }
+
+    private void Start()
+    {
+        ResetDecorator();
+        if (Application.isPlaying)
+        {
+            showHeight.gameObject.SetActive(false);
+        }
+    }
+
     public void Raise()
     {
         Coordinates.y++;
@@ -91,7 +105,7 @@ public class Tile : MonoBehaviour
                 state = RESTORED;
                 SetNeighboursHealable();
                 World.Instance.UpdateView();
-
+                ResetDecorator();
             }
             else
             {
@@ -152,5 +166,18 @@ public class Tile : MonoBehaviour
     {
         _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
         _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
+        decorator.transform.position = GetTop();
+        showHeight.transform.position = GetTop();
+        showHeight.SetText(""+ GetHeight());
+    }
+
+    public void Select()
+    {
+        decorator.gameObject.SetActive(true);
+    }
+
+    public void ResetDecorator()
+    {
+        decorator.gameObject.SetActive(false);   
     }
 }

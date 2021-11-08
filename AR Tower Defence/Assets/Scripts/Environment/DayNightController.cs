@@ -35,6 +35,7 @@ public class DayNightController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+   
     }
 
     private void OnValidate()
@@ -44,8 +45,22 @@ public class DayNightController : MonoBehaviour
 
     private void Start()
     {
-        timeOfDay = startTime;
-  
+        if (Application.isPlaying)
+        {
+            timeOfDay = startTime;
+            UpdateLighting();
+        }
+        else
+        {
+            timeOfDay = 0.4f;
+            UpdateLighting();
+        }
+    }
+
+    public void SetTime(float t)
+    {
+        timeOfDay = t;
+        UpdateLighting();
     }
 
     void Update()
