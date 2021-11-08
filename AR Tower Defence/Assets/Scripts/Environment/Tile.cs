@@ -18,7 +18,8 @@ public class Tile : MonoBehaviour
     public Tile[] neighbours;
     public Vector3Int Coordinates = Vector3Int.zero;
     public static float DESERT = 0, HEALABLE = 10, RESTORED = 100;
-    [SerializeField] private HealEffect healEffect;
+    [SerializeField] private HealEffect healedEffect;
+    [SerializeField] private HealEffect healingEffect;
     [SerializeField] private Tree treePrefab;
 
     void Awake()
@@ -39,7 +40,8 @@ public class Tile : MonoBehaviour
     public void SetHeight(int height)
     {
         Coordinates.y = height;
-        healEffect.transform.position = GetTop();
+        healedEffect.transform.position = GetTop();
+        healingEffect.transform.position = GetTop();
         UpdateCollider();
     }
     public int GetHeight()
@@ -81,9 +83,9 @@ public class Tile : MonoBehaviour
             state += healAmount;
             if (state >= RESTORED)
             {
-                if (healEffect)
+                if (healedEffect)
                 {
-                    healEffect.PlayEffects();
+                    healedEffect.PlayEffects();
                 }
                 print("healed" + Coordinates);
                 state = RESTORED;
@@ -91,22 +93,38 @@ public class Tile : MonoBehaviour
                 World.Instance.UpdateView();
 
             }
-        }
-        else
-        {
-            //1% chance to spawn a tree on the top of a tile in a random position within a circle radius of 1/3 of tile size
-            if (Random.value < 1f / 100)
+            else
             {
-                Vector2 randomCircle = Random.insideUnitCircle / 3 * World.Instance.transform.localScale.x;
-                Vector3 randomPos = new Vector3(randomCircle.x, 0, randomCircle.y);
-                Tree newTree = Instantiate(treePrefab, World.Instance.transform);
-                if (newTree)
+                if (healingEffect)
                 {
-                    newTree.transform.position = GetTop() + randomPos;
-                    //Random rotation
-                    newTree.transform.localEulerAngles = new Vector3(0, 360 * Random.value, 0);
+                    healingEffect.PlayEffects();
                 }
             }
+        }  
+    }
+
+    int _maxTrees = 10;
+    int _treeCount = 0;
+    //spawn a tree on the top of a tile in a random position within a circle radius of 1/2 of tile size
+    public void SproutTree()
+    {
+        if (state < RESTORED)
+        {
+            return;
+        }
+        if (_treeCount < _maxTrees)
+        {
+            float angle = Mathf.PI * 2 * Random.value;
+            Vector3 randomPos = Random.insideUnitCircle * World.Instance.transform.localScale.x / 2;
+            Vector3 randomTreePosition = new Vector3(randomPos.x, 0,randomPos.y) ;
+       
+            Tree newTree = Instantiate(treePrefab, World.Instance.transform);
+            if (newTree)
+            {
+                newTree.transform.position = transform.position+ randomTreePosition;
+               
+            }
+            _treeCount++;
         }
     }
 

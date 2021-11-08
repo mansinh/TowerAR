@@ -36,25 +36,25 @@ public class DamagePopup : MonoBehaviour
         
         if (damage.isCritical)
         {
-            textMesh.fontSize = 6;
+            textMesh.fontSize = 3;
             textColor = _criticalColor;
         }
         else if (damage.damage < 0)
         {
-            textMesh.fontSize = 4;
+            textMesh.fontSize = 2;
             textColor = _healColor;
             damage.damage = -damage.damage;
         }
         else
         {
-            textMesh.fontSize = 4;
+            textMesh.fontSize = 2;
             textColor = _normalColor;
         }
 
         textMesh.SetText(((int)damage.damage).ToString());
         if (isPoison)
         {
-            textMesh.fontSize = 4f;
+            textMesh.fontSize = 2f;
             textColor = _poisonColor;
             textMesh.SetText(((int)damage.poisonDamage).ToString());
         }
