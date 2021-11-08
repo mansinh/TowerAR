@@ -175,6 +175,11 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
                     transform.position = cursorPosition + Vector3.up / 20;
                 }
             }
+            Lumberyard lumberyard = hit.collider.GetComponent<Lumberyard>();
+            if (lumberyard)
+            {
+                transform.position = cursorPosition + Vector3.up / 20;
+            }
         }
     }
 
@@ -186,6 +191,20 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
         transform.position = position;
         RecoilFrom(Random.onUnitSphere, 0.1f);
         GetComponent<Collider>().enabled = true;
+
+        Vector3 cursorPosition = MyCursor.Instance.GetCursorHit().point + Vector3.up / 20;
+        RaycastHit hit;
+        if (Physics.Raycast(cursorPosition, Vector3.down, out hit))
+        {
+            Lumberyard lumberyard = hit.collider.GetComponent<Lumberyard>();
+            if (lumberyard)
+            {
+                if (lumberyard.TreeToWood(this))
+                {
+                    TriggerDeath();
+                }           
+            }
+        }      
     }
 
     public void Destroy()
@@ -200,9 +219,12 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
 
     void OnHover()
     {
-        Vector3 hitPositon = MyCursor.Instance.GetCursorHit().point;
-        //_view.up = hitPositon - transform.position;
-         RecoilFrom(hitPositon,0.1f);
+        if (!IsDestroyed)
+        {
+            Vector3 hitPositon = MyCursor.Instance.GetCursorHit().point;
+            //_view.up = hitPositon - transform.position;
+            RecoilFrom(hitPositon, 0.1f);
+        }
         
     }
 

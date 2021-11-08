@@ -16,7 +16,7 @@ public class Bear : Agent
         {
             if (CurrentTarget.GetComponent<Barracks>())
             {
-                if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.1f)
+                if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.13f)
                 {
                     _view.gameObject.SetActive(false);
                 }
@@ -39,7 +39,7 @@ public class Bear : Agent
         {
             if (World.Instance.GetTile(transform.position).GetState() < 100)
             {
-                SetTarget(DefaultTarget, 0.3f);
+                SetTarget(DefaultTarget, 0.2f);
             }
         }
     }

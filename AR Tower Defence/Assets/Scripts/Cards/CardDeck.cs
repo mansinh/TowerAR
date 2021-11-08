@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
  */
 
 [ExecuteAlways]
-public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,IPointerUpHandler
+public class CardDeck : MonoBehaviour, IPointerClickHandler
 {
     public enum DeckType
     {
@@ -27,7 +27,7 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     [SerializeField] private List<Card> probabilities;
 
     [SerializeField] private bool drawAllTypes; //Used for testing cards
-    [SerializeField] private int dealSize = 5;
+    [SerializeField] private int dealSize = 3;
     [SerializeField] private float cardSpacing = 10;
     [SerializeField] private int maxCards = 15;
     [SerializeField] private DeckType deckType = DeckType.Main;
@@ -62,8 +62,13 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
         }
     }
 
+    public bool CanDrawCard()
+    {
+        return _cardsInHand.Count < maxCards;
+    }
+
     public void DrawCards() {
-        if (_cardsInHand.Count < maxCards)
+        if (CanDrawCard())
         { 
             //Purchase card draw if player has enough points
             if (Points.Instance.PurchaseCardDraw(deckType))
@@ -91,6 +96,21 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
                 UpdateCardPositions();
             }
         }
+    }
+
+    public void DrawLumberCards()
+    {
+        if (CanDrawCard())
+        {
+            //Draw a random set of cards
+            int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, this.dealSize);
+            for (int i = 0; i < dealSize; i++)
+            {
+                DrawRandomCard();
+            }
+            UpdateCardPositions();
+        }
+        
     }
 
     protected virtual Card DrawRandomCard() {
@@ -125,19 +145,9 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
         }
     }
 
-
-    public void OnPointerUp(PointerEventData eventData)
-    {  
-        DrawCards();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //print("");
-    }
-
+    [SerializeField] bool canDrawOnClick = true;
     public void OnPointerClick(PointerEventData eventData)
     {
-        //print("");
+        DrawCards();
     }
 }

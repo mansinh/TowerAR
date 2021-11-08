@@ -44,6 +44,7 @@ public class WorldEditor : Editor
         GUILayout.Label("EDITOR CONTROLS", EditorStyles.boldLabel);
         GUILayout.Space(10);
         GUILayout.Label("To edit world, hover mouse over the world and press F");
+        GUILayout.Label("(Make sure debug mode is off)");
         GUILayout.Space(5);
 
         EditorGUILayout.BeginHorizontal();

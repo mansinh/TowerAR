@@ -64,6 +64,7 @@ public class Villager : Agent
                     {
                         SetTarget(building.transform, 0.3f);
                         isBuilding = true;
+                        break;
                     }
                 }
               

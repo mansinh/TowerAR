@@ -22,7 +22,7 @@ public class MiracleWater : Miracle
 
         if (_timeSinceAttack > _coolDown)
         {
-            bool overGrownTree = false;
+            //bool overGrownTree = false;
             _timeSinceAttack = 0;
             Collider[] detected = Physics.OverlapSphere(transform.position, Collider.radius);
 
@@ -40,7 +40,7 @@ public class MiracleWater : Miracle
                 if (tree != null)
                 {
                     tree.Grow(growSpeed * _coolDown);
-                    overGrownTree = tree.GetIsFullyGrown();
+                    //overGrownTree = tree.GetIsFullyGrown();
                 }
 
                 //Grow field if other collider if field
@@ -72,7 +72,7 @@ public class MiracleWater : Miracle
             if (Random.value < 1f / 100)
             {
                 Tile currentTile = MyCursor.Instance.GetCursorHit().collider.GetComponent<Tile>();
-                if (currentTile && overGrownTree)
+                if (currentTile)// && overGrownTree)
                 {
                     if (currentTile.GetState() >= 100)
                     {
