@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class VillageBuilding : Destroyable, ISelectable, IHoverable
 {
+    [SerializeField] MeshRenderer[] meshRenderers;
+    [SerializeField] Material mat_selected;
+    [SerializeField] Material mat_normal;
     protected override void Init()
     {
         base.Init();
@@ -19,8 +22,11 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     protected override void DamageEffects(Damage damage)
     {
         base.DamageEffects(damage);
-        //ShakeAnim.StartShake(0.01f, 0.3f, new Vector3(0, -(MaxHealth - Health) / MaxHealth, 0));
-        ShakeAnim.StartShake(0.01f, 0.3f, new Vector3(0, 0, 0));
+        if (damage.damage > 0)
+        {
+            //ShakeAnim.StartShake(0.01f, 0.3f, new Vector3(0, -(MaxHealth - Health) / MaxHealth, 0));
+            ShakeAnim.StartShake(0.01f, 0.3f, new Vector3(0, 0, 0));
+        }
     }
     protected override void Remove()
     {
@@ -32,12 +38,12 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
 
     public virtual void Select()
     {
-       
+        SetMaterial(mat_selected);
     }
 
     public virtual void Deselect()
     {
-      
+        SetMaterial(mat_normal);
     }
 
     public virtual void UpdateSelected()
@@ -73,5 +79,13 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     public bool Use()
     {
         return true;
+    }
+
+    void SetMaterial(Material material)
+    {
+        foreach (MeshRenderer renderer in meshRenderers)
+        {
+            renderer.material = material;
+        }
     }
 }

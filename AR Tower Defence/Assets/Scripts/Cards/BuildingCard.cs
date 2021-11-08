@@ -12,6 +12,9 @@ public class BuildingCard : Card
     [SerializeField] MeshRenderer[] meshRenderers;
     [SerializeField] Material mat_placeable;
     [SerializeField] Material mat_notPlaceable;
+    [SerializeField] float gridSize = 0.05f;
+    [SerializeField] bool ignoreWalls = false;
+    [SerializeField] bool ignoreTowers = false;
 
     Vector3 ghostDisp = new Vector3(0, 0.01f, 0);
 
@@ -66,12 +69,12 @@ public class BuildingCard : Card
         }
     }
 
-    float gridSize = 0.05f;
+    
     public Vector3 SnapTo(Vector3 snapFrom, Vector3 position)
     {
         Vector3 disp = position - snapFrom;
         disp.x = Mathf.RoundToInt(disp.x / gridSize) * gridSize;
-        disp.y = Mathf.RoundToInt(disp.y / gridSize) * gridSize;
+        
         disp.z = Mathf.RoundToInt(disp.z / gridSize) * gridSize;
 
         return snapFrom + disp;
@@ -94,21 +97,31 @@ public class BuildingCard : Card
             if (Physics.Raycast(groundCheck.position, Vector3.down, out hit))
             {
                 Tile tile = hit.collider.GetComponent<Tile>();
+                Tower tower = hit.collider.GetComponent<Tower>();
+                Wall wall = hit.collider.GetComponent<Wall>();
+
+
                 if (tile == null)
                 {
-                    return false;
+                    if (!((wall != null && ignoreWalls) || (tower != null && ignoreTowers)))
+                    {
+                        return false;
+                    }
                 }
-                if (tile.GetState() != 100)
+                else
                 {
-                    return false;
-                }
-                if (i == 0)
-                {
-                    height = tile.GetHeight();
-                }
-                else if (height != tile.GetHeight())
-                {
-                    return false;
+                    if (tile.GetState() != 100)
+                    {
+                        return false;
+                    }
+                    if (i == 0)
+                    {
+                        height = tile.GetHeight();
+                    }
+                    else if (height != tile.GetHeight())
+                    {
+                        return false;
+                    }
                 }
             }
             else
@@ -128,6 +141,7 @@ public class BuildingCard : Card
             building.transform.position = Ghost.transform.position - ghostDisp;
             building.transform.localScale = Ghost.transform.localScale;
             building.transform.localEulerAngles = Ghost.transform.localEulerAngles;
+            GameController.Instance.SelectObject(building.GetComponent<ISelectable>());
             Discard();
             return true;
         }

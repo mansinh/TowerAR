@@ -117,14 +117,12 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         OnClick();
     }
 
-    void OnClick()
+    public void OnClick()
     {
         if (_isOverSelectable && !GameController.Instance.IsHoldingObject)
         {
             GameController.Instance.SelectObject();
-            image.color = Color.white;
-            cancelButton.interactable = true;
-            discardButton.interactable = true;
+            SelectObject();
         }
         else if (GameController.Instance.IsHoldingObject)
         {
@@ -134,6 +132,13 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
                 DeselectObject();
             }
         }
+    }
+
+    public void SelectObject()
+    {
+        image.color = Color.white;
+        cancelButton.interactable = true;
+        discardButton.interactable = true;
     }
 
     public void DeselectObject()
@@ -148,8 +153,15 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         if (Input.GetKeyUp(KeyCode.Space))
         {
             OnClick();
+            IsDown = false;
         }
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            IsDown = true;
+        }
+
+
+            if (Input.mouseScrollDelta.y > 0)
         {
             if (buildingRotationSlider.value < buildingRotationSlider.maxValue)
             {

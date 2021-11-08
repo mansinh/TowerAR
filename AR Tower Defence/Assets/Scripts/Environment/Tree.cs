@@ -39,6 +39,15 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
         UpdateView();
     }
 
+    public float GetGrowth()
+    {
+        return growth;
+    }
+    public bool GetIsFullyGrown()
+    {
+        return growth >= 100;
+    }
+
     Vector3 swayDirection = new Vector3(1,0,0);
     protected override void UpdateView()
     {
@@ -69,11 +78,11 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
     {
         hitPosition.y = transform.position.y;
         swayDirection = -(hitPosition-transform.position).normalized;
-        swayTime = 2;
+        swayTime = 1;
 
         if (!_isSwaying)
         {
-            StartCoroutine(Sway(2, strength, 10));
+            StartCoroutine(Sway(swayTime, strength, 20));
         }
     }
 
@@ -91,6 +100,9 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
             Vector3 sway = swayTime / duration * amplitude * Mathf.Cos(frequency * (duration - swayTime)) * swayDirection;
    
             _view.up = sway+Vector3.up;
+            Vector3 eulerAngles = _view.eulerAngles;
+            eulerAngles.y = 0;
+            _view.eulerAngles = eulerAngles;
             swayTime -= 0.01f;
             yield return new WaitForSeconds(0.01f);
         }
@@ -127,6 +139,7 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
         GetComponent<Collider>().enabled = false;
     }
 
+
     public void UpdateSelected()
     {
         Vector3 cursorPosition = MyCursor.Instance.GetCursorHit().point + Vector3.up / 20;
@@ -146,12 +159,10 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public void Deselect()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
-            transform.position = hit.point;
-               
-        }
+        float height = World.Instance.GetTile(transform.position).GetTop().y;
+        Vector3 position = transform.position;
+        position.y = height;
+        transform.position = position;
         RecoilFrom(Random.onUnitSphere, 0.1f);
         GetComponent<Collider>().enabled = true;
     }

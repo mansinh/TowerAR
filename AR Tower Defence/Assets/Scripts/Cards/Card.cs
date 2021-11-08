@@ -81,7 +81,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (GameController.Instance.IsHoldingObject)
         {
-            return;
+            GameController.Instance.DeselectObject();
         }
         _isSelected = true;
         image.color = Color.white;
@@ -106,7 +106,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         Ghost.SetActive(false);
         GameController.Instance.DeselectCard(this);
-
+        
     }
 
     //Show description of card ability at the top of the screen (game info area)
@@ -167,7 +167,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     //Destroy card on discard and remove from deck/hand
     public void Discard()
     {
-        GameController.Instance.DeselectCard();
+        GameController.Instance.DeselectCard(this);
+    
         Destroy(Ghost);
 
         if (Deck)

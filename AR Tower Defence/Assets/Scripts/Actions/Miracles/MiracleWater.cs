@@ -21,6 +21,10 @@ public class MiracleWater : Miracle
         {
             _timeSinceAttack = 0;
             Collider[] detected = Physics.OverlapSphere(transform.position, Collider.radius);
+
+            bool overGrownTree = false;
+            Vector3 treePosition = Vector3.zero;
+
             foreach (Collider other in detected)
             {
                 //Put out fire if other collider is fire
@@ -35,6 +39,8 @@ public class MiracleWater : Miracle
                 if (tree != null)
                 {
                     tree.Grow(growSpeed*_coolDown);
+                    overGrownTree = tree.GetIsFullyGrown();
+                    treePosition = tree.transform.position; 
                 }
 
                 //Grow field if other collider if field
@@ -48,6 +54,12 @@ public class MiracleWater : Miracle
                 if (tile != null)
                 {
                     tile.OnMiracleRain(tileHealAmount);
+                    //1% chance to spawn a tree on the top of a tile if there is already a tree in range
+                    if (Random.value < 1/10f && overGrownTree)
+                    {
+                      tile.SproutTree();
+                        
+                    }
                 }
 
                
