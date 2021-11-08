@@ -13,6 +13,8 @@ public class Lumberyard : VillageBuilding
     [SerializeField] float wood;
     [SerializeField] Transform timberView;
     [SerializeField] CardDeck mainDeck;
+    [SerializeField] GameObject arrow;
+
     public bool TreeToWood(Tree tree)
     {
         if (mainDeck.CanDrawCard())
@@ -43,5 +45,15 @@ public class Lumberyard : VillageBuilding
         }
     }
 
-    
+    public void ShowArrow()
+    {
+        if (mainDeck.CanDrawCard())
+        {
+            arrow.SetActive(true);
+        }
+    }
+    public void HideArrow()
+    {
+        arrow.SetActive(false);
+    }
 }
