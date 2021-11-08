@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made source that'd be spawning bearbears
 [RequireComponent(typeof(SpawnBearBear))]
 public class BearBearSource : Destroyable
 {

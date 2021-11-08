@@ -33,6 +33,7 @@ public class UpgradeCard : Card
     public override bool ActivateCard()
     {
         
+        //checks what card has been chosen and then gives a tower that has been chosen that card
         if (_targetTower)
         {
             GameController.Instance.DeselectCard();

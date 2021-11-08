@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made a bear class by extending it from agent so they would behave as mele units that's attack enemies
 public class Bear : Agent
 {
     protected override void Init()

@@ -40,7 +40,6 @@ public class Destroyable : MonoBehaviour
         }
     }
 
-    //Matthew: apply poison, slow and stun effects. Show damage as a popup
     protected virtual void DamageEffects(Damage damage){       
         Poison(damage);
         DamagePopup.Create(transform, damage, false);
@@ -55,6 +54,8 @@ public class Destroyable : MonoBehaviour
     float _slowness;
     float _slownessDuration;
     bool _isSlowing = false;
+
+    //determines if damage source had slowness modifier
     public void Slow(float slownessDuration, float slowness)
     {
         //Take the greater value of slowness duration and slowness amount of incoming and current effect
@@ -66,6 +67,7 @@ public class Destroyable : MonoBehaviour
         }
     }
 
+    //slows down enemies
     IEnumerator SlownessEffect()
     {
         _isSlowing = true;
@@ -88,6 +90,7 @@ public class Destroyable : MonoBehaviour
     float _poisonDamage;
     bool _isPoisoned = false;
 
+    //poison method to determine if the damage souce has been poisonous
     protected void Poison(Damage damage)
     {
         //Take the greater value of poison duration and poison damage of incoming and current effect
@@ -100,6 +103,7 @@ public class Destroyable : MonoBehaviour
         }
     }
 
+    //poison effect method to calculate it's effect on health and to show it up with visual damage popup
     IEnumerator PoisonEffect(Damage damage)
     {
         _isPoisoned = true;   
@@ -118,6 +122,7 @@ public class Destroyable : MonoBehaviour
         _poisonDamage = 0;
     }
 
+    //makes shake animation to let player know that enemy has been stunned
     IEnumerator Stun(float duration)
     {
         ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
