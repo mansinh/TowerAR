@@ -15,7 +15,7 @@ public class AIPerception : MonoBehaviour
     {
         Destroyable closestTarget = null;
         float closestDistance = 10000000000;
-        Collider[] detected = Physics.OverlapSphere(_detectFrom.position, _detectRange, LayerMask.GetMask(targetTag));
+        Collider[] detected = Physics.OverlapSphere(_detectFrom.position, _detectRange*World.Instance.transform.localScale.x, LayerMask.GetMask(targetTag));
         
         foreach (Collider other in detected)
         {

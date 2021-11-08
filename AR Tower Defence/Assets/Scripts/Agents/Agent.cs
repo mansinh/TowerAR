@@ -69,7 +69,7 @@ public class Agent : Destroyable
                 CurrentTarget = target;
 
                 //Set target location to a random location near target  
-                Vector3 randomDisplacement =  Random.onUnitSphere / 4* distanceFromTarget;
+                Vector3 randomDisplacement =  Random.onUnitSphere / 4* distanceFromTarget*World.Instance.transform.localScale.x;
                 randomDisplacement.y = 0;
                 if (target)
                 {
@@ -110,18 +110,25 @@ public class Agent : Destroyable
     }
 
     void Update()
+    {     
+        LookAround();
+        Act();
+    }
+
+    protected virtual void Act()
     {
         //Turn towards current target and attack if in range and cooldown over
-        if (CurrentTarget && _action!=null)
+        if (CurrentTarget && _action != null)
         {
             if (_action.Activate(CurrentTarget.position + Vector3.up * CurrentTarget.transform.localScale.y / 2))
             {
                 transform.LookAt(CurrentTarget);
             }
         }
+    }
 
-       
-
+    protected virtual void LookAround()
+    {
         //Periodically decide on target, not every frame as that may be expensive
         TimeSinceAIUpdate += Time.deltaTime;
         if (TimeSinceAIUpdate > AiUpdateTime)
@@ -130,15 +137,12 @@ public class Agent : Destroyable
 
             if (closestTarget)
             {
-                
-                    SetTarget(closestTarget.transform, DistanceFromTarget);
-                
+                SetTarget(closestTarget.transform, DistanceFromTarget);
+
             }
-            else if(Random.value < 0.1 && DefaultTarget !=null)
+            else if (Random.value < 0.1 && DefaultTarget != null)
             {
-                
-                    SetTarget(DefaultTarget, DistanceFromTarget);
-                
+                SetTarget(DefaultTarget, DistanceFromTarget);
             }
             TimeSinceAIUpdate = 0;
         }
@@ -148,7 +152,7 @@ public class Agent : Destroyable
         {
             if (!CurrentTarget.gameObject.active)
             {
-                CurrentTarget = null;
+                SetTarget(DefaultTarget, DistanceFromTarget);
             }
         }
     }

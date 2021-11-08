@@ -15,7 +15,7 @@ public class SpawnBearBear : Attack
         GameObject bear = bearPool.Push();
         if(bear)
         {
-            bear.GetComponent<Bear>().Barracks = transform;
+            bear.GetComponent<Bear>().SetDefaultTarget(transform);
         }
        
     }
