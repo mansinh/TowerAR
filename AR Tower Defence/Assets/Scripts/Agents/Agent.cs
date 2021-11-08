@@ -14,25 +14,33 @@ public class Agent : Destroyable
 {
     public float BaseSpeed = 1;
     [SerializeField] protected string Name = "";
-    [SerializeField] public Attack _attack;
+    [SerializeField] public Action _action;
     [SerializeField] float DetectRange = 3;
-    [SerializeField] float AiUpdateTime = 1f;
+    [SerializeField] protected float AiUpdateTime = 1f;
     [SerializeField] protected Transform DefaultTarget;
     [SerializeField] protected string TargetName = "";
     [SerializeField] protected float DistanceFromTarget=1;
+    [SerializeField] protected float MaxHeightDiff = 0.01f;
+
+   
     private NavMeshAgent _navAgent;
 
 
-    private AIPerception _perception;
-    private float timeSinceAIUpdate = 1;
-    private Transform _currentTarget;
+    [SerializeField] protected AIPerception Perception;
+    protected float TimeSinceAIUpdate = 1;
+    protected Transform CurrentTarget;
 
     private void Start()
     {
-        _perception = gameObject.AddComponent<AIPerception>();
-        _perception.setDetectFrom(transform);
-        _perception.setDetectRange(DetectRange);
+        if (Perception == null)
+        {
+            Perception = gameObject.AddComponent<AIPerception>();
+            Perception.setDetectFrom(transform);
+            Perception.setDetectRange(DetectRange);
+        }
     }
+
+
 
     protected override void Init()
     {
@@ -52,19 +60,18 @@ public class Agent : Destroyable
         Health = MaxHealth;
         _navAgent.speed = BaseSpeed;
         _navAgent.isStopped = false;
-        SetTarget(DefaultTarget);
+        SetTarget(DefaultTarget,DistanceFromTarget);
     }
 
-    public void SetTarget(Transform target)
+    public void SetTarget(Transform target, float distanceFromTarget)
     {
-        //if (_currentTarget != target || _currentTarget==null)
-        //{
+        if (CurrentTarget != target){
             if (_navAgent.isOnNavMesh)
             {
-                _currentTarget = target;
+                CurrentTarget = target;
 
                 //Set target location to a random location near target  
-                Vector3 randomDisplacement =  Random.onUnitSphere / 4* DistanceFromTarget;
+                Vector3 randomDisplacement =  Random.onUnitSphere / 4* distanceFromTarget;
                 randomDisplacement.y = 0;
                 if (target)
                 {
@@ -74,16 +81,22 @@ public class Agent : Destroyable
                     _navAgent.SetDestination(transform.position + randomDisplacement);
                 }
             }
-        //}
+        }
     }
 
 
     protected override void Death()
     {
-        _attack.EndAction();
-        _navAgent.speed = 0;
-        //Reset nav data on death
-        _navAgent.ResetPath();
+        if (_action)
+        {
+            _action.EndAction();
+        }
+        if (_navAgent)
+        {
+            _navAgent.speed = 0;
+            //Reset nav data on death
+            _navAgent.ResetPath();
+        }
         base.Death();      
     }
 
@@ -97,30 +110,33 @@ public class Agent : Destroyable
     void Update()
     {
         //Turn towards current target and attack if in range and cooldown over
-        if (_currentTarget)
+        if (CurrentTarget && _action!=null)
         {
-            if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.transform.localScale.y / 2))
+            if (_action.Activate(CurrentTarget.position + Vector3.up * CurrentTarget.transform.localScale.y / 2))
             {
-                transform.LookAt(_currentTarget);
+                transform.LookAt(CurrentTarget);
             }
         }
 
         //Periodically decide on target, not every frame as that may be expensive
-        timeSinceAIUpdate += Time.deltaTime;
-        if (timeSinceAIUpdate > AiUpdateTime)
+        TimeSinceAIUpdate += Time.deltaTime;
+        if (TimeSinceAIUpdate > AiUpdateTime)
         {
-            Destroyable closestTarget = _perception.getClosestTarget(TargetName);
+            Destroyable closestTarget = Perception.getClosestTarget(TargetName, MaxHeightDiff);
 
             if (closestTarget)
-            {              
-                SetTarget(closestTarget.transform);   
-            }
-            else if(Random.value < 0.1)
             {
-                //Random chance to go back to default target
-                SetTarget(DefaultTarget);
+                
+                    SetTarget(closestTarget.transform, DistanceFromTarget);
+                
             }
-            timeSinceAIUpdate = 0;
+            else if(Random.value < 0.1 && DefaultTarget !=null)
+            {
+                
+                    SetTarget(DefaultTarget, DistanceFromTarget);
+                
+            }
+            TimeSinceAIUpdate = 0;
         }
     }
 
@@ -142,5 +158,10 @@ public class Agent : Destroyable
     protected override void OnEndStun()
     {
         _navAgent.isStopped = false;
+    }
+
+    public Vector3 GetVelocityFraction()
+    {
+        return _navAgent.velocity / _navAgent.speed;
     }
 }

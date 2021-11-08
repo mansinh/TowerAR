@@ -18,7 +18,7 @@ public class MiracleLightning : Miracle
             if (destroyable != null)
             {
                
-                if (destroyable.gameObject.layer == 6)
+                if (destroyable.gameObject.layer == 6 || destroyable.gameObject.layer == 12)
                 {
                     destroyable.Damage(MiracleEffect);
                     //destroyable.Shake(0.5f,3);

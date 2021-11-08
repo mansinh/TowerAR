@@ -15,16 +15,20 @@ public class PointsView : MonoBehaviour
     [SerializeField] private float deltaTime = 0.1f; //time between frames for animation
     private int _currentPoints;
     private int _targetPoints;
+    private int _maxPoints;
     private bool _isUpdatingText = false;
 
-    public void SetPoints(int points) {
+    public void SetPoints(int points, int maxPoints) {
         _currentPoints = points;
         _targetPoints = points;
+        _maxPoints = maxPoints;
         SetText();
     }
 
-    public void UpdatePoints(int totalPoints) {
-        _targetPoints = totalPoints;
+    public void UpdatePoints(int points, int maxPoints) {
+        _targetPoints = points;
+        _maxPoints = maxPoints;
+
         //If not already animating, start the points animation
         if (!_isUpdatingText)
         {
@@ -47,6 +51,6 @@ public class PointsView : MonoBehaviour
     }
 
     void SetText() {
-        pointsText.text = "" + _currentPoints + "p";
+        pointsText.text = "" + _currentPoints + "/"+ _maxPoints + " p";
     }
 }

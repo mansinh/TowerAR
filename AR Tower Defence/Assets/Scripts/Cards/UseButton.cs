@@ -12,40 +12,95 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
 {
 
     public bool IsDown = false;
-    public bool IsUsingCard = false;
+    private bool _isUsingCard = false;
+    private bool _isOverSelectable = false;
+
     [SerializeField] private Image image;
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button discardButton;
     [SerializeField] private Color offColour; //Colour when off/deactivated
+    [SerializeField] private Slider buildingRotationSlider;
 
     private void Update()
     {
         //Activate selected card if meets conditions otherwise deactivate
-        if (MyCursor.Instance.GetIsActionable() && IsUsingCard)
+        if (_isUsingCard)
         {
-            image.color = Color.white;
-            if (IsDown)
+            if (GameController.Instance.GetIsCardUsable())
             {
-                GameController.Instance.UseSelectedCard();
+                image.color = Color.white;
+                if (IsDown)
+                {
+                    GameController.Instance.UseSelectedCard();
+                }
+            }
+            else
+            {
+                image.color = offColour;
+            }
+        }
+
+       
+        
+
+        if (!GameController.Instance.IsAR)
+        {
+            PCControls();
+        }
+    }
+
+
+
+    //If a selectable object is hovered over, make button interactable 
+    public void SetHoveringSelectable(ISelectable selectable)
+    {
+        if (selectable != null)
+        {
+            _isOverSelectable = true;
+            image.color = Color.white;
+        }
+        else
+        {
+            _isOverSelectable = false;
+            image.color = offColour;
+        }
+    }
+
+
+
+    public void SetBuildingSliderActive(bool isActive)
+    {
+        buildingRotationSlider.gameObject.SetActive(isActive);
+    }
+
+    public void SetIsUsingCard(Card selectedCard)
+    {
+        //If a card is selected/being used allow the cancel and discard buttons to be used
+        if (selectedCard != null)
+        {
+            _isUsingCard = true;
+            cancelButton.interactable = true;
+            discardButton.interactable = true;
+
+            //If card is a building card, turn on rotate building rotation slider
+            if (selectedCard.GetComponent<BuildingCard>())
+            {
+                buildingRotationSlider.gameObject.SetActive(true);
+            }
+            else
+            {
+                buildingRotationSlider.gameObject.SetActive(false);
             }
         }
         else
         {
-            image.color = offColour;         
-        }
-
-        //If a card is selected/being used allow the cancel and discard buttons to be used
-        if (IsUsingCard)
-        {
-            cancelButton.interactable = true;
-            discardButton.interactable = true;
-        }
-        else
-        {
+            _isUsingCard = false;
             cancelButton.interactable = false;
             discardButton.interactable = false;
+            buildingRotationSlider.gameObject.SetActive(false);
         }
     }
+
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
@@ -59,6 +114,64 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        GameController.Instance.UseSelectedCard();
+        OnClick();
+    }
+
+    void OnClick()
+    {
+        if (_isOverSelectable && !GameController.Instance.IsHoldingObject)
+        {
+            GameController.Instance.SelectObject();
+            image.color = Color.white;
+            cancelButton.interactable = true;
+            discardButton.interactable = true;
+        }
+        else if (GameController.Instance.IsHoldingObject)
+        {
+            if (GameController.Instance.UseObject())
+            {
+                GameController.Instance.DeselectObject();
+                DeselectObject();
+            }
+        }
+    }
+
+    public void DeselectObject()
+    {
+        image.color = offColour;
+        cancelButton.interactable = false;
+        discardButton.interactable = false;
+    }
+
+    private void PCControls()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            OnClick();
+        }
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            if (buildingRotationSlider.value < buildingRotationSlider.maxValue)
+            {
+                buildingRotationSlider.value++;
+            }
+            else
+            {
+                buildingRotationSlider.value = 0;
+            }
+        }
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            if (buildingRotationSlider.value > buildingRotationSlider.minValue)
+            {
+                buildingRotationSlider.value--;
+            }
+            else
+            {
+                buildingRotationSlider.value = buildingRotationSlider.maxValue;
+            }
+        }
+
+        
     }
 }

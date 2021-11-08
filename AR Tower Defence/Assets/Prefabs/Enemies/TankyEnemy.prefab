@@ -146,6 +146,8 @@ MonoBehaviour:
   isActing: 0
   isCooling: 0
   _range: 1
+  applyMaxHeight: 1
+  maxHeightDiff: 0.5
   _attackDamage: 1.5
   _criticalDamage: 1.7
   _criticalRate: 0.2
@@ -243,14 +245,13 @@ MonoBehaviour:
   IsDestroyed: 0
   BaseSpeed: 0.8
   Name: Enemy
-  _attack: {fileID: 4242346209958181203}
+  _action: {fileID: 4242346209958181203}
   DetectRange: 0
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Player
   DistanceFromTarget: 1
-  timeSinceAIUpdate: 1
-  _currentTarget: {fileID: 0}
+  maxHeightDiff: 0.01
 --- !u!54 &5070576295149535754
 Rigidbody:
   m_ObjectHideFlags: 0

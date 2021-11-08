@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &620181654531646279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896664379608848423}
+  - component: {fileID: 496942817261525086}
+  - component: {fileID: 8152869782921331134}
+  m_Layer: 5
+  m_Name: CardImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &896664379608848423
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620181654531646279}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7089673927948295138}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 50, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &496942817261525086
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620181654531646279}
+  m_CullTransparentMesh: 1
+--- !u!114 &8152869782921331134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620181654531646279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 1656f3959dcc90e4c954e2fbf0894987, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6591866939409754311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7089673927948295138}
+  - component: {fileID: 8078713262910205362}
+  m_Layer: 0
+  m_Name: AttackSpeedUpgradeCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7089673927948295138
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6591866939409754311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3180201385047183159}
+  - {fileID: 896664379608848423}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8078713262910205362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6591866939409754311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e94053870adc7488ab99807c004266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 8152869782921331134}
+  Ghost: {fileID: 9012407733833409968}
+  Description: 'Attack speed: Adds 20% attack speed to selected unit'
+  _moveToOnSelect: {x: 0, y: 20, z: 0}
+  _activationTileState: 100
+  Deck: {fileID: 0}
+  _Upgrade: {fileID: 0}
+  UpgradeAnim: {fileID: 0}
+  _attackDMG: 0
+  _critRate: 0
+  _critDMG: 0
+  _Slowness: 0
+  _poison: 0
+  _stun: 0
+  _attackSpeed: 1
+--- !u!1001 &4705388550899095958
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7089673927948295138}
+    m_Modifications:
+    - target: {fileID: 4350025209640156198, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_Name
+      value: UpgradeGhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 439.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 255.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+--- !u!1 &9012407733833409968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4350025209640156198, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+  m_PrefabInstance: {fileID: 4705388550899095958}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3180201385047183159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7885448611104200353, guid: 1cc426b2053f71e42a02c778c7a10c52, type: 3}
+  m_PrefabInstance: {fileID: 4705388550899095958}
+  m_PrefabAsset: {fileID: 0}

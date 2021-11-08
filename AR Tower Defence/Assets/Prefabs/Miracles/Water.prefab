@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4064636798258662763}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 5539783049461258636}
   m_RootOrder: 0
@@ -602,7 +602,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 20
+    maxNumParticles: 15
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -977,7 +977,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 20
+        scalar: 15
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -5075,7 +5075,7 @@ Transform:
   m_GameObject: {fileID: 5539783049461258642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.283, y: 0.1, z: -5.04}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 4064636798258662766}
   m_Father: {fileID: 0}
@@ -5333,7 +5333,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -6086,16 +6086,16 @@ ParticleSystem:
           time: 0
           value: 0
           inSlope: 0
-          outSlope: 1
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
+          value: 0.6694908
           inSlope: 1
-          outSlope: 0
+          outSlope: 1
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
@@ -9960,7 +9960,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0, y: -0.5518125, z: 0}
 --- !u!114 &-5023279500780344789
 MonoBehaviour:
@@ -9981,5 +9981,6 @@ MonoBehaviour:
   _pointLight: {fileID: 0}
   _lightIntensity: 0
   _coolDown: 0.2
-  _extinguishSpeed: 0.25
-  _growSpeed: 3
+  extinguishSpeed: 1
+  growSpeed: 5
+  tileHealAmount: 0.5

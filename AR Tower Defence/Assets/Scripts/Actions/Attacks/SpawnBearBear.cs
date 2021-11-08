@@ -39,12 +39,12 @@ public class SpawnBearBear : Attack
     }
     void UpgradeBear(Bear bear)
     {
-        bear._attack._attackDamageCard = this._attackDamageCard;
-        bear._attack._critDamageCard = this._critDamageCard;
-        bear._attack._critRateCard = this._critRateCard;
-        bear._attack._attackSpeedCard = this._attackSpeedCard;
-        bear._attack._poisonCard = this._poisonCard;
-        bear._attack._slownessCard = this._slownessCard;
-        bear._attack._stunCard = this._stunCard;
+        (bear._action as Attack)._attackDamageCard = _attackDamageCard;
+        (bear._action as Attack)._critDamageCard = _critDamageCard;
+        (bear._action as Attack)._critRateCard = _critRateCard;
+        (bear._action as Attack)._attackSpeedCard = _attackSpeedCard;
+        (bear._action as Attack)._poisonCard = _poisonCard;
+        (bear._action as Attack)._slownessCard = _slownessCard;
+        (bear._action as Attack)._stunCard = _stunCard;
     }
 }

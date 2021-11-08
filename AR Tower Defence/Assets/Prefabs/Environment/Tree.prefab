@@ -139,7 +139,7 @@ Transform:
   m_GameObject: {fileID: 2193533504089953583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.5, z: 0.05}
+  m_LocalScale: {x: 0.025, y: 0.25, z: 0.025}
   m_Children:
   - {fileID: 2193533503740467075}
   m_Father: {fileID: 2193533503655620954}
@@ -205,13 +205,14 @@ GameObject:
   - component: {fileID: 2193533505615992170}
   - component: {fileID: 2193533505615992169}
   - component: {fileID: 2193533505615992171}
+  - component: {fileID: -7712688326669050535}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2193533505615992170
 Transform:
   m_ObjectHideFlags: 0
@@ -260,3 +261,15 @@ MonoBehaviour:
   growth: 0
   color: {r: 0.37584552, g: 0.7735849, b: 0.37584552, a: 255}
   meshRenderer: {fileID: 2193533503740467068}
+--- !u!114 &-7712688326669050535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193533505615992168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1298a3932c2fbe74da6cbc8e8d6f2ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,7 +9,8 @@ using UnityEngine;
 [RequireComponent(typeof(PointsView))]
 public class Points : MonoBehaviour
 {
-    [SerializeField] int totalPoints = 100;
+    [SerializeField] float points = 100;
+    [SerializeField] float maxPoints = 100;
     public static Points Instance;
     private PointsView _view; //Shows points on the screen
     
@@ -17,23 +18,13 @@ public class Points : MonoBehaviour
     {
         Instance = this;
         _view = GetComponent<PointsView>();
-        _view.SetPoints(totalPoints); 
+        UpdateVillagePoints();
     }
 
-    //When an enemy is killed award the player with an amount of points depending on the type of enemy and the composition of the village
-    //TODO change to enemy types to enum and balance points awarded by each type
-    public void EnemyKilled(string enemyType)
+    public void UpdateVillagePoints()
     {
-        int points = TotalVillagePoints();
-        switch (enemyType)
-        {
-            case "Enemy": { points *= 1; break; }
-            case "Fast": { points *= 1; break; }
-            case "Flying": { points *= 1; break; }
-            case "Tanky": { points *= 1; break; }
-        }
-        totalPoints += points;
-        _view.UpdatePoints(totalPoints);
+        maxPoints = TotalVillagePoints();
+        _view.SetPoints((int)points, (int)maxPoints);
     }
 
     public bool PurchaseCardDraw(CardDeck.DeckType deckType)
@@ -41,7 +32,7 @@ public class Points : MonoBehaviour
         //Get the cost of drawing from this type of deck
         int cardDrawCost = 0;
         switch (deckType) {
-            case CardDeck.DeckType.Main: { cardDrawCost = 100;  break; }
+            case CardDeck.DeckType.Main: { cardDrawCost = 30;  break; }
             case CardDeck.DeckType.Lightning: { cardDrawCost = 20; break; }
             case CardDeck.DeckType.Water: { cardDrawCost = 20; break; }
             case CardDeck.DeckType.Fire: { cardDrawCost = 20; break; }
@@ -49,15 +40,15 @@ public class Points : MonoBehaviour
         }
 
         //Check if player has enough points, if so go through with the purchase
-        if (totalPoints>= cardDrawCost) {
-            totalPoints -= cardDrawCost;
-            _view.UpdatePoints(totalPoints);
+        if (points>= cardDrawCost) {
+            points -= cardDrawCost;
+            _view.UpdatePoints((int)points, (int)maxPoints);
             return true;
         }
         return false;
     }
 
-    //Calculate the points awarded based from the size of the village
+    //Calculate the max amont of points from the village composition
     //TODO change to village building types to enum and balance points awarded by each type
     int TotalVillagePoints() {
         int points = GetVillagePoint("Shrine");
@@ -74,15 +65,60 @@ public class Points : MonoBehaviour
     int GetVillagePoint(string villageBuildingType) {
         switch (villageBuildingType)
         {
-            case "Shrine": { return 10;}
-            case "House": { return 1; }
+            case "Shrine": { return 100;}
+            case "House": { return 5; }
         }
         return 0;
     }
 
     //Gain some points back when discarding a card
     public void Discarded() {
-        totalPoints += 10;
-        _view.UpdatePoints(totalPoints);
+        points += 10;
+        _view.UpdatePoints((int)points, (int)maxPoints);
     }
+
+    public void AddPoints(float pointsToAdd)
+    {
+        points += pointsToAdd;
+        if (points > maxPoints)
+        {
+            points = maxPoints;
+        }
+        else
+        {
+            _view.UpdatePoints((int)points, (int)maxPoints);
+        }
+    }
+
+    public float GetPoints()
+    {
+        return points;
+    }
+
+    public float GetMaxPoints()
+    {
+        return maxPoints;
+    }
+
+    public float GetPointsFraction()
+    {
+        return points/maxPoints;
+    }
+
+    /*
+    //When an enemy is killed award the player with an amount of points depending on the type of enemy and the composition of the village
+    //TODO change to enemy types to enum and balance points awarded by each type
+    public void EnemyKilled(string enemyType)
+    {
+        int points = TotalVillagePoints();
+        switch (enemyType)
+        {
+            case "Enemy": { points *= 1; break; }
+            case "Fast": { points *= 1; break; }
+            case "Flying": { points *= 1; break; }
+            case "Tanky": { points *= 1; break; }
+        }
+        this.points += points;
+        _view.UpdatePoints(this.points);
+    }*/
 }

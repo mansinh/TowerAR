@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
  * @author Matthew Bogdanov
  */
 
+[ExecuteAlways]
 public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler,IPointerUpHandler
 {
     public enum DeckType
@@ -22,7 +23,9 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     [SerializeField] private List<Card> cardPrefabs;
-    [SerializeField] private List<float> cardProbability;
+    [SerializeField] private List<int> cardFrequencies;
+    [SerializeField] private List<Card> probabilities;
+
     [SerializeField] private bool drawAllTypes; //Used for testing cards
     [SerializeField] private int dealSize = 5;
     [SerializeField] private float cardSpacing = 10;
@@ -31,13 +34,31 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     private List<Card> _cardsInHand = new List<Card>();
     private float _cardWidth;
 
+    private void Start()
+    {
+        CalculateProbabilities();
+    }
+
+    void CalculateProbabilities()
+    {
+        probabilities = new List<Card>();
+        for (int j = 0; j < cardFrequencies.Count;j++)
+        {
+            int frequency = cardFrequencies[j];
+            for (int i = 0; i < frequency; i++)
+            {
+                probabilities.Add(cardPrefabs[j]);
+            }
+        }
+    }
+
     private void Update()
     {
-        if (cardPrefabs.Count > cardProbability.Count) {
-            cardProbability.Add(0);
+        if (cardPrefabs.Count > cardFrequencies.Count) {
+            cardFrequencies.Add(0);
         }
-        else if (cardPrefabs.Count < cardProbability.Count) {
-            cardProbability.Remove(cardProbability.Count-1);
+        else if (cardPrefabs.Count < cardFrequencies.Count) {
+            cardFrequencies.Remove(cardFrequencies.Count-1);
         }
     }
 
@@ -74,17 +95,9 @@ public class CardDeck : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     }
 
     protected virtual Card DrawRandomCard() {
-        int cardType = (int)(cardPrefabs.Count * Random.value);
+        int random = (int)(probabilities.Count * Random.value);
 
-        //Matthew Bogdanov, draw a tower if none is in hand
-        if (GameObject.Find("Tower(Clone)") == null && _cardsInHand.Capacity <= 0)
-        {
-            while (cardType != 0)
-            {
-                cardType = (int)(cardPrefabs.Count * Random.value);
-            }
-        }
-        Card card = Instantiate(cardPrefabs[cardType], transform);
+        Card card = Instantiate(probabilities[random], transform);
         card.Deck = this;
         _cardsInHand.Add(card);
         return card;
