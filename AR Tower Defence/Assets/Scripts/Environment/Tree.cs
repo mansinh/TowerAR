@@ -157,6 +157,12 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public void Select()
     {
+        Lumberyard lumberyard = FindObjectOfType<Lumberyard>();
+        if (lumberyard)
+        {
+            lumberyard.ShowArrow();
+        }
+
         GetComponent<Collider>().enabled = false;
     }
 
@@ -185,6 +191,12 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public void Deselect()
     {
+        Lumberyard lumberyard = FindObjectOfType<Lumberyard>();
+        if (lumberyard)
+        {
+            lumberyard.HideArrow();
+        }
+
         float height = World.Instance.GetTile(transform.position).GetTop().y;
         Vector3 position = transform.position;
         position.y = height;
@@ -196,7 +208,7 @@ public class Tree : Destroyable, IGrowable, ISelectable, IHoverable
         RaycastHit hit;
         if (Physics.Raycast(cursorPosition, Vector3.down, out hit))
         {
-            Lumberyard lumberyard = hit.collider.GetComponent<Lumberyard>();
+            lumberyard = hit.collider.GetComponent<Lumberyard>();
             if (lumberyard)
             {
                 if (lumberyard.TreeToWood(this))
