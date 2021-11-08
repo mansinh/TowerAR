@@ -30,7 +30,11 @@ public class Agent : Destroyable
     protected float TimeSinceAIUpdate = 1;
     protected Transform CurrentTarget;
 
-    private void Start()
+  
+
+
+
+    protected override void Init()
     {
         if (Perception == null)
         {
@@ -38,12 +42,6 @@ public class Agent : Destroyable
             Perception.setDetectFrom(transform);
             Perception.setDetectRange(DetectRange);
         }
-    }
-
-
-
-    protected override void Init()
-    {
         _navAgent = GetComponent<NavMeshAgent>();
         base.Init();
         OnSpawn();
@@ -84,6 +82,10 @@ public class Agent : Destroyable
         }
     }
 
+    public void SetDefaultTarget(Transform target)
+    {
+        DefaultTarget = target;
+    }
 
     protected override void Death()
     {
@@ -118,6 +120,8 @@ public class Agent : Destroyable
             }
         }
 
+       
+
         //Periodically decide on target, not every frame as that may be expensive
         TimeSinceAIUpdate += Time.deltaTime;
         if (TimeSinceAIUpdate > AiUpdateTime)
@@ -137,6 +141,15 @@ public class Agent : Destroyable
                 
             }
             TimeSinceAIUpdate = 0;
+        }
+
+        //If current target is inactive turn off
+        if (CurrentTarget)
+        {
+            if (!CurrentTarget.gameObject.active)
+            {
+                CurrentTarget = null;
+            }
         }
     }
 

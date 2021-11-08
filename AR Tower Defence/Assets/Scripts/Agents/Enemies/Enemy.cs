@@ -6,7 +6,7 @@ public class Enemy : Agent
     protected override void Init()
     {
         Name = "Enemy";
-        TargetName = "Player";
+        TargetName = "Village";
         if (FindObjectOfType<Shrine>())
         {
             DefaultTarget = FindObjectOfType<Shrine>().transform;
@@ -17,7 +17,7 @@ public class Enemy : Agent
   
     protected override void Remove()
     {
-        //Points.Instance.EnemyKilled(Name);
+        
         base.Remove();
         
     }

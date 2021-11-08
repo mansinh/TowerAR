@@ -34,6 +34,9 @@ public class Destroyable : MonoBehaviour
     //Die when health is less than or equal to 0
     public virtual void Damage(Damage damage) {
         Health -= damage.damage;
+
+        Health = Mathf.Min(MaxHealth,Health);
+
         DamageEffects(damage);
         if (Health <= 0) {
             StartCoroutine(Die());      
@@ -160,5 +163,10 @@ public class Destroyable : MonoBehaviour
     protected virtual void UpdateView()
     {
        
+    }
+
+    public float GetHealthPercentage()
+    {
+        return Health / MaxHealth;
     }
 }

@@ -12,8 +12,12 @@ public class SpawnBearBear : Attack
     protected override void Act(Vector3 targetPosition)
     {
         base.Act(targetPosition);
-        
-        bearPool.Push();
+        GameObject bear = bearPool.Push();
+        if(bear)
+        {
+            bear.GetComponent<Bear>().Barracks = transform;
+        }
+       
     }
 
     private void Start()

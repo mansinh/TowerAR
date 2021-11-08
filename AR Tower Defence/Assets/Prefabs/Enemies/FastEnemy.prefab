@@ -81,9 +81,10 @@ MonoBehaviour:
   DetectRange: 0
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
-  TargetName: Player
+  TargetName: Village
   DistanceFromTarget: 1
-  maxHeightDiff: 0.01
+  MaxHeightDiff: 0.01
+  Perception: {fileID: 0}
 --- !u!54 &1708371589843219093
 Rigidbody:
   m_ObjectHideFlags: 0
