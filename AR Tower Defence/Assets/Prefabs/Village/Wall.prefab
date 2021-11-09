@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1517589485625265183}
   - component: {fileID: 2372718958098450012}
   - component: {fileID: 5823503559496170643}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4751685916557852870}
   - component: {fileID: 5933666242327822965}
   - component: {fileID: -7549741821291475438}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4329331861129723416, guid: 87e9b3ec357d0124387cc59559291188, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87e9b3ec357d0124387cc59559291188, type: 3}
