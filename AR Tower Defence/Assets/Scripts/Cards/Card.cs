@@ -106,7 +106,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         Ghost.SetActive(false);
         GameController.Instance.DeselectCard(this);
-        
+
     }
 
     //Show description of card ability at the top of the screen (game info area)
@@ -149,7 +149,19 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public bool GetIsUsable()
     {
+        if (!MyCursor.Instance.GetCursorHitting())
+        {
+            return false;
+        }
+        if (MyCursor.Instance.GetCursorHit().collider.GetComponent<Tile>())
+        {
+            if (Vector3.Dot(MyCursor.Instance.GetCursorHit().normal, Vector3.up) <= 0)
+            {
+                return false;
+            }
+        }
         return MyCursor.Instance.GetTileState() >= _activationTileState;
+
     }
 
     Vector3 _targetPosition;
@@ -168,7 +180,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Discard()
     {
         GameController.Instance.DeselectCard(this);
-    
+
         Destroy(Ghost);
 
         if (Deck)

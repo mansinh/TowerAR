@@ -83,7 +83,7 @@ public class Tile : MonoBehaviour
             this.state = RESTORED;
             SetNeighboursHealable();
         }
-
+        showHeight.SetText("" + GetHeight() + " " + state);
     }
 
     public void OnMiracleRain(float healAmount)
@@ -120,13 +120,17 @@ public class Tile : MonoBehaviour
 
     void SetNeighboursHealable()
     {
+        return;
         foreach (Tile neighbour in neighbours)
         {
             if (neighbour)
             {
                 if (neighbour.GetState() == DESERT)
                 {
-                    neighbour.SetState(HEALABLE);
+                    if (Mathf.Abs(neighbour.GetHeight() - GetHeight()) <=1)
+                    {
+                        neighbour.SetState(HEALABLE);
+                    }
                 }
             }
         }
@@ -144,7 +148,7 @@ public class Tile : MonoBehaviour
         _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
         decorator.transform.position = GetTop();
         showHeight.transform.position = GetTop();
-        showHeight.SetText(""+ GetHeight());
+        showHeight.SetText(""+ GetHeight() + " "+ state);
     }
 
     public void Select()

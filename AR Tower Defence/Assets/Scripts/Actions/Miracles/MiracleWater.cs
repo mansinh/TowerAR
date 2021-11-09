@@ -69,7 +69,7 @@ public class MiracleWater : Miracle
                 }*/
             }
 
-            if (Random.value < 1f / 100)
+            if (Random.value < 1f / 100 && MyCursor.Instance.GetCursorHitting())
             {
                 Tile currentTile = MyCursor.Instance.GetCursorHit().collider.GetComponent<Tile>();
                 if (currentTile)// && overGrownTree)
