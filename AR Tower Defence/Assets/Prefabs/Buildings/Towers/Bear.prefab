@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 4950410460102632308}
   m_LocalRotation: {x: -0.000830216, y: 0.0007343315, z: 0.0010750433, w: 0.9999988}
   m_LocalPosition: {x: 0.7307838, y: 0.49452072, z: -4.251904}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4950410459121811604}
   - {fileID: 4950410460886607903}
@@ -176,7 +176,8 @@ MonoBehaviour:
   DefaultTarget: {fileID: 0}
   TargetName: Enemy
   DistanceFromTarget: 1
-  maxHeightDiff: 0.01
+  MaxHeightDiff: 0.01
+  Perception: {fileID: 0}
 --- !u!1 &4950410460539163229
 GameObject:
   m_ObjectHideFlags: 0
