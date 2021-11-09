@@ -82,7 +82,7 @@ MonoBehaviour:
   AiUpdateTime: 1
   DefaultTarget: {fileID: 0}
   TargetName: Village
-  DistanceFromTarget: 1
+  DistanceFromTarget: 0.5
   MaxHeightDiff: 0.01
   Perception: {fileID: 0}
 --- !u!54 &1708371589843219093
