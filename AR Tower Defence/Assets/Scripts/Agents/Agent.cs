@@ -23,7 +23,7 @@ public class Agent : Destroyable
     [SerializeField] protected float MaxHeightDiff = 0.01f;
 
    
-    private NavMeshAgent _navAgent;
+    protected NavMeshAgent NavAgent;
 
 
     [SerializeField] protected AIPerception Perception;
@@ -42,7 +42,7 @@ public class Agent : Destroyable
             Perception.setDetectFrom(transform);
             Perception.setDetectRange(DetectRange);
         }
-        _navAgent = GetComponent<NavMeshAgent>();
+        NavAgent = GetComponent<NavMeshAgent>();
         base.Init();
         OnSpawn();
     }
@@ -56,30 +56,36 @@ public class Agent : Destroyable
     {
         IsDestroyed = false;
         Health = MaxHealth;
-        _navAgent.speed = BaseSpeed;
-        _navAgent.isStopped = false;
+        NavAgent.speed = BaseSpeed;
+        NavAgent.isStopped = false;
         SetTarget(DefaultTarget,DistanceFromTarget);
     }
 
     public void SetTarget(Transform target, float distanceFromTarget)
     {
         if (CurrentTarget != target){
-            if (_navAgent.isOnNavMesh)
+            if (NavAgent.isOnNavMesh)
             {
                 CurrentTarget = target;
 
                 //Set target location to a random location near target  
-                Vector3 randomDisplacement =  Random.onUnitSphere / 4* distanceFromTarget*World.Instance.transform.localScale.x;
+                Vector3 randomDisplacement = GetRandomAround(DistanceFromTarget);
                 randomDisplacement.y = 0;
                 if (target)
                 {
-                    _navAgent.SetDestination(target.transform.position + randomDisplacement);
+                    NavAgent.SetDestination(target.transform.position + randomDisplacement);
                 }
                 else {
-                    _navAgent.SetDestination(transform.position + randomDisplacement);
+                    NavAgent.SetDestination(transform.position + randomDisplacement);
                 }
             }
         }
+    }
+
+    public Vector3 GetRandomAround(float distanceFromTarget)
+    {
+        Vector2 randomCircle = Random.insideUnitCircle;
+        return new Vector3(randomCircle.x,0,randomCircle.y) * distanceFromTarget * World.Instance.transform.localScale.x;
     }
 
     public void SetDefaultTarget(Transform target)
@@ -93,11 +99,11 @@ public class Agent : Destroyable
         {
             _action.EndAction();
         }
-        if (_navAgent)
+        if (NavAgent)
         {
-            _navAgent.speed = 0;
+            NavAgent.speed = 0;
             //Reset nav data on death
-            _navAgent.ResetPath();
+            NavAgent.ResetPath();
         }
         base.Death();      
     }
@@ -138,7 +144,7 @@ public class Agent : Destroyable
             if (closestTarget)
             {
                 SetTarget(closestTarget.transform, DistanceFromTarget);
-
+                print("CLOSEST TARGET " + closestTarget);
             }
             else if (Random.value < 0.1 && DefaultTarget != null)
             {
@@ -160,25 +166,25 @@ public class Agent : Destroyable
     //Slow down navagent movement when affected by slow condition
     protected override void OnSlow(float slowness)
     {
-        _navAgent.speed = BaseSpeed * (1f - slowness);
+        NavAgent.speed = BaseSpeed * (1f - slowness);
     }
     protected override void OnEndSlow()
     {
-        _navAgent.speed = BaseSpeed;
+        NavAgent.speed = BaseSpeed;
     }
 
     //Stop navagent when affected by stun condition
     protected override void OnStun()
     {
-        _navAgent.isStopped = true;
+        NavAgent.isStopped = true;
     }
     protected override void OnEndStun()
     {
-        _navAgent.isStopped = false;
+        NavAgent.isStopped = false;
     }
 
     public Vector3 GetVelocityFraction()
     {
-        return _navAgent.velocity / _navAgent.speed;
+        return NavAgent.velocity / NavAgent.speed;
     }
 }

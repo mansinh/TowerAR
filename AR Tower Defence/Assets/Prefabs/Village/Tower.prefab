@@ -141,6 +141,7 @@ MonoBehaviour:
   mat_normal: {fileID: 2100000, guid: e37c71565cbb22c4ca866236b04a1555, type: 2}
   destroyedHeight: 0.45
   finishedEffect: {fileID: 4150397096030936212}
+  IsBuilt: 1
   _range: 5
   _AiUpdateTime: 0.11
   _attack: {fileID: 4979145030176779428}
@@ -187,6 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1298a3932c2fbe74da6cbc8e8d6f2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapToGrid: 1
+  gridSize: 0.25
 --- !u!1 &6140706671749220923
 GameObject:
   m_ObjectHideFlags: 0

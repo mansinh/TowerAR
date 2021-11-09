@@ -106,6 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1298a3932c2fbe74da6cbc8e8d6f2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapToGrid: 1
+  gridSize: 0.25
 --- !u!1 &4448288869483889254
 GameObject:
   m_ObjectHideFlags: 0
