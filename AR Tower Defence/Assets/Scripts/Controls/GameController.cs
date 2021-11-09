@@ -219,9 +219,12 @@ public class GameController : MonoBehaviour
 
             if (_selectedObject == null)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (_selectedCard == null)
                 {
-                    SelectObject();
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        useButton.OnClick();
+                    }
                 }
             }
             else
@@ -229,7 +232,7 @@ public class GameController : MonoBehaviour
                 _selectedObject.UpdateSelected();
                 if (Input.GetMouseButtonDown(0))
                 {
-                    DeselectObject();
+                    useButton.OnClick();
                 }
             }
         }
@@ -250,6 +253,7 @@ public class GameController : MonoBehaviour
         {
             return;
         }
+        DeselectObject();
         if (_hoveredObject.GetSelectable() != null)
         {
             _hoveredObject.GetSelectable().Select();
@@ -257,7 +261,15 @@ public class GameController : MonoBehaviour
             IsHoldingObject = true;
         }
     }
-
+    public void SelectObject(ISelectable selectable)
+    {
+        DeselectObject();
+        selectable.Select();
+        _selectedObject = selectable;
+        IsHoldingObject = true;
+        useButton.SelectObject();
+    }
+    
     public void DeselectObject()
     {
         if (_selectedObject != null)

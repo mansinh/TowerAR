@@ -74,6 +74,7 @@ public class UpgradeCard : Card
             }
            
             _targetTower._attack.OnUpgrade();
+            _targetTower.OnUpgrade();
             Discard();
             return true;
         }

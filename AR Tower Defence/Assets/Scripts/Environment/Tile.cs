@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using TMPro;
 /**
  * What the environment is made up of
  * Shows the player territory by its state
@@ -18,14 +18,28 @@ public class Tile : MonoBehaviour
     public Tile[] neighbours;
     public Vector3Int Coordinates = Vector3Int.zero;
     public static float DESERT = 0, HEALABLE = 10, RESTORED = 100;
-    [SerializeField] private HealEffect healEffect;
-    [SerializeField] private Tree treePrefab;
+    [SerializeField] private HealEffect healedEffect;
+    [SerializeField] private HealEffect healingEffect;
+
+    [SerializeField] private MeshRenderer decorator;
+    [SerializeField] private TMP_Text showHeight;
 
     void Awake()
     {
         _tileCollider = GetComponent<BoxCollider>();
-
+        
+       
     }
+
+    private void Start()
+    {
+        ResetDecorator();
+        if (Application.isPlaying)
+        {
+            showHeight.gameObject.SetActive(false);
+        }
+    }
+
     public void Raise()
     {
         Coordinates.y++;
@@ -39,7 +53,8 @@ public class Tile : MonoBehaviour
     public void SetHeight(int height)
     {
         Coordinates.y = height;
-        healEffect.transform.position = GetTop();
+        healedEffect.transform.position = GetTop();
+        healingEffect.transform.position = GetTop();
         UpdateCollider();
     }
     public int GetHeight()
@@ -81,34 +96,27 @@ public class Tile : MonoBehaviour
             state += healAmount;
             if (state >= RESTORED)
             {
-                if (healEffect)
+                if (healedEffect)
                 {
-                    healEffect.PlayEffects();
+                    healedEffect.PlayEffects();
                 }
                 print("healed" + Coordinates);
                 state = RESTORED;
                 SetNeighboursHealable();
                 World.Instance.UpdateView();
-
+                ResetDecorator();
             }
-        }
-        else
-        {
-            //1% chance to spawn a tree on the top of a tile in a random position within a circle radius of 1/3 of tile size
-            if (Random.value < 1f / 100)
+            else
             {
-                Vector2 randomCircle = Random.insideUnitCircle / 3 * World.Instance.transform.localScale.x;
-                Vector3 randomPos = new Vector3(randomCircle.x, 0, randomCircle.y);
-                Tree newTree = Instantiate(treePrefab, World.Instance.transform);
-                if (newTree)
+                if (healingEffect)
                 {
-                    newTree.transform.position = GetTop() + randomPos;
-                    //Random rotation
-                    newTree.transform.localEulerAngles = new Vector3(0, 360 * Random.value, 0);
+                    healingEffect.PlayEffects();
                 }
             }
-        }
+        }  
     }
+
+  
 
     void SetNeighboursHealable()
     {
@@ -134,5 +142,18 @@ public class Tile : MonoBehaviour
     {
         _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
         _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
+        decorator.transform.position = GetTop();
+        showHeight.transform.position = GetTop();
+        showHeight.SetText(""+ GetHeight());
+    }
+
+    public void Select()
+    {
+        decorator.gameObject.SetActive(true);
+    }
+
+    public void ResetDecorator()
+    {
+        decorator.gameObject.SetActive(false);   
     }
 }
