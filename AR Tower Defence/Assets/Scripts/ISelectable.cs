@@ -1,6 +1,6 @@
 public interface ISelectable
 {
-    void Select();
+    bool Select();
     void Deselect();
     bool Use();
     void UpdateSelected();

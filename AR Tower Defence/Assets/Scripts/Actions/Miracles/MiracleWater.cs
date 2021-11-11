@@ -13,7 +13,7 @@ public class MiracleWater : Miracle
     [SerializeField] float extinguishSpeed = 0.25f;
     [SerializeField] float growSpeed = 5;
     [SerializeField] float tileHealAmount = 0.5f;
-    [SerializeField] Tree treePrefab;
+    [SerializeField] MyTree treePrefab;
 
     protected override void OnUpdate()
     {
@@ -36,7 +36,7 @@ public class MiracleWater : Miracle
                 }
 
                 //Grow trees if other collider is a Tree
-                Tree tree = other.GetComponent<Tree>();
+                MyTree tree = other.GetComponent<MyTree>();
                 if (tree != null)
                 {
                     tree.Grow(growSpeed * _coolDown);
@@ -89,7 +89,7 @@ public class MiracleWater : Miracle
     public void SproutTree()
     {
 
-        Tree newTree = Instantiate(treePrefab, World.Instance.transform);
+        MyTree newTree = Instantiate(treePrefab, World.Instance.transform);
         if (newTree)
         {
             newTree.transform.position = MyCursor.Instance.GetCursorHit().point;
