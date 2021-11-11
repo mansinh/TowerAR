@@ -240,12 +240,12 @@ public class WorldEditor : Editor
             switch (key)
             {
                 case KeyCode.KeypadPlus:
-                    tileEditing.Raise();
+                    Raise();
                     Debug.Log("up");
                     e.Use();
                     break;
                 case KeyCode.KeypadMinus:
-                    tileEditing.Lower();
+                    Lower();
                     Debug.Log("down");
                     e.Use();
                     break;
@@ -257,6 +257,24 @@ public class WorldEditor : Editor
         }
 
         Repaint();
+    }
+
+    void Raise()
+    {
+        foreach (Tile tile in tilesEditing)
+        {
+            tile.Raise();
+        }
+        world.UpdateView();
+    }
+
+    void Lower()
+    {
+        foreach (Tile tile in tilesEditing)
+        {
+            tile.Lower();
+        }
+        world.UpdateView();
     }
 
     void PaintHeight(int height)
