@@ -65,7 +65,6 @@ MonoBehaviour:
   Coordinates: {x: 0, y: 0, z: 0}
   healedEffect: {fileID: 6781540353886374425}
   healingEffect: {fileID: 96042183396242108}
-  treePrefab: {fileID: 2193533505615992171, guid: cbfca65e16372284cb63590b24cac519, type: 3}
   decorator: {fileID: 5140003302403932275}
   showHeight: {fileID: 1162460476980242021}
 --- !u!65 &9126589625468306164
@@ -140,7 +139,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
+  - {fileID: 2100000, guid: 419984ede97275f4a857626ffb369d2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
