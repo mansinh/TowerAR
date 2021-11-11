@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class Lumberyard : VillageBuilding
 {
-    [SerializeField] float maxWood = 300;
+    [SerializeField] float maxWood = 500;
     [SerializeField] float wood;
     [SerializeField] Transform timberView;
     [SerializeField] CardDeck mainDeck;
