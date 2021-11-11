@@ -368,6 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1298a3932c2fbe74da6cbc8e8d6f2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapToGrid: 1
+  gridSize: 0.25
 --- !u!114 &1334378732752202073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +392,7 @@ MonoBehaviour:
   mat_normal: {fileID: 2100000, guid: ff81705467da1b44e8ed2a315c2ccbe4, type: 2}
   destroyedHeight: 0
   finishedEffect: {fileID: 6558259451965689642}
+  canSacrifice: 0
   IsBuilt: 1
   maxWood: 100
   wood: 0
