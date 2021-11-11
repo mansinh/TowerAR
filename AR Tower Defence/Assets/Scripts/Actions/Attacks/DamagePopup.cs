@@ -65,7 +65,7 @@ public class DamagePopup : MonoBehaviour
         textMesh.color = textColor;
         disappearTimer = maxDisappearTimer;
         //moveVector = new Vector3(Random.Range(-15,15), (Random.Range(0, 15)), (Random.Range(-15, 15)));
-        moveVector = new Vector3(0, (Random.Range(5, 10)), 0);
+        moveVector = new Vector3(0, (Random.Range(2, 5)), 0);
     }
     private float disappearTimer;
     private void Update()

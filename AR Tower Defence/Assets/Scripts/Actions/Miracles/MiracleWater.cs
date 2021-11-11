@@ -53,8 +53,10 @@ public class MiracleWater : Miracle
                 Tile tile = other.GetComponent<Tile>();
                 if (tile != null)
                 {
-                    tile.OnMiracleRain(tileHealAmount);
-
+                    if (Mathf.Abs(tile.GetTop().y - MyCursor.Instance.GetCursorHit().point.y) < 0.2)
+                    {
+                        tile.OnMiracleRain(tileHealAmount);
+                    }
                 }
 
                 /*
@@ -69,7 +71,7 @@ public class MiracleWater : Miracle
                 }*/
             }
 
-            if (Random.value < 1f / 100 && MyCursor.Instance.GetCursorHitting())
+            if (Random.value < 1f / 50 && MyCursor.Instance.GetCursorHitting())
             {
                 Tile currentTile = MyCursor.Instance.GetCursorHit().collider.GetComponent<Tile>();
                 if (currentTile)// && overGrownTree)
@@ -87,14 +89,10 @@ public class MiracleWater : Miracle
     public void SproutTree()
     {
 
-        float angle = Mathf.PI * 2 * Random.value;
-        //Vector3 randomPos = Random.insideUnitCircle * World.Instance.transform.localScale.x / 4;
-        //Vector3 randomTreePosition = new Vector3(randomPos.x, 0, randomPos.y);
-
         Tree newTree = Instantiate(treePrefab, World.Instance.transform);
         if (newTree)
         {
-            newTree.transform.position = MyCursor.Instance.GetCursorHit().point;// + randomTreePosition;
+            newTree.transform.position = MyCursor.Instance.GetCursorHit().point;
 
         }
 

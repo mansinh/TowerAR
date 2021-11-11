@@ -1,6 +1,6 @@
 
 using UnityEngine;
-
+using UnityEngine.AI;
 public class Enemy : Agent
 {
     protected override void Init()
@@ -14,13 +14,44 @@ public class Enemy : Agent
         base.Init();
     }
 
-  
-    protected override void Remove()
+    protected override void LookAround()
     {
-        
-        base.Remove();
-        
+        base.LookAround();
+        if (CurrentTarget)
+        {
+            /*
+            if (CurrentTarget.GetComponent<Wall>())
+            {
+                NavMeshPath path = new NavMeshPath();
+                if (NavAgent.CalculatePath(DefaultTarget.transform.position + GetRandomAround(DistanceFromTarget), path))
+                {
+                    SetTarget(DefaultTarget,DistanceFromTarget);
+                }
+            }*/
+            
+            if (CurrentTarget == DefaultTarget)
+            {
+                if (NavAgent.pathStatus != NavMeshPathStatus.PathComplete)
+                {
+                    Wall[] walls = FindObjectsOfType<Wall>();
+                    foreach (Wall wall in walls)
+                    {
+
+                        NavMeshPath path = new NavMeshPath();
+
+                        NavAgent.CalculatePath(wall.transform.position + GetRandomAround(DistanceFromTarget), path);
+
+                        if (path.status == NavMeshPathStatus.PathComplete)
+                        {
+                            print("path complete" + wall);
+                            SetTarget(wall.transform, 0.1f);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
- 
+
 
