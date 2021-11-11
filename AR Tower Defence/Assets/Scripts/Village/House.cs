@@ -56,9 +56,13 @@ public class House : VillageBuilding
     {
         for (int i = 0; i < occupancy; i++)
         {
-            Villager villager = _villagerPool.Push().GetComponent<Villager>();
-            villager.Home = this;
-            villager.StartDay();
+            GameObject o = _villagerPool.Push();
+            if (o)
+            {
+                Villager villager = _villagerPool.Push().GetComponent<Villager>();
+                villager.Home = this;
+                villager.StartDay();
+            }
         }
     }
 
