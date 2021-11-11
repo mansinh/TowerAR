@@ -33,13 +33,17 @@ public class Destroyable : MonoBehaviour
     //Subtract damage from health and apply damage effects
     //Die when health is less than or equal to 0
     public virtual void Damage(Damage damage) {
-        Health -= damage.damage;
+        if (!IsDestroyed)
+        {
+            Health -= damage.damage;
 
-        Health = Mathf.Min(MaxHealth,Health);
+            Health = Mathf.Min(MaxHealth, Health);
 
-        DamageEffects(damage);
-        if (Health <= 0) {
-            StartCoroutine(Die());      
+            DamageEffects(damage);
+            if (Health <= 0)
+            {
+                TriggerDeath();
+            }
         }
     }
 
@@ -139,7 +143,7 @@ public class Destroyable : MonoBehaviour
     {
         _isSlowing = false;
         _isPoisoned = false;
-        IsDestroyed = true;
+        
         _slownessDuration = 0;
         _slowness = 0;
         _poisonDuration = 0;
@@ -156,8 +160,13 @@ public class Destroyable : MonoBehaviour
         Remove();
     }
 
-    public void TriggerDeath() {
-        StartCoroutine(Die());
+    public void TriggerDeath()
+    {
+        if (!IsDestroyed)
+        {
+            IsDestroyed = true;
+            StartCoroutine(Die());
+        }
     }
 
     protected virtual void UpdateView()

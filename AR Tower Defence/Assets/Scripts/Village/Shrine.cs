@@ -9,11 +9,12 @@ using UnityEngine;
 */
 public class Shrine : Destroyable
 {
-    
+
 
     protected override void Remove()
     {
-        base.Remove();
         GameController.Instance.GameOver();
+        base.Remove();
+       
     }
 }
