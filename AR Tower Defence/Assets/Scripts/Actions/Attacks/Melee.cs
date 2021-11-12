@@ -27,10 +27,9 @@ public class Melee :Attack
 
     
     public override void EndAction()
-    {
-        
-        meleeCollider.enabled = false;
+    { 
         base.EndAction();
+        meleeCollider.enabled = false;
         _attackImpact.SetActive(false);
     }
 

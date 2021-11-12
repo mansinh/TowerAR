@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy : Agent
 {
+   
     protected override void Init()
     {
         Name = "Enemy";
@@ -52,6 +53,8 @@ public class Enemy : Agent
             }
         }
     }
+
+
 }
 
 

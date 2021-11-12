@@ -222,7 +222,7 @@ public class GameController : MonoBehaviour
             {
                 if (_selectedCard == null)
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && !IsAR)
                     {
                         useButton.OnClick();
                     }
@@ -231,7 +231,7 @@ public class GameController : MonoBehaviour
             else
             {
                 _selectedObject.UpdateSelected();
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !IsAR)
                 {
                     useButton.OnClick();
                 }

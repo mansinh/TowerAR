@@ -5069,13 +5069,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5478845333829477779}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.919, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5967933531151122580}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &1523749061071635576
 Light:
   m_ObjectHideFlags: 0
@@ -5085,13 +5085,13 @@ Light:
   m_GameObject: {fileID: 5478845333829477779}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 2
+  m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.73596555, b: 0.40943396, a: 1}
   m_Intensity: 0.1
-  m_Range: 0.5
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Range: 3.01
+  m_SpotAngle: 10
+  m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -9898,11 +9898,10 @@ MonoBehaviour:
   SoundEffect: {fileID: 0}
   Lifetime: 0
   Life: 0
-  _pointLight: {fileID: 1523749061071635576}
-  _lightIntensity: 0.02
-  _startSize: 0.2
-  _coolDown: 1
-  _burntArea: {fileID: 0}
+  Light: {fileID: 1523749061071635576}
+  LightIntensity: 0.5
+  startSize: 0.2
+  coolDown: 1
 --- !u!199 &5967933531151122582
 ParticleSystemRenderer:
   serializedVersion: 6

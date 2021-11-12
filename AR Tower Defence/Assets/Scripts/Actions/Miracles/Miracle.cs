@@ -15,8 +15,8 @@ public class Miracle : MonoBehaviour
     [SerializeField]  protected Damage MiracleEffect;
     [SerializeField]  protected float Lifetime;
     [SerializeField]  protected float Life = 0f;
-    [SerializeField] Light _pointLight;
-    [SerializeField] float _lightIntensity= 0.5f;
+    [SerializeField] Light Light;
+    [SerializeField] float LightIntensity= 0.5f;
 
     protected SphereCollider Collider;
 
@@ -77,9 +77,9 @@ public class Miracle : MonoBehaviour
         {
             OnLifeOver();
         }
-        if (_pointLight)
+        if (Light)
         {
-            _pointLight.intensity = _lightIntensity*Life/Lifetime;
+            Light.intensity = LightIntensity*Life/Lifetime;
         }
     }
     protected virtual void OnLifeOver()
