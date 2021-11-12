@@ -13,7 +13,7 @@ public class DamagePopup : MonoBehaviour
     {
         Transform damagePopupTransform = Instantiate(GameAssets.Instance.damageIndicatorPopup);
         damagePopupTransform.SetParent(damaged);
-        damagePopupTransform.localPosition = Vector3.up;
+        damagePopupTransform.localPosition = Vector3.up/2;
 
         DamagePopup dPopup = damagePopupTransform.GetComponent<DamagePopup>();
         dPopup.Setup(damage, isPoison);

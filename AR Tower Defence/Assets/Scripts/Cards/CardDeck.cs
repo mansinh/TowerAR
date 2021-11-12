@@ -149,6 +149,9 @@ public class CardDeck : MonoBehaviour, IPointerClickHandler
     [SerializeField] bool canDrawOnClick = true;
     public void OnPointerClick(PointerEventData eventData)
     {
-        DrawCards();
+        if (canDrawOnClick)
+        {
+            DrawCards();
+        }
     }
 }

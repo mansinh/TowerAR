@@ -45,8 +45,8 @@ public class ARController : MonoBehaviour
         world.transform.position = new Vector3(0, 100, 0);
 
         IsPositioning = true;
-        heightSlider.gameObject.SetActive(false);
-        zoomSlider.gameObject.SetActive(true);
+        heightSlider.interactable = false;
+
     }
 
     // Update is called once per frame
@@ -123,15 +123,13 @@ public class ARController : MonoBehaviour
             //Look for new position
             positionWorldButtonText.text = "POSITION WORLD";
             startButton.interactable = false;
-            heightSlider.gameObject.SetActive(false);
-            zoomSlider.gameObject.SetActive(true);
+            heightSlider.interactable = false;
         }
         else
         {
             //World is set in position
             positionWorldButtonText.text = "REPOSITION";
-            heightSlider.gameObject.SetActive(true);
-            zoomSlider.gameObject.SetActive(false);
+            heightSlider.interactable = true; 
             startButton.interactable = true;
         }
         SetPlanesActive(!IsPositioning);

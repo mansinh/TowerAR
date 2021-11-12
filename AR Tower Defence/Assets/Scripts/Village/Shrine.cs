@@ -30,5 +30,6 @@ public class Shrine : VillageBuilding
         return base.Use();
     }
 
+
     
 }

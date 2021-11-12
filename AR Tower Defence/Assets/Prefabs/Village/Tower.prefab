@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5291861461344521412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.5, z: 0.3}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 6505128498945418814}
   m_Father: {fileID: 6140706670366130813}
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5291861461344521412}
-  m_Mesh: {fileID: 5130959566495979301, guid: ed0e8552e329673478479cd1d83d0517, type: 3}
+  m_Mesh: {fileID: 3861478300804232965, guid: 9ca25518399eef34194e777dfa017568, type: 3}
 --- !u!23 &2584839638117345465
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e37c71565cbb22c4ca866236b04a1555, type: 2}
+  - {fileID: 2100000, guid: a3a204b70acb3f64c86ff98d656f0bd7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6140706670366130812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6140706671749220924}
@@ -141,6 +141,7 @@ MonoBehaviour:
   mat_normal: {fileID: 2100000, guid: e37c71565cbb22c4ca866236b04a1555, type: 2}
   destroyedHeight: 0.45
   finishedEffect: {fileID: 4150397096030936212}
+  canSacrifice: 1
   IsBuilt: 1
   _range: 5
   _AiUpdateTime: 0.11
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0
+  ActionAnimDelay: 0
   TimeRemaining: 0
   isReady: 1
   isActing: 0

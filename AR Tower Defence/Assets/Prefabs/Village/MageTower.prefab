@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 40b2a92c5e07cf542b8785a9276532c1, type: 2}
+    - target: {fileID: 3393523819590155748, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5076798556035486163, guid: d0dcae099a2f5fe40a39ec24efefc412, type: 3}
     - target: {fileID: 4979145030176779428, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: cooldown
       value: 3
@@ -49,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6140706670366130813, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6140706670366130813, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_LocalPosition.z
