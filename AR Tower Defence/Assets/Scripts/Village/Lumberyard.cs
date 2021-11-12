@@ -15,7 +15,7 @@ public class Lumberyard : VillageBuilding
     [SerializeField] CardDeck mainDeck;
     [SerializeField] GameObject arrow;
 
-    public bool TreeToWood(Tree tree)
+    public bool TreeToWood(MyTree tree)
     {
         if (mainDeck.CanDrawCard())
         {

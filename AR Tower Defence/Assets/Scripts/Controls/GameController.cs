@@ -141,10 +141,11 @@ public class GameController : MonoBehaviour
         if (_selectedCard != null)
         {
             _selectedCard.Discard();
+            Points.Instance.Discarded(_selectedCard);
         }
         _selectedCard = null;
         useButton.SetIsUsingCard(null);
-        Points.Instance.Discarded();
+        
     }
 
    
@@ -286,7 +287,7 @@ public class GameController : MonoBehaviour
         if (_selectedObject != null)
         {
             _selectedObject.Destroy();
-            
+            Points.Instance.Sacrifice(_selectedObject);
             _selectedObject = null;
             IsHoldingObject = false;
             useButton.DeselectObject();

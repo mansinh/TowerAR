@@ -24,6 +24,7 @@ public class Points : MonoBehaviour
     public void UpdateVillagePoints()
     {
         maxPoints = TotalVillagePoints();
+        points = Mathf.Min(points, maxPoints);
         _view.SetPoints((int)points, (int)maxPoints);
     }
 
@@ -56,7 +57,10 @@ public class Points : MonoBehaviour
 
         foreach (House h in houses)
         {
-            points += GetVillagePoint("House");
+            if (h.isActiveAndEnabled)
+            {
+                points += GetVillagePoint("House");
+            }
         }
 
         return points;
@@ -72,22 +76,21 @@ public class Points : MonoBehaviour
     }
 
     //Gain some points back when discarding a card
-    public void Discarded() {
-        points += 10;
-        _view.UpdatePoints((int)points, (int)maxPoints);
+    public void Discarded(Card card) {
+        AddPoints(10);
+    }
+
+    //Gain some points back when sacrificing an object
+    public void Sacrifice(ISelectable selectedObject)
+    {
+        
     }
 
     public void AddPoints(float pointsToAdd)
     {
         points += pointsToAdd;
-        if (points > maxPoints)
-        {
-            points = maxPoints;
-        }
-        else
-        {
-            _view.UpdatePoints((int)points, (int)maxPoints);
-        }
+        points = Mathf.Min(points, maxPoints);
+        _view.UpdatePoints((int)points, (int)maxPoints);
     }
 
     public float GetPoints()

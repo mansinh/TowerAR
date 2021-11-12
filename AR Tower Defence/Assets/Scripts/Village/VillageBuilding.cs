@@ -13,6 +13,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     [SerializeField] Material mat_normal;
     [SerializeField] float destroyedHeight = 0.1f;
     [SerializeField] HealEffect finishedEffect;
+    [SerializeField] bool canSacrifice = true;
 
     public bool IsBuilt = true;
 
@@ -48,6 +49,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     {
         base.Remove();
         gameObject.SetActive(false);
+        Points.Instance.UpdateVillagePoints();
     }
 
     public virtual void FinishedBuilding()
@@ -62,9 +64,10 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     }
 
 
-    public virtual void Select()
+    public virtual bool Select()
     {
         SetMaterial(mat_selected);
+        return canSacrifice;
     }
 
     public virtual void Deselect()
@@ -79,7 +82,10 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
 
     public virtual void Destroy()
     {
-        TriggerDeath();
+        if (canSacrifice)
+        {
+            TriggerDeath();
+        }
     }
 
     public virtual void OnHoverEnter()
@@ -102,7 +108,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
         return this;
     }
 
-    public bool Use()
+    public virtual bool Use()
     {
         return true;
     }
