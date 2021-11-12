@@ -76,6 +76,7 @@ public class CardDeck : MonoBehaviour, IPointerClickHandler
                 //For testing purposes, draw one of each of the different types of cards
                 if (drawAllTypes)
                 {
+                    //checks if there's tower on field/in the hand and if there's none it gives player a guaranteed tower card
                     int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, cardPrefabs.Count);
                     for (int i = 0; i < cardPrefabs.Count; i++)
                     {
