@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script that spawns bearbears and inherit's values from the tower in order to be upgradable and update it's values
 public class SpawnBearBear : Attack
 {
     Pool bearPool;

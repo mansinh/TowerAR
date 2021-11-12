@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class where all damage and attacks calculations are happening as well as cards and modifiers storing
 public class Attack : Action
 {
+    //initial stats input
     [SerializeField] public float _attackDamage;
     [SerializeField] public float _criticalDamage;
     [SerializeField] public float _criticalRate;
@@ -15,6 +17,9 @@ public class Attack : Action
     [SerializeField] public float _poisonDamage;
     [SerializeField] public float _poisonDuration;
     [SerializeField] public float _poisonSlowness;
+
+    //stores base stats
+
     public float _basicAttackSpeed;
     private float _basicAttackDamage;
     private float _basicCriticalDamage;
@@ -38,7 +43,7 @@ public class Attack : Action
     public float _attackSpeedCard = 0;
 
 
-   
+    //inherit's base stats in order to store them upon spawning
     protected override void Init()
     {
         base.Init();
@@ -56,6 +61,7 @@ public class Attack : Action
         _basicPoisonSlowness = _poisonSlowness;
     }
 
+    //Calculates damage for the tower
 
     protected Damage CalulateDamage()
     {
@@ -116,7 +122,7 @@ public class Attack : Action
     }
 }
 
-
+//Object for damage and effect duration's storage
 public struct Damage
 {
     public float damage;
