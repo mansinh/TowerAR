@@ -11,23 +11,39 @@ PrefabInstance:
       propertyPath: m_Area
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -1102017394841556589, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: gridSize
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511918699310270689, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2584839638117345465, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 40b2a92c5e07cf542b8785a9276532c1, type: 2}
     - target: {fileID: 2892456232686007149, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2892456232686007149, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2892456232686007149, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3393523819590155748, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3165186624992382272, guid: 9ca25518399eef34194e777dfa017568, type: 3}
+    - target: {fileID: 3708294561491495694, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 40b2a92c5e07cf542b8785a9276532c1, type: 2}
+    - target: {fileID: 4883331567278228730, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 3165186624992382272, guid: 9ca25518399eef34194e777dfa017568, type: 3}
@@ -39,6 +55,10 @@ PrefabInstance:
       propertyPath: _attackDamage
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4979145030176779428, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 9222147747527792850, guid: 6dc6109b33eb1934182b48675920308b, type: 3}
     - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: mat_normal
       value: 
@@ -51,6 +71,10 @@ PrefabInstance:
       propertyPath: finishedEffect
       value: 
       objectReference: {fileID: 3242797258167042559}
+    - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: meshRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2877541252908349029}
     - target: {fileID: 6140706670366130812, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: m_Name
       value: MageTower
@@ -99,7 +123,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6140706671749220924, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.599
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505128498945418814, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505128498945418814, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505128498945418814, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3393523819590155748, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+    - {fileID: 2584839638117345465, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
 --- !u!114 &3242797258167042559 stripped
 MonoBehaviour:
@@ -112,3 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d7deff6dd69824981898dab1f305e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &2877541252908349029 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3708294561491495694, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+  m_PrefabInstance: {fileID: 1484383336088788331}
+  m_PrefabAsset: {fileID: 0}

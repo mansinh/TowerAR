@@ -103,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: gridSize
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: Description
@@ -117,9 +117,25 @@ PrefabInstance:
       propertyPath: buildingPrefab
       value: 
       objectReference: {fileID: 4729266594128027415, guid: 09dc7ed3087c7e4499df522c28eed0d9, type: 3}
+    - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859074649534743735, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3165186624992382272, guid: 9ca25518399eef34194e777dfa017568, type: 3}
     - target: {fileID: 8872713722226393106, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 40b2a92c5e07cf542b8785a9276532c1, type: 2}
+      objectReference: {fileID: 2100000, guid: 419984ede97275f4a857626ffb369d2d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
