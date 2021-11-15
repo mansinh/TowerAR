@@ -9,6 +9,7 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
     [SerializeField] MeshRenderer[] meshRenderers;
     [SerializeField] Material mat_selected;
     [SerializeField] Material mat_normal;
+    [SerializeField] SpriteRenderer symbol;
     public void Deselect()
     {
         SetMaterial(mat_normal);
@@ -43,6 +44,7 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
                 if (miracleController)
                 {
                     miracleController.gameObject.SetActive(true);
+                    symbol.color = Color.white;
                 }
             }
         }

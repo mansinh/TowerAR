@@ -76,23 +76,11 @@ public class CardDeck : MonoBehaviour, IPointerClickHandler
                 //For testing purposes, draw one of each of the different types of cards
                 if (drawAllTypes)
                 {
-                    //checks if there's tower on field/in the hand and if there's none it gives player a guaranteed tower card
-                    int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, cardPrefabs.Count);
-                    for (int i = 0; i < cardPrefabs.Count; i++)
-                    {
-                        Card card = Instantiate(cardPrefabs[i], transform);
-                        card.Deck = this;
-                        _cardsInHand.Add(card);                     
-                    }
+                    DrawAll();
                 }
                 else
                 {
-                    //Draw a random set of cards
-                    int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, this.dealSize);
-                    for (int i = 0; i < dealSize; i++)
-                    {
-                        DrawRandomCard();
-                    }                 
+                    DrawRandom();
                 }
                 UpdateCardPositions();
             }
@@ -103,17 +91,37 @@ public class CardDeck : MonoBehaviour, IPointerClickHandler
     {
         if (CanDrawCard())
         {
-            //Draw a random set of cards
-            int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, this.dealSize);
-            for (int i = 0; i < dealSize; i++)
+            if (drawAllTypes)
             {
-                DrawRandomCard();
+                DrawAll();
+            }
+            else
+            {
+                DrawRandom();
             }
             UpdateCardPositions();
-        }
-        
+        }   
     }
 
+    void DrawAll()
+    {
+        for (int i = 0; i < cardPrefabs.Count; i++)
+        {
+            Card card = Instantiate(cardPrefabs[i], transform);
+            card.Deck = this;
+            _cardsInHand.Add(card);
+        }
+    }
+
+    void DrawRandom()
+    {
+        //Draw a random set of cards
+        int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, this.dealSize);
+        for (int i = 0; i < dealSize; i++)
+        {
+            DrawRandomCard();
+        }
+    }
     protected virtual Card DrawRandomCard() {
         int random = (int)(probabilities.Count * Random.value);
 
