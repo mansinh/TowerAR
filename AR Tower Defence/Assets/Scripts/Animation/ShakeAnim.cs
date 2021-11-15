@@ -21,7 +21,9 @@ public class ShakeAnim : MonoBehaviour
     {
         for (float i = 0; i < duration; i += Time.deltaTime)
         {
-            transform.localPosition = _originalPosition + Random.insideUnitSphere * amplitude * transform.localScale.x;
+            Vector3 rand = Random.insideUnitSphere;
+            rand.y = 0;
+            transform.localPosition = _originalPosition + rand * amplitude * transform.localScale.x;
             yield return new WaitForSeconds(Time.deltaTime);
         }
         transform.localPosition = _originalPosition;

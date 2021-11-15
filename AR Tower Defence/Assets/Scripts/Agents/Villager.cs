@@ -76,7 +76,7 @@ public class Villager : Agent
 
             }
             else {
-                SetTarget(Home.Door.transform,0);
+                SetTarget(Home.Door.transform,0.05f);
             }
             TimeSinceAIUpdate = 0;
         }
@@ -118,7 +118,7 @@ public class Villager : Agent
             }
             else
             {
-                if ((Home.Door.transform.position - transform.position).sqrMagnitude < 0.02)
+                if ((Home.transform.position - transform.position).sqrMagnitude < 0.1)
                 {
                     Sleep();
                     return;

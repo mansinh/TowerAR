@@ -99,8 +99,6 @@ public class BuildingCard : Card
                 Tile tile = hit.collider.GetComponent<Tile>();
                 Tower tower = hit.collider.GetComponent<Tower>();
                 Wall wall = hit.collider.GetComponent<Wall>();
-
-
                 if (tile == null)
                 {
                     if (!((wall != null && ignoreWalls) || (tower != null && ignoreTowers)))

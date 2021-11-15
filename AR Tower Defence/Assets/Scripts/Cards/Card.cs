@@ -16,6 +16,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] protected string Description = "Basic Card";
     [SerializeField] Vector3 _moveToOnSelect = Vector3.up * 20; //Moving animation for when selected
     [SerializeField] protected float _activationTileState = 100;
+    [SerializeField] Color unselectedColor = new Color(.9f, .9f, .9f,1);
 
     public CardDeck Deck;
     private RectTransform _rectTransform;
@@ -34,7 +35,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //Show the card being unselected
         if (!_isSelected)
         {
-            image.color = Color.gray;
+            image.color = unselectedColor;
         }
     }
 
@@ -92,7 +93,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.SetActive(true);
         Ghost.transform.SetParent(World.Instance.transform);
         Ghost.transform.localScale = Vector3.one;
-
+        Ghost.transform.localEulerAngles = Vector3.zero;
 
         GameController.Instance.SetSelectedCard(this);
 
@@ -102,7 +103,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Deselect()
     {
         _isSelected = false;
-        image.color = Color.gray;
+        image.color = unselectedColor;
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         Ghost.SetActive(false);
         GameController.Instance.DeselectCard(this);

@@ -151,7 +151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: gridSize
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: _building
@@ -199,12 +199,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6859265876676472502, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7859074649534743735, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8733429697405204941, guid: 9ca25518399eef34194e777dfa017568, type: 3}
+    - target: {fileID: 8872713722226393106, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 419984ede97275f4a857626ffb369d2d, type: 2}
     - target: {fileID: 9138802323023931420, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -32,7 +32,7 @@ public class Lumberyard : VillageBuilding
         while (timberView.localPosition.y < woodLevel)
         {
 
-            timberView.localPosition += new Vector3(0, 0.1f / 10,0);
+            timberView.localPosition += new Vector3(0, 0.15f / 10,0);
             yield return new WaitForSeconds(0.1f);
         }
         if (wood > maxWood)
@@ -40,7 +40,7 @@ public class Lumberyard : VillageBuilding
             mainDeck.DrawLumberCards();
             wood -= maxWood;
             FinishedBuilding();
-            timberView.localPosition= Vector3.down/10;
+            timberView.localPosition= Vector3.down/5;
             StartCoroutine(UpdateWood());
         }
     }

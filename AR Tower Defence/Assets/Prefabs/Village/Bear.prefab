@@ -60,6 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0.3
+  ActionAnimDelay: 0
   TimeRemaining: 0
   isReady: 1
   isActing: 0
@@ -146,7 +147,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e564702426ee8a841a0f83ba2a48a826, type: 2}
+  - {fileID: 5561349426305759274, guid: a9927f43e10b7684e87f7c798e3703d4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -252,6 +253,8 @@ MonoBehaviour:
   TargetName: Enemy
   DistanceFromTarget: 0.2
   MaxHeightDiff: 0.01
+  animator: {fileID: 0}
+  State: 0
   Perception: {fileID: 0}
 --- !u!54 &5315020926590973203
 Rigidbody:

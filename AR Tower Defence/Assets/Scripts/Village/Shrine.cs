@@ -10,7 +10,7 @@ using UnityEngine;
 public class Shrine : VillageBuilding
 {
     [SerializeField] MiracleController miracleController;
-
+    [SerializeField] SpriteRenderer symbol;
 
     protected override void Remove()
     {
@@ -25,6 +25,7 @@ public class Shrine : VillageBuilding
             if (miracleController)
             {
                 miracleController.gameObject.SetActive(true);
+                symbol.color = Color.white;
             }
         }
         return base.Use();
