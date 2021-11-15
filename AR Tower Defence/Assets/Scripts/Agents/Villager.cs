@@ -6,17 +6,9 @@ public class Villager : Agent
     private bool _isDay = false;
     private Shrine _shrine;
     [SerializeField] Worship worshipAction;
-    public VillagerState State;
     bool isBuilding = false;
 
-    public enum VillagerState
-    {
-        Building,
-        Worshipping,
-        Walking,
-        Idling,
-        Sleeping
-    }
+    
 
     protected override void Init()
     {
@@ -46,7 +38,16 @@ public class Villager : Agent
     void Update()
     {
 
-       
+        Vector3 velocity = GetVelocityFraction();
+        if (velocity.sqrMagnitude > 0.01)
+        {
+            State = AgentState.Running;
+        }
+        else
+        {
+            State = AgentState.Idling;
+        }
+
 
         //Periodically decide on target, not every frame as that may be expensive
         TimeSinceAIUpdate += Time.deltaTime;
@@ -80,7 +81,7 @@ public class Villager : Agent
             TimeSinceAIUpdate = 0;
         }
 
-        Vector3 velocity = GetVelocityFraction();
+        
         //Turn towards current target and act if in range and cooldown over
         if (CurrentTarget != null)
         {
@@ -90,7 +91,7 @@ public class Villager : Agent
                 {
                     if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
                     {
-                        State = VillagerState.Building;
+                        State = AgentState.Action0;
                         if (_action != null )
                         {
 
@@ -106,13 +107,10 @@ public class Villager : Agent
                 {
                     if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
                     {
-                        State = VillagerState.Worshipping;
+                        State = AgentState.Action1;
                         if (worshipAction != null)
                         {
-                            worshipAction.Activate(CurrentTarget.position);
-                      
-                               
-                         
+                            worshipAction.Activate(CurrentTarget.position); 
                         }
                         return;
                     }
@@ -122,23 +120,12 @@ public class Villager : Agent
             {
                 if ((Home.Door.transform.position - transform.position).sqrMagnitude < 0.02)
                 {
-                    State = VillagerState.Sleeping;
                     Sleep();
                     return;
                 }
             }
         }
 
-
-
-        if (velocity.sqrMagnitude > 0.01)
-        {
-            State = VillagerState.Walking;
-        }
-        else
-        {
-            State = VillagerState.Idling;
-        }
     }
 
     private void Sleep()

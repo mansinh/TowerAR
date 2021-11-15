@@ -12,6 +12,14 @@ using UnityEngine.AI;
 
 public class Agent : Destroyable
 {
+    public enum AgentState
+    {
+        Action0,
+        Action1,
+        Running,
+        Idling
+    }
+
     public float BaseSpeed = 1;
     [SerializeField] protected string Name = "";
     [SerializeField] public Action _action;
@@ -21,10 +29,10 @@ public class Agent : Destroyable
     [SerializeField] protected string TargetName = "";
     [SerializeField] protected float DistanceFromTarget=1;
     [SerializeField] protected float MaxHeightDiff = 0.01f;
+    [SerializeField] protected Animator animator;
 
-   
     protected NavMeshAgent NavAgent;
-
+    public AgentState State;
 
     [SerializeField] protected AIPerception Perception;
     protected float TimeSinceAIUpdate = 1;
@@ -95,6 +103,10 @@ public class Agent : Destroyable
 
     protected override void Death()
     {
+        if (animator)
+        {
+            animator.SetTrigger("Die");
+        }
         if (_action)
         {
             _action.EndAction();
@@ -105,6 +117,7 @@ public class Agent : Destroyable
             //Reset nav data on death
             NavAgent.ResetPath();
         }
+       
         base.Death();      
     }
 
@@ -116,9 +129,28 @@ public class Agent : Destroyable
     }
 
     void Update()
-    {     
+    {
+        Vector3 velocity = GetVelocityFraction();
+        if (velocity.sqrMagnitude > 0.01)
+        {
+            if (animator)
+            {
+                animator.SetBool("Run Forward", true);
+            }
+            State = AgentState.Running;
+        }
+        else
+        {
+            if (animator)
+            {
+                animator.SetBool("Run Forward", false);
+            }
+            State = AgentState.Idling;
+        }
+
         LookAround();
         Act();
+
     }
 
     protected virtual void Act()
@@ -129,6 +161,11 @@ public class Agent : Destroyable
             if (_action.Activate(CurrentTarget.position + Vector3.up * CurrentTarget.transform.localScale.y / 2))
             {
                 transform.LookAt(CurrentTarget);
+                if (animator)
+                {
+                    animator.SetTrigger("Attack 01");
+                }
+                State = AgentState.Action0;
             }
         }
     }
@@ -162,6 +199,16 @@ public class Agent : Destroyable
             }
         }
     }
+
+    protected override void DamageEffects(Damage damage)
+    {
+        if (animator)
+        {
+            animator.SetTrigger("Take Damage");
+        }
+        base.DamageEffects(damage);
+    }
+
 
     //Slow down navagent movement when affected by slow condition
     protected override void OnSlow(float slowness)

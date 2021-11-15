@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3037376943291633452}
-  - component: {fileID: 6852641840733625454}
   - component: {fileID: 5900901449052623176}
   m_Layer: 0
   m_Name: View
@@ -27,19 +26,12 @@ Transform:
   m_GameObject: {fileID: 5151426057622848815}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
-  m_Children: []
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5567540173780960555}
   m_Father: {fileID: 6015952174851431229}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6852641840733625454
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5151426057622848815}
-  m_Mesh: {fileID: 5130959566495979301, guid: ed0e8552e329673478479cd1d83d0517, type: 3}
 --- !u!23 &5900901449052623176
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -140,7 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 2
-  duration: 0.3
+  duration: 0.5
+  ActionAnimDelay: 0.2
   TimeRemaining: 0
   isReady: 1
   isActing: 0
@@ -240,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 3037376943291633452}
   MaxHealth: 500
-  DeathDuration: 1
+  DeathDuration: 3
   Health: 100
   IsDestroyed: 0
   BaseSpeed: 0.8
@@ -252,6 +245,8 @@ MonoBehaviour:
   TargetName: Village
   DistanceFromTarget: 0.5
   MaxHeightDiff: 0.01
+  animator: {fileID: 5476666766177173463}
+  State: 0
   Perception: {fileID: 0}
 --- !u!54 &5070576295149535754
 Rigidbody:
@@ -363,3 +358,70 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &3045311848275092753
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3037376943291633452}
+    m_Modifications:
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428441304663965694, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+      propertyPath: m_Name
+      value: TankyEnemyView
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+--- !u!4 &5567540173780960555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7422212252005556282, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+  m_PrefabInstance: {fileID: 3045311848275092753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5476666766177173463 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7368480072326765254, guid: 985ea5c23334fec42b7b75c549e6fa47, type: 3}
+  m_PrefabInstance: {fileID: 3045311848275092753}
+  m_PrefabAsset: {fileID: 0}
