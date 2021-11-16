@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 2.unity
     guid: cd406c5ae86d67d43a6904a550846c0b
+  - enabled: 1
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 01d439bc0895ef046b0fcf53f196b9b4
+  - enabled: 1
+    path: Assets/Scenes/Manny Scene.unity
+    guid: b30964b1815f91d4e93805ac0a3ac32e
+  - enabled: 1
+    path: Assets/Scenes/Matthew Scene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: b9862a0339cbdf94e848c067ea0bba5c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fde2b457abcd3104489bd1dc77fc7244, type: 2}
