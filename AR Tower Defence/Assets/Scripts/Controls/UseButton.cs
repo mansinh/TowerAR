@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
  *@ author Manny Kwong 
  */
 
-public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler
+public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
 
     public bool IsDown = false;
@@ -106,12 +106,8 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
 
     void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
     {
-        IsDown = false;
-    }
-
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-    {
         OnClick();
+        IsDown = false;
     }
 
     public void OnClick()
@@ -119,26 +115,26 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         if (_isOverSelectable && !GameController.Instance.IsHoldingObject)
         {
             GameController.Instance.SelectObject();
-            SelectObject();
+            On();
         }
         else if (GameController.Instance.IsHoldingObject)
         {
             if (GameController.Instance.UseObject())
             {
                 GameController.Instance.DeselectObject();
-                DeselectObject();
+                Off();
             }
         }
     }
 
-    public void SelectObject()
+    public void On()
     {
         image.color = Color.white;
         cancelButton.interactable = true;
         discardButton.interactable = true;
     }
 
-    public void DeselectObject()
+    public void Off()
     {
         image.color = offColour;
         cancelButton.interactable = false;
@@ -149,7 +145,6 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            OnClick();
             IsDown = false;
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -158,7 +153,7 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         }
 
 
-            if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0)
         {
             if (buildingRotationSlider.value < buildingRotationSlider.maxValue)
             {
@@ -181,6 +176,6 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
             }
         }
 
-        
+
     }
 }

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2965443452002225500, guid: ae8f129f530389b418e82ebc67b4be4c, type: 3}
+      propertyPath: deckType
+      value: FireDeck
+      objectReference: {fileID: 0}
     - target: {fileID: 3784701954127897810, guid: ae8f129f530389b418e82ebc67b4be4c, type: 3}
       propertyPath: m_Sprite
       value: 

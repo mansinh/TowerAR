@@ -150,4 +150,10 @@ public class BuildingCard : Card
         }
         return false;
     }
+
+    public override void SetGameInfo()
+    {
+        GameInfo.Instance.SetSelectedText(buildingPrefab.GetComponent<VillageBuilding>().GetGameInfo(false));
+    }
+
 }

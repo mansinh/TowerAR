@@ -60,6 +60,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9222147747527792850, guid: 6dc6109b33eb1934182b48675920308b, type: 3}
     - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: Info
+      value: 'MAGE TOWER: Shoots magic missiles that does high damage but with longer
+        cooldown'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: mat_normal
       value: 
       objectReference: {fileID: 2100000, guid: 40b2a92c5e07cf542b8785a9276532c1, type: 2}

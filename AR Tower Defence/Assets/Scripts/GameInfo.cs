@@ -8,8 +8,8 @@ using TMPro;
 
 public class GameInfo : MonoBehaviour
 {
-    [SerializeField] TMP_Text _cardText;
-    [SerializeField] TMP_Text _gameText;
+    [SerializeField] TMP_Text gameText;
+
     public static GameInfo Instance { get; private set; }
 
     private void Awake()
@@ -20,7 +20,14 @@ public class GameInfo : MonoBehaviour
         }
     }
 
-    public void SetCardText(string info) {
-        _cardText.text = ""+info;
+    public void SetSelectedText(string info) {
+        gameText.text = ""+info;
+    }
+    public void SetHoverText(string info)
+    {
+        if (!GameController.Instance.IsSomethingSelected())
+        {
+            gameText.text = "" + info;
+        }
     }
 }

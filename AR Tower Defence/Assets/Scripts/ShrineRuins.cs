@@ -10,6 +10,14 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
     [SerializeField] Material mat_selected;
     [SerializeField] Material mat_normal;
     [SerializeField] SpriteRenderer symbol;
+    [SerializeField] string deckType;
+
+    void Awake()
+    {
+        miracleController = GameObject.Find(deckType).GetComponent<MiracleController>();
+        miracleController.gameObject.SetActive(false);
+    }
+
     public void Deselect()
     {
         SetMaterial(mat_normal);
@@ -17,11 +25,21 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
 
     public ISelectable GetSelectable()
     {
-        return this;
+        if (!miracleController.gameObject.active)
+        {
+            return this;
+        }
+        return null;
     }
 
-    public void OnHoverEnter(){}
-    public void OnHoverLeave(){}
+    public void OnHoverEnter()
+    {
+        SetGameInfo();
+    }
+    public void OnHoverLeave()
+    {
+        GameInfo.Instance.SetHoverText("");
+    }
     public void OnHoverStay(){}
     public void Destroy(){}
 
@@ -43,6 +61,7 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
                 activationEffect.PlayEffects();
                 if (miracleController)
                 {
+                    SetGameInfo();
                     miracleController.gameObject.SetActive(true);
                     symbol.color = Color.white;
                 }
@@ -57,5 +76,24 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
         {
             renderer.material = material;
         }
+    }
+
+    public bool UseImmediately()
+    {
+        return true;
+    }
+
+    void SetGameInfo()
+    {
+        string description = "SHRINE RUIN: Shrine of a fallen god.";
+        if (!miracleController.gameObject.active)
+        {
+            description += "\nTap to unlock " + miracleController.GetInfo() ;
+        }
+        else
+        {
+            description += miracleController.GetInfo();
+        }
+        GameInfo.Instance.SetHoverText(description);
     }
 }

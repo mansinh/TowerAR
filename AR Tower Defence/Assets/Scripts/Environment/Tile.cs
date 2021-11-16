@@ -10,7 +10,7 @@ using TMPro;
  */
 
 [ExecuteInEditMode]
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IHoverable
 {
     private BoxCollider _tileCollider;
     private MeshRenderer _renderer;
@@ -23,6 +23,8 @@ public class Tile : MonoBehaviour
 
     [SerializeField] private MeshRenderer decorator;
     [SerializeField] private TMP_Text showHeight;
+
+
 
     void Awake()
     {
@@ -81,7 +83,6 @@ public class Tile : MonoBehaviour
         if (this.state >= RESTORED)
         {
             this.state = RESTORED;
-            SetNeighboursHealable();
         }
         showHeight.SetText("" + GetHeight() + " " + state);
     }
@@ -102,7 +103,6 @@ public class Tile : MonoBehaviour
                 }
                 print("healed" + Coordinates);
                 state = RESTORED;
-                SetNeighboursHealable();
                 World.Instance.UpdateView();
                 ResetDecorator();
             }
@@ -114,26 +114,6 @@ public class Tile : MonoBehaviour
                 }
             }
         }  
-    }
-
-  
-
-    void SetNeighboursHealable()
-    {
-        return;
-        foreach (Tile neighbour in neighbours)
-        {
-            if (neighbour)
-            {
-                if (neighbour.GetState() == DESERT)
-                {
-                    if (Mathf.Abs(neighbour.GetHeight() - GetHeight()) <=1)
-                    {
-                        neighbour.SetState(HEALABLE);
-                    }
-                }
-            }
-        }
     }
 
     public float GetState()
@@ -159,5 +139,35 @@ public class Tile : MonoBehaviour
     public void ResetDecorator()
     {
         decorator.gameObject.SetActive(false);   
+    }
+
+
+
+    public void OnHoverEnter()
+    {
+        if (state == RESTORED)
+        {
+            GameInfo.Instance.SetHoverText("RESTORED GRASSLAND: Can build and cast miracles on. Cast miracle RAIN to grow trees for wood.");
+        }
+        else
+        {
+            GameInfo.Instance.SetHoverText("TOXIC WASTELAND: Can't build or cast miracles on. Cast miracle RAIN near the edges to RESTORE.");
+        }
+        
+    }
+
+    public void OnHoverStay()
+    {
+       
+    }
+
+    public void OnHoverLeave()
+    {
+        GameInfo.Instance.SetHoverText("");
+    }
+
+    public ISelectable GetSelectable()
+    {
+        return null;
     }
 }

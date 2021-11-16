@@ -107,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: Description
-      value: 'War Mage: Long Ranged Killing Machine'
+      value: 'MAGE TOWER: Long Ranged Killing Machine'
       objectReference: {fileID: 0}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: ignoreWalls

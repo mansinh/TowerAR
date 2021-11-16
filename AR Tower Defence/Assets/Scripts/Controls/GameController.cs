@@ -121,7 +121,7 @@ public class GameController : MonoBehaviour
             _selectedCard = null;
         }    
         useButton.SetIsUsingCard(null);
-        GameInfo.Instance.SetCardText("");
+        GameInfo.Instance.SetSelectedText("");
     }
 
 
@@ -258,8 +258,16 @@ public class GameController : MonoBehaviour
         if (_hoveredObject.GetSelectable() != null)
         {
             _hoveredObject.GetSelectable().Select();
+            
             _selectedObject = _hoveredObject.GetSelectable();
             IsHoldingObject = true;
+            if (_selectedObject.UseImmediately())
+            {
+                useButton.Off();
+                _selectedObject.Use();
+                DeselectObject();
+                
+            }
         }
     }
     public void SelectObject(ISelectable selectable)
@@ -268,7 +276,7 @@ public class GameController : MonoBehaviour
         selectable.Select();
         _selectedObject = selectable;
         IsHoldingObject = true;
-        useButton.SelectObject();
+        useButton.On();
     }
     
     public void DeselectObject()
@@ -290,7 +298,7 @@ public class GameController : MonoBehaviour
             Points.Instance.Sacrifice(_selectedObject);
             _selectedObject = null;
             IsHoldingObject = false;
-            useButton.DeselectObject();
+            useButton.Off();
         }
     }
     //Use object and return whether the object should be deselected
@@ -400,5 +408,10 @@ public class GameController : MonoBehaviour
         gameOverMenu.alpha = 0;
         gameOverMenu.gameObject.SetActive(true);
         StartCoroutine(UITransitions.AlphaTo(gameOverMenu, 1, 0.3f));
+    }
+
+    public bool IsSomethingSelected()
+    {
+        return _selectedObject != null || _selectedCard != null;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Villager : Agent
+public class Villager : Agent, IHoverable
 {
     public House Home;
     private bool _isDay = false;
@@ -141,4 +141,23 @@ public class Villager : Agent
 
     }
 
+    public void OnHoverEnter()
+    {
+        GameInfo.Instance.SetHoverText("VILLAGER: worships at the shrine to charge MP. Repairs buildings. Returns home to sleep at night.");
+    }
+
+    public void OnHoverStay()
+    {
+       
+    }
+
+    public void OnHoverLeave()
+    {
+        GameInfo.Instance.SetHoverText("");
+    }
+
+    public ISelectable GetSelectable()
+    {
+        return null;
+    }
 }

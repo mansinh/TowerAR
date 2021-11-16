@@ -58,6 +58,6 @@ public class MiracleCard : Card
     //Show card description and show number of unused miracles left
     public override void SetGameInfo()
     {
-        GameInfo.Instance.SetCardText(Description + " " + (_maxTimesActivated - _timesActivated) + "/" + _maxTimesActivated);
+        GameInfo.Instance.SetSelectedText(_miracleController.GetInfo() + " " + (_maxTimesActivated - _timesActivated) + "/" + _maxTimesActivated);
     }
 }

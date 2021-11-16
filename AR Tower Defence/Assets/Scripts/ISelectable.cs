@@ -5,4 +5,5 @@ public interface ISelectable
     bool Use();
     void UpdateSelected();
     void Destroy();
+    bool UseImmediately();
 }
