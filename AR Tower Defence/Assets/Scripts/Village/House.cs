@@ -102,5 +102,10 @@ public class House : VillageBuilding
         }
         base.Remove();
     }
+
+    public override string GetGameInfo(bool showHealth)
+    {
+        return "HOUSE: Spawns a villager and increases your maximum MP. " + base.GetGameInfo(showHealth); 
+    }
 }
 

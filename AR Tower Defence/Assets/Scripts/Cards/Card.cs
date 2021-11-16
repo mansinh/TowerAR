@@ -113,7 +113,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     //Show description of card ability at the top of the screen (game info area)
     public virtual void SetGameInfo()
     {
-        GameInfo.Instance.SetCardText(Description);
+        GameInfo.Instance.SetSelectedText(Description);
     }
 
     //Move card into position

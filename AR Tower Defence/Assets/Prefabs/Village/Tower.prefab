@@ -179,6 +179,7 @@ MonoBehaviour:
   _attack: {fileID: 4979145030176779428}
   maxHeightDiff: 1
   _currentTarget: {fileID: 0}
+  Info: 'ARCHER TOWER: Shoots arrows for low damage'
 --- !u!65 &6140706670366130800
 BoxCollider:
   m_ObjectHideFlags: 0

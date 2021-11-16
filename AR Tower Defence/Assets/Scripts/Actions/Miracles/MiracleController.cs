@@ -39,4 +39,9 @@ public class MiracleController : Attack
             }
         }
     }
+
+    public string GetInfo()
+    {
+        return _miraclePrefab.GetInfo();
+    }
 }

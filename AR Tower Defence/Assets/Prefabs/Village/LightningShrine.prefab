@@ -172,6 +172,7 @@ MonoBehaviour:
   mat_selected: {fileID: 2100000, guid: 74812ba80c4a90042985e8947c344b1e, type: 2}
   mat_normal: {fileID: 2100000, guid: cf689353ad9b2344aa0454008f5c217b, type: 2}
   symbol: {fileID: 3784701954127897810}
+  deckType: LightningDeck
 --- !u!1 &3834409796104452196
 GameObject:
   m_ObjectHideFlags: 0

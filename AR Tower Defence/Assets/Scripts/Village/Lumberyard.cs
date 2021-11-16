@@ -15,6 +15,11 @@ public class Lumberyard : VillageBuilding
     [SerializeField] CardDeck mainDeck;
     [SerializeField] GameObject arrow;
 
+    private void Awake()
+    {
+        mainDeck = GameObject.Find("MainDeck").GetComponent<CardDeck>();
+    }
+
     public bool TreeToWood(MyTree tree)
     {
         if (mainDeck.CanDrawCard())
@@ -35,7 +40,7 @@ public class Lumberyard : VillageBuilding
             timberView.localPosition += new Vector3(0, 0.15f / 10,0);
             yield return new WaitForSeconds(0.1f);
         }
-        if (wood > maxWood)
+        if (wood >= maxWood)
         {
             mainDeck.DrawLumberCards();
             wood -= maxWood;
@@ -55,5 +60,17 @@ public class Lumberyard : VillageBuilding
     public void HideArrow()
     {
         arrow.SetActive(false);
+    }
+
+
+
+    public override string GetGameInfo(bool showState)
+    {
+        string description = "LUMBERYARD: drop trees here for wood.Spawns building cards when full. ";
+        if (showState)
+        {
+            description += wood + "/" + maxWood + "Wood ";
+        }
+        return description + base.GetGameInfo(showState); ;
     }
 }

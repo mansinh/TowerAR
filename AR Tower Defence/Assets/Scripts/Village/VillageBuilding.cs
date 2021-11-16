@@ -38,6 +38,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
                 FinishedBuilding(); 
             }
         }
+        SetGameInfo();
     }
 
     public void SetHealthPercentage(float percentage)
@@ -92,12 +93,12 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
 
     public virtual void OnHoverEnter()
     {
-       
+        SetGameInfo();
     }
 
     public virtual void OnHoverStay()
     {
-       
+        SetGameInfo();
     }
 
     public virtual void OnHoverLeave()
@@ -115,11 +116,33 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
         return true;
     }
 
+    public virtual bool UseImmediately()
+    {
+        return false;
+    }
+
     void SetMaterial(Material material)
     {
         foreach (MeshRenderer renderer in meshRenderers)
         {
             renderer.material = material;
         }
+    }
+
+    public virtual void SetGameInfo()
+    {
+        GameInfo.Instance.SetHoverText(GetGameInfo(true));
+    }
+
+    public virtual string GetGameInfo(bool showState)
+    {
+        string s = "";
+
+        if (showState)
+        {
+            s += " " + Health + "/" + MaxHealth + " HP";
+        }
+        
+        return s;
     }
 }

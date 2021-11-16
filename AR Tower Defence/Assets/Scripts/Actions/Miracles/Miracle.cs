@@ -100,4 +100,9 @@ public class Miracle : MonoBehaviour
     {
        // print("hit " + hit.collider.name);
     }
+
+    public virtual string GetInfo()
+    {
+        return "";
+    }
 }

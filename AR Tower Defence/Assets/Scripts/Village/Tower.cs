@@ -12,6 +12,7 @@ public class Tower : VillageBuilding
     float _timeSinceAIUpdate = 1;
 
     [SerializeField] Transform _currentTarget;
+    [SerializeField] protected string Info;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class Tower : VillageBuilding
 
         if (_currentTarget)
         {
-            if (_attack.Activate(_currentTarget.position + Vector3.up*_currentTarget.localScale.y/2))
+            if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.localScale.y / 2))
             {
                 //transform.LookAt(_currentTarget);
             }
@@ -49,5 +50,11 @@ public class Tower : VillageBuilding
             }
             _timeSinceAIUpdate = 0;
         }
+    }
+
+
+    public override string GetGameInfo(bool showState)
+    {
+        return Info + base.GetGameInfo(showState);
     }
 }

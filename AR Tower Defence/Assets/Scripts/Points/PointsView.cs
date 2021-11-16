@@ -18,6 +18,8 @@ public class PointsView : MonoBehaviour
     private int _maxPoints;
     private bool _isUpdatingText = false;
 
+
+
     public void SetPoints(int points, int maxPoints) {
         _currentPoints = points;
         _targetPoints = points;
@@ -51,6 +53,6 @@ public class PointsView : MonoBehaviour
     }
 
     void SetText() {
-        pointsText.text = "" + _currentPoints + "/"+ _maxPoints + " p";
+        pointsText.text = "" + _currentPoints + "/"+ _maxPoints + " MP";
     }
 }

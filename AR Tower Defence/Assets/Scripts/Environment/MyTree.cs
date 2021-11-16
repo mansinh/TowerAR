@@ -13,6 +13,7 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
     [SerializeField] float growth = 0;
     [SerializeField] Color color = new Color(80,160,80,255);
     [SerializeField] MeshRenderer meshRenderer;
+    protected string hoverInfo = "TREE: Pick up and drop into the LUMBERYARD for wood. \nCast miracle RAIN to grow more. Slows enemies down.";
 
     private float _swayRandom;
     private Tile _tile;
@@ -157,6 +158,8 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public bool Select()
     {
+        GameInfo.Instance.SetSelectedText("TREE: Drop into the LUMBERYARD for " + growth + " wood. Plantable on grassland.");
+
         Lumberyard lumberyard = FindObjectOfType<Lumberyard>();
         if (lumberyard)
         {
@@ -192,6 +195,7 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public void Deselect()
     {
+        GameInfo.Instance.SetSelectedText("");
         Lumberyard lumberyard = FindObjectOfType<Lumberyard>();
         if (lumberyard)
         {
@@ -229,6 +233,11 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
         return true;
     }
 
+    public bool UseImmediately()
+    {
+        return false;
+    }
+
 
     void OnHover()
     {
@@ -243,6 +252,7 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public void OnHoverEnter()
     {
+        GameInfo.Instance.SetHoverText(hoverInfo);
         OnHover();
     }
 
@@ -253,6 +263,7 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
 
     public void OnHoverLeave()
     {
+        GameInfo.Instance.SetHoverText("");
         OnHover();
     }
 
@@ -260,4 +271,6 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
     {
         return this;
     }
+
+   
 }

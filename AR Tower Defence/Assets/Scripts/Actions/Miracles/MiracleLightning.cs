@@ -26,4 +26,9 @@ public class MiracleLightning : Miracle
             }
         }
     }
+
+    public override string GetInfo()
+    {
+        return "LIGHTNING MIRACLE: bolts of lightning that does massive stun damage to enemies. When activated, hold use button to cast.";
+    }
 }
