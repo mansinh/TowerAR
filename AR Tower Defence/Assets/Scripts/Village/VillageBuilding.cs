@@ -29,7 +29,8 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     protected override void DamageEffects(Damage damage)
     {
         base.DamageEffects(damage);
-        ShakeAnim.StartShake(0.01f, 0.3f, new Vector3(0, (Health / MaxHealth - 1) * destroyedHeight, 0));
+        ShakeAnim.StartShake(0.01f, 0.3f, Vector3.zero);
+        _view.transform.localScale = new Vector3(1, Health / MaxHealth,1);
         if (!IsBuilt)
         {
             if (Health >= MaxHealth)
@@ -42,7 +43,8 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     public void SetHealthPercentage(float percentage)
     {
         Health = percentage * MaxHealth;
-        ShakeAnim.StartShake(0.01f, 0.1f, new Vector3(0, (Health / MaxHealth - 1) * destroyedHeight, 0));
+        ShakeAnim.StartShake(0.01f, 0.1f, Vector3.zero);
+        _view.transform.localScale = new Vector3(1, Health / MaxHealth, 1);
     }
 
     protected override void Remove()

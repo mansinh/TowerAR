@@ -259,7 +259,7 @@ MonoBehaviour:
   Health: 41
   IsDestroyed: 0
   growth: 0
-  color: {r: 0.24670699, g: 0.5188679, b: 0.24670699, a: 255}
+  color: {r: 1, g: 1, b: 1, a: 255}
   meshRenderer: {fileID: 2193533503740467068}
 --- !u!114 &-7712688326669050535
 MonoBehaviour:
