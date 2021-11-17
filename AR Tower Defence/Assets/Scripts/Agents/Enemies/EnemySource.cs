@@ -26,13 +26,14 @@ public class EnemySource : Destroyable, IHoverable
     [SerializeField] int _enemiesSpawned = 0;
     [SerializeField] int _compositionIndex = 0;
     [SerializeField] string _currentType = "";
+    [SerializeField] SpriteRenderer sprite;
     int _currentTypeIndex = 0;
     
     protected override void Init()
     {
         base.Init();
         _spawnEnemy = GetComponent<SpawnEnemy>();
-       
+        sprite = _view.GetComponent<SpriteRenderer>();
     }
 
     void Update() {
@@ -53,6 +54,8 @@ public class EnemySource : Destroyable, IHoverable
                     StopWave();
                 }
             }
+            _view.transform.RotateAroundLocal(Vector3.up, Time.deltaTime);
+
         }
     }
 
@@ -62,12 +65,13 @@ public class EnemySource : Destroyable, IHoverable
         _spawnEnemy.cooldown = _waveCooldownPerDay.Evaluate(dayCount);
         _currentWaveSize = (int)_waveSizePerDay.Evaluate(dayCount);
         _compositionIndex = dayCount % _typeCompositions.Length;
+        sprite.color = Color.white;
     }
 
     public void StopWave()
     {
         _isSpawning = false;
-       
+        sprite.color = new Color(0,0,0,0.3f);
     }
 
     public void ResetWave()

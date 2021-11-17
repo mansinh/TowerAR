@@ -8,9 +8,10 @@ public class SoundManager : MonoBehaviour
 
     AudioListener audioListener;
     public AudioSource[] SoundSources;
+    public AudioSource[] AllSources;
     public AudioClip[] SoundClips = new AudioClip[12];
     int sourceIndex = 0;
-    public float baseVolume = 1;
+   
 
     public enum SoundType
     {
@@ -31,6 +32,13 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         audioListener = FindObjectOfType<AudioListener>();
+
+        print(Options.Instance + "OPTIONS");
+        if (Options.Instance)
+        {
+            AudioListener.volume = Options.Instance.volume;
+        }
+
         if (Instance == null)
         {
             Instance = this;
@@ -40,22 +48,19 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+
+
     }
+
+   
 
     public void Play(SoundType type)
-    {
-        Play(type, 1);
-    }
-
-    public void Play(SoundType type, float volume)
     {
         AudioSource soundSource = SoundSources[sourceIndex];
         if (!soundSource.isPlaying)
         {
             print("play sound " + type);
             soundSource.clip = SoundClips[(int)type];
-            soundSource.volume = volume* baseVolume;
             soundSource.Play();
             sourceIndex++;
             if (sourceIndex >= SoundSources.Length)
@@ -63,6 +68,11 @@ public class SoundManager : MonoBehaviour
                 sourceIndex = 0;
             }
         }
+    }
+
+    public void SetVolume(float volume)
+    {
+        AudioListener.volume = volume;
     }
 
     void LoadSounds()

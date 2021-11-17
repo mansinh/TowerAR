@@ -99,7 +99,7 @@ public class Tile : MonoBehaviour, IHoverable
             {
                 if (healedEffect)
                 {
-                    SoundManager.Instance.Play(SoundManager.SoundType.Restored, 1f);
+                    SoundManager.Instance.Play(SoundManager.SoundType.Restored);
                     healedEffect.PlayEffects();
                 }
 

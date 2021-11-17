@@ -35,7 +35,11 @@ public class DayNightController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-   
+        if (Options.Instance)
+        {
+            SetShadows(Options.Instance.shadows);
+        }
+
     }
 
     private void OnValidate()
@@ -128,5 +132,17 @@ public class DayNightController : MonoBehaviour
         }
     }
 
+    public void SetShadows(bool isOn)
+    {
+        if (isOn)
+        {
+            sun.shadows = LightShadows.Soft;
+        }
+        else
+        {
+            sun.shadows = LightShadows.None;
+        }
+        
+    }
 
 }

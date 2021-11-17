@@ -20,7 +20,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
 
     protected override void Init()
     {
-        print("INITIALIZED" + name);
+
         base.Init();
         if (Points.Instance)
         {
