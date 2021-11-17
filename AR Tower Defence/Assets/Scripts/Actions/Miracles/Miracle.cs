@@ -39,6 +39,7 @@ public class Miracle : MonoBehaviour
 
     public virtual void Activate()
     {
+        print("miracle activate");
         Life = Lifetime;
         if (MyCursor.Instance.GetCursorHitting())
         {

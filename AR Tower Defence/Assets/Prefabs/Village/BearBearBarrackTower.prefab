@@ -323,7 +323,7 @@ MonoBehaviour:
   IsDestroyed: 0
   meshRenderers:
   - {fileID: 1672616970841377400}
-  mat_selected: {fileID: 2100000, guid: df69a30fd3abeaa4489eb8bdea1deb1e, type: 2}
+  mat_selected: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
   mat_normal: {fileID: 2100000, guid: ef48db3eb1cac0744862e3fdce166abe, type: 2}
   destroyedHeight: 0.1
   finishedEffect: {fileID: 2671296742239948845}
@@ -334,6 +334,7 @@ MonoBehaviour:
   _attack: {fileID: 8179108437449764649}
   maxHeightDiff: 1
   _currentTarget: {fileID: 0}
+  Info: 
 --- !u!114 &334709448816595722
 MonoBehaviour:
   m_ObjectHideFlags: 0

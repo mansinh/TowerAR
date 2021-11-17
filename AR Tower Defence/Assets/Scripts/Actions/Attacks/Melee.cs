@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Melee :Attack
 {
+    [SerializeField] protected float ActionAnimDelay = 0.1f;
 
-    
     [SerializeField] GameObject _attackImpact;
     SphereCollider meleeCollider;
 
@@ -22,15 +22,20 @@ public class Melee :Attack
     protected override void Act(Vector3 targetPosition)
     {
         base.Act(targetPosition);
-        meleeCollider.enabled = true;
+        StartCoroutine(DelayedAction());
     }
 
+    IEnumerator DelayedAction()
+    {
+        yield return new WaitForSeconds(ActionAnimDelay);
+        meleeCollider.enabled = true;
+    }
     
     public override void EndAction()
     { 
         base.EndAction();
         meleeCollider.enabled = false;
-        _attackImpact.SetActive(false);
+        //_attackImpact.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,7 +45,7 @@ public class Melee :Attack
         if (destroyable)
         { 
             destroyable.Damage(CalulateDamage());
-            _attackImpact.SetActive(true);
+            //_attackImpact.SetActive(true);
         }
     }
 

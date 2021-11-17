@@ -23,6 +23,8 @@ public class Destroyable : MonoBehaviour
         Init();
     }
 
+
+
     protected virtual void Init()
     {
         ShakeAnim = _view.gameObject.AddComponent<ShakeAnim>();

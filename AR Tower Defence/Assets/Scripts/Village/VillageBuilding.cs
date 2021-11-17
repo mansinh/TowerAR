@@ -14,22 +14,29 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     [SerializeField] float destroyedHeight = 0.1f;
     [SerializeField] HealEffect finishedEffect;
     [SerializeField] bool canSacrifice = true;
+    public AudioSource SoundEffects;
 
     public bool IsBuilt = true;
 
     protected override void Init()
     {
+        print("INITIALIZED" + name);
         base.Init();
         if (Points.Instance)
         {
             Points.Instance.UpdateVillagePoints();
         }
+        SoundEffects = gameObject.AddComponent<AudioSource>();
+       
     }
-
+    
     protected override void DamageEffects(Damage damage)
     {
         base.DamageEffects(damage);
+
         ShakeAnim.StartShake(0.01f, 0.3f, Vector3.zero);
+
+        
         _view.transform.localScale = new Vector3(1, Health / MaxHealth,1);
         if (!IsBuilt)
         {
@@ -38,6 +45,12 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
                 FinishedBuilding(); 
             }
         }
+
+        if (damage.damage > 0)
+        {
+            SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Damage]);
+        }
+
         SetGameInfo();
     }
 
@@ -59,11 +72,14 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     {
         IsBuilt = true;
         finishedEffect.PlayEffects();
+        SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Restored]);
+       
     }
 
     public virtual void OnUpgrade()
     {
         finishedEffect.PlayEffects();
+        SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Restored]);
     }
 
 

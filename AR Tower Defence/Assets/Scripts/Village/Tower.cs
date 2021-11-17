@@ -13,6 +13,7 @@ public class Tower : VillageBuilding
 
     [SerializeField] Transform _currentTarget;
     [SerializeField] protected string Info;
+    [SerializeField] protected AudioClip shootSound;
 
     private void Start()
     {
@@ -32,7 +33,10 @@ public class Tower : VillageBuilding
         {
             if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.localScale.y / 2))
             {
-                //transform.LookAt(_currentTarget);
+                if (shootSound)
+                {
+                    SoundEffects.PlayOneShot(shootSound);
+                }
             }
         }
 

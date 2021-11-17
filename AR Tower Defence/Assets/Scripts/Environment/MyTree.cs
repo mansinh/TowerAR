@@ -166,6 +166,8 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
             lumberyard.ShowArrow();
         }
 
+        SoundManager.Instance.Play(SoundManager.SoundType.PickTree);
+
         GetComponent<Collider>().enabled = false;
         return true;
     }
@@ -218,8 +220,13 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
             {
                 if (lumberyard.TreeToWood(this))
                 {
+                    SoundManager.Instance.Play(SoundManager.SoundType.Lumberyard);
                     TriggerDeath();
-                }           
+                }
+            }
+            else
+            {
+                SoundManager.Instance.Play(SoundManager.SoundType.PlantTree);
             }
         }      
     }

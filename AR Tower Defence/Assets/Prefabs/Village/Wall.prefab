@@ -149,7 +149,7 @@ MonoBehaviour:
   IsDestroyed: 0
   meshRenderers:
   - {fileID: 5823503559496170643}
-  mat_selected: {fileID: 2100000, guid: 3ea96af0923e41848a2f23e1cef628c0, type: 2}
+  mat_selected: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
   mat_normal: {fileID: 2100000, guid: cd70161b279e56040aa3762ae85cc2db, type: 2}
   destroyedHeight: 0.2
   finishedEffect: {fileID: 1898134082296914396}

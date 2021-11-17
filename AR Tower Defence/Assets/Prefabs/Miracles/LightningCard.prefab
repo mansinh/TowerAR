@@ -86,6 +86,7 @@ MonoBehaviour:
   Description: Cast bolts of lightning that stuns and does massive damage
   _moveToOnSelect: {x: 0, y: 0, z: 0}
   _activationTileState: 100
+  unselectedColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   Deck: {fileID: 0}
   showCursorLight: {fileID: 827841345873016448}
 --- !u!1 &6373611092798989315

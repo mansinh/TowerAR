@@ -45,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.5, z: 0.3}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &6479275414924621491
 MonoBehaviour:
@@ -71,6 +71,7 @@ MonoBehaviour:
   destroyedHeight: 0.1
   finishedEffect: {fileID: 2935604342034326497}
   canSacrifice: 0
+  SoundEffects: {fileID: 0}
   IsBuilt: 1
   miracleController: {fileID: 0}
   symbol: {fileID: 1845797685730860351}

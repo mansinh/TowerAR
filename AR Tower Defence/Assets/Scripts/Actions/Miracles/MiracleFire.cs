@@ -64,6 +64,6 @@ public class MiracleFire : Miracle
 
     public override string GetInfo()
     {
-        return "FIRE MIRACLE: walls of fire that damages everything it touches over time and blocks enemies. When activated, hold use button to cast.";
+        return "FIRE MIRACLE: walls of fire that damages everything it touches over time and blocks enemies. Hold use button to cast when activated.";
     }
 }

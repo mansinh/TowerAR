@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpawnEnemy))]
-public class EnemySource : Destroyable
+public class EnemySource : Destroyable, IHoverable
 {
     SpawnEnemy _spawnEnemy;
     
@@ -87,6 +87,47 @@ public class EnemySource : Destroyable
             case 2: _currentType = "Flying"; break;
             case 3: _currentType = "Tanky"; break;
         }
+    }
+
+
+    protected override void Remove()
+    {
+        base.Remove();
+        gameObject.SetActive(false);
+
+        EnemySource[] sources = FindObjectsOfType<EnemySource>();
+        bool gameWon = true;
+        foreach (EnemySource source in sources)
+        {
+            if (source.isActiveAndEnabled)
+            {
+                gameWon = false;
+                break;
+            }
+        }
+
+        if (gameWon)
+        {
+            GameController.Instance.GameWon();
+        }
+    }
+
+
+    public void OnHoverEnter(){}
+
+    public void OnHoverStay()
+    {
+        GameInfo.Instance.SetHoverText("MONSTER PORTAL: A cataclysm turned the island into a toxic wasteland and opened up these portals. Spawns monsters at night. Destroy all of these to win the game.");
+    }
+
+    public void OnHoverLeave()
+    {
+        GameInfo.Instance.SetHoverText("");
+    }
+
+    public ISelectable GetSelectable()
+    {
+        return null;
     }
 }
 

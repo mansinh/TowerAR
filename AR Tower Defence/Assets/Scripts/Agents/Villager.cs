@@ -65,13 +65,19 @@ public class Villager : Agent, IHoverable
                     {
                         SetTarget(building.transform, 0.3f);
                         isBuilding = true;
+                        
                         break;
                     }
                 }
-              
+                if (!isBuilding)
+                {
+                    SoundEffects.Stop();
+                }
+
+
                 if (_shrine != null && !isBuilding)
                 {
-                    SetTarget(_shrine.transform, 0.3f);
+                    SetTarget(_shrine.transform, 0.5f);
                 }
 
             }
@@ -98,6 +104,11 @@ public class Villager : Agent, IHoverable
                             if (_action.Activate(CurrentTarget.position))
                             {
                                 transform.LookAt(CurrentTarget.position);
+                                if (!SoundEffects.isPlaying)
+                                {
+                                    SoundEffects.loop = true;
+                                    SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Build]);
+                                }
                             }
                             
                         }

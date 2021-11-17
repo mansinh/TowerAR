@@ -143,8 +143,12 @@ public class BuildingCard : Card
             {
                 building.GetComponent<VillageBuilding>().IsBuilt = false;
                 building.GetComponent<VillageBuilding>().SetHealthPercentage(0.1f);
+                building.GetComponent<VillageBuilding>().SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.PlaceBuilding]);
             }
             GameController.Instance.SelectObject(building.GetComponent<ISelectable>());
+
+           
+ 
             Discard();
             return true;
         }

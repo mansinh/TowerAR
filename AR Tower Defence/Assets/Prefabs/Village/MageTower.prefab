@@ -69,9 +69,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 40b2a92c5e07cf542b8785a9276532c1, type: 2}
     - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e5fb6046686d1584295213a68ab27bf8, type: 3}
+    - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: mat_selected
       value: 
-      objectReference: {fileID: 2100000, guid: 1888af7887e5b384cae199d70fe4798a, type: 2}
+      objectReference: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
     - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: finishedEffect
       value: 

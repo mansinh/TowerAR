@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     [SerializeField] CanvasGroup arMenu;
     [SerializeField] CanvasGroup hud;
     [SerializeField] CanvasGroup gameOverMenu;
+    [SerializeField] CanvasGroup gameWonMenu;
     [SerializeField] UseButton useButton;
 
     public bool IsAR;
@@ -173,6 +174,7 @@ public class GameController : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && GetIsCardUsable())
                 {
+                    print("activation" + _selectedCard);
                     _selectedCard.ActivateCard();
                 }
             }
@@ -404,6 +406,14 @@ public class GameController : MonoBehaviour
 
     //Fades in the game over overlay when player (shrine) is destroyed
     public void GameOver()
+    {
+        gameOverMenu.alpha = 0;
+        gameOverMenu.gameObject.SetActive(true);
+        StartCoroutine(UITransitions.AlphaTo(gameOverMenu, 1, 0.3f));
+    }
+
+    //Fades in the game won overlay when all portals are destroyed
+    public void GameWon()
     {
         gameOverMenu.alpha = 0;
         gameOverMenu.gameObject.SetActive(true);
