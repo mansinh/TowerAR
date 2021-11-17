@@ -188,20 +188,36 @@ PrefabInstance:
       propertyPath: _activationTileState
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1530772536873026181, guid: 3852059fedd2b41489edf5ab2ec4d362, type: 3}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Color.b
+      value: 0.93859416
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Color.r
+      value: 0.63584906
+      objectReference: {fileID: 0}
     - target: {fileID: 5311728916994545659, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Name
       value: WaterCard
       objectReference: {fileID: 0}
     - target: {fileID: 6936676415983267596, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_text
-      value: 'WATER
+      value: 'RAIN
 
 '
       objectReference: {fileID: 0}
     - target: {fileID: 6953929553587082266, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 125909bbc1cb67048b99e57bb45979db, type: 3}
+      objectReference: {fileID: 9025175845448281247, guid: 3852059fedd2b41489edf5ab2ec4d362, type: 3}
     - target: {fileID: 6953929553587082266, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Color.b
       value: 1

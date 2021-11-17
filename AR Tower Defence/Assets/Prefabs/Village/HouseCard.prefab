@@ -9,7 +9,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 81463057701542869, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_text
-      value: HOUSES
+      value: 'HOUSE
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 81463057701542869, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 609630966671020269, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_Layer
@@ -103,6 +109,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HouseCard
       objectReference: {fileID: 0}
+    - target: {fileID: 1885774406768983530, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0196025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885774406768983530, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.96444905
+      objectReference: {fileID: 0}
     - target: {fileID: 2571777674060084067, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -130,6 +144,14 @@ PrefabInstance:
     - target: {fileID: 3038971175622734414, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744793395731339054, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744793395731339054, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 5514742463782436725, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_RootOrder
@@ -163,6 +185,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.19
       objectReference: {fileID: 0}
+    - target: {fileID: 5705717984139636708, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8780115090783402845, guid: 3852059fedd2b41489edf5ab2ec4d362, type: 3}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: gridSize
       value: 0.2
