@@ -35,7 +35,7 @@ public class Melee :Attack
     { 
         base.EndAction();
         meleeCollider.enabled = false;
-        //_attackImpact.SetActive(false);
+        _attackImpact.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,7 +45,7 @@ public class Melee :Attack
         if (destroyable)
         { 
             destroyable.Damage(CalulateDamage());
-            //_attackImpact.SetActive(true);
+            _attackImpact.SetActive(true);
         }
     }
 

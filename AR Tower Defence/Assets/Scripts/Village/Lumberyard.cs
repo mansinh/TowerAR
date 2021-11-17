@@ -19,7 +19,7 @@ public class Lumberyard : VillageBuilding
     {
         base.Init();
 
-        mainDeck = GameObject.Find("MainDeck").GetComponent<CardDeck>();
+
     }
 
     public bool TreeToWood(MyTree tree)

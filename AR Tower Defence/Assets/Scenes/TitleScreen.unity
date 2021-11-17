@@ -579,9 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461917268494405464, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
       propertyPath: m_text
-      value: '2
-
-'
+      value: Snake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
@@ -883,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461917268494405464, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
       propertyPath: m_text
-      value: 1
+      value: Mountain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
@@ -909,7 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c26533064cad4f864ee492ce63b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Manny Scene
+  levelName: Mountain
 --- !u!1 &330173999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,7 +1824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461917268494405464, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
       propertyPath: m_text
-      value: 3
+      value: Spiral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
@@ -1852,7 +1850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c26533064cad4f864ee492ce63b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level 2
+  levelName: Spiral
 --- !u!1 &1312676200
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,12 @@ public class Shrine : VillageBuilding
 {
     [SerializeField] MiracleController miracleController;
     [SerializeField] SpriteRenderer symbol;
+    [SerializeField] GameObject indicator;
 
     protected override void Init()
     {
         base.Init();
-        miracleController = GameObject.Find("WaterDeck").GetComponent<MiracleController>();
+        indicator.SetActive(true);
         miracleController.gameObject.SetActive(false);
     }
   
@@ -29,6 +30,7 @@ public class Shrine : VillageBuilding
         if (!miracleController.gameObject.active)
         {
             FinishedBuilding();
+            indicator.SetActive(false);
             if (miracleController)
             {
                 miracleController.gameObject.SetActive(true);
