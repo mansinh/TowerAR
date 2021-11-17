@@ -93,15 +93,16 @@ public class Tile : MonoBehaviour, IHoverable
         if (state < RESTORED)
         {
 
-            print("prehealed" + Coordinates + " " + state);
+           
             state += healAmount;
             if (state >= RESTORED)
             {
                 if (healedEffect)
                 {
+                    SoundManager.Instance.Play(SoundManager.SoundType.Restored);
                     healedEffect.PlayEffects();
                 }
-                print("healed" + Coordinates);
+
                 state = RESTORED;
                 World.Instance.UpdateView();
                 ResetDecorator();
@@ -109,7 +110,7 @@ public class Tile : MonoBehaviour, IHoverable
             else
             {
                 if (healingEffect)
-                {
+                { 
                     healingEffect.PlayEffects();
                 }
             }

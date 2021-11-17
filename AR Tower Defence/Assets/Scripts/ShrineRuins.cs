@@ -14,7 +14,7 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
 
     void Awake()
     {
-        miracleController = GameObject.Find(deckType).GetComponent<MiracleController>();
+   
         miracleController.gameObject.SetActive(false);
     }
 
@@ -59,6 +59,7 @@ public class ShrineRuins : MonoBehaviour, ISelectable, IHoverable
             if (!miracleController.gameObject.active)
             {
                 activationEffect.PlayEffects();
+                SoundManager.Instance.Play(SoundManager.SoundType.Restored);
                 if (miracleController)
                 {
                     SetGameInfo();

@@ -30,7 +30,7 @@ public class Agent : Destroyable
     [SerializeField] protected float DistanceFromTarget=1;
     [SerializeField] protected float MaxHeightDiff = 0.01f;
     [SerializeField] protected Animator animator;
-
+    public AudioSource SoundEffects;
     protected NavMeshAgent NavAgent;
     public AgentState State;
 
@@ -38,12 +38,9 @@ public class Agent : Destroyable
     protected float TimeSinceAIUpdate = 1;
     protected Transform CurrentTarget;
 
-  
-
-
-
     protected override void Init()
     {
+        SoundEffects = gameObject.AddComponent<AudioSource>();
         if (Perception == null)
         {
             Perception = gameObject.AddComponent<AIPerception>();
@@ -67,6 +64,10 @@ public class Agent : Destroyable
         NavAgent.speed = BaseSpeed;
         NavAgent.isStopped = false;
         SetTarget(DefaultTarget,DistanceFromTarget);
+        if (_action)
+        {
+            _action.enabled = true;
+        }
     }
 
     public void SetTarget(Transform target, float distanceFromTarget)
@@ -77,7 +78,7 @@ public class Agent : Destroyable
                 CurrentTarget = target;
 
                 //Set target location to a random location near target  
-                Vector3 randomDisplacement = GetRandomAround(DistanceFromTarget);
+                Vector3 randomDisplacement = GetRandomAround(distanceFromTarget);
                 randomDisplacement.y = 0;
                 if (target)
                 {
@@ -110,6 +111,7 @@ public class Agent : Destroyable
         if (_action)
         {
             _action.EndAction();
+            _action.enabled = false;
         }
         if (NavAgent)
         {
@@ -202,6 +204,7 @@ public class Agent : Destroyable
 
     protected override void DamageEffects(Damage damage)
     {
+        
         if (animator)
         {
             animator.SetTrigger("Take Damage");

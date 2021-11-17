@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Melee :Attack
 {
+    [SerializeField] protected float ActionAnimDelay = 0.1f;
 
-    
     [SerializeField] GameObject _attackImpact;
     SphereCollider meleeCollider;
 
@@ -22,9 +22,14 @@ public class Melee :Attack
     protected override void Act(Vector3 targetPosition)
     {
         base.Act(targetPosition);
-        meleeCollider.enabled = true;
+        StartCoroutine(DelayedAction());
     }
 
+    IEnumerator DelayedAction()
+    {
+        yield return new WaitForSeconds(ActionAnimDelay);
+        meleeCollider.enabled = true;
+    }
     
     public override void EndAction()
     { 

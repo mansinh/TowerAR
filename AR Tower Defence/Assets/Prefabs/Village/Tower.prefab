@@ -168,11 +168,12 @@ MonoBehaviour:
   IsDestroyed: 0
   meshRenderers:
   - {fileID: 3708294561491495694}
-  mat_selected: {fileID: 2100000, guid: 50e2495c3d24bee4e85b75edb53dc376, type: 2}
+  mat_selected: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
   mat_normal: {fileID: 2100000, guid: a3a204b70acb3f64c86ff98d656f0bd7, type: 2}
   destroyedHeight: 0.45
   finishedEffect: {fileID: 4150397096030936212}
   canSacrifice: 1
+  SoundEffects: {fileID: 0}
   IsBuilt: 1
   _range: 5
   _AiUpdateTime: 0.11
@@ -180,6 +181,7 @@ MonoBehaviour:
   maxHeightDiff: 1
   _currentTarget: {fileID: 0}
   Info: 'ARCHER TOWER: Shoots arrows for low damage'
+  shootSound: {fileID: 8300000, guid: cb662d5aec8f2144e852b2c55e0f1a97, type: 3}
 --- !u!65 &6140706670366130800
 BoxCollider:
   m_ObjectHideFlags: 0

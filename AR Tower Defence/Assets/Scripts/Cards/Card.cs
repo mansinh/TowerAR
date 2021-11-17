@@ -96,7 +96,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Ghost.transform.localEulerAngles = Vector3.zero;
 
         GameController.Instance.SetSelectedCard(this);
-
+        SoundManager.Instance.Play(SoundManager.SoundType.Select);
     }
 
     //Unhighlight card, move back into hand, turn off ghost and remove description
@@ -107,7 +107,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         StartCoroutine(MoveCard(GetComponent<RectTransform>().position, _selectTime));
         Ghost.SetActive(false);
         GameController.Instance.DeselectCard(this);
-
+        SoundManager.Instance.Play(SoundManager.SoundType.Select);
     }
 
     //Show description of card ability at the top of the screen (game info area)
@@ -145,7 +145,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         //Move towards target location
-        _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime); ;
+       
+            _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime);
+        
+       
     }
 
     public bool GetIsUsable()

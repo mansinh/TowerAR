@@ -38,9 +38,11 @@ public class MiracleCard : Card
 
     public override bool ActivateCard()
     {
+  
         //Activate miracle from pool at target position and update activation count
         if (_miracleController.Activate(transform.position))
         {
+            
             _timesActivated++;
             SetGameInfo();
         }
@@ -60,4 +62,6 @@ public class MiracleCard : Card
     {
         GameInfo.Instance.SetSelectedText(_miracleController.GetInfo() + " " + (_maxTimesActivated - _timesActivated) + "/" + _maxTimesActivated);
     }
+
+   
 }

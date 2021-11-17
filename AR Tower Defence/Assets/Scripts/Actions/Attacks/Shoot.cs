@@ -9,6 +9,7 @@ public class Shoot : Attack
     [SerializeField] float _projectileSpeed;
     [SerializeField] float _projectileLifetime;
     [SerializeField] int _projectileCount;
+    
 
     protected override void Init()
     {

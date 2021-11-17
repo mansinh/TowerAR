@@ -101,6 +101,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallCard
       objectReference: {fileID: 0}
+    - target: {fileID: 1885774406768983530, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0784162
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885774406768983530, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5908027
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885774406768983530, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2571777674060084067, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -149,6 +161,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5705717984139636708, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -661906787361178631, guid: 3852059fedd2b41489edf5ab2ec4d362, type: 3}
     - target: {fileID: 5957505886987818509, guid: ef013a617616c594f933d82fd6c3042b, type: 3}
       propertyPath: gridSize
       value: 0.2

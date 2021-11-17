@@ -243,8 +243,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.2, z: 0.3}
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Size: {x: 0.4, y: 0.2, z: 0.2}
+  m_Center: {x: 0, y: 0.1, z: 0.2}
 --- !u!208 &267750411928467129
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -255,11 +255,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.1, y: 0.1, z: 0.1}
+  m_Extents: {x: 0.2, y: 0.1, z: 0.05}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0.16}
   m_TimeToStationary: 0.5
 --- !u!114 &8179108437449764649
 MonoBehaviour:
@@ -275,7 +275,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 7
   duration: 0
-  ActionAnimDelay: 0
   TimeRemaining: 0
   isReady: 1
   isActing: 0
@@ -323,17 +322,20 @@ MonoBehaviour:
   IsDestroyed: 0
   meshRenderers:
   - {fileID: 1672616970841377400}
-  mat_selected: {fileID: 2100000, guid: df69a30fd3abeaa4489eb8bdea1deb1e, type: 2}
+  mat_selected: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
   mat_normal: {fileID: 2100000, guid: ef48db3eb1cac0744862e3fdce166abe, type: 2}
   destroyedHeight: 0.1
   finishedEffect: {fileID: 2671296742239948845}
   canSacrifice: 1
+  SoundEffects: {fileID: 0}
   IsBuilt: 1
   _range: -1
   _AiUpdateTime: 0.2
   _attack: {fileID: 8179108437449764649}
   maxHeightDiff: 1
   _currentTarget: {fileID: 0}
+  Info: 
+  shootSound: {fileID: 0}
 --- !u!114 &334709448816595722
 MonoBehaviour:
   m_ObjectHideFlags: 0

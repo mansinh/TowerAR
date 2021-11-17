@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 1920176270143784101}
   MaxHealth: 70
-  DeathDuration: 3
+  DeathDuration: 2
   Health: 100
   IsDestroyed: 0
   BaseSpeed: 1
@@ -166,6 +166,7 @@ MonoBehaviour:
   DistanceFromTarget: 1
   MaxHeightDiff: 0.01
   animator: {fileID: 0}
+  SoundEffects: {fileID: 0}
   State: 0
   Perception: {fileID: 0}
 --- !u!54 &8565132213219592579
@@ -338,7 +339,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0.5
-  ActionAnimDelay: 0
   TimeRemaining: 0
   isReady: 1
   isActing: 0
@@ -365,4 +365,5 @@ MonoBehaviour:
   _poisonCard: 0
   _stunCard: 0
   _attackSpeedCard: 0
+  ActionAnimDelay: 0.1
   _attackImpact: {fileID: 6138242352443521682}

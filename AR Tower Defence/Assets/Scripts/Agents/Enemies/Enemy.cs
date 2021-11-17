@@ -14,7 +14,14 @@ public class Enemy : Agent
         }
         base.Init();
     }
-
+    protected override void DamageEffects(Damage damage)
+    {
+        base.DamageEffects(damage);
+        if (damage.damage > 0)
+        {
+            SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.MonsterDamage]);
+        }
+    }
     protected override void LookAround()
     {
         base.LookAround();

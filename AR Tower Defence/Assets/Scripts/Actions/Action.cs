@@ -9,7 +9,7 @@ public class Action : MonoBehaviour
 {
     public float cooldown;
     public float duration;
-    [SerializeField] protected float ActionAnimDelay = 0;
+
     public float TimeRemaining = 0;
 
     [SerializeField] bool isReady = true;
@@ -20,7 +20,7 @@ public class Action : MonoBehaviour
     [SerializeField] private float maxHeightDiff = 0.5f;
 
     protected Vector3 TargetPosition;
-   
+
 
     private void Awake()
     {
@@ -55,7 +55,7 @@ public class Action : MonoBehaviour
                 }
 
                 TargetPosition = targetPosition;
-               
+                Act(TargetPosition);
                 isActing = true;
                 isReady = false;
                 isCooling = false;
@@ -73,7 +73,7 @@ public class Action : MonoBehaviour
     }
 
     public virtual void EndAction()
-    {     
+    {
         isActing = false;
         isCooling = true;
         isReady = false;
@@ -91,13 +91,7 @@ public class Action : MonoBehaviour
     private void Update()
     {
         TimeRemaining -= Time.deltaTime;
-        if (isActing)
-        { 
-            if (TimeRemaining < ActionAnimDelay)
-            {
-                Act(TargetPosition);
-            }
-        }
+       
 
         if (TimeRemaining < 0)
         {
@@ -110,8 +104,14 @@ public class Action : MonoBehaviour
                 EndAction();
             }
         }
+        OnUpdate();
+
     }
 
+    protected virtual void OnUpdate()
+    {
+
+    }
     public void SetRange(float range)
     {
         _range = range;

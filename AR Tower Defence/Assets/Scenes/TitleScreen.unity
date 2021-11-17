@@ -313,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103156820}
   - component: {fileID: 103156821}
+  - component: {fileID: 103156822}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -389,10 +390,34 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 103156822}
+        m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &103156822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103156819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e26a0f93ba3df745b7763b7b2a61487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139410631
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,9 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461917268494405464, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
       propertyPath: m_text
-      value: '2
-
-'
+      value: Snake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
@@ -858,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461917268494405464, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
       propertyPath: m_text
-      value: 1
+      value: Mountain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
@@ -884,7 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c26533064cad4f864ee492ce63b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Manny Scene
+  levelName: Mountain
 --- !u!1 &330173999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1388,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1011888731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1011888733}
+  - component: {fileID: 1011888732}
+  m_Layer: 0
+  m_Name: Options
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1011888732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011888731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72baabcb28267ff4aab32747ad03f9e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  shadows: 1
+--- !u!4 &1011888733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011888731}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 680, y: 680, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1105999262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1198804952}
   - component: {fileID: 1198804953}
+  - component: {fileID: 1198804954}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -1525,8 +1594,32 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1198804954}
+        m_TargetAssemblyTypeName: ShadowToggle, Assembly-CSharp
+        m_MethodName: SetShadows
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &1198804954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198804951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede81be5bf1ed2f4790cd9aea0be4a6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1207457281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,7 +1824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461917268494405464, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
       propertyPath: m_text
-      value: 3
+      value: Spiral
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb3b90719fd6124f960ce4d5706a15e, type: 3}
@@ -1757,7 +1850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c26533064cad4f864ee492ce63b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level 2
+  levelName: Spiral
 --- !u!1 &1312676200
 GameObject:
   m_ObjectHideFlags: 0

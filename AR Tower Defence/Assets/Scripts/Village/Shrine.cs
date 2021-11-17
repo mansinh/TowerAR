@@ -11,11 +11,12 @@ public class Shrine : VillageBuilding
 {
     [SerializeField] MiracleController miracleController;
     [SerializeField] SpriteRenderer symbol;
+    [SerializeField] GameObject indicator;
 
     protected override void Init()
     {
         base.Init();
-        miracleController = GameObject.Find("WaterDeck").GetComponent<MiracleController>();
+        indicator.SetActive(true);
         miracleController.gameObject.SetActive(false);
     }
   
@@ -29,6 +30,7 @@ public class Shrine : VillageBuilding
         if (!miracleController.gameObject.active)
         {
             FinishedBuilding();
+            indicator.SetActive(false);
             if (miracleController)
             {
                 miracleController.gameObject.SetActive(true);
@@ -47,7 +49,7 @@ public class Shrine : VillageBuilding
 
     public override string GetGameInfo(bool showHealth)
     {
-        string description = "SHRINE: Where you live. Your villagers worship here which charges your MP. It is gameover when this is destroyed.";
+        string description = "SHRINE: Your villagers worship here which charges your MP. It is gameover when this is destroyed.";
         if (!miracleController.gameObject.active)
         {
             description += "\nTap to unlock " + miracleController.GetInfo();

@@ -6,6 +6,8 @@ public class Villager : Agent, IHoverable
     private bool _isDay = false;
     private Shrine _shrine;
     [SerializeField] Worship worshipAction;
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Sprite standing, hammerUp, hammerDown, handsUp;
     bool isBuilding = false;
 
     
@@ -38,16 +40,8 @@ public class Villager : Agent, IHoverable
     void Update()
     {
 
-        Vector3 velocity = GetVelocityFraction();
-        if (velocity.sqrMagnitude > 0.01)
-        {
-            State = AgentState.Running;
-        }
-        else
-        {
-            State = AgentState.Idling;
-        }
-
+        
+        Animate();
 
         //Periodically decide on target, not every frame as that may be expensive
         TimeSinceAIUpdate += Time.deltaTime;
@@ -65,13 +59,19 @@ public class Villager : Agent, IHoverable
                     {
                         SetTarget(building.transform, 0.3f);
                         isBuilding = true;
+                        
                         break;
                     }
                 }
-              
+                if (!isBuilding)
+                {
+                    SoundEffects.Stop();
+                }
+
+
                 if (_shrine != null && !isBuilding)
                 {
-                    SetTarget(_shrine.transform, 0.3f);
+                    SetTarget(_shrine.transform, 0.5f);
                 }
 
             }
@@ -85,6 +85,7 @@ public class Villager : Agent, IHoverable
         //Turn towards current target and act if in range and cooldown over
         if (CurrentTarget != null)
         {
+            transform.LookAt(CurrentTarget.position);
             if (_isDay)
             {
                 if (isBuilding)
@@ -92,15 +93,24 @@ public class Villager : Agent, IHoverable
                     if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
                     {
                         State = AgentState.Action0;
-                        if (_action != null )
+                        if (_action != null)
                         {
 
                             if (_action.Activate(CurrentTarget.position))
                             {
-                                transform.LookAt(CurrentTarget.position);
+                                
+                                if (!SoundEffects.isPlaying)
+                                {
+                                    SoundEffects.loop = true;
+                                    SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Build]);
+                                }
                             }
-                            
+
                         }
+                    }
+                    else
+                    {
+                        SetMoveState();
                     }
                 }
                 else if (CurrentTarget.GetComponent<Shrine>())
@@ -114,6 +124,10 @@ public class Villager : Agent, IHoverable
                         }
                         return;
                     }
+                    else
+                    {
+                        SetMoveState();
+                    }
                 }
             }
             else
@@ -126,6 +140,22 @@ public class Villager : Agent, IHoverable
             }
         }
 
+
+        
+
+    }
+
+    void SetMoveState()
+    {
+        Vector3 velocity = GetVelocityFraction();
+        if (velocity.sqrMagnitude > 0.01)
+        {
+            State = AgentState.Running;
+        }
+        else
+        {
+            State = AgentState.Idling;
+        }
     }
 
     private void Sleep()
@@ -160,4 +190,66 @@ public class Villager : Agent, IHoverable
     {
         return null;
     }
+
+
+    float timeSinceLastFrame = 0;
+    float frameTime = 0.5f;
+    void Animate()
+    {
+        sprite.flipX = Vector3.Dot(transform.forward, Camera.main.transform.right) <= 0;
+
+        
+        switch (State)
+        {
+            case AgentState.Running: RunAnimation(); break;
+            case AgentState.Action0: BuildingAnimation(); break;
+            case AgentState.Action1: WorshipAnimation(); break;
+            case AgentState.Idling: IdleAnimation(); break;
+        }
+        timeSinceLastFrame += Time.deltaTime;
+    }
+
+    void RunAnimation()
+    {
+        _view.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * 60)/40, 0);
+    }
+    void BuildingAnimation()
+    {
+      
+        if (timeSinceLastFrame < frameTime/2)
+        {
+            sprite.sprite = hammerDown;
+        }
+        else if (timeSinceLastFrame < frameTime)
+        {
+            sprite.sprite = hammerUp;
+        }
+        else
+        {
+            timeSinceLastFrame = 0;
+        }
+    }
+    void WorshipAnimation()
+    {
+        print("Worship anim");
+        if (timeSinceLastFrame < frameTime)
+        {
+            print("stand");
+            sprite.sprite = standing;
+        }
+        else if (timeSinceLastFrame <  2*frameTime)
+        {
+            print("hands up");
+            sprite.sprite = handsUp;
+        }
+        else
+        {
+            timeSinceLastFrame = 0;
+        }
+    }
+    void IdleAnimation()
+    {
+        sprite.sprite = standing;
+    }
 }
+

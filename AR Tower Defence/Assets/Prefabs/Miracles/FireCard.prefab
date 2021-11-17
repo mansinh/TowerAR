@@ -95,6 +95,22 @@ PrefabInstance:
       propertyPath: Description
       value: Hold to cast a wall of fire
       objectReference: {fileID: 0}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7721618695287029235, guid: 3852059fedd2b41489edf5ab2ec4d362, type: 3}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Color.b
+      value: 0.1641509
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5288624
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5311728916994545659, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Name
       value: FireCard
@@ -106,6 +122,6 @@ PrefabInstance:
     - target: {fileID: 6953929553587082266, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 85dc10cf31fe24749b4382c742c4f1a7, type: 3}
+      objectReference: {fileID: 9025175845448281247, guid: 3852059fedd2b41489edf5ab2ec4d362, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}

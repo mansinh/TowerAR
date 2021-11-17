@@ -100,6 +100,6 @@ public class MiracleWater : Miracle
 
     public override string GetInfo()
     {
-        return "RAIN MIRACLE: restores wasteland, grows trees and puts out fires. When activated, hold use button to cast.";
+        return "RAIN MIRACLE: restores wasteland, grows trees and puts out fires. Hold use button to cast when activated.";
     }
 }

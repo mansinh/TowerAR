@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpawnEnemy))]
-public class EnemySource : Destroyable
+public class EnemySource : Destroyable, IHoverable
 {
     SpawnEnemy _spawnEnemy;
     
@@ -26,13 +26,14 @@ public class EnemySource : Destroyable
     [SerializeField] int _enemiesSpawned = 0;
     [SerializeField] int _compositionIndex = 0;
     [SerializeField] string _currentType = "";
+    [SerializeField] SpriteRenderer sprite;
     int _currentTypeIndex = 0;
     
     protected override void Init()
     {
         base.Init();
         _spawnEnemy = GetComponent<SpawnEnemy>();
-       
+        sprite = _view.GetComponent<SpriteRenderer>();
     }
 
     void Update() {
@@ -53,6 +54,8 @@ public class EnemySource : Destroyable
                     StopWave();
                 }
             }
+            _view.transform.RotateAroundLocal(Vector3.up, Time.deltaTime);
+
         }
     }
 
@@ -62,12 +65,13 @@ public class EnemySource : Destroyable
         _spawnEnemy.cooldown = _waveCooldownPerDay.Evaluate(dayCount);
         _currentWaveSize = (int)_waveSizePerDay.Evaluate(dayCount);
         _compositionIndex = dayCount % _typeCompositions.Length;
+        sprite.color = Color.white;
     }
 
     public void StopWave()
     {
         _isSpawning = false;
-       
+        sprite.color = new Color(0,0,0,0.3f);
     }
 
     public void ResetWave()
@@ -87,6 +91,47 @@ public class EnemySource : Destroyable
             case 2: _currentType = "Flying"; break;
             case 3: _currentType = "Tanky"; break;
         }
+    }
+
+
+    protected override void Remove()
+    {
+        base.Remove();
+        gameObject.SetActive(false);
+
+        EnemySource[] sources = FindObjectsOfType<EnemySource>();
+        bool gameWon = true;
+        foreach (EnemySource source in sources)
+        {
+            if (source.isActiveAndEnabled)
+            {
+                gameWon = false;
+                break;
+            }
+        }
+
+        if (gameWon)
+        {
+            GameController.Instance.GameWon();
+        }
+    }
+
+
+    public void OnHoverEnter(){}
+
+    public void OnHoverStay()
+    {
+        GameInfo.Instance.SetHoverText("MONSTER PORTAL: A cataclysm turned the island into a toxic wasteland and opened up these portals. Spawns monsters at night. Destroy all of these to win the game.");
+    }
+
+    public void OnHoverLeave()
+    {
+        GameInfo.Instance.SetHoverText("");
+    }
+
+    public ISelectable GetSelectable()
+    {
+        return null;
     }
 }
 

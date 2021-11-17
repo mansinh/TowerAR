@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -80,7 +81,7 @@ public class CardDeck : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    DrawRandom();
+                   DrawRandom();
                 }
                 UpdateCardPositions();
             }
@@ -113,15 +114,19 @@ public class CardDeck : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void DrawRandom()
+    public void DrawRandom()
     {
+        SoundManager.Instance.Play(SoundManager.SoundType.DealCard);
         //Draw a random set of cards
         int dealSize = Mathf.Min(maxCards - _cardsInHand.Count, this.dealSize);
         for (int i = 0; i < dealSize; i++)
         {
             DrawRandomCard();
+           
+           
         }
     }
+
     protected virtual Card DrawRandomCard() {
         int random = (int)(probabilities.Count * Random.value);
 

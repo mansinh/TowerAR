@@ -16,7 +16,7 @@ public class Build : Attack
             if (hit.collider.GetComponent<VillageBuilding>())
             {
                 hit.collider.GetComponent<VillageBuilding>().Damage(CalulateDamage());
-                impact.SetActive(true);
+                //impact.SetActive(true);
             }
         }
     }
