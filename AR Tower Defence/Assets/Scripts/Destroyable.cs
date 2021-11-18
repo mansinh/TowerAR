@@ -131,17 +131,18 @@ public class Destroyable : MonoBehaviour
         _poisonDamage = 0;
     }
 
+    Vector3 shakeFrom = new Vector3(0,0.01f,0);
     //makes shake animation to let player know that enemy has been stunned
     IEnumerator Stun(float duration)
     {
-        ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
+        ShakeAnim.StartShake(0.1f, duration, shakeFrom);
         OnStun();
         yield return new WaitForSeconds(duration);
         OnEndStun();
     }
 
     public void Shake(float amplitude, float duration) {
-        ShakeAnim.StartShake(0.1f, 0.3f, Vector3.zero);
+        ShakeAnim.StartShake(0.1f, 0.3f, shakeFrom);
     }
     protected virtual void OnStun() { }
     protected virtual void OnEndStun() { }

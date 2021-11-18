@@ -556,8 +556,9 @@ MonoBehaviour:
   mat_selected: {fileID: 2100000, guid: e01b91794adcfc74d9e772a2c13e029d, type: 2}
   mat_normal: {fileID: 2100000, guid: ff81705467da1b44e8ed2a315c2ccbe4, type: 2}
   destroyedHeight: 0
-  finishedEffect: {fileID: 6558259451965689642}
+  FinishedEffect: {fileID: 6558259451965689642}
   canSacrifice: 0
+  SoundEffects: {fileID: 0}
   IsBuilt: 1
   maxWood: 100
   wood: 0

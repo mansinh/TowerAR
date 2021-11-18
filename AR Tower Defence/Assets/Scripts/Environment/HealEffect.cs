@@ -9,7 +9,7 @@ public class HealEffect : MonoBehaviour
     void Start()
     {
         _visualEffect = GetComponent<ParticleSystem>();
-       
+        
     }
 
     // Update is called once per frame

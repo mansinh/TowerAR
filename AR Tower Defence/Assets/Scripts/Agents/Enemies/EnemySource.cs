@@ -71,7 +71,7 @@ public class EnemySource : Destroyable, IHoverable
     public void StopWave()
     {
         _isSpawning = false;
-        sprite.color = new Color(0,0,0,0.3f);
+        sprite.color = new Color(0,0,0,0f);
     }
 
     public void ResetWave()

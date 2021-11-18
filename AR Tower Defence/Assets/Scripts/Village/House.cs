@@ -22,7 +22,12 @@ public class House : VillageBuilding
         _villagerPool.SetPrefab(villagerPrefab.gameObject);
         _villagerPool.SetPoolSize(maxOccupancy);
         _villagerPool.Init();
+        foreach (GameObject o in _villagerPool.Inactive)
+        {
+            Villager villager = o.GetComponent<Villager>();
+            villager.Home = this;
 
+        }
     }
 
     private void Update()
@@ -60,7 +65,7 @@ public class House : VillageBuilding
             if (o)
             {
                 Villager villager = o.GetComponent<Villager>();
-                villager.Home = this;
+               
                 villager.StartDay();
             }
         }

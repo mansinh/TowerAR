@@ -49,7 +49,7 @@ public class Agent : Destroyable
         }
         NavAgent = GetComponent<NavMeshAgent>();
         base.Init();
-        OnSpawn();
+       
     }
 
     void OnEnable()
@@ -62,7 +62,7 @@ public class Agent : Destroyable
         IsDestroyed = false;
         Health = MaxHealth;
         NavAgent.speed = BaseSpeed;
-        NavAgent.isStopped = false;
+        NavAgent.isStopped = false && NavAgent.isOnNavMesh;
         SetTarget(DefaultTarget,DistanceFromTarget);
         if (_action)
         {
