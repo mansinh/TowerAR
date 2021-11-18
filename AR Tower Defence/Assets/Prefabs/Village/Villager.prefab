@@ -231,8 +231,8 @@ MonoBehaviour:
   worshipAction: {fileID: 4098827153101096134}
   sprite: {fileID: 9033111142595290307}
   standing: {fileID: -203661239432679192, guid: e702867172c611d409a81d93fcd24fd0, type: 3}
-  hammerUp: {fileID: 9196104817815572301, guid: e702867172c611d409a81d93fcd24fd0, type: 3}
-  hammerDown: {fileID: 4966075338716586333, guid: e702867172c611d409a81d93fcd24fd0, type: 3}
+  hammerUp: {fileID: 1832750334866107353, guid: e702867172c611d409a81d93fcd24fd0, type: 3}
+  hammerDown: {fileID: 9196104817815572301, guid: e702867172c611d409a81d93fcd24fd0, type: 3}
   handsUp: {fileID: 2707228883162791875, guid: e702867172c611d409a81d93fcd24fd0, type: 3}
 --- !u!114 &4098827153101096134
 MonoBehaviour:

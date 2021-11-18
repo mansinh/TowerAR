@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     private ISelectable _selectedObject;
     private IHoverable _hoveredObject;
     public bool IsHoldingObject;
-
+    public Transform cameraTransform;
     private Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
 
     void Awake()
@@ -55,6 +55,9 @@ public class GameController : MonoBehaviour
 
             //Set cursor to center of the screen
             MyCursor.Instance.SetScreenPosition(screenCenter);
+
+            //Set camera transform to the AR session origin
+            cameraTransform = arController.transform;
         }
         else
         {
@@ -69,6 +72,9 @@ public class GameController : MonoBehaviour
             //Start game
             hud.gameObject.SetActive(true);
             GameResume();
+
+            //Set camera transform to the pc test camera
+            cameraTransform = testCamera.transform;
         }
     }
 
