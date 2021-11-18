@@ -8,9 +8,8 @@ public class Villager : Agent, IHoverable
     [SerializeField] Worship worshipAction;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Sprite standing, hammerUp, hammerDown, handsUp;
-    bool isBuilding = false;
 
-    
+    bool isBuilding = false;
 
     protected override void Init()
     {
@@ -196,7 +195,7 @@ public class Villager : Agent, IHoverable
     float frameTime = 0.5f;
     void Animate()
     {
-        sprite.flipX = Vector3.Dot(transform.forward, Camera.main.transform.right) <= 0;
+        sprite.flipX = Vector3.Dot(transform.forward, GameController.Instance.cameraTransform.right) >= 0;
 
         
         switch (State)
@@ -211,7 +210,7 @@ public class Villager : Agent, IHoverable
 
     void RunAnimation()
     {
-        _view.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * 60)/40, 0);
+        _view.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * 60)/30, 0);
     }
     void BuildingAnimation()
     {

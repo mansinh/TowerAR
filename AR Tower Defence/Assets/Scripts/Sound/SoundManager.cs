@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
         print(Options.Instance + "OPTIONS");
         if (Options.Instance)
         {
-            AudioListener.volume = Options.Instance.volume;
+            AudioListener.volume = Options.Instance.volume/3;
         }
 
         if (Instance == null)
@@ -72,7 +72,7 @@ public class SoundManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        AudioListener.volume = volume;
+        AudioListener.volume = volume/3;
     }
 
     void LoadSounds()

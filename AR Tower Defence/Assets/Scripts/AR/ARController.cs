@@ -36,6 +36,8 @@ public class ARController : MonoBehaviour
 
     private void Awake()
     {
+        world = FindObjectOfType<World>();
+
         //Find AR managers
         _arRayCastManager = GetComponent<ARRaycastManager>();
         _planeManager = GetComponent<ARPlaneManager>();
