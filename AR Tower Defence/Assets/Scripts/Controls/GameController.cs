@@ -413,17 +413,17 @@ public class GameController : MonoBehaviour
     //Fades in the game over overlay when player (shrine) is destroyed
     public void GameOver()
     {
-        gameOverMenu.alpha = 0;
+
         gameOverMenu.gameObject.SetActive(true);
-        StartCoroutine(UITransitions.AlphaTo(gameOverMenu, 1, 0.3f));
+       
     }
 
     //Fades in the game won overlay when all portals are destroyed
     public void GameWon()
     {
-        gameOverMenu.alpha = 0;
-        gameOverMenu.gameObject.SetActive(true);
-        StartCoroutine(UITransitions.AlphaTo(gameOverMenu, 1, 0.3f));
+     
+        gameWonMenu.gameObject.SetActive(true);
+       
     }
 
     public bool IsSomethingSelected()

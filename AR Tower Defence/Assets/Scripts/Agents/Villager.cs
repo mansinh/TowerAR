@@ -19,8 +19,6 @@ public class Villager : Agent, IHoverable
         {
             _shrine = FindObjectOfType<Shrine>();
         }
-       
-
         base.Init();
     }
 

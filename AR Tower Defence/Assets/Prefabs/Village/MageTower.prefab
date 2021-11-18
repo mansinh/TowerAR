@@ -77,6 +77,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
     - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
+      propertyPath: FinishedEffect
+      value: 
+      objectReference: {fileID: 3242797258167042559}
+    - target: {fileID: 6140706670366130801, guid: e8df902312f716c40ab47af7d3e9487c, type: 3}
       propertyPath: finishedEffect
       value: 
       objectReference: {fileID: 3242797258167042559}

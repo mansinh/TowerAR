@@ -12,7 +12,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     [SerializeField] Material mat_selected;
     [SerializeField] Material mat_normal;
     [SerializeField] float destroyedHeight = 0.1f;
-    [SerializeField] HealEffect finishedEffect;
+    [SerializeField] protected HealEffect FinishedEffect;
     [SerializeField] bool canSacrifice = true;
     public AudioSource SoundEffects;
 
@@ -71,14 +71,14 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
     public virtual void FinishedBuilding()
     {
         IsBuilt = true;
-        finishedEffect.PlayEffects();
+        FinishedEffect.PlayEffects();
         SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Restored]);
        
     }
 
     public virtual void OnUpgrade()
     {
-        finishedEffect.PlayEffects();
+        FinishedEffect.PlayEffects();
         SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Restored]);
     }
 

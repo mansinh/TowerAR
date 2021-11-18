@@ -171,7 +171,7 @@ MonoBehaviour:
   mat_selected: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
   mat_normal: {fileID: 2100000, guid: a3a204b70acb3f64c86ff98d656f0bd7, type: 2}
   destroyedHeight: 0.45
-  finishedEffect: {fileID: 4150397096030936212}
+  FinishedEffect: {fileID: 4150397096030936212}
   canSacrifice: 1
   SoundEffects: {fileID: 0}
   IsBuilt: 1
@@ -270,7 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   duration: 0
-  ActionAnimDelay: 0
   TimeRemaining: 0
   isReady: 1
   isActing: 0

@@ -8,6 +8,6 @@ public class SceneChoosing : MonoBehaviour
     [SerializeField] string levelName = "";
     public void SceneLoading()
     {
-        SceneManager.LoadScene(levelName);
+        SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
 }

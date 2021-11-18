@@ -34,9 +34,9 @@ public class Points : MonoBehaviour
         int cardDrawCost = 0;
         switch (deckType) {
             case CardDeck.DeckType.Main: { cardDrawCost = 30;  break; }
-            case CardDeck.DeckType.Lightning: { cardDrawCost = 20; break; }
+            case CardDeck.DeckType.Lightning: { cardDrawCost = 30; break; }
             case CardDeck.DeckType.Water: { cardDrawCost = 20; break; }
-            case CardDeck.DeckType.Fire: { cardDrawCost = 20; break; }
+            case CardDeck.DeckType.Fire: { cardDrawCost = 15; break; }
             case CardDeck.DeckType.Heal: { cardDrawCost = 20; break; }
         }
 
@@ -69,7 +69,7 @@ public class Points : MonoBehaviour
     int GetVillagePoint(string villageBuildingType) {
         switch (villageBuildingType)
         {
-            case "Shrine": { return 100;}
+            case "Shrine": { return 60;}
             case "House": { return 5; }
         }
         return 0;

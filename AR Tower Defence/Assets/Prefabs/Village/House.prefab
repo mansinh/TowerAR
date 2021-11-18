@@ -71,8 +71,9 @@ MonoBehaviour:
   mat_selected: {fileID: 2100000, guid: 5e01fda9449bf9f4bbe96fcd753852f3, type: 2}
   mat_normal: {fileID: 2100000, guid: e564702426ee8a841a0f83ba2a48a826, type: 2}
   destroyedHeight: 0.15
-  finishedEffect: {fileID: 4146212055317064672}
+  FinishedEffect: {fileID: 4146212055317064672}
   canSacrifice: 1
+  SoundEffects: {fileID: 0}
   IsBuilt: 1
   occupancy: 1
   maxOccupancy: 3

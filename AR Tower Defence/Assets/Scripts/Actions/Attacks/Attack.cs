@@ -88,7 +88,7 @@ public class Attack : Action
         
         {_stunRate = (1-(1/((0.15f * _stunCard +1)))) + (1- (1 - (1 / ((0.15f + _basicStunRate) * _stunCard + 1))) * _basicStunRate) * _basicStunRate;
             _stunDamage = 7 * _stunCard + _basicStunDamage;
-            _stunDuration = 3* Mathf.Min(_stunCard,1) + _basicStunDuration;
+            _stunDuration = 1* Mathf.Min(_stunCard,1) + _basicStunDuration;
         }
 
         damage.damage = _attackDamage;

@@ -47,6 +47,11 @@ public class Shrine : VillageBuilding
         base.OnHoverEnter();
     }
 
+    public void OnWorship()
+    {
+        FinishedEffect.PlayEffects();
+    }
+
     public override string GetGameInfo(bool showHealth)
     {
         string description = "SHRINE: Your villagers worship here which charges your MP. It is gameover when this is destroyed.";

@@ -128,6 +128,8 @@ public class Tile : MonoBehaviour, IHoverable
         _tileCollider.center = new Vector3(0, (Coordinates.y + 1f) / 2, 0);
         _tileCollider.size = new Vector3(1, Coordinates.y + 1, 1);
         decorator.transform.position = GetTop();
+        healedEffect.transform.position = GetTop();
+        healingEffect.transform.position = GetTop();
         showHeight.transform.position = GetTop();
         showHeight.SetText(""+ GetHeight() + " "+ state);
     }
