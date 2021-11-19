@@ -1,9 +1,10 @@
-
-using UnityEngine;
 using UnityEngine.AI;
+/*
+* Enemies that attack village buildings as they make their way to the shine from the portal
+*@ author Manny Kwong 
+*/
 public class Enemy : Agent
-{
-   
+{  
     protected override void Init()
     {
         Name = "Enemy";
@@ -14,6 +15,7 @@ public class Enemy : Agent
         }
         base.Init();
     }
+
     protected override void DamageEffects(Damage damage)
     {
         base.DamageEffects(damage);
@@ -22,6 +24,7 @@ public class Enemy : Agent
             SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.MonsterDamage]);
         }
     }
+
     protected override void LookAround()
     {
         base.LookAround();
@@ -36,7 +39,8 @@ public class Enemy : Agent
                     SetTarget(DefaultTarget,DistanceFromTarget);
                 }
             }*/
-            
+
+            //If there is no path to shrine set the target to a wall blocking the path to the shrine 
             if (CurrentTarget == DefaultTarget)
             {
                 if (NavAgent.pathStatus != NavMeshPathStatus.PathComplete)
@@ -44,9 +48,7 @@ public class Enemy : Agent
                     Wall[] walls = FindObjectsOfType<Wall>();
                     foreach (Wall wall in walls)
                     {
-
                         NavMeshPath path = new NavMeshPath();
-
                         NavAgent.CalculatePath(wall.transform.position + GetRandomAround(DistanceFromTarget), path);
 
                         if (path.status == NavMeshPathStatus.PathComplete)
@@ -60,8 +62,6 @@ public class Enemy : Agent
             }
         }
     }
-
-
 }
 
 

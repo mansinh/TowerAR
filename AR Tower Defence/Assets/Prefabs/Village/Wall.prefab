@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapToGrid: 1
-  gridSize: 0.25
+  gridSize: 0.2
 --- !u!208 &-7549741821291475438
 NavMeshObstacle:
   m_ObjectHideFlags: 0

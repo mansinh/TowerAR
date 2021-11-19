@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Buildings that attack the closest enemy from a distance by shooting projectiles
+ *@ author Manny Kwong 
+ */
 
 public class Tower : VillageBuilding
 {
@@ -24,11 +27,13 @@ public class Tower : VillageBuilding
 
     void Update()
     {
+        //Dont do anything if not built
         if (!IsBuilt)
         {
             return;
         }
 
+        //Attack current target if in range
         if (_currentTarget)
         {
             if (_attack.Activate(_currentTarget.position + Vector3.up * _currentTarget.localScale.y / 2))
@@ -40,6 +45,7 @@ public class Tower : VillageBuilding
             }
         }
 
+        //Look for closest enemy and set as target 
         _timeSinceAIUpdate += Time.deltaTime;
         if (_timeSinceAIUpdate > _AiUpdateTime)
         {

@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Set projectile stats and shoot at a target
+ *@ author Manny Kwong 
+ */
 
 public class Shoot : Attack
 {

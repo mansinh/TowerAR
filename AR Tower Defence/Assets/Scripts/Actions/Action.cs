@@ -27,10 +27,7 @@ public class Action : MonoBehaviour
         Init();
     }
 
-    protected virtual void Init()
-    {
-
-    }
+    protected virtual void Init(){}
 
     //Reset action on enable
     private void OnEnable()
@@ -65,7 +62,6 @@ public class Action : MonoBehaviour
         }
         return false;
     }
-
 
     protected virtual void Act(Vector3 targetPosition)
     {
@@ -105,13 +101,10 @@ public class Action : MonoBehaviour
             }
         }
         OnUpdate();
-
     }
 
-    protected virtual void OnUpdate()
-    {
+    protected virtual void OnUpdate(){}
 
-    }
     public void SetRange(float range)
     {
         _range = range;

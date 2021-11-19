@@ -10,7 +10,6 @@ using UnityEngine.EventSystems;
 
 public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-
     public bool IsDown = false;
     private bool _isUsingCard = false;
     private bool _isOverSelectable = false;
@@ -44,8 +43,6 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             PCControls();
         }
     }
-
-
 
     //If a selectable object is hovered over, make button interactable 
     public void SetHoveringSelectable(ISelectable selectable)
@@ -175,7 +172,5 @@ public class UseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 buildingRotationSlider.value = buildingRotationSlider.maxValue;
             }
         }
-
-
     }
 }

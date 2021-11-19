@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 /**
- * Increase chance for building cards or maybe spend points to spawn building cards
- * Yet to be implemented
+ * Drop trees into lumberyard to convert into wood. Spawns building cards when full
  *@ author Manny Kwong 
  */
 
@@ -15,13 +14,6 @@ public class Lumberyard : VillageBuilding
     [SerializeField] CardDeck mainDeck;
     [SerializeField] GameObject arrow;
 
-    protected override void Init()
-    {
-        base.Init();
-
-
-    }
-
     public bool TreeToWood(MyTree tree)
     {
         if (mainDeck.CanDrawCard())
@@ -32,16 +24,20 @@ public class Lumberyard : VillageBuilding
         }
         return false;
     }
+
+    //Show how much wood there is in the lumberyard by the height of the wood pile
     IEnumerator UpdateWood()
     {
         float woodLevel = Mathf.Min((wood - maxWood) / maxWood *0.2f, 0);
 
+        //Raise the wood pile 
         while (timberView.localPosition.y < woodLevel)
         {
-
             timberView.localPosition += new Vector3(0, 0.2f / 10, 0);
             yield return new WaitForSeconds(0.1f);
         }
+
+        //Spawn cards when full of wood and reset the height of the wood pile
         if (wood >= maxWood)
         {
             mainDeck.DrawLumberCards();
@@ -52,6 +48,7 @@ public class Lumberyard : VillageBuilding
         }
     }
 
+    //Show indicator arrow when a tree is picked up
     public void ShowArrow()
     {
         if (mainDeck.CanDrawCard())
@@ -59,6 +56,7 @@ public class Lumberyard : VillageBuilding
             arrow.SetActive(true);
         }
     }
+
     public void HideArrow()
     {
         arrow.SetActive(false);

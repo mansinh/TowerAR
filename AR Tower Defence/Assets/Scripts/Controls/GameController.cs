@@ -420,10 +420,8 @@ public class GameController : MonoBehaviour
 
     //Fades in the game won overlay when all portals are destroyed
     public void GameWon()
-    {
-     
-        gameWonMenu.gameObject.SetActive(true);
-       
+    {    
+        gameWonMenu.gameObject.SetActive(true);  
     }
 
     public bool IsSomethingSelected()

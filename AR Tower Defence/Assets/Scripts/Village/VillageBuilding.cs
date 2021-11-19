@@ -1,8 +1,7 @@
 using UnityEngine;
 
 /**
- * Adds to points rewarded per enemy slain / per time during the day
- * TODO: Villagers 
+ * Base class for all buildings. Can be placed on a level, repaired/constructed by villagers, selected and destroyed, shows game info when hovered over
  *@ author Manny Kwong 
  */
 
@@ -20,7 +19,6 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
 
     protected override void Init()
     {
-
         base.Init();
         if (Points.Instance)
         {
@@ -94,10 +92,7 @@ public class VillageBuilding : Destroyable, ISelectable, IHoverable
         SetMaterial(mat_normal);
     }
 
-    public virtual void UpdateSelected()
-    {
-       
-    }
+    public virtual void UpdateSelected() {}
 
     public virtual void Destroy()
     {

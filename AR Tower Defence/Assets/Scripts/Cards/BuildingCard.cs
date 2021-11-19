@@ -86,6 +86,7 @@ public class BuildingCard : Card
         Ghost.transform.localEulerAngles = new Vector3(0, rotation, 0);
     }
 
+    //Cast rays downwards to check if the building ghost is over level ground and not intersecting with other objects
     public bool CheckForGround()
     {
         float height = 0;
@@ -101,6 +102,7 @@ public class BuildingCard : Card
                 Wall wall = hit.collider.GetComponent<Wall>();
                 if (tile == null)
                 {
+                    //Return false when not over ground
                     if (!((wall != null && ignoreWalls) || (tower != null && ignoreTowers)))
                     {
                         return false;
@@ -108,10 +110,12 @@ public class BuildingCard : Card
                 }
                 else
                 {
+                    //Return false when not over player territory/restored tile
                     if (tile.GetState() != 100)
                     {
                         return false;
                     }
+                    //Return false when the ground is not level with other raycasts
                     if (i == 0)
                     {
                         height = tile.GetHeight();
@@ -146,9 +150,6 @@ public class BuildingCard : Card
                 building.GetComponent<VillageBuilding>().SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.PlaceBuilding]);
             }
             GameController.Instance.SelectObject(building.GetComponent<ISelectable>());
-
-           
- 
             Discard();
             return true;
         }
@@ -159,5 +160,4 @@ public class BuildingCard : Card
     {
         GameInfo.Instance.SetSelectedText(buildingPrefab.GetComponent<VillageBuilding>().GetGameInfo(false));
     }
-
 }

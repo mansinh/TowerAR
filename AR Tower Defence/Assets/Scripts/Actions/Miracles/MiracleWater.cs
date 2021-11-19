@@ -19,7 +19,6 @@ public class MiracleWater : Miracle
     {
         _timeSinceAttack += Time.deltaTime;
 
-
         if (_timeSinceAttack > _coolDown)
         {
             //bool overGrownTree = false;
@@ -58,17 +57,6 @@ public class MiracleWater : Miracle
                         tile.OnMiracleRain(tileHealAmount);
                     }
                 }
-
-                /*
-                Destroyable destroyable = other.GetComponent<Destroyable>();
-
-                if (destroyable != null)
-                {
-                    if (destroyable.gameObject.layer != 6)
-                    {
-                        destroyable.Damage(MiracleEffect);
-                    }
-                }*/
             }
 
             if (Random.value < 1f / 50 && MyCursor.Instance.GetCursorHitting())
@@ -83,12 +71,10 @@ public class MiracleWater : Miracle
                 }
             }
         }
-
-
     }
+
     public void SproutTree()
     {
-
         MyTree newTree = Instantiate(treePrefab, World.Instance.transform);
         if (newTree)
         {

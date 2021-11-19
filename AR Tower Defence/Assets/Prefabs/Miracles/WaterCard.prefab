@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: _activationTileState
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4388503338906397495, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5133797188766833300, guid: e7860fb54c417de4486ed7920f9e9fb0, type: 3}
       propertyPath: m_Sprite
       value: 

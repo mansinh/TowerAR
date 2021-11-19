@@ -130,7 +130,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         image.GetComponent<RectTransform>().position = moveTo;
     }
 
-
     void Update()
     {
         //If selected and the action is valid on cursor target, place the ghost in front of the cursor
@@ -145,10 +144,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         //Move towards target location
-       
-            _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime);
-        
-       
+        _rectTransform.localPosition = Vector3.MoveTowards(_rectTransform.localPosition, _targetPosition, 2000 * Time.deltaTime);      
     }
 
     public bool GetIsUsable()
@@ -165,7 +161,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
         return MyCursor.Instance.GetTileState() >= _activationTileState;
-
     }
 
     Vector3 _targetPosition;
@@ -202,8 +197,5 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         return true;
     }
 
-    public virtual void DeactivateCard()
-    {
-
-    }
+    public virtual void DeactivateCard(){}
 }

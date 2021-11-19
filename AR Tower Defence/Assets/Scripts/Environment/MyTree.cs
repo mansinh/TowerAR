@@ -3,6 +3,7 @@ using UnityEngine;
 
 /**
  * Trees can grow from tiles when miracle water is cast over it
+ * Can be picked up and dropped into the lumberyard for wood
  * When an enemy collides with a tree it slows the enemy down and animates recoil
  * Blackens when damaged by fire 
  *@ author Manny Kwong 
@@ -29,8 +30,6 @@ public class MyTree : Destroyable, IGrowable, ISelectable, IHoverable
             growth = 20;
         }
     }
-
-   
 
     //Increase max health and size when growing
     public void Grow(float growAmount)

@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/**
+ * Move in a direction, damage destroyables on collision or deactivate when lifetime over
+ *@ author Manny Kwong 
+ */
+
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
@@ -21,6 +26,7 @@ public class Projectile : MonoBehaviour
         _rbody = GetComponent<Rigidbody>();
     }
 
+    //Deactivate when life over
     private void Update()
     {
         _lifetime -= Time.deltaTime;
@@ -30,6 +36,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    //Start moving when activated
     void OnEnable()
     {
         transform.right = _direction;
@@ -37,6 +44,7 @@ public class Projectile : MonoBehaviour
        
     }
 
+    //Damage destroyables on collision
     private void OnTriggerEnter(Collider other)
     {
         Destroyable destroyable = other.gameObject.GetComponent<Destroyable>();

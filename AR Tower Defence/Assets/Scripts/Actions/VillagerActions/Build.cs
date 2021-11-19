@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Increase the health of buildings when in range
+ *@ author Manny Kwong 
+ */
 
 public class Build : Attack
 {
     [SerializeField] float worshipPoint = 3;
     [SerializeField] GameObject impact;
+
     protected override void Act(Vector3 targetPosition)
     {
         RaycastHit hit;
@@ -23,8 +27,6 @@ public class Build : Attack
 
     public override void EndAction()
     {
-
-
         base.EndAction();
         impact.SetActive(false);
     }

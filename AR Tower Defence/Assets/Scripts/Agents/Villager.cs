@@ -1,5 +1,8 @@
 using UnityEngine;
-
+/*
+* Villagers repair/construct buildings and worship at the shrine for MP during the day and sleep at homes at night
+*@ author Manny Kwong 
+*/
 public class Villager : Agent, IHoverable
 {
     public House Home;
@@ -25,8 +28,7 @@ public class Villager : Agent, IHoverable
     public void StartDay()
     {
         _isDay = true;
-        transform.position = Home.Door.position;
-       
+        transform.position = Home.Door.position; 
     }
 
     public void EndDay()
@@ -35,9 +37,7 @@ public class Villager : Agent, IHoverable
     }
 
     void Update()
-    {
-
-        
+    {       
         Animate();
 
         //Periodically decide on target, not every frame as that may be expensive
@@ -46,9 +46,8 @@ public class Villager : Agent, IHoverable
         {
             if (_isDay)
             {
-
+                //Target building that needs repairing/constructing
                 VillageBuilding[] buildings = FindObjectsOfType<VillageBuilding>();
-
                 isBuilding = false;
                 foreach(VillageBuilding building in buildings)
                 {
@@ -65,7 +64,7 @@ public class Villager : Agent, IHoverable
                     SoundEffects.Stop();
                 }
 
-
+                //Target the shrine if there are no buildings that need to be repaired/constructed
                 if (_shrine != null && !isBuilding)
                 {
                     SetTarget(_shrine.transform, 0.5f);
@@ -85,6 +84,7 @@ public class Villager : Agent, IHoverable
             transform.LookAt(CurrentTarget.position);
             if (_isDay)
             {
+                //Use build action when in range of a building that needs repairing/constructing
                 if (isBuilding)
                 {
                     if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
@@ -92,17 +92,14 @@ public class Villager : Agent, IHoverable
                         State = AgentState.Action0;
                         if (_action != null)
                         {
-
                             if (_action.Activate(CurrentTarget.position))
-                            {
-                                
+                            {                               
                                 if (!SoundEffects.isPlaying)
                                 {
                                     SoundEffects.loop = true;
                                     SoundEffects.PlayOneShot(SoundManager.Instance.SoundClips[(int)SoundManager.SoundType.Build]);
                                 }
                             }
-
                         }
                     }
                     else
@@ -110,6 +107,7 @@ public class Villager : Agent, IHoverable
                         SetMoveState();
                     }
                 }
+                //Use worship action when in range of shrine
                 else if (CurrentTarget.GetComponent<Shrine>())
                 {
                     if ((CurrentTarget.position - transform.position).sqrMagnitude < 0.25)
@@ -136,23 +134,6 @@ public class Villager : Agent, IHoverable
                 }
             }
         }
-
-
-        
-
-    }
-
-    void SetMoveState()
-    {
-        Vector3 velocity = GetVelocityFraction();
-        if (velocity.sqrMagnitude > 0.01)
-        {
-            State = AgentState.Running;
-        }
-        else
-        {
-            State = AgentState.Idling;
-        }
     }
 
     private void Sleep()
@@ -173,10 +154,7 @@ public class Villager : Agent, IHoverable
         GameInfo.Instance.SetHoverText("VILLAGER: worships at the shrine to charge MP. Repairs buildings. Returns home to sleep at night.");
     }
 
-    public void OnHoverStay()
-    {
-       
-    }
+    public void OnHoverStay() {}
 
     public void OnHoverLeave()
     {
@@ -188,14 +166,14 @@ public class Villager : Agent, IHoverable
         return null;
     }
 
-
     float timeSinceLastFrame = 0;
     float frameTime = 0.5f;
     void Animate()
     {
+        //Flip sprite when moving to the left
         sprite.flipX = Vector3.Dot(transform.forward, GameController.Instance.cameraTransform.right) >= 0;
-
-        
+       
+        //Change animation depending on state/action
         switch (State)
         {
             case AgentState.Running: RunAnimation(); break;
@@ -206,13 +184,29 @@ public class Villager : Agent, IHoverable
         timeSinceLastFrame += Time.deltaTime;
     }
 
+    //Set sprite state when moving
+    void SetMoveState()
+    {
+        Vector3 velocity = GetVelocityFraction();
+        if (velocity.sqrMagnitude > 0.01)
+        {
+            State = AgentState.Running;
+        }
+        else
+        {
+            State = AgentState.Idling;
+        }
+    }
+
+    //Bob up and down for makeshift running animation
     void RunAnimation()
     {
         _view.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * 60)/30, 0);
     }
+
+    //Makeshift animation switching between 2 sprites for building
     void BuildingAnimation()
     {
-      
         if (timeSinceLastFrame < frameTime/2)
         {
             sprite.sprite = hammerDown;
@@ -226,6 +220,9 @@ public class Villager : Agent, IHoverable
             timeSinceLastFrame = 0;
         }
     }
+
+
+    //Makeshift animation switching between 2 sprites for worshipping
     void WorshipAnimation()
     {
         print("Worship anim");
@@ -244,6 +241,8 @@ public class Villager : Agent, IHoverable
             timeSinceLastFrame = 0;
         }
     }
+
+    //Reset sprite when idle
     void IdleAnimation()
     {
         sprite.sprite = standing;

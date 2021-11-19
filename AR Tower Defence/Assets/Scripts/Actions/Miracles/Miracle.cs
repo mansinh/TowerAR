@@ -91,11 +91,7 @@ public class Miracle : MonoBehaviour
         }
     }
    
-
-    protected virtual void OnStayArea(Collider other)
-    {
-        
-    }
+    protected virtual void OnStayArea(Collider other){}
 
     protected virtual void OnHit(RaycastHit hit)
     {

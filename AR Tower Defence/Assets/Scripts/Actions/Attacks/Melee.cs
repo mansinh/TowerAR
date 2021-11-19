@@ -1,6 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Short range attack
+ *@ author Manny Kwong 
+ */
 
 [RequireComponent(typeof(SphereCollider))]
 public class Melee :Attack
@@ -25,6 +29,7 @@ public class Melee :Attack
         StartCoroutine(DelayedAction());
     }
 
+    //Delay casting of collider to be in sync with animation
     IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(ActionAnimDelay);

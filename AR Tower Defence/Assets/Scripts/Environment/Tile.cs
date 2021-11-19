@@ -20,17 +20,12 @@ public class Tile : MonoBehaviour, IHoverable
     public static float DESERT = 0, HEALABLE = 10, RESTORED = 100;
     [SerializeField] private HealEffect healedEffect;
     [SerializeField] private HealEffect healingEffect;
-
     [SerializeField] private MeshRenderer decorator;
     [SerializeField] private TMP_Text showHeight;
 
-
-
     void Awake()
     {
-        _tileCollider = GetComponent<BoxCollider>();
-        
-       
+        _tileCollider = GetComponent<BoxCollider>();   
     }
 
     private void Start()
@@ -42,16 +37,19 @@ public class Tile : MonoBehaviour, IHoverable
         }
     }
 
+    //Height control for use in editor
     public void Raise()
     {
         Coordinates.y++;
         UpdateCollider();
     }
+
     public void Lower()
     {
         Coordinates.y--;
         UpdateCollider();
     }
+
     public void SetHeight(int height)
     {
         Coordinates.y = height;
@@ -87,13 +85,11 @@ public class Tile : MonoBehaviour, IHoverable
         showHeight.SetText("" + GetHeight() + " " + state);
     }
 
+    //Increase state of tile and play effect. When at max play sound and finished effect and change texture
     public void OnMiracleRain(float healAmount)
-    {
-
+    { 
         if (state < RESTORED)
-        {
-
-           
+        {         
             state += healAmount;
             if (state >= RESTORED)
             {
@@ -144,8 +140,7 @@ public class Tile : MonoBehaviour, IHoverable
         decorator.gameObject.SetActive(false);   
     }
 
-
-
+    //Show gameplay hints and tile state when cursor is hovering over the tile 
     public void OnHoverEnter()
     {
         if (state == RESTORED)
@@ -155,14 +150,10 @@ public class Tile : MonoBehaviour, IHoverable
         else
         {
             GameInfo.Instance.SetHoverText("TOXIC WASTELAND: Can't build or cast miracles on. Cast miracle RAIN near the edges to RESTORE.");
-        }
-        
+        }    
     }
 
-    public void OnHoverStay()
-    {
-       
-    }
+    public void OnHoverStay(){}
 
     public void OnHoverLeave()
     {

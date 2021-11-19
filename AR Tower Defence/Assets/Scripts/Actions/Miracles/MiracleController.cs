@@ -26,9 +26,6 @@ public class MiracleController : Attack
     {
         _miraclePool.Init();
     }
-
-    
-
   
     //Spawn miracle at cursor location when miracle card is activated (when cooldown is finished and there are miracles left in pool)
     protected override void Act(Vector3 targetPosition)
@@ -45,8 +42,7 @@ public class MiracleController : Attack
                 }
                 print("miracle push");
                 miracle.SetProperties(CalulateDamage(), _miracleLifetime);
-                _miraclePool.Push();
-                
+                _miraclePool.Push();               
             }
         }
     }

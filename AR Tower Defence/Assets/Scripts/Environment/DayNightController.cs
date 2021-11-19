@@ -39,7 +39,6 @@ public class DayNightController : MonoBehaviour
         {
             SetShadows(Options.Instance.shadows);
         }
-
     }
 
     private void OnValidate()
@@ -141,8 +140,6 @@ public class DayNightController : MonoBehaviour
         else
         {
             sun.shadows = LightShadows.None;
-        }
-        
+        }       
     }
-
 }
