@@ -5,8 +5,7 @@
  */
 
 public class Wall : VillageBuilding
-{
-   
+{  
     public override string GetGameInfo(bool showState)
     {
         return "WALL: Blocks enemies and villagers. " + base.GetGameInfo(showState); ;

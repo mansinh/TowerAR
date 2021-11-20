@@ -14,8 +14,7 @@ public class MiracleHeal : Miracle
         Collider[] detected = Physics.OverlapSphere(transform.position, Collider.radius);
         foreach (Collider other in detected)
         {
-            print("Heal " + other.name);
-            
+            print("Heal " + other.name);           
         }
     }
 }

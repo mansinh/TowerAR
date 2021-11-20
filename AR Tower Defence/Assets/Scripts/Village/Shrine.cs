@@ -1,10 +1,6 @@
-
-
 using UnityEngine;
-/**
-* Represents the player
-* Gameover if it dies
-* TODO add dancing worshippers, gives points over time during the day
+/*
+* Represents the player, gameover if it is destroyed. Unlocks a miracle when activated
 *@ author Manny Kwong 
 */
 public class Shrine : VillageBuilding
@@ -25,6 +21,7 @@ public class Shrine : VillageBuilding
         GameController.Instance.GameOver();   
     }
 
+    //Activate the shrine when selected and unlock the miracle
     public override bool Use()
     {
         if (!miracleController.gameObject.active)

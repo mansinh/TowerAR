@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Increase points when in range of shrine over time
+ *@ author Manny Kwong 
+ */
 
 public class Worship : Action
 {

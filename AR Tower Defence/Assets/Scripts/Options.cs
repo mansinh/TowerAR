@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Store the options settings across scenes. Adjust volume with a slider and toggle shadows on and off.
+ *@ author Manny Kwong 
+ */
 
 public class Options : MonoBehaviour
 {
@@ -21,6 +24,5 @@ public class Options : MonoBehaviour
         {
             Destroy(gameObject);
         }
-       
     }
 }

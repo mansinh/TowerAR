@@ -1,11 +1,11 @@
 
-
 using UnityEngine;
+
 /**
-* Adds 1 to points rewarded
-* TODO add to worshippers, have villagers move around during the day
+* Adds 1 villager and increases the max points available
 *@ author Manny Kwong 
 */
+
 public class House : VillageBuilding
 {
     Pool _villagerPool;
@@ -26,7 +26,6 @@ public class House : VillageBuilding
         {
             Villager villager = o.GetComponent<Villager>();
             villager.Home = this;
-
         }
     }
 
@@ -45,7 +44,6 @@ public class House : VillageBuilding
             {
                 EndDay();
             }
-
         }
     }
 
@@ -57,6 +55,8 @@ public class House : VillageBuilding
             WakeVillagers();
         //}
     }
+
+    //Send villagers out during the day
     void WakeVillagers()
     {
         for (int i = 0; i < occupancy; i++)
@@ -77,7 +77,7 @@ public class House : VillageBuilding
         WakeVillagers();
     }
 
-
+    //Recall villagers at night
     void EndDay()
     {
         

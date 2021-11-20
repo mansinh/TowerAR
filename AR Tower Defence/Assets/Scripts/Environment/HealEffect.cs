@@ -8,8 +8,7 @@ public class HealEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _visualEffect = GetComponent<ParticleSystem>();
-        
+        _visualEffect = GetComponent<ParticleSystem>();   
     }
 
     // Update is called once per frame

@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/**
+ * Managers sound effects. Loads sounds form resource and plays sounds.
+ *@ author Manny Kwong 
+ */
 
 public class SoundManager : MonoBehaviour
 {
@@ -33,12 +36,14 @@ public class SoundManager : MonoBehaviour
     {
         audioListener = FindObjectOfType<AudioListener>();
 
+        //Set audiolistener volume to options volume setting
         print(Options.Instance + "OPTIONS");
         if (Options.Instance)
         {
             AudioListener.volume = Options.Instance.volume/3;
         }
 
+        //Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -48,14 +53,11 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
     }
-
-   
 
     public void Play(SoundType type)
     {
+        //Play sound effect from next available sound source
         AudioSource soundSource = SoundSources[sourceIndex];
         if (!soundSource.isPlaying)
         {
@@ -75,6 +77,7 @@ public class SoundManager : MonoBehaviour
         AudioListener.volume = volume/3;
     }
 
+    //Load sounds from resource
     void LoadSounds()
     {
         print("LOAD SOUNDS");
